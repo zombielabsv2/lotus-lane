@@ -1,0 +1,56 @@
+name: Generate Lotus Lane Strip
+
+on:
+  schedule:
+    # 6 AM UTC on Mon, Wed, Fri (11:30 AM IST)
+    - cron: '0 6 * * 1,3,5'
+  workflow_dispatch:
+    inputs:
+      topic:
+        description: 'Force a specific topic (optional)'
+        required: false
+        type: string
+      dry_run:
+        description: 'Dry run (script only, no images)'
+        required: false
+        type: boolean
+        default: false
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install -r pipeline/requirements.txt
+
+      - name: Generate strip
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          ARGS=""
+          if [ -n "${{ github.event.inputs.topic }}" ]; then
+            ARGS="$ARGS --topic '${{ github.event.inputs.topic }}'"
+          fi
+          if [ "${{ github.event.inputs.dry_run }}" == "true" ]; then
+            ARGS="$ARGS --dry-run"
+          fi
+          python pipeline/generate_strip.py $ARGS
+
+      - name: Commit and push new strip
+        if: ${{ github.event.inputs.dry_run != 'true' }}
+        run: |
+          git config user.name "Lotus Lane Bot"
+          git config user.email "bot@thelotus.lane"
+          git add strips/ strips.json
+          git commit -m "Add strip for $(date +%Y-%m-%d)"
+          git push

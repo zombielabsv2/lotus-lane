@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Lotus Lane - Buddhist Wisdom in Everyday Life</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #faf9f6;
+      color: #2d2d2d;
+      min-height: 100vh;
+    }
+
+    header {
+      text-align: center;
+      padding: 2rem 1rem 1rem;
+      border-bottom: 2px solid #e8e4de;
+    }
+
+    header h1 {
+      font-size: 2.2rem;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      color: #4a4a4a;
+    }
+
+    header h1 span {
+      font-weight: 600;
+      color: #c0392b;
+    }
+
+    header p.tagline {
+      font-size: 0.95rem;
+      color: #888;
+      margin-top: 0.3rem;
+      font-style: italic;
+    }
+
+    /* Tag Filter Bar */
+    .filter-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      padding: 1rem 1rem 0.5rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .filter-bar label {
+      font-size: 0.85rem;
+      color: #888;
+      font-weight: 500;
+    }
+
+    .tag-btn {
+      padding: 0.3rem 0.8rem;
+      border: 1px solid #d4cfc7;
+      border-radius: 999px;
+      background: white;
+      font-size: 0.8rem;
+      color: #666;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .tag-btn:hover { border-color: #c0392b; color: #c0392b; }
+    .tag-btn.active { background: #c0392b; color: white; border-color: #c0392b; }
+
+    /* Main Strip Viewer */
+    .viewer {
+      max-width: 900px;
+      margin: 1.5rem auto;
+      padding: 0 1rem;
+    }
+
+    .strip-container {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+      overflow: hidden;
+    }
+
+    .strip-image {
+      width: 100%;
+      display: block;
+      min-height: 300px;
+      background: #f0ede8;
+    }
+
+    .strip-info {
+      padding: 1.5rem;
+    }
+
+    .strip-date {
+      font-size: 0.8rem;
+      color: #aaa;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .strip-message {
+      font-size: 1.05rem;
+      line-height: 1.6;
+      margin-top: 0.5rem;
+      color: #3a3a3a;
+    }
+
+    .strip-quote {
+      margin-top: 1rem;
+      padding: 0.8rem 1rem;
+      background: #fdf8f0;
+      border-left: 3px solid #c0392b;
+      font-style: italic;
+      font-size: 0.9rem;
+      color: #555;
+      line-height: 1.5;
+    }
+
+    .strip-source {
+      font-size: 0.75rem;
+      color: #aaa;
+      margin-top: 0.3rem;
+      font-style: normal;
+    }
+
+    .strip-tags {
+      margin-top: 1rem;
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+
+    .strip-tag {
+      font-size: 0.75rem;
+      padding: 0.2rem 0.6rem;
+      background: #f5f2ed;
+      border-radius: 999px;
+      color: #888;
+    }
+
+    /* Navigation */
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 900px;
+      margin: 1rem auto;
+      padding: 0 1rem;
+    }
+
+    .nav-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.6rem 1.2rem;
+      border: 1px solid #d4cfc7;
+      border-radius: 8px;
+      background: white;
+      font-size: 0.9rem;
+      color: #555;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .nav-btn:hover:not(:disabled) { border-color: #c0392b; color: #c0392b; }
+    .nav-btn:disabled { opacity: 0.3; cursor: default; }
+
+    .nav-counter {
+      font-size: 0.85rem;
+      color: #aaa;
+    }
+
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: #aaa;
+    }
+
+    .empty-state h2 { font-weight: 400; margin-bottom: 0.5rem; }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      font-size: 0.8rem;
+      color: #bbb;
+    }
+
+    footer a { color: #c0392b; text-decoration: none; }
+
+    /* Mobile */
+    @media (max-width: 600px) {
+      header h1 { font-size: 1.6rem; }
+      .strip-info { padding: 1rem; }
+      .nav-btn { padding: 0.5rem 0.8rem; font-size: 0.85rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>The <span>Lotus</span> Lane</h1>
+    <p class="tagline">Buddhist wisdom for everyday struggles</p>
+  </header>
+
+  <div class="filter-bar" id="filterBar">
+    <label>Filter:</label>
+  </div>
+
+  <div class="viewer" id="viewer">
+    <div class="empty-state" id="emptyState">
+      <h2>No strips yet</h2>
+      <p>The first strip is on its way.</p>
+    </div>
+    <div class="strip-container" id="stripContainer" style="display:none;">
+      <img class="strip-image" id="stripImage" src="" alt="Comic strip">
+      <div class="strip-info">
+        <div class="strip-date" id="stripDate"></div>
+        <div class="strip-message" id="stripMessage"></div>
+        <div class="strip-quote" id="stripQuote" style="display:none;">
+          <div id="quoteText"></div>
+          <div class="strip-source" id="quoteSource"></div>
+        </div>
+        <div class="strip-tags" id="stripTags"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav" id="navBar" style="display:none;">
+    <button class="nav-btn" id="prevBtn" onclick="navigate(-1)">&#8592; Previous</button>
+    <span class="nav-counter" id="navCounter"></span>
+    <button class="nav-btn" id="nextBtn" onclick="navigate(1)">Next &#8594;</button>
+  </div>
+
+  <footer>
+    <p>Inspired by the writings of Nichiren Daishonin</p>
+    <p style="margin-top:0.3rem;">Built with care at <a href="#">The Lotus Lane</a></p>
+  </footer>
+
+  <script>
+    let strips = [];
+    let filtered = [];
+    let currentIndex = 0;
+    let activeTag = null;
+
+    async function init() {
+      const resp = await fetch('strips.json');
+      strips = await resp.json();
+      strips.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+      if (strips.length === 0) return;
+
+      buildTagFilter();
+      filtered = [...strips];
+      currentIndex = 0;
+      render();
+    }
+
+    function buildTagFilter() {
+      const allTags = new Set();
+      strips.forEach(s => (s.tags || []).forEach(t => allTags.add(t)));
+
+      const bar = document.getElementById('filterBar');
+      const allBtn = document.createElement('button');
+      allBtn.className = 'tag-btn active';
+      allBtn.textContent = 'All';
+      allBtn.onclick = () => filterByTag(null);
+      bar.appendChild(allBtn);
+
+      [...allTags].sort().forEach(tag => {
+        const btn = document.createElement('button');
+        btn.className = 'tag-btn';
+        btn.textContent = tag;
+        btn.dataset.tag = tag;
+        btn.onclick = () => filterByTag(tag);
+        bar.appendChild(btn);
+      });
+    }
+
+    function filterByTag(tag) {
+      activeTag = tag;
+      document.querySelectorAll('.tag-btn').forEach(btn => {
+        btn.classList.toggle('active',
+          tag === null ? btn.textContent === 'All' : btn.dataset.tag === tag);
+      });
+
+      filtered = tag ? strips.filter(s => (s.tags || []).includes(tag)) : [...strips];
+      currentIndex = 0;
+      render();
+    }
+
+    function navigate(dir) {
+      currentIndex += dir;
+      render();
+    }
+
+    function render() {
+      const empty = document.getElementById('emptyState');
+      const container = document.getElementById('stripContainer');
+      const nav = document.getElementById('navBar');
+
+      if (filtered.length === 0) {
+        empty.style.display = 'block';
+        container.style.display = 'none';
+        nav.style.display = 'none';
+        return;
+      }
+
+      empty.style.display = 'none';
+      container.style.display = 'block';
+      nav.style.display = 'flex';
+
+      const strip = filtered[currentIndex];
+
+      document.getElementById('stripImage').src = strip.image;
+      document.getElementById('stripImage').alt = strip.title || 'Comic strip';
+      document.getElementById('stripDate').textContent = formatDate(strip.date);
+      document.getElementById('stripMessage').textContent = strip.message || '';
+
+      const quoteEl = document.getElementById('stripQuote');
+      if (strip.quote) {
+        quoteEl.style.display = 'block';
+        document.getElementById('quoteText').textContent = strip.quote;
+        document.getElementById('quoteSource').textContent = strip.source || '';
+      } else {
+        quoteEl.style.display = 'none';
+      }
+
+      const tagsEl = document.getElementById('stripTags');
+      tagsEl.innerHTML = '';
+      (strip.tags || []).forEach(tag => {
+        const span = document.createElement('span');
+        span.className = 'strip-tag';
+        span.textContent = tag;
+        tagsEl.appendChild(span);
+      });
+
+      document.getElementById('prevBtn').disabled = currentIndex >= filtered.length - 1;
+      document.getElementById('nextBtn').disabled = currentIndex <= 0;
+      document.getElementById('navCounter').textContent =
+        `${filtered.length - currentIndex} of ${filtered.length}`;
+    }
+
+    function formatDate(dateStr) {
+      const d = new Date(dateStr + 'T00:00:00');
+      return d.toLocaleDateString('en-US', {
+        weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+      });
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', e => {
+      if (e.key === 'ArrowLeft') navigate(1);
+      if (e.key === 'ArrowRight') navigate(-1);
+    });
+
+    init();
+  </script>
+</body>
+</html>
