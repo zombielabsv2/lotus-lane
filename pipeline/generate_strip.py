@@ -124,12 +124,11 @@ TODAY'S CHALLENGE: {topic} (category: {category})
 
 {char_block}
 
-Write a 4-panel comic strip. Requirements:
+Write a 3-panel comic strip. Requirements:
 1. Panel 1: Set up the relatable struggle. Show the character(s) in a specific, vivid moment.
-2. Panel 2: The struggle deepens or a conversation reveals the emotional core.
-3. Panel 3: A moment of wisdom — a character shares or recalls a Nichiren Buddhist insight.
-   Use an ACTUAL quote or paraphrase from Nichiren's writings that genuinely addresses this situation.
-4. Panel 4: A shift — not a full resolution, but a moment of determination, humor, or warmth.
+2. Panel 2: The struggle deepens AND a moment of wisdom arrives — a character shares or recalls a
+   Nichiren Buddhist insight. Use an ACTUAL quote or paraphrase from Nichiren's writings.
+3. Panel 3: A shift — not a full resolution, but a moment of determination, humor, or warmth.
    The character takes one small step or sees things differently.
 
 TONE: Warm, real, sometimes funny. Never preachy. The wisdom should feel earned, not lectured.
@@ -152,7 +151,7 @@ Return your response as JSON with this exact structure:
             "dialogue": ["Character Name: Their dialogue line", "Character Name: Response"],
             "mood": "one word mood"
         }},
-        // ... panels 2, 3, 4
+        // ... panels 2, 3
     ],
     "nichiren_quote": "The actual Nichiren quote referenced or paraphrased in the strip",
     "source": "Source reference (e.g., WND-1, p. 302)",
@@ -579,7 +578,11 @@ def _load_cached_panels(date_str):
     """Load cached panel images, or return None if any are missing."""
     cache = STRIPS_DIR / "cache" / date_str
     panels = []
-    for i in range(1, 5):
+    # Check for 3 or 4 panels (supports both old and new strips)
+    num_panels = 3 if (cache / "panel_3.png").exists() and not (cache / "panel_4.png").exists() else 4
+    if not (cache / "panel_1.png").exists():
+        return None
+    for i in range(1, num_panels + 1):
         path = cache / f"panel_{i}.png"
         if not path.exists():
             return None
@@ -727,7 +730,7 @@ def generate(date_str=None, forced_topic=None, dry_run=False, reassemble=False):
             if i < len(script["panels"]) - 1:
                 time.sleep(2)
 
-        print(f"  [SAVED] 4 panel images cached"
+        print(f"  [SAVED] {len(panel_images)} panel images cached"
               f"{f' ({qc_retries_total} QC retries)' if qc_retries_total else ''}")
 
     # --- ASSEMBLE (always runs, zero cost) ---
@@ -742,7 +745,8 @@ def generate(date_str=None, forced_topic=None, dry_run=False, reassemble=False):
     was_script_cached = bool(cached)
     was_panels_cached = reassemble and bool(_load_cached_panels(date_str))
     retries = qc_retries_total
-    num_images = 0 if was_panels_cached else (4 + retries)
+    num_panels = len(script.get("panels", []))
+    num_images = 0 if was_panels_cached else (num_panels + retries)
     claude_cost_usd = 0.0 if was_script_cached else 0.013
     image_cost_usd = num_images * 0.042  # gpt-image-1, 1024x1024, medium
     qc_cost_usd = num_images * 0.00002   # gpt-4o-mini vision check
