@@ -96,10 +96,11 @@ CHALLENGE_TOPICS = {
 
 # Art style prompt prefix (for consistent visual style)
 ART_STYLE = (
-    "Clean, warm, modern cartoon illustration style. Soft pastel color palette with "
-    "gentle shadows. Thick outlines, slightly rounded characters. Emotionally expressive "
-    "faces. Cozy, relatable everyday settings. Style similar to modern webtoon or "
-    "editorial illustration. White background between panels."
+    "High-quality digital illustration in the style of a professional webtoon or graphic novel. "
+    "Clean linework, rich saturated colors, detailed backgrounds. Characters should look polished "
+    "and well-proportioned with expressive faces and natural body language. Lighting should be "
+    "cinematic with warm tones. Indian settings and characters. Art quality comparable to "
+    "published manhwa or Webtoon Originals. Single scene, no panel borders or splits."
 )
 
 # Panel layout

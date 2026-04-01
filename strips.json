@@ -344,5 +344,25 @@
       "meera",
       "vikram"
     ]
+  },
+  {
+    "date": "2026-04-03",
+    "title": "The Weight of Days",
+    "image": "strips/2026-04-03.png",
+    "message": "Chronic illness doesn't have to defeat our spirit—it can deepen our resolve to find meaning and strength we didn't know we had.",
+    "quote": "Illness gives rise to the resolve to attain the way.",
+    "source": "WND-1, p. 937",
+    "tags": [
+      "health",
+      "resilience",
+      "parenting"
+    ],
+    "category": "health",
+    "topic": "chronic illness",
+    "characters": [
+      "vikram",
+      "meera",
+      "arjun"
+    ]
   }
 ]

@@ -244,7 +244,7 @@ CRITICAL RULES:
             "prompt": prompt,
             "n": 1,
             "size": "1024x1024",
-            "quality": "low",
+            "quality": "medium",
         },
         timeout=120,
     )
@@ -744,7 +744,7 @@ def generate(date_str=None, forced_topic=None, dry_run=False, reassemble=False):
     retries = qc_retries_total
     num_images = 0 if was_panels_cached else (4 + retries)
     claude_cost_usd = 0.0 if was_script_cached else 0.013
-    image_cost_usd = num_images * 0.011  # gpt-image-1, 1024x1024, low
+    image_cost_usd = num_images * 0.042  # gpt-image-1, 1024x1024, medium
     qc_cost_usd = num_images * 0.00002   # gpt-4o-mini vision check
     total_usd = claude_cost_usd + image_cost_usd + qc_cost_usd
     total_inr = total_usd * 85
