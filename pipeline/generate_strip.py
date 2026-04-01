@@ -124,11 +124,12 @@ TODAY'S CHALLENGE: {topic} (category: {category})
 
 {char_block}
 
-Write a 3-panel comic strip. Requirements:
+Write a 4-panel comic strip. Requirements:
 1. Panel 1: Set up the relatable struggle. Show the character(s) in a specific, vivid moment.
-2. Panel 2: The struggle deepens AND a moment of wisdom arrives — a character shares or recalls a
-   Nichiren Buddhist insight. Use an ACTUAL quote or paraphrase from Nichiren's writings.
-3. Panel 3: A shift — not a full resolution, but a moment of determination, humor, or warmth.
+2. Panel 2: The struggle deepens or a conversation reveals the emotional core.
+3. Panel 3: A moment of wisdom — a character shares or recalls a Nichiren Buddhist insight.
+   Use an ACTUAL quote or paraphrase from Nichiren's writings that genuinely addresses this situation.
+4. Panel 4: A shift — not a full resolution, but a moment of determination, humor, or warmth.
    The character takes one small step or sees things differently.
 
 TONE: Warm, real, sometimes funny. Never preachy. The wisdom should feel earned, not lectured.
@@ -151,7 +152,7 @@ Return your response as JSON with this exact structure:
             "dialogue": ["Character Name: Their dialogue line", "Character Name: Response"],
             "mood": "one word mood"
         }},
-        // ... panels 2, 3
+        // ... panels 2, 3, 4
     ],
     "nichiren_quote": "The actual Nichiren quote referenced or paraphrased in the strip",
     "source": "Source reference (e.g., WND-1, p. 302)",
@@ -506,14 +507,37 @@ def assemble_strip(panel_images, script, date_str):
             img = padded
         resized.append(img)
 
-    # Calculate total height (no title — title/date are in the website HTML)
-    total_h = 0
+    # --- Footer: Nichiren quote + branding (for WhatsApp shareability) ---
+    quote_text = script.get("nichiren_quote", "")
+    quote_source = script.get("source", "")
+    footer_font_size = max(15, panel_width // 65)
+    footer_font, footer_font_bold = _load_fonts(footer_font_size)
+    footer_italic = footer_font  # Pillow doesn't have italic, use regular
+    brand_font_size = max(13, panel_width // 75)
+    brand_font, _ = _load_fonts(brand_font_size)
+    footer_max_w = int(panel_width * 0.85)
+    footer_line_h = int(footer_font_size * 1.4)
+
+    # Measure footer height
+    footer_h = 0
+    if quote_text:
+        quote_wrapped = _wrap_text(f'"{quote_text}"', footer_font, footer_max_w, tmp_draw)
+        footer_h += len(quote_wrapped) * footer_line_h + 8  # quote lines + gap
+        if quote_source:
+            footer_h += footer_line_h  # source line
+    footer_h += 35  # brand line + padding
+    footer_h += 20  # top/bottom padding
+
+    # Calculate total height
+    panels_h = 0
     for i in range(len(resized)):
-        total_h += panel_h + band_heights[i]
+        panels_h += panel_h + band_heights[i]
+    total_h = panels_h + footer_h
 
     # Create strip canvas
     bg_color = (250, 249, 246)
     dialogue_bg = (245, 243, 238)
+    footer_bg = (240, 236, 228)
     strip = Image.new("RGB", (panel_width, total_h), bg_color)
     draw = ImageDraw.Draw(strip)
 
@@ -535,6 +559,29 @@ def assemble_strip(panel_images, script, date_str):
             _draw_dialogue_band(strip, dialogue, 0, y, panel_width, font, font_bold, line_height, max_text_width)
 
         y += band_h
+
+    # --- Draw footer ---
+    draw.rectangle([0, y, panel_width, y + footer_h], fill=footer_bg)
+    draw.line([(20, y), (panel_width - 20, y)], fill=(210, 205, 195), width=2)
+    y += 12  # top padding
+
+    if quote_text:
+        quote_wrapped = _wrap_text(f'"{quote_text}"', footer_font, footer_max_w, draw)
+        quote_x = (panel_width - footer_max_w) // 2
+        for wline in quote_wrapped:
+            draw.text((quote_x, y), wline, fill=(80, 70, 60), font=footer_font)
+            y += footer_line_h
+        if quote_source:
+            y += 4
+            draw.text((quote_x, y), f"— {quote_source}", fill=(140, 130, 120), font=brand_font)
+            y += footer_line_h
+
+    # Brand line
+    y += 8
+    brand_text = "The Lotus Lane  \u00b7  tinyurl.com/thelotuslane"
+    brand_bbox = draw.textbbox((0, 0), brand_text, font=brand_font)
+    brand_w = brand_bbox[2] - brand_bbox[0]
+    draw.text(((panel_width - brand_w) // 2, y), brand_text, fill=(160, 150, 140), font=brand_font)
 
     return strip
 
