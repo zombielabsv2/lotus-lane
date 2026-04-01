@@ -1,17 +1,21 @@
 """
 Send email notification with the strip image and WhatsApp-ready caption.
+Uses Gmail SMTP (same setup as AstroMedha).
 Triggered after each strip generation in the GitHub Actions pipeline.
 """
 
 import base64
 import json
 import os
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from email.mime.image import MIMEImage
 from pathlib import Path
 
-import httpx
 
-
-RESEND_API_KEY = os.environ.get("RESEND_API_KEY", "")
+GMAIL_ADDRESS = os.environ.get("GMAIL_ADDRESS", "")
+GMAIL_APP_PASSWORD = os.environ.get("GMAIL_APP_PASSWORD", "")
 NOTIFY_EMAIL = os.environ.get("NOTIFY_EMAIL", "")
 STRIPS_DIR = Path(__file__).parent.parent / "strips"
 STRIPS_JSON = Path(__file__).parent.parent / "strips.json"
@@ -31,7 +35,6 @@ def build_whatsapp_caption(strip):
     message = strip.get("message", "")
     quote = strip.get("quote", "")
     source = strip.get("source", "")
-    tags = strip.get("tags", [])
 
     caption = f"*{title}*\n\n"
     caption += f"{message}\n\n"
@@ -54,15 +57,10 @@ def build_status_caption(strip):
 
 
 def send_notification(strip):
-    """Send email with strip image and WhatsApp captions."""
-    if not RESEND_API_KEY or not NOTIFY_EMAIL:
-        print("  [NOTIFY] Skipped — RESEND_API_KEY or NOTIFY_EMAIL not set")
+    """Send email with strip image and WhatsApp captions via Gmail SMTP."""
+    if not GMAIL_ADDRESS or not GMAIL_APP_PASSWORD or not NOTIFY_EMAIL:
+        print("  [NOTIFY] Skipped — GMAIL_ADDRESS, GMAIL_APP_PASSWORD, or NOTIFY_EMAIL not set")
         return
-
-    # Read strip image
-    image_path = STRIPS_DIR.parent / strip["image"]
-    with open(image_path, "rb") as f:
-        image_b64 = base64.b64encode(f.read()).decode()
 
     whatsapp_caption = build_whatsapp_caption(strip)
     status_caption = build_status_caption(strip)
@@ -72,21 +70,16 @@ def send_notification(strip):
         <h2 style="color: #c0392b;">New Lotus Lane Strip Ready!</h2>
         <p style="color: #666;">Strip for <strong>{strip['date']}</strong> — "{strip['title']}"</p>
 
-        <div style="background: #f5f2ed; padding: 16px; border-radius: 8px; margin: 16px 0;">
-            <h3 style="margin: 0 0 8px; color: #333;">Step 1: Save the image</h3>
-            <p style="color: #666; margin: 0;">The strip is attached to this email. Save it to your phone.</p>
-        </div>
+        <p style="color: #666;">The strip image is attached. Save it to your phone.</p>
 
         <div style="background: #f5f2ed; padding: 16px; border-radius: 8px; margin: 16px 0;">
-            <h3 style="margin: 0 0 8px; color: #333;">Step 2: Post to WhatsApp Channel</h3>
-            <p style="color: #666; margin: 0 0 8px;">Copy this caption:</p>
+            <h3 style="margin: 0 0 8px; color: #333;">WhatsApp Channel Caption (copy-paste):</h3>
             <pre style="background: white; padding: 12px; border-radius: 6px; font-size: 14px;
                         white-space: pre-wrap; border: 1px solid #e0e0e0;">{whatsapp_caption}</pre>
         </div>
 
         <div style="background: #f5f2ed; padding: 16px; border-radius: 8px; margin: 16px 0;">
-            <h3 style="margin: 0 0 8px; color: #333;">Step 3: Post to WhatsApp Status</h3>
-            <p style="color: #666; margin: 0 0 8px;">Copy this shorter caption:</p>
+            <h3 style="margin: 0 0 8px; color: #333;">WhatsApp Status Caption (shorter):</h3>
             <pre style="background: white; padding: 12px; border-radius: 6px; font-size: 14px;
                         white-space: pre-wrap; border: 1px solid #e0e0e0;">{status_caption}</pre>
         </div>
@@ -95,27 +88,24 @@ def send_notification(strip):
     </div>
     """
 
-    response = httpx.post(
-        "https://api.resend.com/emails",
-        headers={
-            "Authorization": f"Bearer {RESEND_API_KEY}",
-            "Content-Type": "application/json",
-        },
-        json={
-            "from": "Lotus Lane Bot <onboarding@resend.dev>",
-            "to": [NOTIFY_EMAIL],
-            "subject": f"New Strip: {strip['title']} — post to WhatsApp",
-            "html": html,
-            "attachments": [
-                {
-                    "filename": f"lotus-lane-{strip['date']}.png",
-                    "content": image_b64,
-                }
-            ],
-        },
-        timeout=30,
-    )
-    response.raise_for_status()
+    # Build email
+    msg = MIMEMultipart()
+    msg["From"] = f"Lotus Lane Bot <{GMAIL_ADDRESS}>"
+    msg["To"] = NOTIFY_EMAIL
+    msg["Subject"] = f"Post to WhatsApp: {strip['title']}"
+    msg.attach(MIMEText(html, "html"))
+
+    # Attach strip image
+    image_path = STRIPS_DIR.parent / strip["image"]
+    with open(image_path, "rb") as f:
+        img_attachment = MIMEImage(f.read(), name=f"lotus-lane-{strip['date']}.png")
+    msg.attach(img_attachment)
+
+    # Send via Gmail SMTP
+    with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
+        server.login(GMAIL_ADDRESS, GMAIL_APP_PASSWORD)
+        server.send_message(msg)
+
     print(f"  [NOTIFY] Email sent to {NOTIFY_EMAIL}")
 
 
