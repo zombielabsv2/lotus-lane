@@ -85,7 +85,10 @@ def pick_topic(existing_strips, forced_topic=None):
 
 
 def pick_characters():
-    """Pick 2-3 characters for this strip."""
+    """Pick 2-3 characters. 70% from core roster, 30% new characters."""
+    use_new = random.random() < 0.3
+    if use_new:
+        return {}  # Empty dict signals Claude to create new characters
     char_keys = list(CHARACTERS.keys())
     num = random.choice([2, 2, 3])  # Weighted toward 2 characters
     selected = random.sample(char_keys, num)
@@ -98,18 +101,23 @@ def generate_script(category, topic, characters, date_str):
     if not api_key:
         raise ValueError("ANTHROPIC_API_KEY not set")
 
-    char_descriptions = "\n".join(
-        f"- {c['name']} ({c['age']}, {c['role']}): {c['personality']}"
-        for c in characters.values()
-    )
+    if characters:
+        char_block = "CHARACTERS IN THIS STRIP:\n" + "\n".join(
+            f"- {c['name']} ({c['age']}, {c['role']}): {c['personality']}"
+            for c in characters.values()
+        )
+    else:
+        char_block = """CHARACTERS: Create 2-3 NEW original Indian characters suited to this specific situation.
+Give each character a name, age, role, and brief personality. Make them feel real and specific —
+not generic. Vary ages, backgrounds, and genders across strips. Include their appearance details
+in the scene descriptions so the artist can draw them consistently across all 4 panels."""
 
     prompt = f"""You are writing a 4-panel comic strip for "The Lotus Lane" — a series about
 everyday people discovering Nichiren Buddhist wisdom through real-life struggles.
 
 TODAY'S CHALLENGE: {topic} (category: {category})
 
-CHARACTERS IN THIS STRIP:
-{char_descriptions}
+{char_block}
 
 Write a 4-panel comic strip. Requirements:
 1. Panel 1: Set up the relatable struggle. Show the character(s) in a specific, vivid moment.
@@ -121,6 +129,10 @@ Write a 4-panel comic strip. Requirements:
 
 TONE: Warm, real, sometimes funny. Never preachy. The wisdom should feel earned, not lectured.
 The characters should feel like real people, not mouthpieces.
+
+SETTING: India. All cultural references, currency (use Rs. or rupees, never $), food, places,
+slang, and social dynamics should be authentically Indian. Characters may use light Hindi/Marathi
+words naturally (arre, yaar, beta, bewakoof, etc.).
 
 Return your response as JSON with this exact structure:
 {{
@@ -175,21 +187,22 @@ def generate_panel_image(panel, characters, strip_title, panel_num):
         raise ValueError("OPENAI_API_KEY not set")
 
     # Build character visual descriptions for this panel
-    char_visuals = "\n".join(
-        f"- {c['name']}: {c['appearance']}"
-        for c in characters.values()
-        if c['name'] in panel.get('scene_description', '')
-        or any(c['name'] in d for d in panel.get('dialogue', []))
-    )
-    if not char_visuals:
+    if characters:
         char_visuals = "\n".join(
             f"- {c['name']}: {c['appearance']}"
             for c in characters.values()
+            if c['name'] in panel.get('scene_description', '')
+            or any(c['name'] in d for d in panel.get('dialogue', []))
         )
+        if not char_visuals:
+            char_visuals = "\n".join(
+                f"- {c['name']}: {c['appearance']}"
+                for c in characters.values()
+            )
+    else:
+        char_visuals = "Draw characters as described in the scene description. Indian characters with authentic appearance."
 
     prompt = f"""{ART_STYLE}
-
-Comic panel {panel_num} of 4 for a strip titled "{strip_title}".
 
 Scene: {panel['scene_description']}
 
@@ -198,9 +211,11 @@ Characters in this panel:
 
 Mood: {panel.get('mood', 'neutral')}
 
-IMPORTANT: Do NOT include any text, speech bubbles, or dialogue in the image.
-Only draw the characters and scene. Text will be added separately.
-Draw this as a single comic panel, horizontal format (landscape orientation)."""
+CRITICAL RULES:
+- Do NOT include ANY text, titles, words, letters, speech bubbles, captions, or watermarks anywhere in the image.
+- Do NOT write the title "{strip_title}" or any other text in the image.
+- ONLY draw the characters, their expressions, and the scene. Nothing else.
+- The image must be PURELY visual — zero text of any kind."""
 
     response = httpx.post(
         "https://api.openai.com/v1/images/generations",
@@ -212,8 +227,8 @@ Draw this as a single comic panel, horizontal format (landscape orientation)."""
             "model": "gpt-image-1",
             "prompt": prompt,
             "n": 1,
-            "size": "1536x1024",
-            "quality": "medium",
+            "size": "1024x1024",
+            "quality": "low",
         },
         timeout=120,
     )
@@ -234,16 +249,16 @@ Draw this as a single comic panel, horizontal format (landscape orientation)."""
 
 
 def _load_fonts(font_size):
-    """Load fonts with fallback chain."""
+    """Load fonts with fallback chain. Prefers Comic Neue for warm comic feel."""
+    fonts_dir = Path(__file__).parent / "fonts"
     pairs = [
-        ("arial.ttf", "arialbd.ttf"),
+        (fonts_dir / "ComicNeue-Regular.ttf", fonts_dir / "ComicNeue-Bold.ttf"),
+        (fonts_dir / "Nunito-Regular.ttf", fonts_dir / "Nunito-Bold.ttf"),
         ("C:/Windows/Fonts/segoeui.ttf", "C:/Windows/Fonts/segoeuib.ttf"),
-        ("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
-         "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"),
     ]
     for regular, bold in pairs:
         try:
-            return ImageFont.truetype(regular, font_size), ImageFont.truetype(bold, font_size)
+            return ImageFont.truetype(str(regular), font_size), ImageFont.truetype(str(bold), font_size)
         except (OSError, IOError):
             continue
     default = ImageFont.load_default()
@@ -369,60 +384,191 @@ def add_dialogue_to_panel(panel_img, dialogue_lines, panel_width, panel_height):
     return panel_img
 
 
+def _measure_dialogue_band(dialogue_lines, font, font_bold, line_height, max_text_width, draw):
+    """Calculate how tall a dialogue band needs to be for the given lines."""
+    if not dialogue_lines:
+        return 0
+
+    total_h = 0
+    for line in dialogue_lines[:3]:
+        parts = line.split(": ", 1)
+        if len(parts) == 2:
+            speaker, text = parts
+            name_str = f"{speaker}: "
+            name_w = draw.textbbox((0, 0), name_str, font=font_bold)[2]
+        else:
+            text = line
+            name_w = 0
+
+        wrapped = _wrap_text(text, font, max_text_width - name_w, draw)
+        if len(wrapped) > 1:
+            first = _wrap_text(text, font, max_text_width - name_w, draw)
+            rest_text = " ".join(first[1:])
+            rest = _wrap_text(rest_text, font, max_text_width, draw)
+            wrapped = [first[0]] + rest
+
+        total_h += len(wrapped) * line_height + 8  # 8px gap between speakers
+
+    return total_h + 20  # top + bottom padding
+
+
+def _draw_dialogue_band(strip, dialogue_lines, x, y, band_width, font, font_bold, line_height, max_text_width):
+    """Draw dialogue text on a clean background area below a panel."""
+    draw = ImageDraw.Draw(strip)
+    text_x = x + 40  # left margin
+    text_y = y + 10   # top padding
+
+    for line in dialogue_lines[:3]:
+        parts = line.split(": ", 1)
+        if len(parts) == 2:
+            speaker, text = parts
+            name_str = f"{speaker}: "
+            name_w = draw.textbbox((0, 0), name_str, font=font_bold)[2]
+        else:
+            speaker, text = "", line
+            name_str = ""
+            name_w = 0
+
+        wrapped = _wrap_text(text, font, max_text_width - name_w, draw)
+        if len(wrapped) > 1:
+            first = _wrap_text(text, font, max_text_width - name_w, draw)
+            rest_text = " ".join(first[1:])
+            rest = _wrap_text(rest_text, font, max_text_width, draw)
+            wrapped = [first[0]] + rest
+
+        for i, wline in enumerate(wrapped):
+            cx = text_x
+            if i == 0 and speaker:
+                draw.text((cx, text_y), name_str, fill=(155, 40, 40), font=font_bold)
+                cx += name_w
+            draw.text((cx, text_y), wline, fill=(45, 45, 45), font=font)
+            text_y += line_height
+
+        text_y += 8  # gap between speakers
+
+
 def assemble_strip(panel_images, script, date_str):
-    """Combine panel images into a single vertical strip with dialogue overlays."""
+    """Combine panel images into a vertical strip with dialogue in clean bands below each panel."""
     panel_width = STRIP_WIDTH
     panel_h = PANEL_HEIGHT
 
-    # Resize panels to uniform size
+    # Load fonts
+    font_size = max(18, panel_width // 60)
+    font, font_bold = _load_fonts(font_size)
+    line_height = int(font_size * 1.4)
+    max_text_width = int(panel_width * 0.90)
+
+    # Pre-calculate dialogue band heights
+    # Need a temp image for text measurement
+    tmp = Image.new("RGB", (1, 1))
+    tmp_draw = ImageDraw.Draw(tmp)
+
+    band_heights = []
+    for panel_data in script["panels"]:
+        dialogue = panel_data.get("dialogue", [])
+        h = _measure_dialogue_band(dialogue, font, font_bold, line_height, max_text_width, tmp_draw)
+        band_heights.append(max(h, 10))  # minimum gap even with no dialogue
+
+    # Fit panel images: scale to width, then center-crop to height
     resized = []
-    for i, img in enumerate(panel_images):
-        img = img.resize((panel_width, panel_h), Image.LANCZOS)
-
-        # Add dialogue overlay
-        dialogue = script["panels"][i].get("dialogue", [])
-        img = add_dialogue_to_panel(img, dialogue, panel_width, panel_h)
-        resized.append(img)
-
-    # Title bar height
-    title_h = 80
-    # Total strip height
-    total_h = title_h + len(resized) * panel_h + (len(resized) - 1) * PANEL_GAP + 40
-
-    strip = Image.new("RGB", (panel_width, total_h), (250, 249, 246))
-    draw = ImageDraw.Draw(strip)
-
-    # Draw title
-    try:
-        title_font = ImageFont.truetype("arialbd.ttf", 36)
-        date_font = ImageFont.truetype("arial.ttf", 18)
-    except (OSError, IOError):
-        title_font = ImageFont.load_default()
-        date_font = ImageFont.load_default()
-
-    title = script.get("title", "The Lotus Lane")
-    bbox = draw.textbbox((0, 0), title, font=title_font)
-    title_w = bbox[2] - bbox[0]
-    draw.text(((panel_width - title_w) // 2, 20), title, fill=(74, 74, 74), font=title_font)
-
-    # Date
-    formatted_date = datetime.strptime(date_str, "%Y-%m-%d").strftime("%B %d, %Y")
-    bbox = draw.textbbox((0, 0), formatted_date, font=date_font)
-    date_w = bbox[2] - bbox[0]
-    draw.text(((panel_width - date_w) // 2, 58), formatted_date, fill=(170, 170, 170), font=date_font)
-
-    # Paste panels
-    y = title_h
-    for img in resized:
-        # Convert RGBA to RGB if needed
+    for img in panel_images:
         if img.mode == "RGBA":
             bg = Image.new("RGB", img.size, (250, 249, 246))
             bg.paste(img, mask=img.split()[3])
             img = bg
+        # Scale so width matches strip width
+        scale = panel_width / img.width
+        scaled_h = int(img.height * scale)
+        img = img.resize((panel_width, scaled_h), Image.LANCZOS)
+        # Center-crop to target panel height (if taller)
+        if scaled_h > panel_h:
+            top = (scaled_h - panel_h) // 2
+            img = img.crop((0, top, panel_width, top + panel_h))
+        elif scaled_h < panel_h:
+            # Pad if shorter (shouldn't happen with square source)
+            padded = Image.new("RGB", (panel_width, panel_h), (250, 249, 246))
+            padded.paste(img, (0, (panel_h - scaled_h) // 2))
+            img = padded
+        resized.append(img)
+
+    # Calculate total height (no title — title/date are in the website HTML)
+    total_h = 0
+    for i in range(len(resized)):
+        total_h += panel_h + band_heights[i]
+
+    # Create strip canvas
+    bg_color = (250, 249, 246)
+    dialogue_bg = (245, 243, 238)
+    strip = Image.new("RGB", (panel_width, total_h), bg_color)
+    draw = ImageDraw.Draw(strip)
+
+    # Paste panels with dialogue bands below each
+    y = 0
+    for i, img in enumerate(resized):
+        # Panel image
         strip.paste(img, (0, y))
-        y += panel_h + PANEL_GAP
+        y += panel_h
+
+        # Dialogue band (clean background)
+        band_h = band_heights[i]
+        draw.rectangle([0, y, panel_width, y + band_h], fill=dialogue_bg)
+        # Thin separator line at top of dialogue band
+        draw.line([(30, y), (panel_width - 30, y)], fill=(220, 216, 208), width=1)
+
+        dialogue = script["panels"][i].get("dialogue", [])
+        if dialogue:
+            _draw_dialogue_band(strip, dialogue, 0, y, panel_width, font, font_bold, line_height, max_text_width)
+
+        y += band_h
 
     return strip
+
+
+def _cache_dir(date_str):
+    """Return the cache directory for a given date's strip artifacts."""
+    d = STRIPS_DIR / "cache" / date_str
+    d.mkdir(parents=True, exist_ok=True)
+    return d
+
+
+def _save_script(date_str, script, category, topic, characters):
+    """Cache the script JSON so it never needs to be regenerated."""
+    cache = _cache_dir(date_str)
+    data = {
+        "script": script,
+        "category": category,
+        "topic": topic,
+        "characters": list(characters.keys()),
+    }
+    with open(cache / "script.json", "w", encoding="utf-8") as f:
+        json.dump(data, f, indent=2, ensure_ascii=False)
+
+
+def _load_cached_script(date_str):
+    """Load a cached script, or return None."""
+    path = STRIPS_DIR / "cache" / date_str / "script.json"
+    if path.exists():
+        with open(path, "r", encoding="utf-8") as f:
+            return json.load(f)
+    return None
+
+
+def _save_panel_image(date_str, panel_num, img):
+    """Cache an individual panel image."""
+    cache = _cache_dir(date_str)
+    img.save(cache / f"panel_{panel_num}.png", "PNG")
+
+
+def _load_cached_panels(date_str):
+    """Load cached panel images, or return None if any are missing."""
+    cache = STRIPS_DIR / "cache" / date_str
+    panels = []
+    for i in range(1, 5):
+        path = cache / f"panel_{i}.png"
+        if not path.exists():
+            return None
+        panels.append(Image.open(path))
+    return panels
 
 
 def save_strip(strip_image, script, date_str, category, topic, characters):
@@ -463,26 +609,44 @@ def save_strip(strip_image, script, date_str, category, topic, characters):
     return entry
 
 
-def generate(date_str=None, forced_topic=None, dry_run=False):
-    """Main generation pipeline."""
+def generate(date_str=None, forced_topic=None, dry_run=False, reassemble=False):
+    """Main generation pipeline.
+
+    Caches scripts and panel images so re-assembly is free.
+    Use reassemble=True to re-compose from cache with zero API calls.
+    """
     date_str = date_str or datetime.now().strftime("%Y-%m-%d")
     print(f"\n{'='*60}")
     print(f"  The Lotus Lane — Strip Generator")
-    print(f"  Date: {date_str}")
+    print(f"  Date: {date_str}{'  [REASSEMBLE]' if reassemble else ''}")
     print(f"{'='*60}\n")
 
-    # 1. Pick topic and characters
     existing = load_existing_strips()
-    category, topic = pick_topic(existing, forced_topic)
-    characters = pick_characters()
 
-    print(f"  Category: {category}")
-    print(f"  Topic: {topic}")
-    print(f"  Characters: {', '.join(c['name'] for c in characters.values())}")
+    # --- SCRIPT: use cache if available ---
+    cached = _load_cached_script(date_str)
+    if cached:
+        script = cached["script"]
+        category = cached["category"]
+        topic = cached["topic"]
+        char_keys = cached["characters"]
+        characters = {k: CHARACTERS[k] for k in char_keys if k in CHARACTERS}
+        print(f"  [CACHED] Script loaded from cache")
+    elif reassemble:
+        print(f"  ERROR: --reassemble specified but no cached script for {date_str}")
+        return None
+    else:
+        category, topic = pick_topic(existing, forced_topic)
+        characters = pick_characters()
+        print(f"  Category: {category}")
+        print(f"  Topic: {topic}")
+        char_names = ', '.join(c['name'] for c in characters.values()) if characters else 'New (AI-created)'
+        print(f"  Characters: {char_names}")
+        print(f"\n  Generating script with Claude...")
+        script = generate_script(category, topic, characters, date_str)
+        _save_script(date_str, script, category, topic, characters)
+        print(f"  [SAVED] Script cached")
 
-    # 2. Generate script with Claude
-    print(f"\n  Generating script with Claude...")
-    script = generate_script(category, topic, characters, date_str)
     print(f"  Title: {script['title']}")
     print(f"  Quote: {script.get('nichiren_quote', 'N/A')[:80]}...")
 
@@ -491,27 +655,98 @@ def generate(date_str=None, forced_topic=None, dry_run=False):
         print(json.dumps(script, indent=2, ensure_ascii=False))
         return script
 
-    # 3. Generate panel images with GPT-4o
-    panel_images = []
-    for i, panel in enumerate(script["panels"]):
-        print(f"  Generating panel {i+1}/{len(script['panels'])}...")
-        img = generate_panel_image(panel, characters, script["title"], i + 1)
-        panel_images.append(img)
-        if i < len(script["panels"]) - 1:
-            time.sleep(2)  # Rate limiting
+    # --- PANELS: use cache if available ---
+    panel_images = _load_cached_panels(date_str)
+    if panel_images:
+        print(f"  [CACHED] 4 panel images loaded from cache")
+    else:
+        if reassemble:
+            print(f"  ERROR: --reassemble specified but no cached panels for {date_str}")
+            return None
 
-    # 4. Assemble strip
+        from pipeline.quality_check import run_full_qc
+
+        MAX_RETRIES = 3
+        openai_key = get_openai_key()
+        panel_images = []
+        qc_retries_total = 0
+
+        for i, panel in enumerate(script["panels"]):
+            img = None
+            for attempt in range(1, MAX_RETRIES + 1):
+                label = f"  Panel {i+1}/{len(script['panels'])}"
+                if attempt > 1:
+                    print(f"{label} — retry {attempt}/{MAX_RETRIES}...")
+                else:
+                    print(f"{label} — generating...")
+
+                img = generate_panel_image(panel, characters, script["title"], i + 1)
+
+                # Run QC
+                passed, issues = run_full_qc(img, openai_key, panel_num=i + 1)
+                if passed:
+                    print(f"{label} — QC passed")
+                    break
+                else:
+                    qc_retries_total += 1
+                    print(f"{label} — QC FAILED: {'; '.join(issues)}")
+                    if attempt < MAX_RETRIES:
+                        time.sleep(2)
+                    else:
+                        print(f"{label} — Using best attempt after {MAX_RETRIES} tries")
+
+            _save_panel_image(date_str, i + 1, img)
+            panel_images.append(img)
+            if i < len(script["panels"]) - 1:
+                time.sleep(2)
+
+        print(f"  [SAVED] 4 panel images cached"
+              f"{f' ({qc_retries_total} QC retries)' if qc_retries_total else ''}")
+
+    # --- ASSEMBLE (always runs, zero cost) ---
     print(f"  Assembling strip...")
     strip_image = assemble_strip(panel_images, script, date_str)
 
-    # 5. Save
+    # --- SAVE ---
     print(f"  Saving...")
     entry = save_strip(strip_image, script, date_str, category, topic, characters)
+
+    # Cost report
+    was_script_cached = bool(cached)
+    was_panels_cached = bool(_load_cached_panels(date_str)) if reassemble else False
+    retries = qc_retries_total if 'qc_retries_total' in dir() else 0
+    num_images = 0 if was_panels_cached else (4 + retries)
+    claude_cost_usd = 0.0 if was_script_cached else 0.013
+    image_cost_usd = num_images * 0.011  # gpt-image-1, 1024x1024, low
+    qc_cost_usd = num_images * 0.00002   # gpt-4o-mini vision check
+    total_usd = claude_cost_usd + image_cost_usd + qc_cost_usd
+    total_inr = total_usd * 85
 
     print(f"\n  Done! Strip saved for {date_str}")
     print(f"  Title: {entry['title']}")
     print(f"  Tags: {', '.join(entry['tags'])}")
+    if total_usd == 0:
+        print(f"  Cost: Rs. 0  [FREE - from cache]")
+    else:
+        print(f"  Cost: Rs. {total_inr:.1f} (${total_usd:.3f})"
+              f" — script: Rs. {claude_cost_usd*85:.1f}, "
+              f"images: Rs. {image_cost_usd*85:.1f} ({num_images} generated), "
+              f"QC: Rs. {qc_cost_usd*85:.2f}")
     return entry
+
+
+def reassemble_all():
+    """Re-assemble ALL cached strips with current layout. Zero API calls."""
+    cache_root = STRIPS_DIR / "cache"
+    if not cache_root.exists():
+        print("No cache directory found.")
+        return
+
+    dates = sorted(d.name for d in cache_root.iterdir() if d.is_dir())
+    print(f"Found {len(dates)} cached strips to reassemble.\n")
+
+    for date_str in dates:
+        generate(date_str=date_str, reassemble=True)
 
 
 def main():
@@ -519,9 +754,17 @@ def main():
     parser.add_argument("--date", help="Date for the strip (YYYY-MM-DD)")
     parser.add_argument("--topic", help="Force a specific topic")
     parser.add_argument("--dry-run", action="store_true", help="Generate script only, no images")
+    parser.add_argument("--reassemble", action="store_true",
+                        help="Re-assemble from cached scripts + panels (zero API cost)")
+    parser.add_argument("--reassemble-all", action="store_true",
+                        help="Re-assemble ALL cached strips (zero API cost)")
     args = parser.parse_args()
 
-    generate(date_str=args.date, forced_topic=args.topic, dry_run=args.dry_run)
+    if args.reassemble_all:
+        reassemble_all()
+    else:
+        generate(date_str=args.date, forced_topic=args.topic,
+                 dry_run=args.dry_run, reassemble=args.reassemble)
 
 
 if __name__ == "__main__":

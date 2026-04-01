@@ -1,21 +1,348 @@
 [
   {
-    "date": "2026-04-01",
-    "title": "New Territory",
-    "image": "strips/2026-04-01.png",
-    "message": "Our worth isn't determined by our familiarity with new environments, but by the courage we bring to face them.",
+    "date": "2026-02-23",
+    "title": "Delete and Repeat",
+    "image": "strips/2026-02-23.png",
+    "message": "Breakups aren't just endings - they're part of our ongoing transformation, teaching us that even painful experiences expand our capacity for growth and connection.",
+    "quote": "Life at each moment encompasses the body and mind and the self and environment of all sentient beings.",
+    "source": "WND-1, p. 3",
+    "tags": [
+      "relationships",
+      "growth",
+      "acceptance"
+    ],
+    "category": "relationships",
+    "topic": "breakup recovery",
+    "characters": [
+      "sudha",
+      "arjun"
+    ]
+  },
+  {
+    "date": "2026-02-25",
+    "title": "The Demo That Wasn't",
+    "image": "strips/2026-02-25.png",
+    "message": "Courage isn't the absence of fear—it's taking action despite being afraid, trusting that our efforts have value even when the outcome is uncertain.",
+    "quote": "A sword will be useless in the hands of a coward.",
+    "source": "WND-1, p. 412",
+    "tags": [
+      "self-doubt",
+      "courage",
+      "imposter-syndrome"
+    ],
+    "category": "self-doubt",
+    "topic": "fear of failure",
+    "characters": [
+      "arjun",
+      "meera"
+    ]
+  },
+  {
+    "date": "2026-02-27",
+    "title": "The Seventh Time",
+    "image": "strips/2026-02-27.png",
+    "message": "Repeated failures don't diminish our capability - they forge our courage and teach us how to wield our determination more skillfully.",
+    "quote": "A sword is useless in the hands of a coward, but even a bamboo stick is a weapon in the grasp of a brave person.",
+    "source": "WND-1, p. 746",
+    "tags": [
+      "perseverance",
+      "courage",
+      "reframing"
+    ],
+    "category": "perseverance",
+    "topic": "repeated failure",
+    "characters": [
+      "meera",
+      "sudha"
+    ]
+  },
+  {
+    "date": "2026-03-02",
+    "title": "The Heavy Days",
+    "image": "strips/2026-03-02.png",
+    "message": "When motivation fades, the tools for success remain - what changes is our courage to use them. Sometimes the bravest step is simply choosing to try again.",
     "quote": "A sword is useless in the hands of a coward. The mighty sword of the Lotus Sutra must be wielded by one courageous in faith.",
     "source": "WND-1, p. 412",
     "tags": [
-      "work-stress",
-      "self-worth",
-      "new-beginnings"
+      "self-doubt",
+      "motivation",
+      "courage"
     ],
-    "category": "work-stress",
-    "topic": "starting a new job",
+    "category": "self-doubt",
+    "topic": "losing motivation",
     "characters": [
       "vikram",
       "sudha"
+    ]
+  },
+  {
+    "date": "2026-03-04",
+    "title": "The Long Haul",
+    "image": "strips/2026-03-04.png",
+    "message": "True strength isn't about never struggling—it's about continuing to show up, draft after draft, day after day.",
+    "quote": "A sword is useless in the hands of a coward. The mighty sword of the Lotus Sutra must be wielded by one courageous in faith.",
+    "source": "WND-1, p. 412",
+    "tags": [
+      "perseverance",
+      "self-doubt",
+      "friendship"
+    ],
+    "category": "perseverance",
+    "topic": "patience running thin",
+    "characters": [
+      "meera",
+      "arjun"
+    ]
+  },
+  {
+    "date": "2026-03-06",
+    "title": "The Presentation",
+    "image": "strips/2026-03-06.png",
+    "message": "Our greatest enemy isn't others' judgment, but our own fear that stops us from showing up as ourselves.",
+    "quote": "A sword is useless in the hands of a coward. The mighty sword of the Lotus Sutra must be wielded by one courageous in faith.",
+    "source": "WND-1, p. 412",
+    "tags": [
+      "self-doubt",
+      "courage",
+      "workplace-anxiety"
+    ],
+    "category": "self-doubt",
+    "topic": "fear of judgment",
+    "characters": [
+      "arjun",
+      "meera"
+    ]
+  },
+  {
+    "date": "2026-03-09",
+    "title": "The Wall",
+    "image": "strips/2026-03-09.png",
+    "message": "Sometimes the breakthrough isn't solving the problem - it's finding the courage to keep facing it without fear.",
+    "quote": "A sword is useless in the hands of a coward. The mighty sword of the Lotus Sutra must be wielded by one who is fearless in faith.",
+    "source": "WND-1, p. 412",
+    "tags": [
+      "perseverance",
+      "courage",
+      "self-doubt"
+    ],
+    "category": "perseverance",
+    "topic": "hitting a wall",
+    "characters": [
+      "arjun",
+      "sudha"
+    ]
+  },
+  {
+    "date": "2026-03-11",
+    "title": "The Falling Apart Moment",
+    "image": "strips/2026-03-11.png",
+    "message": "True courage isn't the absence of fear or doubt - it's the willingness to keep fighting for what matters despite those feelings.",
+    "quote": "A sword is useless in the hands of a coward. The mighty sword of the Lotus Sutra must be wielded by one courageous in faith.",
+    "source": "WND-1, p. 412",
+    "tags": [
+      "perseverance",
+      "courage",
+      "friendship"
+    ],
+    "category": "perseverance",
+    "topic": "wanting to give up",
+    "characters": [
+      "vikram",
+      "arjun"
+    ]
+  },
+  {
+    "date": "2026-03-13",
+    "title": "The Real Deal",
+    "image": "strips/2026-03-13.png",
+    "message": "Authenticity isn't about being perfect—it's about embracing who we truly are and the value we already bring to the world.",
+    "quote": "Become the person you are",
+    "source": "Paraphrase from Nichiren's concept of revealing one's Buddha nature",
+    "tags": [
+      "self-doubt",
+      "authenticity",
+      "imposter-syndrome"
+    ],
+    "category": "self-doubt",
+    "topic": "feeling like a fraud",
+    "characters": [
+      "vikram",
+      "sudha"
+    ]
+  },
+  {
+    "date": "2026-03-16",
+    "title": "Enough As You Are",
+    "image": "strips/2026-03-16.png",
+    "message": "Your inherent worth isn't determined by external validation or comparison to others—you have your own unique value and timing in this world.",
+    "quote": "The pine teaches silence, the rock teaches stillness, but it is earth that teaches both.",
+    "source": "Paraphrased from Nichiren's writings on the inherent value of all phenomena",
+    "tags": [
+      "self-doubt",
+      "comparison",
+      "inherent-worth"
+    ],
+    "category": "self-doubt",
+    "topic": "feeling not enough",
+    "characters": [
+      "meera",
+      "sudha"
+    ]
+  },
+  {
+    "date": "2026-03-18",
+    "title": "The Long Game",
+    "image": "strips/2026-03-18.png",
+    "message": "True effort transforms us from within, creating value even when external results aren't visible yet.",
+    "quote": "It is the heart that is important. No matter how earnestly one may seek the way, if the heart is not steadfast, one cannot understand the Buddha's teachings.",
+    "source": "WND-1, p. 1000",
+    "tags": [
+      "perseverance",
+      "inner-transformation",
+      "patience"
+    ],
+    "category": "perseverance",
+    "topic": "no visible results from effort",
+    "characters": [
+      "vikram",
+      "meera",
+      "sudha"
+    ]
+  },
+  {
+    "date": "2026-03-20",
+    "title": "The Space Between",
+    "image": "strips/2026-03-20.png",
+    "message": "Grief doesn't follow a schedule, and healing happens in its own season when we stop forcing ourselves to 'get over it' and instead learn to carry love in a new way.",
+    "quote": "Winter always turns to spring.",
+    "source": "WND-1, p. 536",
+    "tags": [
+      "grief-loss",
+      "healing",
+      "friendship"
+    ],
+    "category": "grief-loss",
+    "topic": "mourning a relationship",
+    "characters": [
+      "vikram",
+      "meera"
+    ]
+  },
+  {
+    "date": "2026-03-23",
+    "title": "The Mirror Method",
+    "image": "strips/2026-03-23.png",
+    "message": "When we respond to difficult people with genuine care and confidence rather than defensiveness, we often transform both the situation and ourselves.",
+    "quote": "If you light a lamp for another, it will also brighten your own way.",
+    "source": "Gosho Zenshu, p. 1598",
+    "tags": [
+      "work-stress",
+      "difficult-relationships",
+      "self-confidence"
+    ],
+    "category": "work-stress",
+    "topic": "difficult coworker",
+    "characters": [
+      "arjun",
+      "sudha",
+      "vikram"
+    ]
+  },
+  {
+    "date": "2026-03-25",
+    "title": "The Crowded Room",
+    "image": "strips/2026-03-25.png",
+    "message": "True connection comes not from endless social media scrolling, but from reaching out authentically to others and remembering we're supported by something greater than ourselves.",
+    "quote": "Even a bad friend is better than loneliness, but since you have found such good friends in the Lotus Sutra and Nichiren, you should have no complaints.",
+    "source": "WND-1, p. 850",
+    "tags": [
+      "relationships",
+      "loneliness",
+      "connection"
+    ],
+    "category": "relationships",
+    "topic": "loneliness",
+    "characters": [
+      "arjun",
+      "sudha",
+      "vikram"
+    ]
+  },
+  {
+    "date": "2026-03-28",
+    "title": "The Rebel's Heart",
+    "image": "strips/2026-03-28.png",
+    "message": "True connection with our children comes not from controlling their choices, but from mastering our own fears and reactions.",
+    "quote": "Become the master of your mind rather than let your mind master you.",
+    "source": "WND-1, p. 502",
+    "tags": [
+      "family",
+      "parenting",
+      "fear"
+    ],
+    "category": "family",
+    "topic": "teenage rebellion",
+    "characters": [
+      "vikram",
+      "meera",
+      "sudha"
+    ]
+  },
+  {
+    "date": "2026-03-31",
+    "title": "Mirror, Mirror",
+    "image": "strips/2026-03-31.png",
+    "message": "Our authentic self isn't found by comparing ourselves to others, but by looking within and recognizing our inherent worth and potential.",
+    "quote": "You must never think that any of the eighty-four thousand sacred teachings of Shakyamuni Buddha are outside yourself. Your person in its present form is the palace of the ninth consciousness, the unchanging reality that reigns over all of life's functions.",
+    "source": "WND-1, p. 843",
+    "tags": [
+      "self-doubt",
+      "comparison",
+      "authentic-self"
+    ],
+    "category": "self-doubt",
+    "topic": "identity crisis",
+    "characters": [
+      "meera",
+      "arjun"
+    ]
+  },
+  {
+    "date": "2026-04-01",
+    "title": "Small Steps Forward",
+    "image": "strips/2026-04-01.png",
+    "message": "Progress isn't about speed - it's about allowing our efforts the time they need to develop into something meaningful.",
+    "quote": "Even a bad person will be saved by the Lotus Sutra, how much more a good person.",
+    "source": "WND-1, p. 4",
+    "tags": [
+      "perseverance",
+      "self-compassion",
+      "personal-growth"
+    ],
+    "category": "perseverance",
+    "topic": "slow progress",
+    "characters": [
+      "sudha",
+      "meera"
+    ]
+  },
+  {
+    "date": "2026-04-02",
+    "title": "The Instagram Trap",
+    "image": "strips/2026-04-02.png",
+    "message": "True wealth lies not in material possessions but in the wisdom, compassion, and purpose we cultivate within ourselves.",
+    "quote": "More valuable than treasures in a storehouse are treasures of the body, and treasures of the heart are most valuable of all.",
+    "source": "WND-1, p. 851",
+    "tags": [
+      "finances",
+      "comparison",
+      "self-worth"
+    ],
+    "category": "finances",
+    "topic": "financial comparison",
+    "characters": [
+      "meera",
+      "vikram"
     ]
   }
 ]

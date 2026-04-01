@@ -104,6 +104,6 @@ ART_STYLE = (
 
 # Panel layout
 PANELS_PER_STRIP = 4
-STRIP_WIDTH = 2400  # pixels
-PANEL_HEIGHT = 600  # pixels per panel
-PANEL_GAP = 20      # pixels between panels
+STRIP_WIDTH = 1024  # pixels — matches source image width, no horizontal scaling
+PANEL_HEIGHT = 700  # pixels per panel — center-crops from 1024x1024 for slight landscape feel
+PANEL_GAP = 0       # no gap — dialogue bands separate panels
