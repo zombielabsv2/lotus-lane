@@ -41,13 +41,14 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: |
           ARGS=""
-          if [ -n "${{ github.event.inputs.topic }}" ]; then
-            ARGS="$ARGS --topic '${{ github.event.inputs.topic }}'"
+          TOPIC="${{ github.event.inputs.topic }}"
+          if [ -n "$TOPIC" ]; then
+            ARGS="$ARGS --topic \"$TOPIC\""
           fi
           if [ "${{ github.event.inputs.dry_run }}" == "true" ]; then
             ARGS="$ARGS --dry-run"
           fi
-          python pipeline/generate_strip.py $ARGS
+          eval python pipeline/generate_strip.py $ARGS
 
       - name: Commit and push new strip
         if: ${{ github.event.inputs.dry_run != 'true' }}
@@ -55,5 +56,9 @@ jobs:
           git config user.name "Lotus Lane Bot"
           git config user.email "bot@thelotus.lane"
           git add strips/ strips.json
-          git commit -m "Add strip for $(date +%Y-%m-%d)"
-          git push
+          if git diff --staged --quiet; then
+            echo "No new changes to commit"
+          else
+            git commit -m "Add strip for $(date +%Y-%m-%d)"
+            git push
+          fi

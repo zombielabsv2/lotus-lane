@@ -95,7 +95,12 @@ def pick_characters():
     return {k: CHARACTERS[k] for k in selected}
 
 
-def generate_script(category, topic, characters, date_str):
+def _recent_quotes(existing_strips, n=10):
+    """Get recent Nichiren quotes to avoid repetition."""
+    return [s.get("quote", "") for s in existing_strips[-n:] if s.get("quote")]
+
+
+def generate_script(category, topic, characters, date_str, existing_strips=None):
     """Use Claude to generate a 4-panel comic script."""
     api_key = get_anthropic_key()
     if not api_key:
@@ -133,6 +138,9 @@ The characters should feel like real people, not mouthpieces.
 SETTING: India. All cultural references, currency (use Rs. or rupees, never $), food, places,
 slang, and social dynamics should be authentically Indian. Characters may use light Hindi/Marathi
 words naturally (arre, yaar, beta, bewakoof, etc.).
+
+IMPORTANT: Use a DIFFERENT Nichiren quote each time. Do NOT use any of these recently used quotes:
+{chr(10).join(f'- "{q[:80]}..."' for q in _recent_quotes(existing_strips or [], 10)) or '(none yet)'}
 
 Return your response as JSON with this exact structure:
 {{
@@ -177,7 +185,15 @@ Return ONLY the JSON, no other text."""
         content = content.split("\n", 1)[1]
         content = content.rsplit("```", 1)[0]
 
-    return json.loads(content)
+    try:
+        return json.loads(content)
+    except json.JSONDecodeError:
+        # Try to extract JSON from mixed content
+        import re
+        match = re.search(r'\{[\s\S]*\}', content)
+        if match:
+            return json.loads(match.group())
+        raise ValueError(f"Claude returned invalid JSON: {content[:200]}...")
 
 
 def generate_panel_image(panel, characters, strip_title, panel_num):
@@ -622,6 +638,7 @@ def generate(date_str=None, forced_topic=None, dry_run=False, reassemble=False):
     print(f"{'='*60}\n")
 
     existing = load_existing_strips()
+    qc_retries_total = 0
 
     # --- SCRIPT: use cache if available ---
     cached = _load_cached_script(date_str)
@@ -643,7 +660,7 @@ def generate(date_str=None, forced_topic=None, dry_run=False, reassemble=False):
         char_names = ', '.join(c['name'] for c in characters.values()) if characters else 'New (AI-created)'
         print(f"  Characters: {char_names}")
         print(f"\n  Generating script with Claude...")
-        script = generate_script(category, topic, characters, date_str)
+        script = generate_script(category, topic, characters, date_str, existing_strips=existing)
         _save_script(date_str, script, category, topic, characters)
         print(f"  [SAVED] Script cached")
 
@@ -680,7 +697,17 @@ def generate(date_str=None, forced_topic=None, dry_run=False, reassemble=False):
                 else:
                     print(f"{label} — generating...")
 
-                img = generate_panel_image(panel, characters, script["title"], i + 1)
+                try:
+                    img = generate_panel_image(panel, characters, script["title"], i + 1)
+                except (httpx.HTTPStatusError, httpx.ConnectError, httpx.TimeoutException) as e:
+                    qc_retries_total += 1
+                    print(f"{label} — API ERROR: {e}")
+                    if attempt < MAX_RETRIES:
+                        time.sleep(5)
+                        continue
+                    else:
+                        print(f"{label} — FAILED after {MAX_RETRIES} attempts")
+                        raise
 
                 # Run QC
                 passed, issues = run_full_qc(img, openai_key, panel_num=i + 1)
@@ -713,8 +740,8 @@ def generate(date_str=None, forced_topic=None, dry_run=False, reassemble=False):
 
     # Cost report
     was_script_cached = bool(cached)
-    was_panels_cached = bool(_load_cached_panels(date_str)) if reassemble else False
-    retries = qc_retries_total if 'qc_retries_total' in dir() else 0
+    was_panels_cached = reassemble and bool(_load_cached_panels(date_str))
+    retries = qc_retries_total
     num_images = 0 if was_panels_cached else (4 + retries)
     claude_cost_usd = 0.0 if was_script_cached else 0.013
     image_cost_usd = num_images * 0.011  # gpt-image-1, 1024x1024, low
