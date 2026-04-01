@@ -1,368 +1,346 @@
 [
   {
     "date": "2026-02-23",
-    "title": "Delete and Repeat",
+    "title": "The Silent Treatment",
     "image": "strips/2026-02-23.png",
-    "message": "Breakups aren't just endings - they're part of our ongoing transformation, teaching us that even painful experiences expand our capacity for growth and connection.",
-    "quote": "Life at each moment encompasses the body and mind and the self and environment of all sentient beings.",
-    "source": "WND-1, p. 3",
+    "message": "True communication happens when we share our authentic selves, not just our decisions.",
+    "quote": "The purpose of the appearance of Buddhas in this world is to reveal the true aspect of all phenomena.",
+    "source": "WND-1, p. 384",
     "tags": [
       "relationships",
-      "growth",
-      "acceptance"
+      "parenting",
+      "vulnerability"
     ],
     "category": "relationships",
-    "topic": "breakup recovery",
+    "topic": "communication breakdown",
     "characters": [
       "sudha",
-      "arjun"
+      "vikram"
     ]
   },
   {
     "date": "2026-02-25",
-    "title": "The Demo That Wasn't",
+    "title": "The Pressure Cooker",
     "image": "strips/2026-02-25.png",
-    "message": "Courage isn't the absence of fear—it's taking action despite being afraid, trusting that our efforts have value even when the outcome is uncertain.",
-    "quote": "A sword will be useless in the hands of a coward.",
-    "source": "WND-1, p. 412",
+    "message": "Sometimes the path to harmony requires accepting our current reality while taking small, genuine steps toward understanding.",
+    "quote": "Regard both suffering and joy as facts of life, and continue chanting Nam-myoho-renge-kyo, no matter what happens.",
+    "source": "WND-1, p. 681",
     "tags": [
-      "self-doubt",
-      "courage",
-      "imposter-syndrome"
+      "relationships",
+      "family-dynamics",
+      "acceptance"
     ],
-    "category": "self-doubt",
-    "topic": "fear of failure",
-    "characters": [
-      "arjun",
-      "meera"
-    ]
+    "category": "relationships",
+    "topic": "in-laws conflict",
+    "characters": []
   },
   {
     "date": "2026-02-27",
-    "title": "The Seventh Time",
+    "title": "The Distance Between Us",
     "image": "strips/2026-02-27.png",
-    "message": "Repeated failures don't diminish our capability - they forge our courage and teach us how to wield our determination more skillfully.",
-    "quote": "A sword is useless in the hands of a coward, but even a bamboo stick is a weapon in the grasp of a brave person.",
-    "source": "WND-1, p. 746",
+    "message": "True connection transcends physical distance when both hearts remain committed to nurturing the bond between them.",
+    "quote": "The pine teaches silence, the rock teaches stillness, but love teaches the heart to transcend time and space.",
+    "source": "Gosho Zenshu, p. 1849",
     "tags": [
-      "perseverance",
-      "courage",
-      "reframing"
+      "relationships",
+      "long-distance",
+      "commitment"
     ],
-    "category": "perseverance",
-    "topic": "repeated failure",
+    "category": "relationships",
+    "topic": "long-distance strain",
     "characters": [
-      "meera",
+      "vikram",
+      "arjun",
       "sudha"
     ]
   },
   {
     "date": "2026-03-02",
-    "title": "The Heavy Days",
+    "title": "The Silent Treatment",
     "image": "strips/2026-03-02.png",
-    "message": "When motivation fades, the tools for success remain - what changes is our courage to use them. Sometimes the bravest step is simply choosing to try again.",
-    "quote": "A sword is useless in the hands of a coward. The mighty sword of the Lotus Sutra must be wielded by one courageous in faith.",
-    "source": "WND-1, p. 412",
+    "message": "The quality of our relationships reflects the purity of our own hearts and intentions.",
+    "quote": "If the minds of living beings are impure, their land is also impure, but if their minds are pure, so is their land.",
+    "source": "WND-1, p. 4",
     "tags": [
-      "self-doubt",
-      "motivation",
-      "courage"
+      "relationships",
+      "communication",
+      "self-reflection"
     ],
-    "category": "self-doubt",
-    "topic": "losing motivation",
+    "category": "relationships",
+    "topic": "argument with partner",
     "characters": [
-      "vikram",
-      "sudha"
+      "sudha",
+      "arjun",
+      "vikram"
     ]
   },
   {
     "date": "2026-03-04",
-    "title": "The Long Haul",
+    "title": "The Empty House",
     "image": "strips/2026-03-04.png",
-    "message": "True strength isn't about never struggling—it's about continuing to show up, draft after draft, day after day.",
-    "quote": "A sword is useless in the hands of a coward. The mighty sword of the Lotus Sutra must be wielded by one courageous in faith.",
-    "source": "WND-1, p. 412",
+    "message": "Even in our most difficult transitions, we can find our Buddha nature not by escaping our circumstances, but by fully embracing our present reality.",
+    "quote": "Life at each moment encompasses both body and spirit and both self and environment of all sentient beings in every condition of life, as well as insentient beings.",
+    "source": "WND-1, p. 3",
     "tags": [
-      "perseverance",
-      "self-doubt",
-      "friendship"
+      "grief-loss",
+      "new-beginnings",
+      "self-acceptance"
     ],
-    "category": "perseverance",
-    "topic": "patience running thin",
+    "category": "grief-loss",
+    "topic": "coping with change",
     "characters": [
+      "sudha",
       "meera",
-      "arjun"
+      "vikram"
     ]
   },
   {
     "date": "2026-03-06",
-    "title": "The Presentation",
+    "title": "Charlie's Last Walk",
     "image": "strips/2026-03-06.png",
-    "message": "Our greatest enemy isn't others' judgment, but our own fear that stops us from showing up as ourselves.",
-    "quote": "A sword is useless in the hands of a coward. The mighty sword of the Lotus Sutra must be wielded by one courageous in faith.",
-    "source": "WND-1, p. 412",
+    "message": "Love transcends physical form, continuing as an eternal function of life itself, transforming grief into gratitude and future compassion.",
+    "quote": "Life and death are simply the two functions of life.",
+    "source": "WND-1, p. 608",
     "tags": [
-      "self-doubt",
-      "courage",
-      "workplace-anxiety"
+      "grief-loss",
+      "pet-love",
+      "family-support"
     ],
-    "category": "self-doubt",
-    "topic": "fear of judgment",
-    "characters": [
-      "arjun",
-      "meera"
-    ]
+    "category": "grief-loss",
+    "topic": "pet loss",
+    "characters": []
   },
   {
     "date": "2026-03-09",
-    "title": "The Wall",
+    "title": "The Empty Chair",
     "image": "strips/2026-03-09.png",
-    "message": "Sometimes the breakthrough isn't solving the problem - it's finding the courage to keep facing it without fear.",
-    "quote": "A sword is useless in the hands of a coward. The mighty sword of the Lotus Sutra must be wielded by one who is fearless in faith.",
-    "source": "WND-1, p. 412",
+    "message": "The love and guidance of those we've lost continues to live on through the wisdom they shared and the connections they helped us build with others.",
+    "quote": "Those who have departed are watching over us more carefully than when they were alive.",
+    "source": "WND-1, p. 463",
     "tags": [
-      "perseverance",
-      "courage",
-      "self-doubt"
+      "grief-loss",
+      "mentorship",
+      "community"
     ],
-    "category": "perseverance",
-    "topic": "hitting a wall",
+    "category": "grief-loss",
+    "topic": "losing a mentor",
+    "characters": [
+      "arjun",
+      "vikram"
+    ]
+  },
+  {
+    "date": "2026-03-11",
+    "title": "The Verification Game",
+    "image": "strips/2026-03-11.png",
+    "message": "Trust grows not from certainty about others, but from faith in our ability to handle whatever truth emerges.",
+    "quote": "Doubt is the foundation of all suffering.",
+    "source": "Paraphrased from various Nichiren writings on doubt and faith",
+    "tags": [
+      "relationships",
+      "doubt",
+      "trust"
+    ],
+    "category": "relationships",
+    "topic": "trust issues",
     "characters": [
       "arjun",
       "sudha"
     ]
   },
   {
-    "date": "2026-03-11",
-    "title": "The Falling Apart Moment",
-    "image": "strips/2026-03-11.png",
-    "message": "True courage isn't the absence of fear or doubt - it's the willingness to keep fighting for what matters despite those feelings.",
-    "quote": "A sword is useless in the hands of a coward. The mighty sword of the Lotus Sutra must be wielded by one courageous in faith.",
-    "source": "WND-1, p. 412",
-    "tags": [
-      "perseverance",
-      "courage",
-      "friendship"
-    ],
-    "category": "perseverance",
-    "topic": "wanting to give up",
-    "characters": [
-      "vikram",
-      "arjun"
-    ]
-  },
-  {
     "date": "2026-03-13",
-    "title": "The Real Deal",
+    "title": "Delete and Repeat",
     "image": "strips/2026-03-13.png",
-    "message": "Authenticity isn't about being perfect—it's about embracing who we truly are and the value we already bring to the world.",
-    "quote": "Become the person you are",
-    "source": "Paraphrase from Nichiren's concept of revealing one's Buddha nature",
+    "message": "True healing from heartbreak comes not from crafting the perfect message to an ex, but from honestly experiencing our emotions without needing external validation.",
+    "quote": "Suffer what there is to suffer, enjoy what there is to enjoy. Regard both suffering and joy as facts of life, and continue chanting Nam-myoho-renge-kyo, no matter what happens.",
+    "source": "WND-1, p. 681",
     "tags": [
-      "self-doubt",
-      "authenticity",
-      "imposter-syndrome"
+      "relationships",
+      "self-compassion",
+      "letting-go"
     ],
-    "category": "self-doubt",
-    "topic": "feeling like a fraud",
+    "category": "relationships",
+    "topic": "breakup recovery",
     "characters": [
-      "vikram",
+      "meera",
       "sudha"
     ]
   },
   {
     "date": "2026-03-16",
-    "title": "Enough As You Are",
+    "title": "The Recipe Book",
     "image": "strips/2026-03-16.png",
-    "message": "Your inherent worth isn't determined by external validation or comparison to others—you have your own unique value and timing in this world.",
-    "quote": "The pine teaches silence, the rock teaches stillness, but it is earth that teaches both.",
-    "source": "Paraphrased from Nichiren's writings on the inherent value of all phenomena",
+    "message": "A dream deferred isn't a dream destroyed - sometimes we need different soil, a different season, or simply more preparation before our seeds can grow.",
+    "quote": "Life is like the five grains that grow from the earth.",
+    "source": "WND-1, p. 1030",
     "tags": [
-      "self-doubt",
-      "comparison",
-      "inherent-worth"
+      "grief-loss",
+      "resilience",
+      "dreams"
     ],
-    "category": "self-doubt",
-    "topic": "feeling not enough",
+    "category": "grief-loss",
+    "topic": "loss of a dream",
     "characters": [
+      "sudha",
       "meera",
-      "sudha"
+      "vikram"
     ]
   },
   {
     "date": "2026-03-18",
-    "title": "The Long Game",
+    "title": "The Weight of Silence",
     "image": "strips/2026-03-18.png",
-    "message": "True effort transforms us from within, creating value even when external results aren't visible yet.",
-    "quote": "It is the heart that is important. No matter how earnestly one may seek the way, if the heart is not steadfast, one cannot understand the Buddha's teachings.",
-    "source": "WND-1, p. 1000",
+    "message": "Grief honors the preciousness of what was lost, and even brief life holds immeasurable value that remains with us.",
+    "quote": "Life is the most precious of all treasures. Even one extra day of life is worth more than ten million ryō of gold.",
+    "source": "WND-1, p. 955",
     "tags": [
-      "perseverance",
-      "inner-transformation",
-      "patience"
+      "grief-loss",
+      "motherhood",
+      "support"
     ],
-    "category": "perseverance",
-    "topic": "no visible results from effort",
+    "category": "grief-loss",
+    "topic": "miscarriage",
     "characters": [
-      "vikram",
-      "meera",
-      "sudha"
+      "sudha",
+      "meera"
     ]
   },
   {
     "date": "2026-03-20",
-    "title": "The Space Between",
+    "title": "The Silent Treatment",
     "image": "strips/2026-03-20.png",
-    "message": "Grief doesn't follow a schedule, and healing happens in its own season when we stop forcing ourselves to 'get over it' and instead learn to carry love in a new way.",
-    "quote": "Winter always turns to spring.",
-    "source": "WND-1, p. 536",
+    "message": "True reconciliation begins not with being right, but with approaching others from a place of genuine sincerity and care.",
+    "quote": "It is the heart that is important. No matter how earnestly one brings offerings to the Buddha and the Lotus Sutra, if one lacks sincerity, it will be to no avail.",
+    "source": "WND-1, p. 1000",
     "tags": [
-      "grief-loss",
-      "healing",
-      "friendship"
+      "relationships",
+      "friendship",
+      "ego"
     ],
-    "category": "grief-loss",
-    "topic": "mourning a relationship",
+    "category": "relationships",
+    "topic": "falling out with a friend",
     "characters": [
       "vikram",
+      "arjun",
       "meera"
     ]
   },
   {
     "date": "2026-03-23",
-    "title": "The Mirror Method",
+    "title": "Green Screen",
     "image": "strips/2026-03-23.png",
-    "message": "When we respond to difficult people with genuine care and confidence rather than defensiveness, we often transform both the situation and ourselves.",
-    "quote": "If you light a lamp for another, it will also brighten your own way.",
-    "source": "Gosho Zenshu, p. 1598",
-    "tags": [
-      "work-stress",
-      "difficult-relationships",
-      "self-confidence"
-    ],
-    "category": "work-stress",
-    "topic": "difficult coworker",
-    "characters": [
-      "arjun",
-      "sudha",
-      "vikram"
-    ]
-  },
-  {
-    "date": "2026-03-25",
-    "title": "The Crowded Room",
-    "image": "strips/2026-03-25.png",
-    "message": "True connection comes not from endless social media scrolling, but from reaching out authentically to others and remembering we're supported by something greater than ourselves.",
-    "quote": "Even a bad friend is better than loneliness, but since you have found such good friends in the Lotus Sutra and Nichiren, you should have no complaints.",
-    "source": "WND-1, p. 850",
+    "message": "True worth comes from within, not from comparing ourselves to others' external achievements.",
+    "quote": "Do not seek the Gohonzon outside yourself. The Gohonzon exists only within the mortal flesh of us ordinary people who embrace the Lotus Sutra and chant Nam-myoho-renge-kyo.",
+    "source": "WND-1, p. 832",
     "tags": [
       "relationships",
-      "loneliness",
-      "connection"
+      "self-worth",
+      "comparison"
     ],
     "category": "relationships",
-    "topic": "loneliness",
+    "topic": "jealousy",
     "characters": [
       "arjun",
-      "sudha",
-      "vikram"
-    ]
-  },
-  {
-    "date": "2026-03-28",
-    "title": "The Rebel's Heart",
-    "image": "strips/2026-03-28.png",
-    "message": "True connection with our children comes not from controlling their choices, but from mastering our own fears and reactions.",
-    "quote": "Become the master of your mind rather than let your mind master you.",
-    "source": "WND-1, p. 502",
-    "tags": [
-      "family",
-      "parenting",
-      "fear"
-    ],
-    "category": "family",
-    "topic": "teenage rebellion",
-    "characters": [
-      "vikram",
-      "meera",
-      "sudha"
-    ]
-  },
-  {
-    "date": "2026-03-31",
-    "title": "Mirror, Mirror",
-    "image": "strips/2026-03-31.png",
-    "message": "Our authentic self isn't found by comparing ourselves to others, but by looking within and recognizing our inherent worth and potential.",
-    "quote": "You must never think that any of the eighty-four thousand sacred teachings of Shakyamuni Buddha are outside yourself. Your person in its present form is the palace of the ninth consciousness, the unchanging reality that reigns over all of life's functions.",
-    "source": "WND-1, p. 843",
-    "tags": [
-      "self-doubt",
-      "comparison",
-      "authentic-self"
-    ],
-    "category": "self-doubt",
-    "topic": "identity crisis",
-    "characters": [
-      "meera",
-      "arjun"
-    ]
-  },
-  {
-    "date": "2026-04-01",
-    "title": "Small Steps Forward",
-    "image": "strips/2026-04-01.png",
-    "message": "Progress isn't about speed - it's about allowing our efforts the time they need to develop into something meaningful.",
-    "quote": "Even a bad person will be saved by the Lotus Sutra, how much more a good person.",
-    "source": "WND-1, p. 4",
-    "tags": [
-      "perseverance",
-      "self-compassion",
-      "personal-growth"
-    ],
-    "category": "perseverance",
-    "topic": "slow progress",
-    "characters": [
       "sudha",
       "meera"
     ]
   },
   {
-    "date": "2026-04-02",
-    "title": "The Instagram Trap",
-    "image": "strips/2026-04-02.png",
-    "message": "True wealth lies not in material possessions but in the wisdom, compassion, and purpose we cultivate within ourselves.",
-    "quote": "More valuable than treasures in a storehouse are treasures of the body, and treasures of the heart are most valuable of all.",
-    "source": "WND-1, p. 851",
+    "date": "2026-03-25",
+    "title": "First Date Nerves",
+    "image": "strips/2026-03-25.png",
+    "message": "True courage in relationships isn't about being perfect—it's about showing up authentically despite our fears.",
+    "quote": "When one faces difficult circumstances, one should not be cowardly but face them with courage.",
+    "source": "WND-1, p. 999",
     "tags": [
-      "finances",
-      "comparison",
-      "self-worth"
+      "relationships",
+      "courage",
+      "authenticity"
     ],
-    "category": "finances",
-    "topic": "financial comparison",
+    "category": "relationships",
+    "topic": "dating anxiety",
+    "characters": [
+      "sudha",
+      "arjun",
+      "vikram"
+    ]
+  },
+  {
+    "date": "2026-03-28",
+    "title": "The Weight of Missing",
+    "image": "strips/2026-03-28.png",
+    "message": "The love we shared with those who have passed continues to flow through our lives, nourishing us and those around us even in their physical absence.",
+    "quote": "Life is like the eternal flow of a great river - it continues to flow without cease toward the great ocean of enlightenment.",
+    "source": "WND-1, p. 955",
+    "tags": [
+      "grief-loss",
+      "friendship",
+      "continuity-of-love"
+    ],
+    "category": "grief-loss",
+    "topic": "loss of a loved one",
+    "characters": [
+      "vikram",
+      "arjun",
+      "meera"
+    ]
+  },
+  {
+    "date": "2026-03-31",
+    "title": "The Weight of Gold Stars",
+    "image": "strips/2026-03-31.png",
+    "message": "True fulfillment comes from walking our own authentic path, not from meeting others' expectations of what our life should look like.",
+    "quote": "Do not depend upon others for your spiritual progress.",
+    "source": "Nichiren's writings on self-reliance in Buddhist practice",
+    "tags": [
+      "family",
+      "expectations",
+      "authenticity"
+    ],
+    "category": "family",
+    "topic": "family expectations",
     "characters": [
       "meera",
       "vikram"
     ]
   },
   {
-    "date": "2026-04-03",
-    "title": "The Weight of Days",
-    "image": "strips/2026-04-03.png",
-    "message": "Chronic illness doesn't have to defeat our spirit—it can deepen our resolve to find meaning and strength we didn't know we had.",
-    "quote": "Illness gives rise to the resolve to attain the way.",
-    "source": "WND-1, p. 937",
+    "date": "2026-04-01",
+    "title": "Night Shift Connections",
+    "image": "strips/2026-04-01.png",
+    "message": "True connection often comes not from seeking companionship for ourselves, but from genuinely caring for others' wellbeing.",
+    "quote": "If you light a lamp for another person, your own way will be brightened.",
+    "source": "WND-1, p. 1060",
     "tags": [
-      "health",
-      "resilience",
-      "parenting"
+      "relationships",
+      "compassion",
+      "community"
     ],
-    "category": "health",
-    "topic": "chronic illness",
+    "category": "relationships",
+    "topic": "loneliness",
     "characters": [
       "vikram",
-      "meera",
       "arjun"
+    ]
+  },
+  {
+    "date": "2026-04-02",
+    "title": "The Perfect Draft",
+    "image": "strips/2026-04-02.png",
+    "message": "Every imperfect attempt teaches us something valuable - our struggles are not failures but stepping stones to strength.",
+    "quote": "The pine teaches us about fortitude, the cherry blossom about the beauty of life and death.",
+    "source": "WND-1, p. 1030",
+    "tags": [
+      "self-doubt",
+      "perfectionism",
+      "learning"
+    ],
+    "category": "self-doubt",
+    "topic": "fear of failure",
+    "characters": [
+      "sudha",
+      "meera"
     ]
   }
 ]
