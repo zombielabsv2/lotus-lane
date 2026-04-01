@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daimoku Daily - Personalized Buddhist Wisdom | The Lotus Lane</title>
+  <meta name="description" content="Receive personalized Nichiren Buddhist wisdom in your inbox. Choose your life challenges and get daily encouragement rooted in the Gosho.">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #faf9f6;
+      color: #2d2d2d;
+      min-height: 100vh;
+    }
+
+    header {
+      text-align: center;
+      padding: 1.5rem 1rem 0.8rem;
+      border-bottom: 2px solid #e8e4de;
+    }
+
+    header h1 {
+      font-size: 1.8rem;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      color: #4a4a4a;
+    }
+
+    header h1 span {
+      font-weight: 600;
+      color: #c0392b;
+    }
+
+    header p.tagline {
+      font-size: 0.85rem;
+      color: #999;
+      margin-top: 0.2rem;
+      font-style: italic;
+    }
+
+    .nav-back {
+      max-width: 640px;
+      margin: 1rem auto 0;
+      padding: 0 1.5rem;
+    }
+
+    .nav-back a {
+      font-size: 0.85rem;
+      color: #999;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-back a:hover { color: #c0392b; }
+
+    .hero {
+      text-align: center;
+      padding: 2.5rem 1.5rem 1rem;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .hero-icon {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero h2 {
+      font-size: 1.8rem;
+      font-weight: 400;
+      color: #333;
+      line-height: 1.3;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero p {
+      font-size: 1rem;
+      color: #777;
+      line-height: 1.6;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    .form-container {
+      max-width: 640px;
+      margin: 1.5rem auto 3rem;
+      padding: 0 1.5rem;
+    }
+
+    .form-card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+      padding: 2rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.8rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 0.6rem;
+    }
+
+    .form-group .hint {
+      font-size: 0.8rem;
+      color: #999;
+      font-weight: 400;
+      margin-left: 0.3rem;
+    }
+
+    /* Challenge checkboxes */
+    .challenge-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.6rem;
+    }
+
+    .challenge-option {
+      position: relative;
+    }
+
+    .challenge-option input[type="checkbox"] {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .challenge-option label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.65rem 0.9rem;
+      border: 1.5px solid #e0dcd6;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.88rem;
+      font-weight: 400;
+      color: #555;
+      transition: all 0.2s;
+      user-select: none;
+    }
+
+    .challenge-option label:hover {
+      border-color: #c0392b;
+      color: #c0392b;
+    }
+
+    .challenge-option input:checked + label {
+      background: #fdf0ee;
+      border-color: #c0392b;
+      color: #c0392b;
+      font-weight: 500;
+    }
+
+    .challenge-option .emoji {
+      font-size: 1.1rem;
+    }
+
+    /* Text inputs */
+    input[type="text"],
+    input[type="email"],
+    textarea {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 1.5px solid #e0dcd6;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-family: inherit;
+      color: #333;
+      background: #faf9f6;
+      transition: border-color 0.2s;
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    textarea:focus {
+      outline: none;
+      border-color: #c0392b;
+      background: white;
+    }
+
+    textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+
+    /* Frequency radio buttons */
+    .frequency-options {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    .frequency-option {
+      position: relative;
+    }
+
+    .frequency-option input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .frequency-option label {
+      display: block;
+      padding: 0.6rem 1.2rem;
+      border: 1.5px solid #e0dcd6;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.88rem;
+      font-weight: 400;
+      color: #555;
+      transition: all 0.2s;
+      user-select: none;
+    }
+
+    .frequency-option label:hover {
+      border-color: #c0392b;
+      color: #c0392b;
+    }
+
+    .frequency-option input:checked + label {
+      background: #fdf0ee;
+      border-color: #c0392b;
+      color: #c0392b;
+      font-weight: 500;
+    }
+
+    .freq-detail {
+      display: block;
+      font-size: 0.72rem;
+      color: #999;
+      margin-top: 0.15rem;
+      font-weight: 400;
+    }
+
+    /* Submit button */
+    .submit-btn {
+      width: 100%;
+      padding: 0.9rem;
+      background: #c0392b;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      letter-spacing: 0.02em;
+    }
+
+    .submit-btn:hover {
+      background: #a93226;
+    }
+
+    .submit-btn:active {
+      transform: scale(0.98);
+    }
+
+    .submit-btn:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+
+    /* Messages */
+    .form-message {
+      text-align: center;
+      padding: 1rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      margin-top: 1rem;
+      display: none;
+    }
+
+    .form-message.success {
+      display: block;
+      background: #f0fdf4;
+      color: #15803d;
+      border: 1px solid #bbf7d0;
+    }
+
+    .form-message.error {
+      display: block;
+      background: #fef2f2;
+      color: #dc2626;
+      border: 1px solid #fecaca;
+    }
+
+    /* Success state */
+    .success-view {
+      text-align: center;
+      padding: 3rem 2rem;
+      display: none;
+    }
+
+    .success-view .icon { font-size: 3rem; margin-bottom: 1rem; }
+
+    .success-view h3 {
+      font-size: 1.4rem;
+      font-weight: 500;
+      color: #333;
+      margin-bottom: 0.5rem;
+    }
+
+    .success-view p {
+      color: #777;
+      line-height: 1.6;
+    }
+
+    /* What you get section */
+    .what-you-get {
+      max-width: 640px;
+      margin: 0 auto 2rem;
+      padding: 0 1.5rem;
+    }
+
+    .what-you-get h3 {
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #555;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .benefit-list {
+      display: grid;
+      gap: 0.8rem;
+    }
+
+    .benefit {
+      display: flex;
+      gap: 0.8rem;
+      align-items: flex-start;
+      padding: 0.8rem 1rem;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    }
+
+    .benefit .icon {
+      font-size: 1.2rem;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+
+    .benefit .text {
+      font-size: 0.88rem;
+      color: #555;
+      line-height: 1.5;
+    }
+
+    .benefit .text strong {
+      color: #333;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 1.5rem 1rem;
+      font-size: 0.75rem;
+      color: #bbb;
+    }
+
+    footer a { color: #c0392b; text-decoration: none; }
+
+    /* Validation */
+    .challenge-error {
+      font-size: 0.8rem;
+      color: #dc2626;
+      margin-top: 0.4rem;
+      display: none;
+    }
+
+    /* Mobile */
+    @media (max-width: 600px) {
+      header h1 { font-size: 1.4rem; }
+      .hero h2 { font-size: 1.5rem; }
+      .challenge-grid { grid-template-columns: 1fr; }
+      .form-card { padding: 1.5rem; }
+      .frequency-options { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>The <span>Lotus</span> Lane</h1>
+    <p class="tagline">Buddhist wisdom for everyday struggles</p>
+  </header>
+
+  <div class="nav-back">
+    <a href="index.html">&larr; Back to strips</a>
+  </div>
+
+  <div class="hero">
+    <div class="hero-icon">&#x1F338;</div>
+    <h2>What's weighing on your heart?</h2>
+    <p>Tell us your struggles. We'll send you personalized wisdom from Nichiren Daishonin's writings — real encouragement for real life, right in your inbox.</p>
+  </div>
+
+  <div class="form-container">
+    <div class="form-card" id="formCard">
+      <form id="subscribeForm" onsubmit="handleSubmit(event)">
+
+        <!-- Challenges -->
+        <div class="form-group">
+          <label>What are you going through? <span class="hint">(pick 1-3)</span></label>
+          <div class="challenge-grid">
+            <div class="challenge-option">
+              <input type="checkbox" id="ch-career" name="challenges" value="career">
+              <label for="ch-career"><span class="emoji">&#x1F4BC;</span> Career &amp; Work</label>
+            </div>
+            <div class="challenge-option">
+              <input type="checkbox" id="ch-health" name="challenges" value="health">
+              <label for="ch-health"><span class="emoji">&#x1F33F;</span> Health</label>
+            </div>
+            <div class="challenge-option">
+              <input type="checkbox" id="ch-relationships" name="challenges" value="relationships">
+              <label for="ch-relationships"><span class="emoji">&#x1F49B;</span> Relationships</label>
+            </div>
+            <div class="challenge-option">
+              <input type="checkbox" id="ch-family" name="challenges" value="family">
+              <label for="ch-family"><span class="emoji">&#x1F3E0;</span> Family</label>
+            </div>
+            <div class="challenge-option">
+              <input type="checkbox" id="ch-finances" name="challenges" value="finances">
+              <label for="ch-finances"><span class="emoji">&#x1F4B0;</span> Finances</label>
+            </div>
+            <div class="challenge-option">
+              <input type="checkbox" id="ch-self-doubt" name="challenges" value="self-doubt">
+              <label for="ch-self-doubt"><span class="emoji">&#x1F6A7;</span> Self-Doubt</label>
+            </div>
+            <div class="challenge-option">
+              <input type="checkbox" id="ch-grief" name="challenges" value="grief">
+              <label for="ch-grief"><span class="emoji">&#x1F56F;</span> Grief &amp; Loss</label>
+            </div>
+            <div class="challenge-option">
+              <input type="checkbox" id="ch-perseverance" name="challenges" value="perseverance">
+              <label for="ch-perseverance"><span class="emoji">&#x26F0;</span> Perseverance</label>
+            </div>
+          </div>
+          <div class="challenge-error" id="challengeError">Please select 1-3 challenges</div>
+        </div>
+
+        <!-- Situation (optional) -->
+        <div class="form-group">
+          <label for="situation">Tell us more <span class="hint">(optional — helps us personalize)</span></label>
+          <textarea id="situation" name="situation" placeholder="e.g., I've been passed over for promotion twice and I'm wondering if I should just give up..."></textarea>
+        </div>
+
+        <!-- Name -->
+        <div class="form-group">
+          <label for="name">Your first name</label>
+          <input type="text" id="name" name="name" placeholder="What should we call you?" required>
+        </div>
+
+        <!-- Email -->
+        <div class="form-group">
+          <label for="email">Email address</label>
+          <input type="email" id="email" name="email" placeholder="you@example.com" required>
+        </div>
+
+        <!-- Frequency -->
+        <div class="form-group">
+          <label>How often?</label>
+          <div class="frequency-options">
+            <div class="frequency-option">
+              <input type="radio" id="freq-daily" name="frequency" value="daily">
+              <label for="freq-daily">
+                Daily
+                <span class="freq-detail">Every morning</span>
+              </label>
+            </div>
+            <div class="frequency-option">
+              <input type="radio" id="freq-thrice" name="frequency" value="thrice_weekly">
+              <label for="freq-thrice">
+                3x per week
+                <span class="freq-detail">Mon, Wed, Fri</span>
+              </label>
+            </div>
+            <div class="frequency-option">
+              <input type="radio" id="freq-weekly" name="frequency" value="weekly" checked>
+              <label for="freq-weekly">
+                Weekly
+                <span class="freq-detail">Every Monday</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" class="submit-btn" id="submitBtn">Start receiving wisdom</button>
+
+        <div class="form-message" id="formMessage"></div>
+      </form>
+
+      <!-- Success view (hidden by default) -->
+      <div class="success-view" id="successView">
+        <div class="icon">&#x2728;</div>
+        <h3>You're in, <span id="successName">friend</span>.</h3>
+        <p>Your first Daimoku Daily email is on its way. Each message is crafted from the writings of Nichiren Daishonin, personalized to what you're going through.</p>
+        <p style="margin-top: 1rem; font-size: 0.85rem; color: #999;">
+          "Winter always turns to spring."<br>
+          — Nichiren Daishonin
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- What you get -->
+  <div class="what-you-get">
+    <h3>Each email includes:</h3>
+    <div class="benefit-list">
+      <div class="benefit">
+        <span class="icon">&#x1F4DC;</span>
+        <div class="text"><strong>A Nichiren passage</strong> chosen specifically for your challenge — with the original source so you can read more</div>
+      </div>
+      <div class="benefit">
+        <span class="icon">&#x1F4A1;</span>
+        <div class="text"><strong>A modern interpretation</strong> of what the passage means for your specific situation today</div>
+      </div>
+      <div class="benefit">
+        <span class="icon">&#x1F9D8;</span>
+        <div class="text"><strong>A practice suggestion</strong> — one concrete thing you can do today to apply this wisdom</div>
+      </div>
+      <div class="benefit">
+        <span class="icon">&#x2764;&#xFE0F;</span>
+        <div class="text"><strong>Warm encouragement</strong> — because sometimes you just need someone to remind you that you can do this</div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>A <a href="index.html">Lotus Lane</a> project &middot; Inspired by the writings of Nichiren Daishonin</p>
+    <p style="margin-top: 0.3rem;">Free forever. Unsubscribe anytime.</p>
+  </footer>
+
+  <!-- GoatCounter analytics -->
+  <script data-goatcounter="https://zombielabs.goatcounter.com/count"
+          async src="//gc.zgo.at/count.js"></script>
+
+  <script>
+    // Supabase config (publishable/anon key only — safe for frontend)
+    const SUPABASE_URL = 'https://ejvavmpieilvigjktugh.supabase.co';
+    const SUPABASE_ANON_KEY = 'sb_publishable_mRBRRhLpQCK2_GOO_XUwsg_vcCNt51K';
+
+    // Enforce 1-3 challenge limit
+    const checkboxes = document.querySelectorAll('input[name="challenges"]');
+    checkboxes.forEach(cb => {
+      cb.addEventListener('change', () => {
+        const checked = document.querySelectorAll('input[name="challenges"]:checked');
+        if (checked.length > 3) {
+          cb.checked = false;
+        }
+        document.getElementById('challengeError').style.display = 'none';
+      });
+    });
+
+    async function handleSubmit(e) {
+      e.preventDefault();
+
+      const btn = document.getElementById('submitBtn');
+      const msg = document.getElementById('formMessage');
+      msg.className = 'form-message';
+      msg.style.display = 'none';
+
+      // Validate challenges
+      const checked = document.querySelectorAll('input[name="challenges"]:checked');
+      if (checked.length === 0 || checked.length > 3) {
+        document.getElementById('challengeError').style.display = 'block';
+        return;
+      }
+
+      const challenges = Array.from(checked).map(cb => cb.value);
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const situation = document.getElementById('situation').value.trim();
+      const frequency = document.querySelector('input[name="frequency"]:checked').value;
+
+      if (!name || !email) {
+        msg.textContent = 'Please fill in your name and email.';
+        msg.className = 'form-message error';
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = 'Signing you up...';
+
+      try {
+        const response = await fetch(`${SUPABASE_URL}/rest/v1/daimoku_subscribers`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': SUPABASE_ANON_KEY,
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+            'Prefer': 'return=minimal'
+          },
+          body: JSON.stringify({
+            email: email,
+            name: name,
+            challenges: challenges,
+            situation_text: situation || null,
+            frequency: frequency
+          })
+        });
+
+        if (response.ok || response.status === 201) {
+          // Success — show success view
+          document.getElementById('subscribeForm').style.display = 'none';
+          document.getElementById('successName').textContent = name;
+          document.getElementById('successView').style.display = 'block';
+
+          // Track signup in GoatCounter
+          if (window.goatcounter && window.goatcounter.count) {
+            window.goatcounter.count({
+              path: '/subscribe/success',
+              title: 'Daimoku Daily Signup',
+              event: true
+            });
+          }
+        } else if (response.status === 409) {
+          // Duplicate email
+          msg.textContent = 'This email is already subscribed! Check your inbox.';
+          msg.className = 'form-message error';
+          btn.disabled = false;
+          btn.textContent = 'Start receiving wisdom';
+        } else {
+          const errorData = await response.text();
+          console.error('Supabase error:', response.status, errorData);
+
+          // Check for unique constraint violation in error body
+          if (errorData.includes('duplicate') || errorData.includes('unique')) {
+            msg.textContent = 'This email is already subscribed! Check your inbox.';
+          } else {
+            msg.textContent = 'Something went wrong. Please try again.';
+          }
+          msg.className = 'form-message error';
+          btn.disabled = false;
+          btn.textContent = 'Start receiving wisdom';
+        }
+      } catch (err) {
+        console.error('Network error:', err);
+        msg.textContent = 'Network error. Please check your connection and try again.';
+        msg.className = 'form-message error';
+        btn.disabled = false;
+        btn.textContent = 'Start receiving wisdom';
+      }
+    }
+  </script>
+
+</body>
+</html>
