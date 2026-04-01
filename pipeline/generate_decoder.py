@@ -37,7 +37,7 @@ ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
 
 # ----- Constants -----
 MODEL = "claude-sonnet-4-20250514"
-MAX_TOKENS = 4096
+MAX_TOKENS = 8192
 INPUT_COST_PER_M = 3.0   # Sonnet input $/M tokens
 OUTPUT_COST_PER_M = 15.0  # Sonnet output $/M tokens
 
@@ -246,14 +246,46 @@ def call_claude(prompt: str) -> tuple:
     input_tokens = data["usage"]["input_tokens"]
     output_tokens = data["usage"]["output_tokens"]
 
-    # Parse JSON from response (handle potential markdown fencing)
+    # Parse JSON from response (handle potential markdown fencing and trailing text)
     text = text.strip()
     if text.startswith("```"):
         text = re.sub(r'^```(?:json)?\s*', '', text)
-        text = re.sub(r'\s*```$', '', text)
+        text = re.sub(r'\s*```\s*$', '', text)
 
-    result = json.loads(text)
-    return result, input_tokens, output_tokens
+    # Try direct parse first
+    try:
+        result = json.loads(text)
+        return result, input_tokens, output_tokens
+    except json.JSONDecodeError:
+        pass
+
+    # Find the outermost JSON object by brace matching
+    start = text.index('{')
+    depth = 0
+    in_string = False
+    escape_next = False
+    for i in range(start, len(text)):
+        ch = text[i]
+        if escape_next:
+            escape_next = False
+            continue
+        if ch == '\\' and in_string:
+            escape_next = True
+            continue
+        if ch == '"' and not escape_next:
+            in_string = not in_string
+            continue
+        if in_string:
+            continue
+        if ch == '{':
+            depth += 1
+        elif ch == '}':
+            depth -= 1
+            if depth == 0:
+                result = json.loads(text[start:i+1])
+                return result, input_tokens, output_tokens
+
+    raise ValueError("Could not find valid JSON object in Claude response")
 
 
 def find_related_writings(current_doc_id, current_themes, all_writings):

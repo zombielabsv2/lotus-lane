@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gosho Decoder — Nichiren's Writings Explained in Plain English | The Lotus Lane</title>
+  <meta name="description" content="Plain-English explanations of Nichiren Daishonin's most important writings (Gosho). Understand the key passages, core messages, and how they apply to modern life.">
+  <meta property="og:title" content="Gosho Decoder — Nichiren's Writings in Plain English">
+  <meta property="og:description" content="Plain-English explanations of the most important Gosho. Key passages, core teachings, and modern applications.">
+  <meta property="og:type" content="website">
+  <link rel="canonical" href="https://thelotuslane.com/decoder/index.html">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #faf9f6;
+      color: #2d2d2d;
+      min-height: 100vh;
+    }
+
+    header {
+      text-align: center;
+      padding: 1.5rem 1rem 0.8rem;
+      border-bottom: 2px solid #e8e4de;
+    }
+
+    header h1 {
+      font-size: 1.8rem;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      color: #4a4a4a;
+    }
+
+    header h1 a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    header h1 span {
+      font-weight: 600;
+      color: #c0392b;
+    }
+
+    header p.tagline {
+      font-size: 0.85rem;
+      color: #999;
+      margin-top: 0.2rem;
+      font-style: italic;
+    }
+
+    .hero {
+      max-width: 800px;
+      margin: 2rem auto 1.5rem;
+      padding: 0 1.5rem;
+      text-align: center;
+    }
+
+    .hero h2 {
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 0.6rem;
+    }
+
+    .hero p {
+      font-size: 0.95rem;
+      color: #666;
+      line-height: 1.6;
+    }
+
+    .search-bar {
+      max-width: 600px;
+      margin: 1.5rem auto 0.5rem;
+      padding: 0 1.5rem;
+    }
+
+    .search-bar input {
+      width: 100%;
+      padding: 0.7rem 1rem;
+      border: 1px solid #d4cfc7;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      background: white;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .search-bar input:focus {
+      border-color: #c0392b;
+    }
+
+    .filter-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+      padding: 0.8rem 1.5rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .filter-bar label {
+      font-size: 0.8rem;
+      color: #999;
+      font-weight: 500;
+    }
+
+    .tag-btn {
+      padding: 0.25rem 0.7rem;
+      border: 1px solid #d4cfc7;
+      border-radius: 999px;
+      background: white;
+      font-size: 0.75rem;
+      color: #666;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .tag-btn:hover { border-color: #c0392b; color: #c0392b; }
+    .tag-btn.active { background: #c0392b; color: white; border-color: #c0392b; }
+
+    .count-label {
+      text-align: center;
+      font-size: 0.82rem;
+      color: #999;
+      margin: 0.8rem 0;
+    }
+
+    .writings-grid {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 1.5rem 3rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .writing-card {
+      display: block;
+      background: white;
+      border: 1px solid #e8e4de;
+      border-radius: 8px;
+      padding: 1.2rem;
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.2s;
+    }
+
+    .writing-card:hover {
+      border-color: #c0392b;
+      box-shadow: 0 2px 12px rgba(192, 57, 43, 0.08);
+      transform: translateY(-1px);
+    }
+
+    .writing-card.hidden {
+      display: none;
+    }
+
+    .card-collection {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #999;
+      margin-bottom: 0.3rem;
+    }
+
+    .writing-card h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 0.4rem;
+      line-height: 1.3;
+    }
+
+    .card-snippet {
+      font-size: 0.82rem;
+      color: #777;
+      line-height: 1.5;
+      margin-bottom: 0.6rem;
+    }
+
+    .card-tags {
+      display: flex;
+      gap: 0.3rem;
+      flex-wrap: wrap;
+    }
+
+    .card-tag {
+      font-size: 0.68rem;
+      padding: 0.15rem 0.5rem;
+      background: #f0ede8;
+      border-radius: 999px;
+      color: #777;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem 1rem;
+      font-size: 0.75rem;
+      color: #bbb;
+      border-top: 1px solid #e8e4de;
+    }
+
+    footer a { color: #c0392b; text-decoration: none; }
+
+    @media (max-width: 600px) {
+      header h1 { font-size: 1.4rem; }
+      .hero h2 { font-size: 1.3rem; }
+      .writings-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1><a href="https://thelotuslane.com/">The <span>Lotus</span> Lane</a></h1>
+    <p class="tagline">Gosho Decoder — Buddhist wisdom in plain English</p>
+  </header>
+
+  <div class="hero">
+    <h2>Nichiren's Writings, Decoded</h2>
+    <p>Plain-English explanations of the most important Gosho (writings of Nichiren Daishonin). Each page breaks down the background, key passages, core message, and how it applies to your life today.</p>
+  </div>
+
+  <div class="search-bar">
+    <input type="text" id="searchInput" placeholder="Search writings by title..." oninput="filterCards()">
+  </div>
+
+  <div class="filter-bar">
+    <label>Themes:</label>
+    <button class="tag-btn active" onclick="filterByTheme(null)">All</button>
+      <button class="tag-btn" data-theme="correct teaching" onclick="filterByTheme('correct teaching')">Correct Teaching</button>
+      <button class="tag-btn" data-theme="courage" onclick="filterByTheme('courage')">Courage</button>
+      <button class="tag-btn" data-theme="faith" onclick="filterByTheme('faith')">Faith</button>
+      <button class="tag-btn" data-theme="human revolution" onclick="filterByTheme('human revolution')">Human Revolution</button>
+      <button class="tag-btn" data-theme="karma" onclick="filterByTheme('karma')">Karma</button>
+      <button class="tag-btn" data-theme="lotus sutra" onclick="filterByTheme('lotus sutra')">Lotus Sutra</button>
+      <button class="tag-btn" data-theme="mentor-disciple" onclick="filterByTheme('mentor-disciple')">Mentor Disciple</button>
+      <button class="tag-btn" data-theme="perseverance" onclick="filterByTheme('perseverance')">Perseverance</button>
+      <button class="tag-btn" data-theme="prayer" onclick="filterByTheme('prayer')">Prayer</button>
+      <button class="tag-btn" data-theme="wisdom" onclick="filterByTheme('wisdom')">Wisdom</button>
+
+  </div>
+
+  <div class="count-label" id="countLabel">10 writings decoded</div>
+
+  <div class="writings-grid" id="writingsGrid">
+    
+      <a href="the-opening-of-the-eyes.html" class="writing-card" data-themes="faith perseverance courage mentor-disciple correct teaching" data-title="the opening of the eyes">
+        <div class="card-collection">WND Vol. 1</div>
+        <h3>The Opening of the Eyes</h3>
+        <p class="card-snippet">Nichiren is making a profound declaration: he is not just another Buddhist priest, but the Buddha who has appeared to save humanity in this...</p>
+        <div class="card-tags"><span class="card-tag">Faith</span><span class="card-tag">Perseverance</span><span class="card-tag">Courage</span><span class="card-tag">Mentor Disciple</span><span class="card-tag">Correct Teaching</span></div>
+      </a>
+      <a href="conversation-between-a-sage-and-an-unenlightened-man.html" class="writing-card" data-themes="" data-title="conversation between a sage and an unenlightened man">
+        <div class="card-collection">WND Vol. 1</div>
+        <h3>Conversation between a Sage and an Unenlightened Man</h3>
+        <p class="card-snippet">Nichiren's fundamental message is that in our confused age, we need to rely on the correct Buddhist teaching to avoid falling into spiritual dead...</p>
+        <div class="card-tags"></div>
+      </a>
+      <a href="letter-to-shimoyama.html" class="writing-card" data-themes="correct teaching lotus sutra faith mentor-disciple courage" data-title="letter to shimoyama">
+        <div class="card-collection">WND Vol. 2</div>
+        <h3>Letter to Shimoyama</h3>
+        <p class="card-snippet">Nichiren is making a passionate case that not all religious teachings are equal, and that choosing the wrong one has serious consequences for...</p>
+        <div class="card-tags"><span class="card-tag">Correct Teaching</span><span class="card-tag">Lotus Sutra</span><span class="card-tag">Faith</span><span class="card-tag">Mentor Disciple</span><span class="card-tag">Courage</span></div>
+      </a>
+      <a href="on-repaying-debts-of-gratitude.html" class="writing-card" data-themes="mentor-disciple wisdom correct teaching lotus sutra perseverance" data-title="on repaying debts of gratitude">
+        <div class="card-collection">WND Vol. 1</div>
+        <h3>On Repaying Debts of Gratitude</h3>
+        <p class="card-snippet">This writing centers on the idea that true gratitude requires wisdom and correct action, not just good feelings. Nichiren explains that we all owe...</p>
+        <div class="card-tags"><span class="card-tag">Mentor Disciple</span><span class="card-tag">Wisdom</span><span class="card-tag">Correct Teaching</span><span class="card-tag">Lotus Sutra</span><span class="card-tag">Perseverance</span></div>
+      </a>
+      <a href="on-the-protection-of-the-nation.html" class="writing-card" data-themes="" data-title="on the protection of the nation">
+        <div class="card-collection">WND Vol. 2</div>
+        <h3>On the Protection of the Nation</h3>
+        <p class="card-snippet">Nichiren's central message is that Japan's disasters stem from following corrupted Buddhism, specifically Honen's Pure Land teachings that focus...</p>
+        <div class="card-tags"></div>
+      </a>
+      <a href="the-meaning-of-the-sacred-teachings-of-the-buddhas-lifetime.html" class="writing-card" data-themes="lotus sutra faith wisdom correct teaching human revolution" data-title="the meaning of the sacred teachings of the buddha’s lifetime">
+        <div class="card-collection">WND Vol. 2</div>
+        <h3>The Meaning of the Sacred Teachings of the Buddha’s Lifetime</h3>
+        <p class="card-snippet">Imagine you're trying to find the best medicine for humanity's suffering. Nichiren is systematically examining every medicine Buddha ever prescribed...</p>
+        <div class="card-tags"><span class="card-tag">Lotus Sutra</span><span class="card-tag">Faith</span><span class="card-tag">Wisdom</span><span class="card-tag">Correct Teaching</span><span class="card-tag">Human Revolution</span></div>
+      </a>
+      <a href="the-object-of-devotion-for-observing-the-mind-established-in-the-fifth-five.html" class="writing-card" data-themes="faith lotus sutra correct teaching human revolution prayer" data-title="the object of devotion for observing the mind established in the fifth five-hundred-year period after the thus come one’s passing">
+        <div class="card-collection">WND Vol. 1</div>
+        <h3>The Object of Devotion for Observing the Mind Established in the Fifth Five-Hundred-Year Period after the Thus Come One’s Passing</h3>
+        <p class="card-snippet">Imagine you're looking at yourself in a mirror, but instead of just seeing your physical appearance, you could see your true spiritual potential....</p>
+        <div class="card-tags"><span class="card-tag">Faith</span><span class="card-tag">Lotus Sutra</span><span class="card-tag">Correct Teaching</span><span class="card-tag">Human Revolution</span><span class="card-tag">Prayer</span></div>
+      </a>
+      <a href="the-selection-of-the-time.html" class="writing-card" data-themes="correct teaching lotus sutra perseverance courage faith" data-title="the selection of the time">
+        <div class="card-collection">WND Vol. 1</div>
+        <h3>The Selection of the Time</h3>
+        <p class="card-snippet">The central teaching of 'The Selection of the Time' is that we are now living in the age when Nam-myoho-renge-kyo—the essence of the Lotus Sutra—is...</p>
+        <div class="card-tags"><span class="card-tag">Correct Teaching</span><span class="card-tag">Lotus Sutra</span><span class="card-tag">Perseverance</span><span class="card-tag">Courage</span><span class="card-tag">Faith</span></div>
+      </a>
+      <a href="the-unanimous-declaration-by-the-buddhas-of-the-three-existences-regarding-the.html" class="writing-card" data-themes="lotus sutra correct teaching wisdom human revolution faith" data-title="the unanimous declaration by the buddhas of the three existences regarding the classification of the teachings and which are to be abandoned and which upheld">
+        <div class="card-collection">WND Vol. 2</div>
+        <h3>The Unanimous Declaration by the Buddhas of the Three Existences regarding the Classification of the Teachings and Which Are to Be Abandoned and Which Upheld</h3>
+        <p class="card-snippet">Imagine you've been trying to solve a complex puzzle with only half the pieces. That's what Nichiren says happened with Buddhism before the Lotus...</p>
+        <div class="card-tags"><span class="card-tag">Lotus Sutra</span><span class="card-tag">Correct Teaching</span><span class="card-tag">Wisdom</span><span class="card-tag">Human Revolution</span><span class="card-tag">Faith</span></div>
+      </a>
+      <a href="what-it-means-to-slander-the-law.html" class="writing-card" data-themes="correct teaching lotus sutra karma mentor-disciple wisdom" data-title="what it means to slander the law">
+        <div class="card-collection">WND Vol. 2</div>
+        <h3>What It Means to Slander the Law</h3>
+        <p class="card-snippet">Nichiren is addressing a fundamental question that every spiritual seeker faces: How do I know if I'm following the right path? In 13th-century...</p>
+        <div class="card-tags"><span class="card-tag">Correct Teaching</span><span class="card-tag">Lotus Sutra</span><span class="card-tag">Karma</span><span class="card-tag">Mentor Disciple</span><span class="card-tag">Wisdom</span></div>
+      </a>
+  </div>
+
+  <footer>
+    <p>Gosho Decoder is part of <a href="https://thelotuslane.com/">The Lotus Lane</a> &mdash; Buddhist wisdom for everyday life</p>
+    <p style="margin-top:0.3rem;">Explanations generated with AI assistance. Source texts &copy; Soka Gakkai. <a href="https://www.nichirenlibrary.org" target="_blank" rel="noopener">Nichiren Library</a>.</p>
+  </footer>
+
+  <script data-goatcounter="https://zombielabs.goatcounter.com/count"
+          async src="//gc.zgo.at/count.js"></script>
+
+  <script>
+    let activeTheme = null;
+
+    function filterByTheme(theme) {
+      activeTheme = theme;
+      document.querySelectorAll('.tag-btn').forEach(btn => {
+        btn.classList.toggle('active',
+          theme === null ? btn.textContent === 'All' : btn.dataset.theme === theme);
+      });
+      filterCards();
+    }
+
+    function filterCards() {
+      const query = document.getElementById('searchInput').value.toLowerCase().trim();
+      const cards = document.querySelectorAll('.writing-card');
+      let visible = 0;
+
+      cards.forEach(card => {
+        const title = card.dataset.title || '';
+        const themes = card.dataset.themes || '';
+        const matchesSearch = !query || title.includes(query);
+        const matchesTheme = !activeTheme || themes.includes(activeTheme);
+        const show = matchesSearch && matchesTheme;
+        card.classList.toggle('hidden', !show);
+        if (show) visible++;
+      });
+
+      document.getElementById('countLabel').textContent =
+        visible + ' writing' + (visible !== 1 ? 's' : '') + ' found';
+    }
+  </script>
+</body>
+</html>
