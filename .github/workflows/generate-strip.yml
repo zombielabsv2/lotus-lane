@@ -33,7 +33,9 @@ jobs:
           python-version: '3.12'
 
       - name: Install dependencies
-        run: pip install -r pipeline/requirements.txt
+        run: |
+          pip install -r pipeline/requirements.txt
+          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
 
       - name: Generate strip
         env:
@@ -49,6 +51,18 @@ jobs:
             ARGS="$ARGS --dry-run"
           fi
           eval python pipeline/generate_strip.py $ARGS
+
+      - name: Generate YouTube Short video
+        if: ${{ github.event.inputs.dry_run != 'true' }}
+        run: python pipeline/video_generator.py --date $(date +%Y-%m-%d)
+
+      - name: Upload to YouTube
+        if: ${{ github.event.inputs.dry_run != 'true' }}
+        env:
+          YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+          YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+          YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
+        run: python pipeline/youtube_upload.py --latest
 
       - name: Commit and push new strip
         if: ${{ github.event.inputs.dry_run != 'true' }}

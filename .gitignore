@@ -3,3 +3,5 @@ __pycache__/
 *.pyc
 .DS_Store
 strips/cache/
+.youtube_token.json
+client_secret.json
