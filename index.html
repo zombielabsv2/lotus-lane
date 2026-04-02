@@ -258,13 +258,19 @@
           <div class="strip-source" id="quoteSource"></div>
         </div>
         <div class="strip-tags" id="stripTags"></div>
-        <div style="margin-top:1rem;">
+        <div style="margin-top:1rem; display:flex; gap:0.5rem; flex-wrap:wrap;">
           <button id="shareBtn" onclick="shareStrip()" style="
             display:inline-flex; align-items:center; gap:0.4rem;
             padding:0.5rem 1rem; border:none; border-radius:8px;
             background:#25D366; color:white; font-size:0.85rem;
             cursor:pointer; font-weight:500;
           ">Share on WhatsApp</button>
+          <a id="ytShortsLink" href="#" target="_blank" rel="noopener" style="
+            display:none; align-items:center; gap:0.4rem;
+            padding:0.5rem 1rem; border:none; border-radius:8px;
+            background:#FF0000; color:white; font-size:0.85rem;
+            text-decoration:none; font-weight:500;
+          ">Watch on YouTube</a>
         </div>
       </div>
     </div>
@@ -462,6 +468,15 @@
         span.textContent = tag;
         tagsEl.appendChild(span);
       });
+
+      // Show YouTube Shorts link if available
+      const ytLink = document.getElementById('ytShortsLink');
+      if (strip.youtube_id) {
+        ytLink.href = 'https://youtube.com/shorts/' + strip.youtube_id;
+        ytLink.style.display = 'inline-flex';
+      } else {
+        ytLink.style.display = 'none';
+      }
 
       // Update all nav buttons
       const isFirst = currentIndex <= 0;
