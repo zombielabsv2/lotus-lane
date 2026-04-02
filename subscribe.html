@@ -618,6 +618,9 @@
           document.getElementById('successName').textContent = name;
           document.getElementById('successView').style.display = 'block';
 
+          // Scroll to success message
+          document.getElementById('successView').scrollIntoView({ behavior: 'smooth' });
+
           // Track signup in GoatCounter
           if (window.goatcounter && window.goatcounter.count) {
             window.goatcounter.count({
@@ -626,6 +629,7 @@
               event: true
             });
           }
+
         } else if (response.status === 409) {
           // Duplicate email
           msg.textContent = 'This email is already subscribed! Check your inbox.';
