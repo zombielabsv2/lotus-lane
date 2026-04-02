@@ -277,16 +277,41 @@
     <button class="nav-btn" onclick="navigate(-1)">Newer &#8594;</button>
   </div>
 
-  <!-- Daimoku Daily CTA -->
+  <!-- Email signup for new content -->
   <div style="max-width:900px; margin:2rem auto 0; padding:0 1rem;">
+    <div style="background:white; border-radius:12px; box-shadow:0 2px 16px rgba(0,0,0,0.06);
+                padding:1.5rem; border:1px solid #e8e4de; text-align:center;">
+      <div style="font-size:0.95rem; font-weight:600; color:#333; margin-bottom:0.3rem;">
+        Get new strips + YouTube Shorts in your inbox
+      </div>
+      <div style="font-size:0.8rem; color:#888; margin-bottom:0.8rem;">
+        Every Mon, Wed, Fri. No spam. Unsubscribe anytime.
+      </div>
+      <form id="contentSignup" onsubmit="handleContentSignup(event)" style="
+        display:flex; gap:0.5rem; max-width:420px; margin:0 auto;
+      ">
+        <input type="email" id="contentEmail" required placeholder="Your email"
+          style="flex:1; padding:0.5rem 0.8rem; border:1px solid #d4cfc7; border-radius:8px;
+                 font-size:0.85rem; outline:none;">
+        <button type="submit" id="contentBtn" style="
+          padding:0.5rem 1rem; background:#c0392b; color:white; border:none;
+          border-radius:8px; font-size:0.85rem; cursor:pointer; font-weight:500;
+          white-space:nowrap;
+        ">Subscribe</button>
+      </form>
+      <div id="contentMsg" style="font-size:0.8rem; margin-top:0.5rem; display:none;"></div>
+    </div>
+  </div>
+
+  <!-- Daimoku Daily CTA -->
+  <div style="max-width:900px; margin:1rem auto 0; padding:0 1rem;">
     <a href="subscribe.html" style="
       display:block; text-decoration:none; background:white; border-radius:12px;
-      box-shadow:0 2px 16px rgba(0,0,0,0.06); padding:1.5rem; text-align:center;
+      box-shadow:0 2px 16px rgba(0,0,0,0.06); padding:1.2rem; text-align:center;
       border:1.5px solid #e8e4de; transition:border-color 0.2s;
     " onmouseover="this.style.borderColor='#c0392b'" onmouseout="this.style.borderColor='#e8e4de'">
-      <div style="font-size:1.5rem; margin-bottom:0.3rem;">&#x1F338;</div>
-      <div style="font-size:1rem; font-weight:600; color:#333; margin-bottom:0.3rem;">Daimoku Daily</div>
-      <div style="font-size:0.85rem; color:#777;">Get personalized Buddhist wisdom in your inbox &rarr;</div>
+      <div style="font-size:0.9rem; font-weight:600; color:#333; margin-bottom:0.2rem;">Want personalized guidance?</div>
+      <div style="font-size:0.8rem; color:#777;">Try Daimoku Daily — wisdom tailored to your challenges &rarr;</div>
     </a>
   </div>
 
@@ -449,6 +474,55 @@
         `Read more: https://tinyurl.com/thelotuslane`;
       const url = `https://wa.me/?text=${encodeURIComponent(text)}`;
       window.open(url, '_blank');
+    }
+
+    // Content email signup
+    async function handleContentSignup(e) {
+      e.preventDefault();
+      const email = document.getElementById('contentEmail').value.trim();
+      const btn = document.getElementById('contentBtn');
+      const msg = document.getElementById('contentMsg');
+      if (!email) return;
+
+      btn.disabled = true;
+      btn.textContent = 'Subscribing...';
+
+      try {
+        const resp = await fetch('https://ejvavmpieilvigjktugh.supabase.co/rest/v1/content_subscribers', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': 'sb_publishable_mRBRRhLpQCK2_GOO_XUwsg_vcCNt51K',
+            'Authorization': 'Bearer sb_publishable_mRBRRhLpQCK2_GOO_XUwsg_vcCNt51K',
+            'Prefer': 'return=minimal'
+          },
+          body: JSON.stringify({ email: email })
+        });
+
+        if (resp.ok || resp.status === 201) {
+          document.getElementById('contentSignup').style.display = 'none';
+          msg.style.display = 'block';
+          msg.style.color = '#27ae60';
+          msg.textContent = "You're in! You'll get new strips every Mon, Wed, Fri.";
+        } else {
+          const errText = await resp.text();
+          if (errText.includes('duplicate') || errText.includes('unique') || resp.status === 409) {
+            msg.style.display = 'block';
+            msg.style.color = '#888';
+            msg.textContent = "You're already subscribed!";
+          } else {
+            throw new Error(errText);
+          }
+          btn.disabled = false;
+          btn.textContent = 'Subscribe';
+        }
+      } catch (err) {
+        msg.style.display = 'block';
+        msg.style.color = '#c0392b';
+        msg.textContent = 'Something went wrong. Try again.';
+        btn.disabled = false;
+        btn.textContent = 'Subscribe';
+      }
     }
 
     // Keyboard navigation

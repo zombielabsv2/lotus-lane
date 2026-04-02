@@ -77,10 +77,12 @@ jobs:
             git push
           fi
 
-      - name: Send WhatsApp posting reminder
+      - name: Send notifications (WhatsApp reminder + content subscribers)
         if: ${{ github.event.inputs.dry_run != 'true' }}
         env:
           GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
           NOTIFY_EMAIL: ${{ secrets.NOTIFY_EMAIL }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
         run: python pipeline/notify.py
