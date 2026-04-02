@@ -1,22 +1,29 @@
 #!/usr/bin/env python3
 """
-The Lotus Lane -- YouTube Shorts Video Generator
+The Lotus Lane -- YouTube Shorts Video Generator (Audio-First Architecture)
 
 Generates 30-60 second vertical videos (1080x1920) from cached comic strip
-panels and scripts. Each panel gets a Ken Burns effect (slow zoom), dialogue
-appears as clean subtitles, and a branded end card displays the Nichiren quote.
+panels and scripts. Audio narration is generated FIRST, then video frames
+are rendered to match audio timing exactly.
+
+Pipeline:
+    1. Generate TTS audio for all dialogue (edge-tts, Indian English voices)
+    2. Measure audio durations -> calculate panel timings
+    3. Render video frames synchronized to audio
+    4. Merge audio + video with ffmpeg
 
 Requirements:
-    - ffmpeg must be installed and on PATH
-    - Pillow (already in pipeline requirements)
+    - ffmpeg (found via WinGet paths or PATH)
+    - edge-tts, pydub, Pillow
 
 Usage:
-    python pipeline/video_generator.py --date 2026-03-31    # Single date
-    python pipeline/video_generator.py --all                 # All cached strips
-    python pipeline/video_generator.py --date 2026-03-31 --fps 30  # Custom FPS
+    python pipeline/video_generator.py --date 2026-03-31
+    python pipeline/video_generator.py --all
+    python pipeline/video_generator.py --date 2026-03-31 --fps 30
 """
 
 import argparse
+import asyncio
 import json
 import math
 import os
@@ -26,7 +33,11 @@ import sys
 import tempfile
 from pathlib import Path
 
+import edge_tts
 from PIL import Image, ImageDraw, ImageFont
+
+# pydub import deferred until ffmpeg path is configured (see _init_pydub)
+AudioSegment = None
 
 # ---------------------------------------------------------------------------
 # Constants
@@ -36,40 +47,56 @@ VIDEO_WIDTH = 1080
 VIDEO_HEIGHT = 1920
 FPS_DEFAULT = 24
 
-# Timing (seconds)
-PANEL_DURATION = 9       # Each of 4 panels
-FADE_DURATION = 0.5      # Cross-fade between panels
-END_CARD_DURATION = 4    # Final quote + branding card
-
-# Ken Burns: zoom from 1.0x to this scale over the panel duration
+# Ken Burns
 KB_ZOOM_START = 1.0
-KB_ZOOM_END = 1.08
+KB_ZOOM_END = 1.05
 
-# Panel image placement: square panel occupies top portion of portrait frame
-PANEL_TOP_MARGIN = 80
-PANEL_DISPLAY_SIZE = 960  # square panel rendered at this size within 1080 width
+# Layout: panel image in top ~65%, dialogue text below in dark band
+PANEL_TOP_MARGIN = 60
+PANEL_DISPLAY_SIZE = 960  # square panel rendered at this size
 
-# Subtitle styling
-SUBTITLE_FONT_SIZE = 36
-SUBTITLE_LINE_HEIGHT = 46
-SUBTITLE_BAND_BOTTOM_MARGIN = 180  # from bottom of frame
-SUBTITLE_MAX_WIDTH = 960
-SUBTITLE_BG_ALPHA = 180  # 0-255
+# Text area below the panel image
+TEXT_AREA_TOP = PANEL_TOP_MARGIN + PANEL_DISPLAY_SIZE + 30  # 30px gap below panel
+TEXT_MARGIN_X = 60  # generous margins on each side
+TEXT_MAX_WIDTH = VIDEO_WIDTH - 2 * TEXT_MARGIN_X  # 960px
 
-# End card styling
+# Font sizes
+SPEAKER_FONT_SIZE = 34
+DIALOGUE_FONT_SIZE = 32
 ENDCARD_QUOTE_SIZE = 38
 ENDCARD_SOURCE_SIZE = 26
 ENDCARD_BRAND_SIZE = 28
 ENDCARD_MSG_SIZE = 30
 
 # Colors
-BG_COLOR = (24, 22, 28)          # Dark background
-SUBTITLE_TEXT_COLOR = (255, 255, 255)
-SUBTITLE_BG_COLOR = (0, 0, 0)
+BG_COLOR = (24, 22, 28)
+SPEAKER_COLOR = (220, 185, 100)  # Gold/amber for speaker name
+DIALOGUE_COLOR = (255, 255, 255)  # White for dialogue
+TEXT_BG_COLOR = (15, 13, 18, 200)  # Dark semi-transparent
 ENDCARD_BG = (30, 27, 35)
-ENDCARD_ACCENT = (200, 170, 100)  # Warm gold
+ENDCARD_ACCENT = (200, 170, 100)
 ENDCARD_TEXT = (240, 235, 225)
 ENDCARD_DIM = (160, 155, 145)
+
+# Timing
+SILENCE_BETWEEN_LINES_MS = 500     # 0.5s between dialogue lines in a panel
+SILENCE_BETWEEN_PANELS_MS = 800    # 0.8s between panels
+PANEL_BUFFER_SECONDS = 1.5         # extra time after audio for reading
+MIN_PANEL_DURATION = 5.0           # minimum seconds per panel
+END_CARD_DURATION = 4.0            # end card always 4 seconds
+FADE_DURATION = 0.5                # cross-fade between panels
+
+# TTS voices
+VOICES = {
+    "female": "en-IN-NeerjaExpressiveNeural",
+    "male": "en-IN-PrabhatNeural",
+}
+
+CHAR_GENDER = {
+    "meera": "female", "sudha": "female", "priya": "female",
+    "arjun": "male", "vikram": "male", "prabhat": "male",
+    "hiren": "male", "raj": "male", "amit": "male",
+}
 
 PROJECT_ROOT = Path(__file__).parent.parent
 STRIPS_DIR = PROJECT_ROOT / "strips"
@@ -78,14 +105,46 @@ FONTS_DIR = Path(__file__).parent / "fonts"
 
 
 # ---------------------------------------------------------------------------
-# Font loading
+# Utilities
 # ---------------------------------------------------------------------------
 
+def _find_ffmpeg():
+    """Find ffmpeg binary. Checks PATH then WinGet install paths."""
+    found = shutil.which("ffmpeg")
+    if found:
+        return found
+    if sys.platform == "win32":
+        home = Path.home()
+        candidates = [
+            home / "AppData" / "Local" / "Microsoft" / "WinGet" / "Packages",
+            Path("C:/ProgramData/chocolatey/bin"),
+            Path("C:/ffmpeg/bin"),
+        ]
+        for base in candidates:
+            if not base.exists():
+                continue
+            for exe in base.rglob("ffmpeg.exe"):
+                return str(exe)
+    return None
+
+
+def _init_pydub():
+    """Configure pydub to use the ffmpeg we found, then import AudioSegment."""
+    global AudioSegment
+    ffmpeg = _find_ffmpeg()
+    if ffmpeg:
+        ffmpeg_dir = str(Path(ffmpeg).parent)
+        # Set environment so pydub finds ffmpeg/ffprobe
+        os.environ["PATH"] = ffmpeg_dir + os.pathsep + os.environ.get("PATH", "")
+    from pydub import AudioSegment as _AS
+    AudioSegment = _AS
+
+
 def _load_font(size, bold=False):
-    """Load a font with fallback chain."""
+    """Load a font with fallback chain. Prefers ComicNeue."""
     candidates = [
-        FONTS_DIR / ("Nunito-Bold.ttf" if bold else "Nunito-Regular.ttf"),
         FONTS_DIR / ("ComicNeue-Bold.ttf" if bold else "ComicNeue-Regular.ttf"),
+        FONTS_DIR / ("Nunito-Bold.ttf" if bold else "Nunito-Regular.ttf"),
         Path("C:/Windows/Fonts") / ("segoeuib.ttf" if bold else "segoeui.ttf"),
         Path("C:/Windows/Fonts/arial.ttf"),
     ]
@@ -96,10 +155,6 @@ def _load_font(size, bold=False):
             continue
     return ImageFont.load_default()
 
-
-# ---------------------------------------------------------------------------
-# Text wrapping
-# ---------------------------------------------------------------------------
 
 def _wrap_text(text, font, max_width):
     """Word-wrap text to fit within max_width pixels. Returns list of lines."""
@@ -116,39 +171,287 @@ def _wrap_text(text, font, max_width):
         else:
             if current:
                 lines.append(current)
+            # Handle single word wider than max_width
             current = word
     if current:
         lines.append(current)
     return lines or [text]
 
 
+def _get_voice(speaker_name):
+    """Pick a TTS voice based on character name."""
+    name_lower = speaker_name.lower().strip()
+    gender = CHAR_GENDER.get(name_lower, None)
+    if gender:
+        return VOICES[gender]
+    # Heuristic: common Indian female name endings
+    female_hints = ["a", "i", "ee", "ya", "ta", "na", "sha", "ha"]
+    if any(name_lower.endswith(h) for h in female_hints):
+        return VOICES["female"]
+    return VOICES["male"]
+
+
+def _clean_dialogue_text(text):
+    """Remove stage directions in parentheses from dialogue text."""
+    cleaned = text.strip()
+    # Remove leading parenthetical like "(sighs)" or "(thinking)"
+    while cleaned.startswith("("):
+        paren_end = cleaned.find(")")
+        if paren_end > 0:
+            cleaned = cleaned[paren_end + 1:].strip()
+        else:
+            break
+    # Remove trailing ellipsis that might truncate
+    return cleaned
+
+
+def _parse_dialogue_line(line):
+    """Parse 'Speaker: (action) text' into (speaker, clean_text)."""
+    parts = line.split(": ", 1)
+    if len(parts) == 2:
+        speaker = parts[0].strip()
+        text = _clean_dialogue_text(parts[1])
+        # Clean parenthetical from speaker name too
+        if "(" in speaker:
+            speaker = speaker.split("(")[0].strip()
+        return speaker, text
+    return None, line.strip()
+
+
 # ---------------------------------------------------------------------------
-# Ken Burns frame generation
+# Step 1: Generate TTS audio
 # ---------------------------------------------------------------------------
 
-def _ken_burns_crop(panel_img, progress, zoom_start=KB_ZOOM_START, zoom_end=KB_ZOOM_END):
-    """Apply a gentle zoom-in Ken Burns effect to a panel image.
+async def _generate_tts_segment(text, voice, output_path, rate="-5%"):
+    """Generate a single TTS audio file. Returns True on success."""
+    try:
+        communicate = edge_tts.Communicate(text, voice, rate=rate)
+        await communicate.save(str(output_path))
+        return True
+    except Exception as e:
+        print(f"    TTS error: {e}")
+        return False
 
-    Args:
-        panel_img: PIL Image (1024x1024)
-        progress: float 0.0 to 1.0 (start to end of panel duration)
-        zoom_start: initial zoom level
-        zoom_end: final zoom level
+
+def _make_silence(duration_ms, sample_rate=44100):
+    """Create a silent AudioSegment of the given duration."""
+    return AudioSegment.silent(duration=duration_ms, frame_rate=sample_rate)
+
+
+async def generate_all_audio(script_data, tmp_dir, verbose=True):
+    """Generate TTS for all dialogue + end card quote.
 
     Returns:
-        PIL Image cropped/scaled for the current frame
+        dict with:
+            - full_audio_path: path to concatenated audio file
+            - panel_timings: list of (start_sec, end_sec) for each panel's audio
+            - end_card_audio_start: start time of end card narration
+            - total_duration_sec: total audio duration
+        or None on failure
     """
-    w, h = panel_img.size
-    # Smooth easing (ease-in-out)
-    t = 0.5 - 0.5 * math.cos(math.pi * progress)
-    zoom = zoom_start + (zoom_end - zoom_start) * t
+    panels = script_data.get("panels", [])
+    nichiren_quote = script_data.get("nichiren_quote", "")
 
-    # Calculate crop box (center crop at current zoom)
+    # Collect all segments: (panel_idx, speaker, text, voice, audio_path)
+    segments = []
+    seg_idx = 0
+
+    for panel_idx, panel in enumerate(panels):
+        for dialogue_line in panel.get("dialogue", []):
+            speaker, text = _parse_dialogue_line(dialogue_line)
+            if not text:
+                continue
+            voice = _get_voice(speaker) if speaker else VOICES["female"]
+            seg_path = Path(tmp_dir) / f"seg_{seg_idx:03d}.mp3"
+            segments.append({
+                "panel_idx": panel_idx,
+                "speaker": speaker,
+                "text": text,
+                "voice": voice,
+                "path": seg_path,
+                "type": "dialogue",
+            })
+            seg_idx += 1
+
+    # End card narration (Nichiren quote)
+    if nichiren_quote:
+        seg_path = Path(tmp_dir) / f"seg_{seg_idx:03d}.mp3"
+        segments.append({
+            "panel_idx": -1,  # end card
+            "speaker": "narrator",
+            "text": nichiren_quote,
+            "voice": VOICES["female"],
+            "path": seg_path,
+            "type": "endcard",
+        })
+        seg_idx += 1
+
+    if not segments:
+        print("    No dialogue segments found!")
+        return None
+
+    # Generate all TTS segments
+    if verbose:
+        print(f"  Generating TTS for {len(segments)} dialogue segments...")
+
+    for seg in segments:
+        success = await _generate_tts_segment(seg["text"], seg["voice"], seg["path"])
+        if not success:
+            print(f"    Failed to generate TTS for: {seg['text'][:50]}")
+            return None
+        # Load audio to get duration
+        try:
+            audio = AudioSegment.from_file(str(seg["path"]))
+            seg["duration_ms"] = len(audio)
+            seg["audio"] = audio
+        except Exception as e:
+            print(f"    Failed to load audio segment: {e}")
+            return None
+
+    if verbose:
+        for seg in segments:
+            dur = seg["duration_ms"] / 1000
+            print(f"    [{seg['type']}] {seg.get('speaker', '?')}: {dur:.1f}s - {seg['text'][:60]}")
+
+    # Concatenate audio with proper silences
+    full_audio = AudioSegment.empty()
+    panel_timings = []  # (start_ms, end_ms) for each panel
+    current_ms = 0
+
+    # Group segments by panel
+    panel_segments = {}
+    endcard_segments = []
+    for seg in segments:
+        if seg["type"] == "endcard":
+            endcard_segments.append(seg)
+        else:
+            pidx = seg["panel_idx"]
+            if pidx not in panel_segments:
+                panel_segments[pidx] = []
+            panel_segments[pidx].append(seg)
+
+    # Build audio for panels 0-3
+    for panel_idx in range(4):
+        panel_start_ms = current_ms
+        panel_segs = panel_segments.get(panel_idx, [])
+
+        for i, seg in enumerate(panel_segs):
+            full_audio += seg["audio"]
+            current_ms += seg["duration_ms"]
+
+            # Add silence between dialogue lines within the same panel
+            if i < len(panel_segs) - 1:
+                silence = _make_silence(SILENCE_BETWEEN_LINES_MS)
+                full_audio += silence
+                current_ms += SILENCE_BETWEEN_LINES_MS
+
+        panel_end_ms = current_ms
+        panel_timings.append((panel_start_ms, panel_end_ms))
+
+        # Add silence between panels (except after last panel)
+        if panel_idx < 3:
+            silence = _make_silence(SILENCE_BETWEEN_PANELS_MS)
+            full_audio += silence
+            current_ms += SILENCE_BETWEEN_PANELS_MS
+
+    # Add silence before end card narration
+    endcard_audio_start_ms = current_ms
+    if endcard_segments:
+        silence = _make_silence(SILENCE_BETWEEN_PANELS_MS)
+        full_audio += silence
+        current_ms += SILENCE_BETWEEN_PANELS_MS
+        endcard_audio_start_ms = current_ms
+
+        for seg in endcard_segments:
+            full_audio += seg["audio"]
+            current_ms += seg["duration_ms"]
+
+    # Pad end with a bit of silence
+    full_audio += _make_silence(500)
+    current_ms += 500
+
+    # Export full audio
+    full_audio_path = Path(tmp_dir) / "full_narration.m4a"
+    full_audio.export(str(full_audio_path), format="ipod", bitrate="128k")
+
+    total_duration_sec = current_ms / 1000.0
+    if verbose:
+        print(f"\n  Total audio duration: {total_duration_sec:.1f}s")
+        for i, (s, e) in enumerate(panel_timings):
+            print(f"    Panel {i+1}: {s/1000:.1f}s - {e/1000:.1f}s ({(e-s)/1000:.1f}s)")
+        print(f"    End card narration starts: {endcard_audio_start_ms/1000:.1f}s")
+
+    return {
+        "full_audio_path": full_audio_path,
+        "panel_timings": panel_timings,  # list of (start_ms, end_ms)
+        "endcard_audio_start_ms": endcard_audio_start_ms,
+        "total_duration_ms": current_ms,
+    }
+
+
+# ---------------------------------------------------------------------------
+# Step 2: Calculate panel durations from audio
+# ---------------------------------------------------------------------------
+
+def calculate_video_timings(audio_info):
+    """Calculate how long each panel should display based on audio timings.
+
+    Returns:
+        list of dicts with panel_idx, start_sec, duration_sec, audio_start_sec, audio_end_sec
+        + end_card entry
+    """
+    panel_timings = audio_info["panel_timings"]
+    endcard_audio_start_ms = audio_info["endcard_audio_start_ms"]
+    total_audio_ms = audio_info["total_duration_ms"]
+
+    video_sections = []
+    current_video_sec = 0.0
+
+    for i, (audio_start_ms, audio_end_ms) in enumerate(panel_timings):
+        audio_dur_sec = (audio_end_ms - audio_start_ms) / 1000.0
+        # Panel stays on screen for audio duration + buffer, minimum MIN_PANEL_DURATION
+        panel_dur = max(audio_dur_sec + PANEL_BUFFER_SECONDS, MIN_PANEL_DURATION)
+
+        video_sections.append({
+            "type": "panel",
+            "panel_idx": i,
+            "video_start_sec": current_video_sec,
+            "duration_sec": panel_dur,
+            "audio_start_ms": audio_start_ms,
+            "audio_end_ms": audio_end_ms,
+        })
+        current_video_sec += panel_dur
+
+    # End card
+    endcard_audio_dur = (total_audio_ms - endcard_audio_start_ms) / 1000.0
+    endcard_dur = max(END_CARD_DURATION, endcard_audio_dur + 1.0)
+    video_sections.append({
+        "type": "endcard",
+        "panel_idx": -1,
+        "video_start_sec": current_video_sec,
+        "duration_sec": endcard_dur,
+        "audio_start_ms": endcard_audio_start_ms,
+        "audio_end_ms": total_audio_ms,
+    })
+    current_video_sec += endcard_dur
+
+    return video_sections, current_video_sec
+
+
+# ---------------------------------------------------------------------------
+# Step 3: Render video frames
+# ---------------------------------------------------------------------------
+
+def _ken_burns_crop(panel_img, progress):
+    """Apply a gentle zoom-in Ken Burns effect to a panel image."""
+    w, h = panel_img.size
+    t = 0.5 - 0.5 * math.cos(math.pi * progress)
+    zoom = KB_ZOOM_START + (KB_ZOOM_END - KB_ZOOM_START) * t
+
     crop_w = w / zoom
     crop_h = h / zoom
-    # Slight drift toward top-right as we zoom
-    drift_x = 0.5 + 0.03 * t
-    drift_y = 0.5 - 0.02 * t
+    drift_x = 0.5 + 0.02 * t
+    drift_y = 0.5 - 0.01 * t
     left = (w - crop_w) * drift_x
     top = (h - crop_h) * drift_y
     right = left + crop_w
@@ -158,82 +461,113 @@ def _ken_burns_crop(panel_img, progress, zoom_start=KB_ZOOM_START, zoom_end=KB_Z
     return cropped.resize((PANEL_DISPLAY_SIZE, PANEL_DISPLAY_SIZE), Image.LANCZOS)
 
 
-def _compose_panel_frame(panel_img_kb, dialogue_lines, font, font_bold):
-    """Compose a single video frame: dark background + panel + subtitles.
+def _compose_panel_frame(panel_img_kb, dialogue_lines, font_speaker, font_dialogue):
+    """Compose a single video frame: dark bg + panel image in top area + text below.
 
-    Args:
-        panel_img_kb: Ken Burns processed panel image (PANEL_DISPLAY_SIZE x PANEL_DISPLAY_SIZE)
-        dialogue_lines: list of dialogue strings for this panel
-        font: regular subtitle font
-        font_bold: bold subtitle font (for speaker names)
-
-    Returns:
-        PIL Image (VIDEO_WIDTH x VIDEO_HEIGHT)
+    Text is rendered BELOW the image in a clean dark band, not overlaid on the image.
     """
-    frame = Image.new("RGB", (VIDEO_WIDTH, VIDEO_HEIGHT), BG_COLOR)
+    frame = Image.new("RGBA", (VIDEO_WIDTH, VIDEO_HEIGHT), (*BG_COLOR, 255))
 
-    # Place panel centered horizontally, near top
+    # Place panel image centered, near top
     panel_x = (VIDEO_WIDTH - PANEL_DISPLAY_SIZE) // 2
-    frame.paste(panel_img_kb, (panel_x, PANEL_TOP_MARGIN))
+    panel_rgba = panel_img_kb.convert("RGBA")
+    frame.paste(panel_rgba, (panel_x, PANEL_TOP_MARGIN))
 
     if not dialogue_lines:
-        return frame
+        return frame.convert("RGB")
 
-    # Build subtitle text block
-    all_lines = []
-    for line in dialogue_lines[:3]:
-        parts = line.split(": ", 1)
-        if len(parts) == 2:
-            speaker, text = parts[0], parts[1]
-            # Clean up parenthetical stage directions in speaker
-            if "(" in speaker:
-                speaker = speaker.split("(")[0].strip()
+    # Parse and wrap all dialogue lines
+    rendered_lines = []  # list of (speaker_or_none, wrapped_text_line)
+    for line in dialogue_lines:
+        speaker, text = _parse_dialogue_line(line)
+        if not text:
+            continue
+
+        # Measure speaker prefix width to calculate available text width
+        if speaker:
+            speaker_prefix = f"{speaker}: "
+            sp_bbox = font_speaker.getbbox(speaker_prefix)
+            speaker_width = sp_bbox[2] - sp_bbox[0]
         else:
-            speaker, text = None, line
+            speaker_prefix = ""
+            speaker_width = 0
 
-        wrapped = _wrap_text(text, font, SUBTITLE_MAX_WIDTH - 20)
+        # Wrap text considering speaker prefix on first line
+        first_line_width = TEXT_MAX_WIDTH - speaker_width
+        remaining_width = TEXT_MAX_WIDTH
+
+        wrapped = _wrap_text(text, font_dialogue, first_line_width)
+        # Re-wrap: first line is shorter (speaker takes space), rest use full width
+        if len(wrapped) > 1:
+            # More careful wrap: first line constrained, continuation lines full width
+            words = text.split()
+            lines_out = []
+            current = ""
+            tmp_img = Image.new("RGB", (1, 1))
+            tmp_draw = ImageDraw.Draw(tmp_img)
+            is_first = True
+            max_w = first_line_width if is_first else remaining_width
+
+            for word in words:
+                test_str = f"{current} {word}".strip()
+                bbox = tmp_draw.textbbox((0, 0), test_str, font=font_dialogue)
+                w = bbox[2] - bbox[0]
+                if w <= max_w:
+                    current = test_str
+                else:
+                    if current:
+                        lines_out.append(current)
+                    current = word
+                    is_first = False
+                    max_w = remaining_width
+            if current:
+                lines_out.append(current)
+            wrapped = lines_out if lines_out else [text]
+
         for i, wline in enumerate(wrapped):
-            all_lines.append((speaker if i == 0 else None, wline))
+            rendered_lines.append((speaker if i == 0 else None, wline))
 
-    if not all_lines:
-        return frame
+    if not rendered_lines:
+        return frame.convert("RGB")
 
-    # Calculate subtitle band dimensions
-    band_h = len(all_lines) * SUBTITLE_LINE_HEIGHT + 24  # padding
-    band_y = VIDEO_HEIGHT - SUBTITLE_BAND_BOTTOM_MARGIN - band_h
-    band_x = (VIDEO_WIDTH - SUBTITLE_MAX_WIDTH) // 2
+    # Calculate text band dimensions
+    line_height = DIALOGUE_FONT_SIZE + 14  # line spacing
+    total_text_height = len(rendered_lines) * line_height + 20  # padding
 
-    # Draw semi-transparent background band
+    # Position text below the panel image
+    text_band_y = TEXT_AREA_TOP
+    text_band_height = total_text_height
+
+    # Draw semi-transparent background band for text
     overlay = Image.new("RGBA", (VIDEO_WIDTH, VIDEO_HEIGHT), (0, 0, 0, 0))
     overlay_draw = ImageDraw.Draw(overlay)
+    band_left = TEXT_MARGIN_X - 15
+    band_right = VIDEO_WIDTH - TEXT_MARGIN_X + 15
     overlay_draw.rounded_rectangle(
-        [band_x - 10, band_y - 8, band_x + SUBTITLE_MAX_WIDTH + 10, band_y + band_h + 8],
+        [band_left, text_band_y - 10, band_right, text_band_y + text_band_height + 10],
         radius=16,
-        fill=(*SUBTITLE_BG_COLOR, SUBTITLE_BG_ALPHA),
+        fill=TEXT_BG_COLOR,
     )
-    frame = Image.alpha_composite(frame.convert("RGBA"), overlay).convert("RGB")
+    frame = Image.alpha_composite(frame, overlay)
 
+    # Draw text
     draw = ImageDraw.Draw(frame)
-    text_y = band_y + 12
-    for speaker, wline in all_lines:
-        x = band_x + 10
+    text_y = text_band_y + 10
+    for speaker, wline in rendered_lines:
+        x = TEXT_MARGIN_X
         if speaker:
-            name_text = f"{speaker}: "
-            draw.text((x, text_y), name_text, fill=ENDCARD_ACCENT, font=font_bold)
-            name_bbox = draw.textbbox((0, 0), name_text, font=font_bold)
-            x += name_bbox[2] - name_bbox[0]
-        draw.text((x, text_y), wline, fill=SUBTITLE_TEXT_COLOR, font=font)
-        text_y += SUBTITLE_LINE_HEIGHT
+            speaker_text = f"{speaker}: "
+            draw.text((x, text_y), speaker_text, fill=SPEAKER_COLOR, font=font_speaker)
+            sp_bbox = draw.textbbox((0, 0), speaker_text, font=font_speaker)
+            x += sp_bbox[2] - sp_bbox[0]
+        draw.text((x, text_y), wline, fill=DIALOGUE_COLOR, font=font_dialogue)
+        text_y += line_height
 
-    return frame
+    return frame.convert("RGB")
 
 
 def _compose_end_card(nichiren_quote, source, message, title):
-    """Create the branded end card frame with Nichiren quote.
-
-    Returns:
-        PIL Image (VIDEO_WIDTH x VIDEO_HEIGHT)
-    """
+    """Create the branded end card frame with Nichiren quote."""
     frame = Image.new("RGB", (VIDEO_WIDTH, VIDEO_HEIGHT), ENDCARD_BG)
     draw = ImageDraw.Draw(frame)
 
@@ -242,7 +576,7 @@ def _compose_end_card(nichiren_quote, source, message, title):
     font_brand = _load_font(ENDCARD_BRAND_SIZE, bold=True)
     font_msg = _load_font(ENDCARD_MSG_SIZE, bold=False)
 
-    y = 500  # vertical center area
+    y = 500
 
     # Decorative line
     line_w = 200
@@ -258,7 +592,6 @@ def _compose_end_card(nichiren_quote, source, message, title):
             w = bbox[2] - bbox[0]
             draw.text(((VIDEO_WIDTH - w) // 2, y), wline, fill=ENDCARD_TEXT, font=font_quote)
             y += int(ENDCARD_QUOTE_SIZE * 1.5)
-
         y += 10
 
     # Source
@@ -299,56 +632,141 @@ def _compose_end_card(nichiren_quote, source, message, title):
     return frame
 
 
-# ---------------------------------------------------------------------------
-# Cross-fade helper
-# ---------------------------------------------------------------------------
-
 def _blend_frames(frame_a, frame_b, alpha):
     """Blend two frames. alpha=0.0 -> frame_a, alpha=1.0 -> frame_b."""
     return Image.blend(frame_a, frame_b, alpha)
 
 
-# ---------------------------------------------------------------------------
-# Main video generation
-# ---------------------------------------------------------------------------
+def render_video_frames(script_data, panel_images, video_sections, total_video_sec,
+                         fps, tmp_dir, verbose=True):
+    """Render all video frames to disk, synchronized with audio timings.
 
-def check_ffmpeg():
-    """Check if ffmpeg is available. Returns path or None.
-
-    Searches PATH first, then common Windows install locations (winget, choco).
+    Returns:
+        Number of frames generated
     """
-    found = shutil.which("ffmpeg")
-    if found:
-        return found
+    font_speaker = _load_font(SPEAKER_FONT_SIZE, bold=True)
+    font_dialogue = _load_font(DIALOGUE_FONT_SIZE, bold=False)
+    panels_data = script_data["panels"]
 
-    # Search common Windows install locations
-    if sys.platform == "win32":
-        home = Path.home()
-        candidates = [
-            # winget installs here
-            home / "AppData" / "Local" / "Microsoft" / "WinGet" / "Packages",
-            # chocolatey
-            Path("C:/ProgramData/chocolatey/bin"),
-            # manual installs
-            Path("C:/ffmpeg/bin"),
-        ]
-        for base in candidates:
-            if not base.exists():
-                continue
-            # Search recursively for ffmpeg.exe
-            for exe in base.rglob("ffmpeg.exe"):
-                return str(exe)
+    total_frames = int(total_video_sec * fps)
+    fade_frames = int(FADE_DURATION * fps)
+    frame_num = 0
 
-    return None
+    # Pre-compose end card (static)
+    end_card = _compose_end_card(
+        script_data.get("nichiren_quote", ""),
+        script_data.get("source", ""),
+        script_data.get("message", ""),
+        script_data.get("title", ""),
+    )
 
+    for section_idx, section in enumerate(video_sections):
+        section_frames = int(section["duration_sec"] * fps)
+
+        if section["type"] == "panel":
+            pidx = section["panel_idx"]
+            panel_img = panel_images[pidx]
+            dialogue = panels_data[pidx].get("dialogue", [])
+
+            if verbose:
+                print(f"  Panel {pidx+1}/4: {section_frames} frames ({section['duration_sec']:.1f}s)")
+
+            for f_idx in range(section_frames):
+                progress = f_idx / max(section_frames - 1, 1)
+
+                # Ken Burns
+                kb_img = _ken_burns_crop(panel_img, progress)
+
+                # Show dialogue after a brief delay (0.3s)
+                delay_frames = int(0.3 * fps)
+                visible_dialogue = dialogue if f_idx >= delay_frames else []
+
+                frame = _compose_panel_frame(kb_img, visible_dialogue, font_speaker, font_dialogue)
+
+                # Cross-fade to next section in last FADE_DURATION seconds
+                if section_idx < len(video_sections) - 1 and f_idx >= section_frames - fade_frames:
+                    next_section = video_sections[section_idx + 1]
+                    if next_section["type"] == "panel":
+                        next_pidx = next_section["panel_idx"]
+                        next_kb = _ken_burns_crop(panel_images[next_pidx], 0.0)
+                        next_frame = _compose_panel_frame(next_kb, [], font_speaker, font_dialogue)
+                    else:
+                        next_frame = end_card
+
+                    fade_progress = (f_idx - (section_frames - fade_frames)) / fade_frames
+                    frame = _blend_frames(frame, next_frame, fade_progress)
+
+                frame_path = os.path.join(tmp_dir, f"frame_{frame_num:05d}.png")
+                frame.save(frame_path, "PNG")
+                frame_num += 1
+
+        elif section["type"] == "endcard":
+            if verbose:
+                print(f"  End card: {section_frames} frames ({section['duration_sec']:.1f}s)")
+
+            for f_idx in range(section_frames):
+                frame_path = os.path.join(tmp_dir, f"frame_{frame_num:05d}.png")
+                end_card.save(frame_path, "PNG")
+                frame_num += 1
+
+    return frame_num
+
+
+# ---------------------------------------------------------------------------
+# Step 4: Merge audio + video with ffmpeg
+# ---------------------------------------------------------------------------
+
+def stitch_video(tmp_dir, audio_path, output_path, fps, total_video_sec, ffmpeg_path, verbose=True):
+    """Stitch frames into video and merge with audio using ffmpeg.
+
+    Uses a two-pass approach:
+    1. Encode frames to silent video
+    2. Merge video + audio
+    """
+    SHORTS_DIR.mkdir(parents=True, exist_ok=True)
+
+    # Single ffmpeg command: frames + audio -> final video
+    cmd = [
+        ffmpeg_path,
+        "-y",
+        "-framerate", str(fps),
+        "-i", os.path.join(tmp_dir, "frame_%05d.png"),
+        "-i", str(audio_path),
+        "-c:v", "libx264",
+        "-pix_fmt", "yuv420p",
+        "-preset", "medium",
+        "-crf", "23",
+        "-c:a", "aac",
+        "-b:a", "128k",
+        "-shortest",
+        "-movflags", "+faststart",
+        str(output_path),
+    ]
+
+    if verbose:
+        print(f"\n  Stitching with ffmpeg...")
+
+    result = subprocess.run(cmd, capture_output=True, text=True, timeout=600)
+
+    if result.returncode != 0:
+        print(f"  ERROR: ffmpeg failed:\n{result.stderr[-800:]}")
+        return False
+
+    return True
+
+
+# ---------------------------------------------------------------------------
+# Main pipeline
+# ---------------------------------------------------------------------------
 
 def generate_video(date_str, fps=FPS_DEFAULT, verbose=True):
-    """Generate a YouTube Shorts video for a given strip date.
+    """Generate a YouTube Shorts video with synchronized TTS narration.
 
-    Args:
-        date_str: Date string like "2026-03-31"
-        fps: Frames per second (default 24)
-        verbose: Print progress messages
+    Audio-first pipeline:
+    1. Generate TTS audio for all dialogue
+    2. Calculate panel durations from audio lengths
+    3. Render video frames matched to audio timing
+    4. Merge audio + video with ffmpeg
 
     Returns:
         Path to generated video, or None on failure
@@ -367,13 +785,13 @@ def generate_video(date_str, fps=FPS_DEFAULT, verbose=True):
         print(f"  ERROR: Missing panels for {date_str}: {[p.name for p in missing]}")
         return None
 
-    ffmpeg_path = check_ffmpeg()
+    # Initialize pydub with correct ffmpeg path (lazy import, also sets PATH)
+    _init_pydub()
+
+    ffmpeg_path = _find_ffmpeg()
     if not ffmpeg_path:
-        print("  ERROR: ffmpeg not found on PATH.")
-        print("  Install ffmpeg:")
-        print("    Windows: winget install ffmpeg  OR  choco install ffmpeg")
-        print("    macOS:   brew install ffmpeg")
-        print("    Linux:   sudo apt install ffmpeg")
+        print("  ERROR: ffmpeg not found.")
+        print("  Install: winget install ffmpeg  OR  choco install ffmpeg")
         return None
 
     # Load data
@@ -381,135 +799,62 @@ def generate_video(date_str, fps=FPS_DEFAULT, verbose=True):
         data = json.load(f)
 
     script = data["script"]
-    panels_data = script["panels"]
     panel_images = [Image.open(p).convert("RGB") for p in panel_paths]
 
     if verbose:
         print(f"\n{'='*60}")
-        print(f"  The Lotus Lane -- Shorts Video Generator")
+        print(f"  The Lotus Lane -- Audio-First Video Generator")
         print(f"  Date: {date_str}")
         print(f"  Title: {script.get('title', 'Untitled')}")
         print(f"  FPS: {fps}")
         print(f"{'='*60}\n")
 
-    # Load fonts
-    font = _load_font(SUBTITLE_FONT_SIZE)
-    font_bold = _load_font(SUBTITLE_FONT_SIZE, bold=True)
-
-    # Create temp directory for frames
     tmp_dir = tempfile.mkdtemp(prefix="lotus_shorts_")
-    frame_num = 0
 
     try:
-        # ----- Generate frames for each panel -----
-        for panel_idx in range(4):
-            panel_img = panel_images[panel_idx]
-            dialogue = panels_data[panel_idx].get("dialogue", [])
-            total_frames = int(PANEL_DURATION * fps)
+        # ----- Step 1: Generate TTS audio -----
+        if verbose:
+            print("  [Step 1] Generating TTS audio...")
 
-            if verbose:
-                print(f"  Panel {panel_idx + 1}/4: generating {total_frames} frames...")
+        audio_info = asyncio.run(generate_all_audio(script, tmp_dir, verbose=verbose))
+        if not audio_info:
+            print("  ERROR: Audio generation failed")
+            return None
 
-            for f_idx in range(total_frames):
-                progress = f_idx / max(total_frames - 1, 1)
+        # ----- Step 2: Calculate panel durations -----
+        if verbose:
+            print("\n  [Step 2] Calculating panel timings from audio...")
 
-                # Ken Burns effect
-                kb_img = _ken_burns_crop(panel_img, progress)
-
-                # Subtitle fade-in: show dialogue after 0.5s, fade in over 0.3s
-                fade_in_start = int(0.5 * fps)
-                fade_in_end = int(0.8 * fps)
-
-                if f_idx < fade_in_start:
-                    visible_dialogue = []
-                else:
-                    visible_dialogue = dialogue
-
-                frame = _compose_panel_frame(kb_img, visible_dialogue, font, font_bold)
-
-                # Cross-fade transition: fade OUT last FADE_DURATION seconds
-                # (the fade-in of the next panel is handled by blending)
-                fade_frames = int(FADE_DURATION * fps)
-
-                if panel_idx < 3 and f_idx >= total_frames - fade_frames:
-                    # We're in the fade-out zone of this panel
-                    # Generate the first frame of the next panel for blending
-                    next_panel_img = panel_images[panel_idx + 1]
-                    next_dialogue = panels_data[panel_idx + 1].get("dialogue", [])
-                    next_kb = _ken_burns_crop(next_panel_img, 0.0)
-                    # Don't show dialogue during transition
-                    next_frame = _compose_panel_frame(next_kb, [], font, font_bold)
-
-                    fade_progress = (f_idx - (total_frames - fade_frames)) / fade_frames
-                    frame = _blend_frames(frame, next_frame, fade_progress)
-
-                # Save frame
-                frame_path = os.path.join(tmp_dir, f"frame_{frame_num:05d}.png")
-                frame.save(frame_path, "PNG")
-                frame_num += 1
-
-        # ----- Generate end card frames -----
-        end_card = _compose_end_card(
-            script.get("nichiren_quote", ""),
-            script.get("source", ""),
-            script.get("message", ""),
-            script.get("title", ""),
-        )
-        end_card_frames = int(END_CARD_DURATION * fps)
+        video_sections, total_video_sec = calculate_video_timings(audio_info)
 
         if verbose:
-            print(f"  End card: generating {end_card_frames} frames...")
+            print(f"\n  Video sections:")
+            for sec in video_sections:
+                stype = sec['type']
+                dur = sec['duration_sec']
+                print(f"    {stype} (panel {sec['panel_idx']+1 if stype == 'panel' else 'end'}): {dur:.1f}s")
+            print(f"  Total video duration: {total_video_sec:.1f}s")
 
-        # Fade in from last panel
-        last_panel_img = panel_images[3]
-        last_kb = _ken_burns_crop(last_panel_img, 1.0)
-        last_dialogue = panels_data[3].get("dialogue", [])
-        last_frame = _compose_panel_frame(last_kb, last_dialogue, font, font_bold)
-        fade_frames = int(FADE_DURATION * fps)
+        # ----- Step 3: Render video frames -----
+        if verbose:
+            print(f"\n  [Step 3] Rendering {int(total_video_sec * fps)} frames...")
 
-        for f_idx in range(end_card_frames):
-            if f_idx < fade_frames:
-                alpha = f_idx / fade_frames
-                frame = _blend_frames(last_frame, end_card, alpha)
-            else:
-                frame = end_card
+        frame_count = render_video_frames(
+            script, panel_images, video_sections, total_video_sec,
+            fps, tmp_dir, verbose=verbose,
+        )
 
-            frame_path = os.path.join(tmp_dir, f"frame_{frame_num:05d}.png")
-            frame.save(frame_path, "PNG")
-            frame_num += 1
+        # ----- Step 4: Merge audio + video -----
+        if verbose:
+            print(f"\n  [Step 4] Merging audio + video...")
 
-        # ----- Stitch with ffmpeg -----
-        SHORTS_DIR.mkdir(parents=True, exist_ok=True)
         output_path = SHORTS_DIR / f"{date_str}.mp4"
-
-        total_duration = (4 * PANEL_DURATION) + END_CARD_DURATION
-        if verbose:
-            print(f"\n  Total frames: {frame_num}")
-            print(f"  Duration: ~{total_duration}s")
-            print(f"  Stitching with ffmpeg...")
-
-        cmd = [
-            ffmpeg_path,
-            "-y",                          # Overwrite output
-            "-framerate", str(fps),
-            "-i", os.path.join(tmp_dir, "frame_%05d.png"),
-            "-c:v", "libx264",
-            "-pix_fmt", "yuv420p",         # Compatibility
-            "-preset", "medium",
-            "-crf", "23",                  # Good quality
-            "-movflags", "+faststart",     # Web-friendly
-            str(output_path),
-        ]
-
-        result = subprocess.run(
-            cmd,
-            capture_output=True,
-            text=True,
-            timeout=300,
+        success = stitch_video(
+            tmp_dir, audio_info["full_audio_path"], output_path,
+            fps, total_video_sec, ffmpeg_path, verbose=verbose,
         )
 
-        if result.returncode != 0:
-            print(f"  ERROR: ffmpeg failed:\n{result.stderr[-500:]}")
+        if not success:
             return None
 
         file_size_mb = output_path.stat().st_size / (1024 * 1024)
@@ -517,15 +862,14 @@ def generate_video(date_str, fps=FPS_DEFAULT, verbose=True):
             print(f"\n  Video saved: {output_path}")
             print(f"  File size: {file_size_mb:.1f} MB")
             print(f"  Resolution: {VIDEO_WIDTH}x{VIDEO_HEIGHT}")
-            print(f"  Duration: ~{total_duration}s")
+            print(f"  Duration: ~{total_video_sec:.1f}s")
 
         return output_path
 
     finally:
-        # Clean up temp frames
         shutil.rmtree(tmp_dir, ignore_errors=True)
         if verbose:
-            print(f"  Cleaned up {frame_num} temp frames.")
+            print(f"  Cleaned up temp directory.")
 
 
 def generate_all(fps=FPS_DEFAULT):
@@ -548,10 +892,9 @@ def generate_all(fps=FPS_DEFAULT):
     results = {"success": [], "failed": []}
 
     for date_str in dates:
-        # Skip if video already exists
         output = SHORTS_DIR / f"{date_str}.mp4"
         if output.exists():
-            print(f"  [SKIP] {date_str} -- video already exists")
+            print(f"  [SKIP] {date_str} -- video already exists (use --force to overwrite)")
             results["success"].append(date_str)
             continue
 
@@ -574,42 +917,24 @@ def generate_all(fps=FPS_DEFAULT):
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Generate YouTube Shorts videos from cached Lotus Lane comic strips"
+        description="Generate YouTube Shorts videos with synchronized TTS narration"
     )
-    parser.add_argument(
-        "--date",
-        help="Strip date to generate video for (YYYY-MM-DD)",
-    )
-    parser.add_argument(
-        "--all",
-        action="store_true",
-        dest="generate_all",
-        help="Generate videos for all cached strips",
-    )
-    parser.add_argument(
-        "--fps",
-        type=int,
-        default=FPS_DEFAULT,
-        help=f"Frames per second (default: {FPS_DEFAULT})",
-    )
-    parser.add_argument(
-        "--force",
-        action="store_true",
-        help="Overwrite existing videos",
-    )
+    parser.add_argument("--date", help="Strip date (YYYY-MM-DD)")
+    parser.add_argument("--all", action="store_true", dest="generate_all",
+                        help="Generate videos for all cached strips")
+    parser.add_argument("--fps", type=int, default=FPS_DEFAULT,
+                        help=f"Frames per second (default: {FPS_DEFAULT})")
+    parser.add_argument("--force", action="store_true",
+                        help="Overwrite existing videos")
 
     args = parser.parse_args()
 
     if not args.date and not args.generate_all:
         parser.error("Specify --date YYYY-MM-DD or --all")
 
-    # Pre-flight check
-    if not check_ffmpeg():
-        print("ERROR: ffmpeg is not installed or not on PATH.")
-        print("\nInstall ffmpeg:")
-        print("  Windows: winget install ffmpeg  OR  choco install ffmpeg")
-        print("  macOS:   brew install ffmpeg")
-        print("  Linux:   sudo apt install ffmpeg")
+    if not _find_ffmpeg():
+        print("ERROR: ffmpeg not found.")
+        print("Install: winget install ffmpeg  OR  choco install ffmpeg")
         sys.exit(1)
 
     if args.generate_all:
@@ -619,6 +944,10 @@ def main():
             output = SHORTS_DIR / f"{args.date}.mp4"
             if output.exists():
                 output.unlink()
+            # Also remove old narrated version if it exists
+            narrated = SHORTS_DIR / f"{args.date}_narrated.mp4"
+            if narrated.exists():
+                narrated.unlink()
         generate_video(args.date, fps=args.fps)
 
 
