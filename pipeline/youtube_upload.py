@@ -10,6 +10,7 @@ Usage:
     python pipeline/youtube_upload.py --date 2026-03-31
     python pipeline/youtube_upload.py --latest
     python pipeline/youtube_upload.py --all
+    python pipeline/youtube_upload.py --pending
 """
 
 import argparse
@@ -138,6 +139,79 @@ def get_strip_data(date_str):
     return None
 
 
+def save_youtube_id(date_str, video_id):
+    """Save the YouTube video ID back to strips.json for upload tracking."""
+    with open(STRIPS_JSON, "r", encoding="utf-8") as f:
+        strips = json.load(f)
+
+    for s in strips:
+        if s["date"] == date_str:
+            s["youtube_id"] = video_id
+            break
+
+    with open(STRIPS_JSON, "w", encoding="utf-8") as f:
+        json.dump(strips, f, indent=2, ensure_ascii=False)
+        f.write("\n")
+
+    print(f"  [{date_str}] Saved youtube_id={video_id} to strips.json")
+
+
+def get_pending_shorts():
+    """Get strips that have videos generated but not yet uploaded to YouTube."""
+    with open(STRIPS_JSON, "r", encoding="utf-8") as f:
+        strips = json.load(f)
+
+    pending = []
+    for s in strips:
+        video_path = SHORTS_DIR / f"{s['date']}.mp4"
+        if video_path.exists() and not s.get("youtube_id"):
+            pending.append(s)
+
+    return pending
+
+
+def show_pending():
+    """Display pending shorts that have videos but haven't been uploaded."""
+    with open(STRIPS_JSON, "r", encoding="utf-8") as f:
+        strips = json.load(f)
+
+    no_video = []
+    pending_upload = []
+    uploaded = []
+
+    for s in strips:
+        video_path = SHORTS_DIR / f"{s['date']}.mp4"
+        if s.get("youtube_id"):
+            uploaded.append(s)
+        elif video_path.exists():
+            pending_upload.append(s)
+        else:
+            no_video.append(s)
+
+    print(f"\n📊 YouTube Shorts Status")
+    print(f"   Total strips: {len(strips)}")
+    print(f"   Uploaded:     {len(uploaded)}")
+    print(f"   Pending:      {len(pending_upload)}")
+    print(f"   No video:     {len(no_video)}")
+
+    if pending_upload:
+        print(f"\n⏳ Pending upload ({len(pending_upload)}):")
+        for s in pending_upload:
+            print(f"   {s['date']} - {s['title']}")
+
+    if uploaded:
+        print(f"\n✅ Uploaded ({len(uploaded)}):")
+        for s in uploaded:
+            print(f"   {s['date']} - {s['title']} → https://youtube.com/shorts/{s['youtube_id']}")
+
+    if no_video:
+        print(f"\n🎬 No video generated ({len(no_video)}):")
+        for s in no_video:
+            print(f"   {s['date']} - {s['title']}")
+
+    print()
+
+
 def build_video_metadata(strip):
     """Build YouTube video metadata from strip data."""
     title = f"{strip['title']} | The Lotus Lane"
@@ -187,6 +261,10 @@ def upload_video(date_str, force=False):
         print(f"  [{date_str}] No strip data found in strips.json")
         return False
 
+    if not force and strip.get("youtube_id"):
+        print(f"  [{date_str}] Already uploaded (youtube_id={strip['youtube_id']}). Use --force to re-upload.")
+        return False
+
     print(f"  [{date_str}] Uploading: {strip['title']}")
 
     access_token = get_access_token()
@@ -226,6 +304,11 @@ def upload_video(date_str, force=False):
 
     video_id = result.get("id", "unknown")
     print(f"  [{date_str}] Uploaded! https://youtube.com/shorts/{video_id}")
+
+    # Save youtube_id back to strips.json for tracking
+    if video_id != "unknown":
+        save_youtube_id(date_str, video_id)
+
     return True
 
 
@@ -243,11 +326,16 @@ def main():
     parser.add_argument("--date", help="Upload video for specific date")
     parser.add_argument("--latest", action="store_true", help="Upload the latest video")
     parser.add_argument("--all", action="store_true", help="Upload all videos")
+    parser.add_argument("--pending", action="store_true", help="Show upload status of all shorts")
     parser.add_argument("--force", action="store_true", help="Re-upload even if already uploaded")
     args = parser.parse_args()
 
     if args.auth:
         do_auth()
+        return
+
+    if args.pending:
+        show_pending()
         return
 
     if args.latest:
@@ -263,7 +351,7 @@ def main():
             date_str = f.stem.replace("_narrated", "")
             upload_video(date_str, force=args.force)
     else:
-        print("Specify --auth, --date, --latest, or --all")
+        print("Specify --auth, --date, --latest, --all, or --pending")
 
 
 if __name__ == "__main__":
