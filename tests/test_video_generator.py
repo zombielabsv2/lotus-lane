@@ -184,12 +184,12 @@ class TestComposeFrame:
             sys.path.insert(0, str(PROJECT_ROOT))
         from pipeline.video_generator import (
             _compose_panel_frame, _load_font, VIDEO_WIDTH, VIDEO_HEIGHT,
-            PANEL_DISPLAY_SIZE, SUBTITLE_FONT_SIZE,
+            PANEL_DISPLAY_SIZE, DIALOGUE_FONT_SIZE,
         )
         from PIL import Image
         panel = Image.new("RGB", (PANEL_DISPLAY_SIZE, PANEL_DISPLAY_SIZE), (128, 128, 128))
-        font = _load_font(SUBTITLE_FONT_SIZE)
-        font_bold = _load_font(SUBTITLE_FONT_SIZE, bold=True)
+        font = _load_font(DIALOGUE_FONT_SIZE)
+        font_bold = _load_font(DIALOGUE_FONT_SIZE, bold=True)
         frame = _compose_panel_frame(panel, [], font, font_bold)
         assert frame.size == (VIDEO_WIDTH, VIDEO_HEIGHT)
 
@@ -198,12 +198,12 @@ class TestComposeFrame:
             sys.path.insert(0, str(PROJECT_ROOT))
         from pipeline.video_generator import (
             _compose_panel_frame, _load_font, VIDEO_WIDTH, VIDEO_HEIGHT,
-            PANEL_DISPLAY_SIZE, SUBTITLE_FONT_SIZE,
+            PANEL_DISPLAY_SIZE, DIALOGUE_FONT_SIZE,
         )
         from PIL import Image
         panel = Image.new("RGB", (PANEL_DISPLAY_SIZE, PANEL_DISPLAY_SIZE), (128, 128, 128))
-        font = _load_font(SUBTITLE_FONT_SIZE)
-        font_bold = _load_font(SUBTITLE_FONT_SIZE, bold=True)
+        font = _load_font(DIALOGUE_FONT_SIZE)
+        font_bold = _load_font(DIALOGUE_FONT_SIZE, bold=True)
         dialogue = [
             "Meera: (sighs) Everyone else finished their PhD in 3 years.",
             "Vikram: Arre, I get it yaar.",

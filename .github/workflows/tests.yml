@@ -14,6 +14,6 @@ jobs:
         with:
           python-version: '3.11'
       - name: Install dependencies
-        run: pip install pytest
+        run: pip install pytest Pillow httpx
       - name: Run tests
         run: python -m pytest tests/ -v --tb=short

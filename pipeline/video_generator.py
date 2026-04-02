@@ -33,7 +33,6 @@ import sys
 import tempfile
 from pathlib import Path
 
-import edge_tts
 from PIL import Image, ImageDraw, ImageFont
 
 # pydub import deferred until ffmpeg path is configured (see _init_pydub)
@@ -126,6 +125,11 @@ def _find_ffmpeg():
             for exe in base.rglob("ffmpeg.exe"):
                 return str(exe)
     return None
+
+
+def check_ffmpeg():
+    """Public wrapper for _find_ffmpeg. Returns ffmpeg path or None."""
+    return _find_ffmpeg()
 
 
 def _init_pydub():
@@ -225,6 +229,7 @@ def _parse_dialogue_line(line):
 async def _generate_tts_segment(text, voice, output_path, rate="-5%"):
     """Generate a single TTS audio file. Returns True on success."""
     try:
+        import edge_tts
         communicate = edge_tts.Communicate(text, voice, rate=rate)
         await communicate.save(str(output_path))
         return True

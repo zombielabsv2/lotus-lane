@@ -4,6 +4,8 @@ import sys
 import os
 from pathlib import Path
 
+import pytest
+
 # Add project root to path
 PROJECT_ROOT = Path(__file__).parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
@@ -12,6 +14,8 @@ sys.path.insert(0, str(PROJECT_ROOT))
 if "CHUNKS_PATH" not in os.environ:
     chunks_path = PROJECT_ROOT.parent / "nichiren-chatbot" / "data" / "processed" / "chunks.json"
     os.environ["CHUNKS_PATH"] = str(chunks_path)
+
+_has_chunks = Path(os.environ["CHUNKS_PATH"]).exists()
 
 
 def test_import_generate_email():
@@ -55,6 +59,7 @@ def test_challenge_keywords_coverage():
         assert len(keywords) >= 5, f"{category} has too few keywords ({len(keywords)})"
 
 
+@pytest.mark.skipif(not _has_chunks, reason="chunks.json not available in CI")
 def test_load_chunks():
     """Tier 2: Knowledge base loads successfully."""
     from pipeline.generate_email import load_chunks
@@ -74,6 +79,7 @@ def test_load_chunks():
     assert "collection_name" in chunk["metadata"]
 
 
+@pytest.mark.skipif(not _has_chunks, reason="chunks.json not available in CI")
 def test_search_chunks():
     """Tier 2: Search returns relevant results for each challenge."""
     from pipeline.generate_email import search_chunks
