@@ -1,38 +1,79 @@
 /**
- * Shared bottom navigation for The Lotus Lane.
- * Include via <script src="/lotus-lane/nav.js"></script> or relative path.
- * Auto-detects current page and highlights the active tab.
+ * Shared navigation for The Lotus Lane.
+ * Adds top header links + sticky bottom tab bar across all pages.
  */
 (function() {
-  // Determine base path (handles both root and subdirectory pages)
   const path = window.location.pathname;
   const isDecoder = path.includes('/decoder');
   const isSubscribe = path.includes('subscribe');
   const isStrips = !isDecoder && !isSubscribe;
-
-  // Base path for links (handle decoder subdirectory)
   const base = isDecoder ? '../' : '';
 
-  const nav = document.createElement('nav');
-  nav.id = 'lotus-nav';
-  nav.innerHTML = `
+  // --- TOP NAV (inline links below header) ---
+  const topNav = document.createElement('div');
+  topNav.id = 'lotus-top-nav';
+  topNav.innerHTML = `
+    <a href="${base}index.html" class="${isStrips ? 'active' : ''}">Comic Strips</a>
+    <span class="sep">|</span>
+    <a href="${base}decoder/index.html" class="${isDecoder ? 'active' : ''}">Gosho Decoder</a>
+    <span class="sep">|</span>
+    <a href="${base}subscribe.html" class="${isSubscribe ? 'active' : ''}">Daimoku Daily</a>
+  `;
+
+  // Insert after the header element
+  const header = document.querySelector('header');
+  if (header && header.nextSibling) {
+    header.parentNode.insertBefore(topNav, header.nextSibling);
+  } else {
+    document.body.prepend(topNav);
+  }
+
+  // --- BOTTOM NAV (sticky tab bar) ---
+  const bottomNav = document.createElement('nav');
+  bottomNav.id = 'lotus-bottom-nav';
+  bottomNav.innerHTML = `
     <a href="${base}index.html" class="${isStrips ? 'active' : ''}">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
       <span>Strips</span>
     </a>
     <a href="${base}decoder/index.html" class="${isDecoder ? 'active' : ''}">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-      <span>Gosho Decoder</span>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+      <span>Decoder</span>
     </a>
     <a href="${base}subscribe.html" class="${isSubscribe ? 'active' : ''}">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-      <span>Daimoku Daily</span>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      <span>Daily</span>
     </a>
   `;
 
+  document.body.appendChild(bottomNav);
+
+  // --- STYLES ---
   const style = document.createElement('style');
   style.textContent = `
-    #lotus-nav {
+    #lotus-top-nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.6rem 1rem;
+      background: #f5f2ed;
+      border-bottom: 1px solid #e8e4de;
+      font-size: 0.85rem;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+    }
+    #lotus-top-nav a {
+      text-decoration: none;
+      color: #888;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      transition: color 0.2s;
+    }
+    #lotus-top-nav a:hover { color: #c0392b; }
+    #lotus-top-nav a.active { color: #c0392b; font-weight: 600; }
+    #lotus-top-nav .sep { color: #ddd; font-size: 0.75rem; }
+
+    #lotus-bottom-nav {
       position: fixed;
       bottom: 0;
       left: 0;
@@ -46,26 +87,30 @@
       z-index: 1000;
       box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
     }
-    #lotus-nav a {
+    #lotus-bottom-nav a {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.2rem;
+      gap: 0.15rem;
       padding: 0.3rem 1.5rem;
       text-decoration: none;
       color: #999;
-      font-size: 0.7rem;
+      font-size: 0.65rem;
       font-family: 'Segoe UI', system-ui, sans-serif;
       transition: color 0.2s;
-      min-width: 80px;
+      min-width: 70px;
     }
-    #lotus-nav a:hover { color: #c0392b; }
-    #lotus-nav a.active { color: #c0392b; font-weight: 600; }
-    #lotus-nav a.active svg { stroke: #c0392b; }
-    /* Add padding to body so content isn't hidden behind nav */
-    body { padding-bottom: 70px !important; }
+    #lotus-bottom-nav a:hover { color: #c0392b; }
+    #lotus-bottom-nav a.active { color: #c0392b; font-weight: 600; }
+    #lotus-bottom-nav a.active svg { stroke: #c0392b; }
+
+    body { padding-bottom: 60px !important; }
+
+    @media (max-width: 600px) {
+      #lotus-top-nav { font-size: 0.78rem; gap: 0.3rem; }
+      #lotus-top-nav a { padding: 0.2rem 0.3rem; }
+    }
   `;
 
   document.head.appendChild(style);
-  document.body.appendChild(nav);
 })();
