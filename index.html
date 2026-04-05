@@ -337,11 +337,18 @@
   <footer>
     <p>Inspired by the writings of Nichiren Daishonin</p>
     <p style="margin-top:0.3rem;"><a href="subscribe.html">Get Daimoku Daily emails</a> &middot; <a href="decoder/index.html">Gosho Decoder</a></p>
+    <p id="gc-counter" style="margin-top:0.5rem; font-size:0.7rem; color:#bbb;"></p>
   </footer>
 
   <script data-goatcounter="https://zombielabs.goatcounter.com/count"
           async src="//gc.zgo.at/count.js"></script>
   <script>
+    // Show visitor count using GoatCounter's built-in method
+    window.addEventListener('load', function() {
+      if (typeof window.goatcounter !== 'undefined' && window.goatcounter.visit_count) {
+        window.goatcounter.visit_count({append: '#gc-counter', type: 'html', no_branding: true});
+      }
+    });
   </script>
   <script src="nav.js"></script>
 
