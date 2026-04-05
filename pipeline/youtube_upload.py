@@ -349,9 +349,13 @@ def main():
     elif args.date:
         upload_video(args.date, force=args.force)
     elif args.all:
+        from datetime import date, timedelta
+        cutoff = (date.today() - timedelta(days=30)).isoformat()
         failures = []
         for f in sorted(SHORTS_DIR.glob("*.mp4")):
             date_str = f.stem.replace("_narrated", "")
+            if date_str < cutoff:
+                continue  # skip videos older than 30 days
             try:
                 upload_video(date_str, force=args.force)
             except Exception as e:
