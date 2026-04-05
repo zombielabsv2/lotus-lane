@@ -1,0 +1,39 @@
+THE LOTUS LANE — YouTube API Usage Description
+================================================
+
+1. WHAT WE DO
+The Lotus Lane is an educational content platform publishing comic strips
+based on Nichiren Buddhist wisdom. We create animated YouTube Shorts from
+our comic strips and upload them to our channel: @thelotuslane_ND
+
+2. API USAGE
+- We ONLY use the YouTube Data API v3 for uploading videos (videos.insert)
+- We upload to our OWN channel only
+- We do NOT read, search, or access any third-party YouTube data
+- We do NOT access any user data beyond our own channel
+
+3. UPLOAD FREQUENCY
+- 3 videos per week (Monday, Wednesday, Friday)
+- Each video is a 30-60 second YouTube Short
+- Estimated API usage: ~5,000 units/day on upload days, 0 on other days
+- Requested quota: 50,000 units/day
+
+4. TECHNICAL ARCHITECTURE
+- Content generation: AI-assisted comic strip creation (Claude + GPT-4o)
+- Video creation: Python + Pillow + ffmpeg + edge-tts (Indian English voices)
+- Upload: Python script using YouTube Data API v3 (videos.insert endpoint)
+- Automation: GitHub Actions cron job runs 3x/week
+- OAuth2: Channel owner has authorized the application
+
+5. CONTENT POLICY COMPLIANCE
+- All content is original, created by our team
+- Educational/inspirational content based on Buddhist philosophy
+- No copyrighted third-party content
+- No misleading or harmful content
+- Videos include proper attribution to source texts
+
+6. WEBSITE
+https://zombielabsv2.github.io/lotus-lane/
+
+7. YOUTUBE CHANNEL
+https://www.youtube.com/@thelotuslane_ND
