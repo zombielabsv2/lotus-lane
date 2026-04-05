@@ -377,6 +377,140 @@
     "characters": [
       "sudha",
       "meera"
+    ],
+    "youtube_id": "wYJweE3w1aQ"
+  },
+  {
+    "date": "2026-04-04",
+    "title": "The Promotion Pass",
+    "image": "strips/2026-04-04.png",
+    "message": "External recognition may come and go, but the skills we develop and the sincerity in our hearts are treasures no one can take away.",
+    "quote": "More valuable than treasures in a storehouse are treasures of the body, and treasures of the heart are most valuable of all.",
+    "source": "WND-1, p. 851",
+    "tags": [
+      "work-stress",
+      "self-worth",
+      "friendship"
+    ],
+    "category": "work-stress",
+    "topic": "being overlooked for promotion",
+    "characters": [
+      "arjun",
+      "vikram"
+    ],
+    "youtube_id": "o0bwdc20aQU"
+  },
+  {
+    "date": "2026-04-05",
+    "title": "The Mirror Effect",
+    "image": "strips/2026-04-05.png",
+    "message": "Sometimes difficult people reflect our own inner state back to us - changing our response can transform the entire dynamic.",
+    "quote": "If the minds of living beings are impure, their land is also impure, but if their minds are pure, so is their land.",
+    "source": "WND-1, p. 4",
+    "tags": [
+      "work-stress",
+      "relationships",
+      "self-reflection"
+    ],
+    "category": "work-stress",
+    "topic": "difficult coworker",
+    "characters": [
+      "arjun",
+      "sudha",
+      "meera"
+    ],
+    "youtube_id": "zlcG1MnpGdY"
+  },
+  {
+    "date": "2026-04-07",
+    "title": "The Promotion That Never Came",
+    "image": "strips/2026-04-07.png",
+    "message": "Career frustration isn't something to overcome but energy to transform - our deepest desires for growth can become the very force that propels us forward.",
+    "quote": "The earthly desires of ordinary people are enlightenment itself, and the sufferings of life and death are nirvana itself.",
+    "source": "WND-1, p. 318",
+    "tags": [
+      "work-stress",
+      "career-growth",
+      "transformation"
+    ],
+    "category": "work-stress",
+    "topic": "career stagnation",
+    "characters": []
+  },
+  {
+    "date": "2026-04-08",
+    "title": "The 3 AM Email",
+    "image": "strips/2026-04-08.png",
+    "message": "True dedication to our loved ones includes taking care of ourselves - the Buddha nature works through both our efforts and our rest.",
+    "quote": "Even a bad person will be saved in the ten directions, so how much more so a good person.",
+    "source": "WND-1, p. 4",
+    "tags": [
+      "work-stress",
+      "single-parenting",
+      "self-care"
+    ],
+    "category": "work-stress",
+    "topic": "work-life balance",
+    "characters": [
+      "vikram",
+      "sudha"
+    ]
+  },
+  {
+    "date": "2026-04-09",
+    "title": "The Last Hour",
+    "image": "strips/2026-04-09.png",
+    "message": "True resilience comes not from avoiding life's pressures, but from accepting them while maintaining inner equilibrium and continuing to move forward.",
+    "quote": "Suffer what there is to suffer, enjoy what there is to enjoy. Regard both suffering and joy as facts of life, and continue chanting Nam-myoho-renge-kyo, no matter what happens.",
+    "source": "WND-1, p. 681",
+    "tags": [
+      "work-stress",
+      "resilience",
+      "acceptance"
+    ],
+    "category": "work-stress",
+    "topic": "deadline pressure",
+    "characters": [
+      "vikram",
+      "sudha"
+    ]
+  },
+  {
+    "date": "2026-04-10",
+    "title": "The Demo Day Disaster",
+    "image": "strips/2026-04-10.png",
+    "message": "True confidence comes not from external validation but from deep conviction in our inherent capabilities - our own Buddha nature.",
+    "quote": "Believe in the Gohonzon and chant Nam-myoho-renge-kyo with the conviction that no prayer goes unanswered.",
+    "source": "WND-1, p. 1124",
+    "tags": [
+      "work-stress",
+      "self-doubt",
+      "inner-strength"
+    ],
+    "category": "work-stress",
+    "topic": "imposter syndrome",
+    "characters": [
+      "meera",
+      "arjun"
+    ]
+  },
+  {
+    "date": "2026-04-11",
+    "title": "Weathering the Storm",
+    "image": "strips/2026-04-11.png",
+    "message": "Even in our darkest moments of uncertainty, we can find strength in knowing that no difficult period lasts forever - change is the only constant.",
+    "quote": "Winter always turns to spring.",
+    "source": "WND-1, p. 536",
+    "tags": [
+      "work-stress",
+      "uncertainty",
+      "hope"
+    ],
+    "category": "work-stress",
+    "topic": "layoff anxiety",
+    "characters": [
+      "sudha",
+      "meera"
     ]
   }
 ]
