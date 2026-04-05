@@ -615,9 +615,17 @@ def main():
         print(f"  [FATAL] Missing environment variables: {', '.join(missing)}")
         return
 
+    # Check for --force flag (send to all active subscribers regardless of schedule)
+    import sys
+    force = "--force" in sys.argv
+
     # Get due subscribers
-    due = get_due_subscribers()
-    print(f"\nDue subscribers: {len(due)}")
+    if force:
+        due = supabase_get("daimoku_subscribers", {"active": "eq.true", "select": "*"})
+        print(f"\n[FORCE] All active subscribers: {len(due)}")
+    else:
+        due = get_due_subscribers()
+        print(f"\nDue subscribers: {len(due)}")
 
     if not due:
         print("No subscribers due for email today.")
