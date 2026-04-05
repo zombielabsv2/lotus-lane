@@ -5,7 +5,7 @@ For each subscriber due for an email:
 1. Pick a challenge category (rotating, not repeating recent ones)
 2. Search the knowledge base for relevant passages
 3. Use Claude Sonnet to generate a personalized email
-4. Send via Gmail SMTP
+4. Send via Resend API
 5. Log in daimoku_email_log
 """
 
@@ -13,10 +13,7 @@ import json
 import os
 import random
 import re
-import smtplib
 from datetime import datetime, timezone, timedelta
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
 from pathlib import Path
 
 import httpx
@@ -28,8 +25,7 @@ import httpx
 SUPABASE_URL = os.environ.get("SUPABASE_URL", "")
 SUPABASE_SERVICE_KEY = os.environ.get("SUPABASE_SERVICE_KEY", "")
 ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
-GMAIL_ADDRESS = os.environ.get("GMAIL_ADDRESS", "")
-GMAIL_APP_PASSWORD = os.environ.get("GMAIL_APP_PASSWORD", "")
+RESEND_API_KEY = os.environ.get("RESEND_API_KEY", "")
 
 # Path to knowledge base — in CI this is cloned alongside the repo
 CHUNKS_PATH = os.environ.get(
@@ -502,27 +498,24 @@ def build_html_email(data: dict, name: str) -> str:
 # ---------------------------------------------------------------------------
 
 def send_email(to_email: str, subject: str, html_body: str) -> bool:
-    """Send an email via Gmail SMTP."""
-    if not GMAIL_ADDRESS or not GMAIL_APP_PASSWORD:
-        print(f"  [SKIP] Gmail creds not set — would send to {to_email}")
+    """Send an email via Resend API."""
+    if not RESEND_API_KEY:
+        print(f"  [SKIP] RESEND_API_KEY not set — would send to {to_email}")
         return False
 
-    msg = MIMEMultipart("alternative")
-    msg["From"] = f"Daimoku Daily <{GMAIL_ADDRESS}>"
-    msg["To"] = to_email
-    msg["Subject"] = subject
-
-    # Plain text fallback
-    plain_text = re.sub(r"<[^>]+>", "", html_body)
-    plain_text = re.sub(r"\s+", " ", plain_text).strip()
-    msg.attach(MIMEText(plain_text, "plain"))
-    msg.attach(MIMEText(html_body, "html"))
-
     try:
-        with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
-            server.login(GMAIL_ADDRESS, GMAIL_APP_PASSWORD)
-            server.send_message(msg)
-        return True
+        resp = httpx.post(
+            "https://api.resend.com/emails",
+            headers={"Authorization": f"Bearer {RESEND_API_KEY}"},
+            json={
+                "from": "Daimoku Daily <daimoku@rxjapps.in>",
+                "to": [to_email],
+                "subject": subject,
+                "html": html_body,
+            },
+            timeout=30,
+        )
+        return resp.status_code == 200
     except Exception as e:
         print(f"  [ERROR] Failed to send to {to_email}: {e}")
         return False
@@ -606,10 +599,8 @@ def main():
         missing.append("SUPABASE_SERVICE_KEY")
     if not ANTHROPIC_API_KEY:
         missing.append("ANTHROPIC_API_KEY")
-    if not GMAIL_ADDRESS:
-        missing.append("GMAIL_ADDRESS")
-    if not GMAIL_APP_PASSWORD:
-        missing.append("GMAIL_APP_PASSWORD")
+    if not RESEND_API_KEY:
+        missing.append("RESEND_API_KEY")
 
     if missing:
         print(f"  [FATAL] Missing environment variables: {', '.join(missing)}")

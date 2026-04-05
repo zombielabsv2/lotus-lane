@@ -4,18 +4,14 @@ Runs every 6 hours via GitHub Actions.
 """
 
 import os
-import smtplib
 from datetime import datetime, timedelta, timezone
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
 
 import httpx
 
 
 SUPABASE_URL = os.environ.get("SUPABASE_URL", "")
 SUPABASE_SERVICE_KEY = os.environ.get("SUPABASE_SERVICE_KEY", "")
-GMAIL_ADDRESS = os.environ.get("GMAIL_ADDRESS", "")
-GMAIL_APP_PASSWORD = os.environ.get("GMAIL_APP_PASSWORD", "")
+RESEND_API_KEY = os.environ.get("RESEND_API_KEY", "")
 NOTIFY_EMAIL = os.environ.get("NOTIFY_EMAIL", "")
 
 
@@ -59,9 +55,9 @@ def get_total_count():
 
 
 def send_notification(new_subs, total):
-    """Email notification about new subscribers."""
-    if not GMAIL_ADDRESS or not GMAIL_APP_PASSWORD or not NOTIFY_EMAIL:
-        print("Email credentials not set, skipping notification")
+    """Email notification about new subscribers via Resend API."""
+    if not RESEND_API_KEY or not NOTIFY_EMAIL:
+        print("RESEND_API_KEY or NOTIFY_EMAIL not set, skipping notification")
         return
 
     rows = ""
@@ -92,17 +88,24 @@ def send_notification(new_subs, total):
     </div>
     """
 
-    msg = MIMEMultipart()
-    msg["From"] = f"Lotus Lane Bot <{GMAIL_ADDRESS}>"
-    msg["To"] = NOTIFY_EMAIL
-    msg["Subject"] = f"Daimoku Daily: {len(new_subs)} new subscriber{'s' if len(new_subs) != 1 else ''} (total: {total})"
-    msg.attach(MIMEText(html, "html"))
+    subject = f"Daimoku Daily: {len(new_subs)} new subscriber{'s' if len(new_subs) != 1 else ''} (total: {total})"
 
-    with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
-        server.login(GMAIL_ADDRESS, GMAIL_APP_PASSWORD)
-        server.send_message(msg)
+    resp = httpx.post(
+        "https://api.resend.com/emails",
+        headers={"Authorization": f"Bearer {RESEND_API_KEY}"},
+        json={
+            "from": "Lotus Lane Bot <notifications@rxjapps.in>",
+            "to": [NOTIFY_EMAIL],
+            "subject": subject,
+            "html": html,
+        },
+        timeout=30,
+    )
 
-    print(f"Notification sent to {NOTIFY_EMAIL}")
+    if resp.status_code == 200:
+        print(f"Notification sent to {NOTIFY_EMAIL}")
+    else:
+        print(f"Failed to send notification: {resp.status_code} {resp.text}")
 
 
 def main():
