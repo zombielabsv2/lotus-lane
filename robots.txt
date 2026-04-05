@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://zombielabsv2.github.io/lotus-lane/sitemap.xml
