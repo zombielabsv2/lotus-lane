@@ -282,7 +282,9 @@ def upload_video(date_str, force=False):
         json=metadata,
         timeout=30,
     )
-    init_response.raise_for_status()
+    if init_response.status_code >= 400:
+        print(f"  YouTube API error {init_response.status_code}: {init_response.text[:500]}")
+        init_response.raise_for_status()
     upload_url = init_response.headers["Location"]
 
     # Step 2: Upload the video file
@@ -347,9 +349,17 @@ def main():
     elif args.date:
         upload_video(args.date, force=args.force)
     elif args.all:
+        failures = []
         for f in sorted(SHORTS_DIR.glob("*.mp4")):
             date_str = f.stem.replace("_narrated", "")
-            upload_video(date_str, force=args.force)
+            try:
+                upload_video(date_str, force=args.force)
+            except Exception as e:
+                print(f"  FAILED [{date_str}]: {e}")
+                failures.append(date_str)
+        if failures:
+            print(f"\n{len(failures)} upload(s) failed: {', '.join(failures)}")
+            sys.exit(1)
     else:
         print("Specify --auth, --date, --latest, --all, or --pending")
 
