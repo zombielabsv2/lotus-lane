@@ -337,30 +337,26 @@
   <footer>
     <p>Inspired by the writings of Nichiren Daishonin</p>
     <p style="margin-top:0.3rem;"><a href="subscribe.html">Get Daimoku Daily emails</a> &middot; <a href="decoder/index.html">Gosho Decoder</a></p>
-    <p style="margin-top:0.5rem; font-size:0.7rem; color:#bbb;">
-      <img src="https://zombielabs.goatcounter.com/counter/lotus-lane.svg"
-           alt="visitor count"
-           style="height:1em; vertical-align:middle; margin-right:0.2rem;">
-      visitors
-    </p>
+    <p id="visitCounter" style="margin-top:0.5rem; font-size:0.75rem; color:#bbb;"></p>
   </footer>
 
   <script data-goatcounter="https://zombielabs.goatcounter.com/count"
           async src="//gc.zgo.at/count.js"></script>
   <script>
-    // Fetch visit count from GoatCounter
+    // Fetch total visit count from GoatCounter
     (function() {
-      var cb = 'gc_visitor_count';
-      window[cb] = function(data) {
-        if (data && data.count) {
-          document.getElementById('visitCount').textContent = data.count.toLocaleString();
-          document.getElementById('visitCounter').style.display = 'block';
-        }
+      var x = new XMLHttpRequest();
+      x.open('GET', 'https://zombielabs.goatcounter.com/counter/' +
+             encodeURIComponent(location.pathname) + '.json');
+      x.onload = function() {
+        try {
+          var data = JSON.parse(x.responseText);
+          if (data && data.count) {
+            document.getElementById('visitCounter').textContent = data.count.toLocaleString() + ' visitors';
+          }
+        } catch(e) {}
       };
-      var s = document.createElement('script');
-      s.src = 'https://zombielabs.goatcounter.com/counter/' +
-              encodeURIComponent(location.pathname) + '.json?callback=' + cb;
-      document.head.appendChild(s);
+      x.send();
     })();
   </script>
   <script src="nav.js"></script>
