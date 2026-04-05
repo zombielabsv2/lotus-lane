@@ -19,6 +19,9 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Install dependencies
+        run: pip install -r pipeline/requirements.txt
+
       - name: Check for new subscribers
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
