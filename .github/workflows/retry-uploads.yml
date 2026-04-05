@@ -1,0 +1,45 @@
+name: Retry Pending YouTube Uploads
+
+on:
+  schedule:
+    # Run daily at 2 AM UTC (7:30 AM IST) until all are uploaded
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  retry:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install -r pipeline/requirements.txt
+
+      - name: Upload pending videos
+        env:
+          YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+          YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+          YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
+        run: python pipeline/youtube_upload.py --all
+
+      - name: Push updated strips.json
+        run: |
+          git config user.name "Lotus Lane Bot"
+          git config user.email "bot@thelotus.lane"
+          git add strips.json
+          if git diff --staged --quiet; then
+            echo "No new uploads"
+          else
+            git commit -m "Auto-link YouTube IDs for newly uploaded shorts"
+            git push
+          fi
