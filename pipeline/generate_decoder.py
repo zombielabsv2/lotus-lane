@@ -233,13 +233,24 @@ def call_claude(prompt: str) -> tuple:
         "messages": [{"role": "user", "content": prompt}],
     }
 
-    resp = httpx.post(
-        "https://api.anthropic.com/v1/messages",
-        headers=headers,
-        json=body,
-        timeout=120,
-    )
-    resp.raise_for_status()
+    max_retries = 5
+    for attempt in range(max_retries):
+        resp = httpx.post(
+            "https://api.anthropic.com/v1/messages",
+            headers=headers,
+            json=body,
+            timeout=120,
+        )
+        if resp.status_code == 429:
+            wait = min(2 ** attempt * 10, 120)  # 10s, 20s, 40s, 80s, 120s
+            print(f"    [RATE LIMITED] Waiting {wait}s before retry {attempt+1}/{max_retries}...")
+            time.sleep(wait)
+            continue
+        resp.raise_for_status()
+        break
+    else:
+        # All retries exhausted
+        resp.raise_for_status()
     data = resp.json()
 
     text = data["content"][0]["text"]
@@ -322,7 +333,7 @@ def generate_writing_html(writing, analysis, related_writings):
     bg = analysis["background"]
     key_passages = analysis["key_passages"]
     core_message = analysis["core_message"]
-    modern_app = analysis["modern_application"]
+    modern_app = analysis.get("modern_application", "")
     themes = analysis.get("related_themes", [])
 
     # Build key passages HTML
@@ -1055,7 +1066,7 @@ def process_writing(writing, all_writings, force=False):
         themes = analysis.get("related_themes", [])
 
         # Rate limit: pause between API calls
-        time.sleep(1)
+        time.sleep(3)
 
     # Find related writings
     related = find_related_writings(writing["doc_id"], themes, all_writings)
