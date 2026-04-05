@@ -64,6 +64,10 @@ jobs:
           YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
         run: python pipeline/youtube_upload.py --latest
 
+      - name: Verify data integrity
+        if: ${{ github.event.inputs.dry_run != 'true' }}
+        run: python pipeline/verify_integrity.py
+
       - name: Commit and push new strip
         if: ${{ github.event.inputs.dry_run != 'true' }}
         run: |
