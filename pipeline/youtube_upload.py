@@ -31,7 +31,7 @@ CLIENT_SECRET_FILE = Path(__file__).parent.parent / "client_secret.json"
 AUTH_URL = "https://accounts.google.com/o/oauth2/v2/auth"
 TOKEN_URL = "https://oauth2.googleapis.com/token"
 UPLOAD_URL = "https://www.googleapis.com/upload/youtube/v3/videos"
-SCOPES = "https://www.googleapis.com/auth/youtube.upload"
+SCOPES = "https://www.googleapis.com/auth/youtube"
 
 
 def load_client_config():
@@ -314,6 +314,83 @@ def upload_video(date_str, force=False):
     return True
 
 
+def delete_video(youtube_id):
+    """Delete a video from YouTube by ID."""
+    access_token = get_access_token()
+    response = httpx.delete(
+        f"https://www.googleapis.com/youtube/v3/videos?id={youtube_id}",
+        headers={"Authorization": f"Bearer {access_token}"},
+        timeout=30,
+    )
+    if response.status_code == 204:
+        return True
+    elif response.status_code == 404:
+        print(f"    Video {youtube_id} already deleted or not found")
+        return True
+    else:
+        print(f"    Delete failed ({response.status_code}): {response.text[:200]}")
+        response.raise_for_status()
+    return False
+
+
+def swap_old_videos(max_per_run=5):
+    """Delete old YouTube videos and re-upload with new text rendering.
+
+    Processes strips flagged with youtube_needs_reupload=True.
+    Deletes old video, uploads new one, clears the flag.
+    """
+    with open(STRIPS_JSON, "r", encoding="utf-8") as f:
+        strips = json.load(f)
+
+    to_swap = [s for s in strips if s.get("youtube_needs_reupload")]
+    if not to_swap:
+        print("  No videos need swapping.")
+        return
+
+    print(f"  {len(to_swap)} videos flagged for swap. Processing up to {max_per_run}...")
+    swapped = 0
+
+    for strip in to_swap[:max_per_run]:
+        date_str = strip["date"]
+        old_id = strip.get("youtube_id", "")
+        video_path = SHORTS_DIR / f"{date_str}.mp4"
+
+        if not video_path.exists():
+            print(f"  [{date_str}] SKIP — no video file")
+            continue
+
+        # Step 1: Delete old video
+        if old_id:
+            print(f"  [{date_str}] Deleting old video {old_id}...")
+            try:
+                delete_video(old_id)
+            except Exception as e:
+                print(f"  [{date_str}] Delete failed: {e} — skipping")
+                continue
+
+        # Step 2: Clear youtube_id so upload_video treats it as new
+        strip["youtube_id"] = None
+        strip.pop("youtube_needs_reupload", None)
+        with open(STRIPS_JSON, "w", encoding="utf-8") as f:
+            json.dump(strips, f, indent=2, ensure_ascii=False)
+
+        # Step 3: Upload new video
+        print(f"  [{date_str}] Uploading new version...")
+        try:
+            upload_video(date_str)
+            swapped += 1
+        except httpx.HTTPStatusError as e:
+            if "uploadLimitExceeded" in str(e.response.text):
+                print(f"\n  YouTube daily limit reached after {swapped} swaps. Will continue tomorrow.")
+                break
+            print(f"  [{date_str}] Upload failed: {e}")
+        except Exception as e:
+            print(f"  [{date_str}] Upload failed: {e}")
+
+    remaining = len(to_swap) - swapped
+    print(f"\n  Swapped {swapped} video(s). {remaining} remaining.")
+
+
 def get_latest_date():
     """Get the most recent strip date."""
     with open(STRIPS_JSON, "r", encoding="utf-8") as f:
@@ -330,6 +407,8 @@ def main():
     parser.add_argument("--all", action="store_true", help="Upload all videos")
     parser.add_argument("--pending", action="store_true", help="Show upload status of all shorts")
     parser.add_argument("--force", action="store_true", help="Re-upload even if already uploaded")
+    parser.add_argument("--swap-old", action="store_true",
+                        help="Delete old YouTube videos and re-upload with new text (5/day)")
     args = parser.parse_args()
 
     if args.auth:
@@ -338,6 +417,10 @@ def main():
 
     if args.pending:
         show_pending()
+        return
+
+    if args.swap_old:
+        swap_old_videos()
         return
 
     if args.latest:
