@@ -583,8 +583,12 @@ def save_strip(strip_image, script, date_str, category, topic, characters):
     strip_image.save(filepath, "PNG", optimize=True)
     print(f"  Saved strip image: {filepath}")
 
-    # Build strip entry
+    # Build strip entry, preserving extra fields (e.g. youtube_id) from existing entry
+    strips = load_existing_strips()
+    existing = next((s for s in strips if s["date"] == date_str), {})
+
     entry = {
+        **existing,  # preserve youtube_id and any other fields
         "date": date_str,
         "title": script.get("title", ""),
         "image": f"strips/{filename}",
@@ -598,8 +602,6 @@ def save_strip(strip_image, script, date_str, category, topic, characters):
     }
 
     # Update strips.json
-    strips = load_existing_strips()
-    # Remove existing entry for same date if re-generating
     strips = [s for s in strips if s["date"] != date_str]
     strips.append(entry)
     strips.sort(key=lambda s: s["date"])
