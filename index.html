@@ -231,6 +231,16 @@
       .strip-header { flex-direction: column; gap: 0.1rem; }
       .strip-info { padding: 0.8rem; }
       .nav-btn { padding: 0.4rem 0.7rem; font-size: 0.8rem; }
+
+      .filter-bar {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        justify-content: flex-start;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+      .filter-bar::-webkit-scrollbar { display: none; }
+      .filter-bar label { display: none; }
     }
   </style>
 </head>
@@ -381,8 +391,10 @@
     }
 
     function buildTagFilter() {
-      const allTags = new Set();
-      strips.forEach(s => (s.tags || []).forEach(t => allTags.add(t)));
+      const tagCounts = {};
+      strips.forEach(s => (s.tags || []).forEach(t => {
+        tagCounts[t] = (tagCounts[t] || 0) + 1;
+      }));
 
       const bar = document.getElementById('filterBar');
       const allBtn = document.createElement('button');
@@ -391,7 +403,10 @@
       allBtn.onclick = () => filterByTag(null);
       bar.appendChild(allBtn);
 
-      [...allTags].sort().forEach(tag => {
+      // Sort by frequency (most used first), then alphabetical for ties
+      Object.keys(tagCounts).sort((a, b) =>
+        tagCounts[b] - tagCounts[a] || a.localeCompare(b)
+      ).forEach(tag => {
         const btn = document.createElement('button');
         btn.className = 'tag-btn';
         btn.textContent = tag;
