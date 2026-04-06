@@ -52,6 +52,11 @@ def load_client_config():
 
     # Handle both "installed" and "web" client types
     config = data.get("installed", data.get("web", {}))
+    if not config.get("client_id") or not config.get("client_secret"):
+        raise ValueError(
+            f"OAuth client config missing client_id/client_secret in {CLIENT_SECRET_FILE}. "
+            "Expected 'installed' or 'web' key with credentials."
+        )
     return config["client_id"], config["client_secret"]
 
 
