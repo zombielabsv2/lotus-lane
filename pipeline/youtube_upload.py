@@ -212,34 +212,64 @@ def show_pending():
     print()
 
 
+def _category_hashtags(category):
+    """Return category-specific hashtags for YouTube description."""
+    mapping = {
+        "work-stress": "#CareerAdvice #BurnoutRecovery #WorkLifeBalance",
+        "relationships": "#Relationships #LifeAdvice #LoveAndWisdom",
+        "family": "#FamilyLife #Parenting #FamilyWisdom",
+        "health": "#MentalHealth #InnerPeace #Healing",
+        "finances": "#FinancialWisdom #MoneyMindset #Abundance",
+        "self-doubt": "#SelfBelief #OvercomingFear #Confidence",
+        "grief-loss": "#GriefSupport #HealingJourney #Resilience",
+        "perseverance": "#NeverGiveUp #Persistence #KeepGoing",
+    }
+    return mapping.get(category, "#LifeLessons #WisdomQuotes")
+
+
 def build_video_metadata(strip):
     """Build YouTube video metadata from strip data."""
     title = f"{strip['title']} | The Lotus Lane"
     if len(title) > 100:
         title = f"{strip['title'][:90]} | Lotus Lane"
 
-    tags = strip.get("tags", []) + [
-        "nichiren buddhism", "buddhist wisdom", "life advice",
-        "indian comic", "motivation", "lotus lane", "shorts"
+    category = strip.get("category", "")
+    strip_tags = strip.get("tags", [])
+
+    tags = strip_tags + [
+        # Core niche
+        "nichiren buddhism", "buddhist wisdom", "buddhism",
+        "nam myoho renge kyo", "lotus sutra", "buddhist quotes",
+        "nichiren daishonin",
+        # Broader discovery
+        "motivation", "life advice", "daily motivation",
+        "self improvement", "mindfulness", "inner peace",
+        "spiritual growth", "positive thinking", "wisdom quotes",
+        "life lessons",
+        # Format
+        "comic strip", "indian animation", "motivational shorts",
+        "the lotus lane", "shorts",
     ]
 
+    cat_hashtags = _category_hashtags(category)
     description = (
         f"{strip.get('message', '')}\n\n"
         f'"{strip.get("quote", "")}"\n'
         f"— {strip.get('source', 'Nichiren Daishonin')}\n\n"
-        f"The Lotus Lane: Buddhist wisdom for everyday struggles.\n"
-        f"New strips every Mon, Wed, Fri.\n\n"
-        f"Website: https://tinyurl.com/thelotuslane\n"
-        f"Subscribe for daily wisdom: https://zombielabsv2.github.io/lotus-lane/subscribe.html\n\n"
-        f"#NichirenBuddhism #BuddhistWisdom #LifeAdvice #Motivation #TheLotusLane #Shorts"
+        f"The Lotus Lane brings Nichiren Buddhist wisdom to everyday struggles "
+        f"through original comic strips. New episodes every Mon, Wed, Fri.\n\n"
+        f"Subscribe for daily wisdom emails: https://tinyurl.com/thelotuslane\n\n"
+        f"#Shorts #BuddhistWisdom #NichirenBuddhism {cat_hashtags}\n"
+        f"#Motivation #DailyWisdom #TheLotusLane"
     )
 
     return {
         "snippet": {
             "title": title,
             "description": description,
-            "tags": tags[:30],  # YouTube max 30 tags
-            "categoryId": "22",  # People & Blogs
+            "tags": list(dict.fromkeys(tags))[:30],  # dedupe, max 30
+            "categoryId": "27",  # Education (better for seekers)
+            "defaultLanguage": "en",
         },
         "status": {
             "privacyStatus": "public",
