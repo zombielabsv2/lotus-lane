@@ -464,127 +464,63 @@ def _draw_dialogue_band(strip, dialogue_lines, x, y, band_width, font, font_bold
 
 
 def assemble_strip(panel_images, script, date_str):
-    """Combine panel images into a vertical strip with dialogue in clean bands below each panel."""
+    """Combine panel images into a vertical strip with dialogue in clean bands below each panel.
+
+    Uses Playwright HTML/CSS rendering for dialogue bands and footer (browser-grade typography).
+    """
+    from pipeline.playwright_renderer import render_strip_bands, PlaywrightBrowser
+
     panel_width = STRIP_WIDTH
     panel_h = PANEL_HEIGHT
-
-    # Load fonts
-    font_size = max(18, panel_width // 60)
-    font, font_bold = _load_fonts(font_size)
-    line_height = int(font_size * 1.4)
-    max_text_width = int(panel_width * 0.90)
-
-    # Pre-calculate dialogue band heights
-    # Need a temp image for text measurement
-    tmp = Image.new("RGB", (1, 1))
-    tmp_draw = ImageDraw.Draw(tmp)
-
-    band_heights = []
-    for panel_data in script["panels"]:
-        dialogue = panel_data.get("dialogue", [])
-        h = _measure_dialogue_band(dialogue, font, font_bold, line_height, max_text_width, tmp_draw)
-        band_heights.append(max(h, 10))  # minimum gap even with no dialogue
+    bg_color = (250, 249, 246)
 
     # Fit panel images: scale to width, then center-crop to height
     resized = []
     for img in panel_images:
         if img.mode == "RGBA":
-            bg = Image.new("RGB", img.size, (250, 249, 246))
+            bg = Image.new("RGB", img.size, bg_color)
             bg.paste(img, mask=img.split()[3])
             img = bg
-        # Scale so width matches strip width
         scale = panel_width / img.width
         scaled_h = int(img.height * scale)
         img = img.resize((panel_width, scaled_h), Image.LANCZOS)
-        # Center-crop to target panel height (if taller)
         if scaled_h > panel_h:
             top = (scaled_h - panel_h) // 2
             img = img.crop((0, top, panel_width, top + panel_h))
         elif scaled_h < panel_h:
-            # Pad if shorter (shouldn't happen with square source)
-            padded = Image.new("RGB", (panel_width, panel_h), (250, 249, 246))
+            padded = Image.new("RGB", (panel_width, panel_h), bg_color)
             padded.paste(img, (0, (panel_h - scaled_h) // 2))
             img = padded
         resized.append(img)
 
-    # --- Footer: Nichiren quote + branding (for WhatsApp shareability) ---
-    quote_text = script.get("nichiren_quote", "")
-    quote_source = script.get("source", "")
-    footer_font_size = max(15, panel_width // 65)
-    footer_font, footer_font_bold = _load_fonts(footer_font_size)
-    footer_italic = footer_font  # Pillow doesn't have italic, use regular
-    brand_font_size = max(13, panel_width // 75)
-    brand_font, _ = _load_fonts(brand_font_size)
-    footer_max_w = int(panel_width * 0.85)
-    footer_line_h = int(footer_font_size * 1.4)
-
-    # Measure footer height
-    footer_h = 0
-    if quote_text:
-        quote_wrapped = _wrap_text(f'"{quote_text}"', footer_font, footer_max_w, tmp_draw)
-        footer_h += len(quote_wrapped) * footer_line_h + 8  # quote lines + gap
-        if quote_source:
-            footer_h += footer_line_h  # source line
-    footer_h += 35  # brand line + padding
-    footer_h += 20  # top/bottom padding
+    # Render dialogue bands + footer via Playwright (single browser instance)
+    with PlaywrightBrowser() as browser:
+        band_images, footer_image = render_strip_bands(script, panel_width, browser)
 
     # Calculate total height
-    panels_h = 0
-    for i in range(len(resized)):
-        panels_h += panel_h + band_heights[i]
-    total_h = panels_h + footer_h
-
-    # Create strip canvas
-    bg_color = (250, 249, 246)
-    dialogue_bg = (245, 243, 238)
-    footer_bg = (240, 236, 228)
+    total_h = sum(panel_h + b.height for b in band_images) + footer_image.height
     strip = Image.new("RGB", (panel_width, total_h), bg_color)
-    draw = ImageDraw.Draw(strip)
 
     # Paste panels with dialogue bands below each
     y = 0
     for i, img in enumerate(resized):
-        # Panel image
         strip.paste(img, (0, y))
         y += panel_h
 
-        # Dialogue band (clean background)
-        band_h = band_heights[i]
-        draw.rectangle([0, y, panel_width, y + band_h], fill=dialogue_bg)
-        # Thin separator line at top of dialogue band
-        draw.line([(30, y), (panel_width - 30, y)], fill=(220, 216, 208), width=1)
+        band = band_images[i]
+        if band.mode == "RGBA":
+            strip.paste(band, (0, y), band)
+        else:
+            strip.paste(band, (0, y))
+        y += band.height
 
-        dialogue = script["panels"][i].get("dialogue", [])
-        if dialogue:
-            _draw_dialogue_band(strip, dialogue, 0, y, panel_width, font, font_bold, line_height, max_text_width)
-
-        y += band_h
-
-    # --- Draw footer ---
-    draw.rectangle([0, y, panel_width, y + footer_h], fill=footer_bg)
-    draw.line([(20, y), (panel_width - 20, y)], fill=(210, 205, 195), width=2)
-    y += 12  # top padding
-
-    if quote_text:
-        quote_wrapped = _wrap_text(f'"{quote_text}"', footer_font, footer_max_w, draw)
-        quote_x = (panel_width - footer_max_w) // 2
-        for wline in quote_wrapped:
-            draw.text((quote_x, y), wline, fill=(80, 70, 60), font=footer_font)
-            y += footer_line_h
-        if quote_source:
-            y += 4
-            draw.text((quote_x, y), f"— {quote_source}", fill=(140, 130, 120), font=brand_font)
-            y += footer_line_h
-
-    # Brand line
-    y += 8
-    brand_text = "The Lotus Lane  \u00b7  tinyurl.com/thelotuslane"
-    brand_bbox = draw.textbbox((0, 0), brand_text, font=brand_font)
-    brand_w = brand_bbox[2] - brand_bbox[0]
-    draw.text(((panel_width - brand_w) // 2, y), brand_text, fill=(160, 150, 140), font=brand_font)
+    # Paste footer
+    if footer_image.mode == "RGBA":
+        strip.paste(footer_image, (0, y), footer_image)
+    else:
+        strip.paste(footer_image, (0, y))
 
     return strip
-
 
 def _cache_dir(date_str):
     """Return the cache directory for a given date's strip artifacts."""

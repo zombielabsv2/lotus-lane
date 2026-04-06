@@ -466,10 +466,12 @@ def _ken_burns_crop(panel_img, progress):
     return cropped.resize((PANEL_DISPLAY_SIZE, PANEL_DISPLAY_SIZE), Image.LANCZOS)
 
 
-def _compose_panel_frame(panel_img_kb, dialogue_lines, font_speaker, font_dialogue):
+def _compose_panel_frame(panel_img_kb, dialogue_lines, font_speaker, font_dialogue,
+                        prerendered_text=None):
     """Compose a single video frame: dark bg + panel image in top area + text below.
 
-    Text is rendered BELOW the image in a clean dark band, not overlaid on the image.
+    If prerendered_text (PIL Image) is provided, it is pasted directly instead of
+    rendering text with Pillow. This is the Playwright path — much better typography.
     """
     frame = Image.new("RGBA", (VIDEO_WIDTH, VIDEO_HEIGHT), (*BG_COLOR, 255))
 
@@ -478,17 +480,23 @@ def _compose_panel_frame(panel_img_kb, dialogue_lines, font_speaker, font_dialog
     panel_rgba = panel_img_kb.convert("RGBA")
     frame.paste(panel_rgba, (panel_x, PANEL_TOP_MARGIN))
 
+    if prerendered_text is not None:
+        # Paste the pre-rendered Playwright text overlay
+        text_img = prerendered_text.convert("RGBA")
+        # Center horizontally, place at TEXT_AREA_TOP
+        tx = (VIDEO_WIDTH - text_img.width) // 2
+        frame.paste(text_img, (tx, TEXT_AREA_TOP), text_img)
+        return frame.convert("RGB")
+
     if not dialogue_lines:
         return frame.convert("RGB")
 
-    # Parse and wrap all dialogue lines
-    rendered_lines = []  # list of (speaker_or_none, wrapped_text_line)
+    # Fallback: Pillow text rendering (kept for backward compatibility)
+    rendered_lines = []
     for line in dialogue_lines:
         speaker, text = _parse_dialogue_line(line)
         if not text:
             continue
-
-        # Measure speaker prefix width to calculate available text width
         if speaker:
             speaker_prefix = f"{speaker}: "
             sp_bbox = font_speaker.getbbox(speaker_prefix)
@@ -497,14 +505,10 @@ def _compose_panel_frame(panel_img_kb, dialogue_lines, font_speaker, font_dialog
             speaker_prefix = ""
             speaker_width = 0
 
-        # Wrap text considering speaker prefix on first line
         first_line_width = TEXT_MAX_WIDTH - speaker_width
         remaining_width = TEXT_MAX_WIDTH
-
         wrapped = _wrap_text(text, font_dialogue, first_line_width)
-        # Re-wrap: first line is shorter (speaker takes space), rest use full width
         if len(wrapped) > 1:
-            # More careful wrap: first line constrained, continuation lines full width
             words = text.split()
             lines_out = []
             current = ""
@@ -512,7 +516,6 @@ def _compose_panel_frame(panel_img_kb, dialogue_lines, font_speaker, font_dialog
             tmp_draw = ImageDraw.Draw(tmp_img)
             is_first = True
             max_w = first_line_width if is_first else remaining_width
-
             for word in words:
                 test_str = f"{current} {word}".strip()
                 bbox = tmp_draw.textbbox((0, 0), test_str, font=font_dialogue)
@@ -528,34 +531,27 @@ def _compose_panel_frame(panel_img_kb, dialogue_lines, font_speaker, font_dialog
             if current:
                 lines_out.append(current)
             wrapped = lines_out if lines_out else [text]
-
         for i, wline in enumerate(wrapped):
             rendered_lines.append((speaker if i == 0 else None, wline))
 
     if not rendered_lines:
         return frame.convert("RGB")
 
-    # Calculate text band dimensions
-    line_height = DIALOGUE_FONT_SIZE + 14  # line spacing
-    total_text_height = len(rendered_lines) * line_height + 20  # padding
-
-    # Position text below the panel image
+    line_height = DIALOGUE_FONT_SIZE + 14
+    total_text_height = len(rendered_lines) * line_height + 20
     text_band_y = TEXT_AREA_TOP
     text_band_height = total_text_height
 
-    # Draw semi-transparent background band for text
     overlay = Image.new("RGBA", (VIDEO_WIDTH, VIDEO_HEIGHT), (0, 0, 0, 0))
     overlay_draw = ImageDraw.Draw(overlay)
     band_left = TEXT_MARGIN_X - 15
     band_right = VIDEO_WIDTH - TEXT_MARGIN_X + 15
     overlay_draw.rounded_rectangle(
         [band_left, text_band_y - 10, band_right, text_band_y + text_band_height + 10],
-        radius=16,
-        fill=TEXT_BG_COLOR,
+        radius=16, fill=TEXT_BG_COLOR,
     )
     frame = Image.alpha_composite(frame, overlay)
 
-    # Draw text
     draw = ImageDraw.Draw(frame)
     text_y = text_band_y + 10
     for speaker, wline in rendered_lines:
@@ -572,24 +568,38 @@ def _compose_panel_frame(panel_img_kb, dialogue_lines, font_speaker, font_dialog
 
 
 def _compose_end_card(nichiren_quote, source, message, title):
-    """Create the branded end card frame with Nichiren quote."""
+    """Create the branded end card frame with Nichiren quote.
+
+    Uses Playwright HTML/CSS rendering for beautiful typography.
+    Falls back to Pillow if Playwright is unavailable.
+    """
+    try:
+        try:
+            from pipeline.playwright_renderer import render_video_endcard
+        except ImportError:
+            from playwright_renderer import render_video_endcard
+        return render_video_endcard(
+            {"nichiren_quote": nichiren_quote, "source": source,
+             "message": message, "title": title},
+            VIDEO_WIDTH, VIDEO_HEIGHT,
+        )
+    except Exception:
+        pass
+
+    # Fallback: Pillow rendering
     frame = Image.new("RGB", (VIDEO_WIDTH, VIDEO_HEIGHT), ENDCARD_BG)
     draw = ImageDraw.Draw(frame)
-
     font_quote = _load_font(ENDCARD_QUOTE_SIZE, bold=False)
     font_source = _load_font(ENDCARD_SOURCE_SIZE, bold=False)
     font_brand = _load_font(ENDCARD_BRAND_SIZE, bold=True)
     font_msg = _load_font(ENDCARD_MSG_SIZE, bold=False)
 
     y = 500
-
-    # Decorative line
     line_w = 200
     line_x = (VIDEO_WIDTH - line_w) // 2
     draw.line([(line_x, y), (line_x + line_w, y)], fill=ENDCARD_ACCENT, width=2)
     y += 40
 
-    # Nichiren quote
     if nichiren_quote:
         quote_wrapped = _wrap_text(f'"{nichiren_quote}"', font_quote, 900)
         for wline in quote_wrapped:
@@ -599,7 +609,6 @@ def _compose_end_card(nichiren_quote, source, message, title):
             y += int(ENDCARD_QUOTE_SIZE * 1.5)
         y += 10
 
-    # Source
     if source:
         source_text = f"-- {source}"
         bbox = draw.textbbox((0, 0), source_text, font=font_source)
@@ -607,7 +616,6 @@ def _compose_end_card(nichiren_quote, source, message, title):
         draw.text(((VIDEO_WIDTH - w) // 2, y), source_text, fill=ENDCARD_DIM, font=font_source)
         y += 60
 
-    # Message / takeaway
     if message:
         y += 20
         msg_wrapped = _wrap_text(message, font_msg, 860)
@@ -617,11 +625,9 @@ def _compose_end_card(nichiren_quote, source, message, title):
             draw.text(((VIDEO_WIDTH - w) // 2, y), wline, fill=ENDCARD_DIM, font=font_msg)
             y += int(ENDCARD_MSG_SIZE * 1.5)
 
-    # Bottom decorative line
     y += 40
     draw.line([(line_x, y), (line_x + line_w, y)], fill=ENDCARD_ACCENT, width=2)
 
-    # Branding at bottom
     brand_y = VIDEO_HEIGHT - 200
     brand_text = "The Lotus Lane"
     bbox = draw.textbbox((0, 0), brand_text, font=font_brand)
@@ -657,6 +663,29 @@ def render_video_frames(script_data, panel_images, video_sections, total_video_s
     fade_frames = int(FADE_DURATION * fps)
     frame_num = 0
 
+    # Pre-render dialogue overlays via Playwright (once per panel, reused per frame)
+    prerendered_overlays = {}
+    try:
+        # Support running as script or module
+        try:
+            from pipeline.playwright_renderer import render_video_dialogue, PlaywrightBrowser
+        except ImportError:
+            from playwright_renderer import render_video_dialogue, PlaywrightBrowser
+        if verbose:
+            print("  Pre-rendering dialogue overlays with Playwright...")
+        with PlaywrightBrowser() as browser:
+            for pidx, pdata in enumerate(panels_data):
+                dialogue = pdata.get("dialogue", [])
+                if dialogue:
+                    prerendered_overlays[pidx] = render_video_dialogue(
+                        dialogue, VIDEO_WIDTH, browser
+                    )
+        if verbose:
+            print(f"  Pre-rendered {len(prerendered_overlays)} dialogue overlays")
+    except Exception as e:
+        if verbose:
+            print(f"  Playwright text rendering failed ({e}), falling back to Pillow")
+
     # Pre-compose end card (static)
     end_card = _compose_end_card(
         script_data.get("nichiren_quote", ""),
@@ -672,6 +701,7 @@ def render_video_frames(script_data, panel_images, video_sections, total_video_s
             pidx = section["panel_idx"]
             panel_img = panel_images[pidx]
             dialogue = panels_data[pidx].get("dialogue", [])
+            prerendered_text = prerendered_overlays.get(pidx)
 
             if verbose:
                 print(f"  Panel {pidx+1}/4: {section_frames} frames ({section['duration_sec']:.1f}s)")
@@ -684,9 +714,14 @@ def render_video_frames(script_data, panel_images, video_sections, total_video_s
 
                 # Show dialogue after a brief delay (0.3s)
                 delay_frames = int(0.3 * fps)
-                visible_dialogue = dialogue if f_idx >= delay_frames else []
+                show_text = f_idx >= delay_frames
 
-                frame = _compose_panel_frame(kb_img, visible_dialogue, font_speaker, font_dialogue)
+                frame = _compose_panel_frame(
+                    kb_img,
+                    dialogue if show_text and not prerendered_text else [],
+                    font_speaker, font_dialogue,
+                    prerendered_text=prerendered_text if show_text else None,
+                )
 
                 # Cross-fade to next section in last FADE_DURATION seconds
                 if section_idx < len(video_sections) - 1 and f_idx >= section_frames - fade_frames:
