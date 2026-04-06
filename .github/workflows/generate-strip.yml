@@ -53,19 +53,7 @@ jobs:
           fi
           eval python pipeline/generate_strip.py $ARGS
 
-      - name: Generate YouTube Short video
-        if: ${{ github.event.inputs.dry_run != 'true' }}
-        run: python pipeline/video_generator.py --date $(date +%Y-%m-%d)
-
-      - name: Upload to YouTube
-        if: ${{ github.event.inputs.dry_run != 'true' }}
-        continue-on-error: true
-        env:
-          YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
-          YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
-          YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
-        run: python pipeline/youtube_upload.py --latest
-
+      # --- Core: commit strip to site FIRST, before any optional steps ---
       - name: Generate strip SEO page
         if: ${{ github.event.inputs.dry_run != 'true' }}
         run: python pipeline/generate_pages.py
@@ -79,13 +67,28 @@ jobs:
         run: |
           git config user.name "Lotus Lane Bot"
           git config user.email "bot@thelotus.lane"
-          git add strips/ strips.json sitemap.xml shorts/
+          git add strips/ strips.json sitemap.xml
           if git diff --staged --quiet; then
             echo "No new changes to commit"
           else
             git commit -m "Add strip for $(date +%Y-%m-%d)"
             git push
           fi
+
+      # --- Optional enrichment: video + social (all continue-on-error) ---
+      - name: Generate YouTube Short video
+        if: ${{ github.event.inputs.dry_run != 'true' }}
+        continue-on-error: true
+        run: python pipeline/video_generator.py --date $(date +%Y-%m-%d)
+
+      - name: Upload to YouTube
+        if: ${{ github.event.inputs.dry_run != 'true' }}
+        continue-on-error: true
+        env:
+          YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+          YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+          YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
+        run: python pipeline/youtube_upload.py --latest
 
       - name: Pin to Pinterest
         if: ${{ github.event.inputs.dry_run != 'true' }}
@@ -116,19 +119,22 @@ jobs:
           INSTAGRAM_USER_ID: ${{ secrets.INSTAGRAM_USER_ID }}
         run: python pipeline/instagram_upload.py --latest
 
-      - name: Commit social media IDs
+      - name: Commit video and social media IDs
         if: ${{ github.event.inputs.dry_run != 'true' }}
+        continue-on-error: true
         run: |
-          git add strips.json
+          git pull --rebase || true
+          git add strips.json shorts/
           if git diff --staged --quiet; then
-            echo "No social media updates"
+            echo "No video/social updates"
           else
-            git commit -m "Update social media IDs for $(date +%Y-%m-%d)"
+            git commit -m "Update video + social media IDs for $(date +%Y-%m-%d)"
             git push
           fi
 
       - name: Send notifications (WhatsApp reminder + content subscribers)
         if: ${{ github.event.inputs.dry_run != 'true' }}
+        continue-on-error: true
         env:
           GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
