@@ -351,18 +351,32 @@ def main():
     elif args.all:
         from datetime import date, timedelta
         cutoff = (date.today() - timedelta(days=30)).isoformat()
+        max_per_run = 5  # stay well under YouTube's daily limit (~6)
+        uploaded = 0
         failures = []
         for f in sorted(SHORTS_DIR.glob("*.mp4")):
             date_str = f.stem.replace("_narrated", "")
             if date_str < cutoff:
                 continue  # skip videos older than 30 days
             try:
-                upload_video(date_str, force=args.force)
+                result = upload_video(date_str, force=args.force)
+                if result:
+                    uploaded += 1
+                if uploaded >= max_per_run:
+                    print(f"\n  Reached daily limit ({max_per_run} uploads). Remaining will retry tomorrow.")
+                    break
+            except httpx.HTTPStatusError as e:
+                if "uploadLimitExceeded" in str(e.response.text):
+                    print(f"\n  YouTube daily upload limit reached. Stopping. Will retry tomorrow.")
+                    break
+                print(f"  FAILED [{date_str}]: {e}")
+                failures.append(date_str)
             except Exception as e:
                 print(f"  FAILED [{date_str}]: {e}")
                 failures.append(date_str)
+        print(f"\n  Uploaded {uploaded} video(s) this run.")
         if failures:
-            print(f"\n{len(failures)} upload(s) failed: {', '.join(failures)}")
+            print(f"  {len(failures)} failure(s): {', '.join(failures)}")
             sys.exit(1)
     else:
         print("Specify --auth, --date, --latest, --all, or --pending")
