@@ -359,33 +359,48 @@ def swap_old_videos(max_per_run=5):
             print(f"  [{date_str}] SKIP — no video file")
             continue
 
-        # Step 1: Delete old video
+        # Step 1: Upload new video FIRST (so old one stays if upload fails)
+        print(f"  [{date_str}] Uploading new version...")
+        strip["youtube_id"] = None  # clear so upload_video treats as new
+        with open(STRIPS_JSON, "w", encoding="utf-8") as f:
+            json.dump(strips, f, indent=2, ensure_ascii=False)
+
+        try:
+            upload_video(date_str)
+        except httpx.HTTPStatusError as e:
+            if "uploadLimitExceeded" in str(e.response.text):
+                # Restore old ID since upload failed
+                strip["youtube_id"] = old_id
+                with open(STRIPS_JSON, "w", encoding="utf-8") as f:
+                    json.dump(strips, f, indent=2, ensure_ascii=False)
+                print(f"\n  YouTube daily limit reached after {swapped} swaps. Will continue tomorrow.")
+                break
+            # Restore old ID on other failures too
+            strip["youtube_id"] = old_id
+            with open(STRIPS_JSON, "w", encoding="utf-8") as f:
+                json.dump(strips, f, indent=2, ensure_ascii=False)
+            print(f"  [{date_str}] Upload failed: {e}")
+            continue
+        except Exception as e:
+            strip["youtube_id"] = old_id
+            with open(STRIPS_JSON, "w", encoding="utf-8") as f:
+                json.dump(strips, f, indent=2, ensure_ascii=False)
+            print(f"  [{date_str}] Upload failed: {e}")
+            continue
+
+        # Step 2: Delete old video AFTER successful upload
         if old_id:
             print(f"  [{date_str}] Deleting old video {old_id}...")
             try:
                 delete_video(old_id)
             except Exception as e:
-                print(f"  [{date_str}] Delete failed: {e} — skipping")
-                continue
+                print(f"  [{date_str}] Warning: delete failed ({e}) — old video may remain")
 
-        # Step 2: Clear youtube_id so upload_video treats it as new
-        strip["youtube_id"] = None
+        # Step 3: Clear swap flag
         strip.pop("youtube_needs_reupload", None)
         with open(STRIPS_JSON, "w", encoding="utf-8") as f:
             json.dump(strips, f, indent=2, ensure_ascii=False)
-
-        # Step 3: Upload new video
-        print(f"  [{date_str}] Uploading new version...")
-        try:
-            upload_video(date_str)
-            swapped += 1
-        except httpx.HTTPStatusError as e:
-            if "uploadLimitExceeded" in str(e.response.text):
-                print(f"\n  YouTube daily limit reached after {swapped} swaps. Will continue tomorrow.")
-                break
-            print(f"  [{date_str}] Upload failed: {e}")
-        except Exception as e:
-            print(f"  [{date_str}] Upload failed: {e}")
+        swapped += 1
 
     remaining = len(to_swap) - swapped
     print(f"\n  Swapped {swapped} video(s). {remaining} remaining.")
