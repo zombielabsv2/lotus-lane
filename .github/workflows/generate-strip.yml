@@ -173,12 +173,9 @@ jobs:
 
             # Send failure alert email via Resend if configured
             if [ -n "$RESEND_API_KEY" ] && [ -n "$NOTIFY_EMAIL" ]; then
-              python -c "
-import httpx, os
-failures = '''$(echo -e "$FAILURES")'''
-body = f'<h3>Lotus Lane Pipeline Failures</h3><pre>{failures}</pre><p><a href=\"https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}\">View run</a></p>'
-httpx.post('https://api.resend.com/emails', headers={'Authorization': f\"Bearer {os.environ['RESEND_API_KEY']}\"}, json={'from': 'Lotus Lane Bot <notifications@rxjapps.in>', 'to': [os.environ['NOTIFY_EMAIL']], 'subject': 'Lotus Lane: Pipeline failures detected', 'html': body})
-"
+              export FAIL_TEXT=$(echo -e "$FAILURES")
+              export RUN_URL="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+              python pipeline/send_failure_alert.py
             fi
           else
             echo "All pipeline steps succeeded." >> $GITHUB_STEP_SUMMARY
