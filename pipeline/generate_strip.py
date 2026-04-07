@@ -100,6 +100,11 @@ def _recent_quotes(existing_strips, n=10):
     return [s.get("quote", "") for s in existing_strips[-n:] if s.get("quote")]
 
 
+def _recent_titles(existing_strips, n=30):
+    """Get recent strip titles to avoid repetition."""
+    return [s.get("title", "") for s in existing_strips[-n:] if s.get("title")]
+
+
 def generate_script(category, topic, characters, date_str, existing_strips=None):
     """Use Claude to generate a 4-panel comic script."""
     api_key = get_anthropic_key()
@@ -141,6 +146,13 @@ words naturally (arre, yaar, beta, bewakoof, etc.).
 
 IMPORTANT: Use a DIFFERENT Nichiren quote each time. Do NOT use any of these recently used quotes:
 {chr(10).join(f'- "{q[:80]}..."' for q in _recent_quotes(existing_strips or [], 10)) or '(none yet)'}
+
+TITLE RULES — Use a UNIQUE, SPECIFIC title. Do NOT reuse any of these:
+{chr(10).join(f'- "{t}"' for t in _recent_titles(existing_strips or [], 30)) or '(none yet)'}
+- Never repeat an exact title from above
+- AVOID the pattern "The [Noun] of [Noun]" — it has been overused
+- AVOID generic titles like "The Silent Treatment" or "The Weight of..."
+- Make titles specific to THIS strip's unique situation and characters
 
 Return your response as JSON with this exact structure:
 {{
