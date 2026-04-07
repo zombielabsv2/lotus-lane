@@ -178,8 +178,7 @@
     "category": "relationships",
     "topic": "in-laws conflict",
     "characters": [],
-    "youtube_id": "PfHdAEKRARU",
-    "youtube_needs_reupload": true
+    "youtube_id": null
   },
   {
     "date": "2026-02-27",
@@ -200,8 +199,7 @@
       "arjun",
       "sudha"
     ],
-    "youtube_id": "hMT3Bc4GNqc",
-    "youtube_needs_reupload": true
+    "youtube_id": null
   },
   {
     "date": "2026-03-02",
@@ -222,8 +220,7 @@
       "arjun",
       "vikram"
     ],
-    "youtube_id": "FyUtuC-I_tc",
-    "youtube_needs_reupload": true
+    "youtube_id": null
   },
   {
     "date": "2026-03-04",
@@ -244,8 +241,7 @@
       "meera",
       "vikram"
     ],
-    "youtube_id": "m9-cGdfwqj4",
-    "youtube_needs_reupload": true
+    "youtube_id": null
   },
   {
     "date": "2026-03-06",
@@ -262,8 +258,7 @@
     "category": "grief-loss",
     "topic": "pet loss",
     "characters": [],
-    "youtube_id": "X3kteUq-yQE",
-    "youtube_needs_reupload": true
+    "youtube_id": null
   },
   {
     "date": "2026-03-09",
@@ -282,7 +277,8 @@
     "characters": [
       "arjun",
       "vikram"
-    ]
+    ],
+    "youtube_id": "cGgrn8XZhKk"
   },
   {
     "date": "2026-03-11",
