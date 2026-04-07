@@ -478,7 +478,7 @@ def build_html_email(data: dict, name: str) -> str:
         <!-- Footer -->
         <tr><td style="background:#f5f2ed; padding:20px 30px; text-align:center;">
           <p style="margin:0; font-size:12px; color:#999;">
-            Sent with care from <a href="https://zombielabsv2.github.io/lotus-lane/" style="color:#c0392b; text-decoration:none;">The Lotus Lane</a>
+            Sent with care from <a href="https://thelotuslane.in/" style="color:#c0392b; text-decoration:none;">The Lotus Lane</a>
           </p>
           <p style="margin:8px 0 0; font-size:11px; color:#bbb;">
             You received this because you signed up for Daimoku Daily.

@@ -37,7 +37,7 @@ GRAPH_API_VERSION = "v21.0"
 GRAPH_API_BASE = f"https://graph.facebook.com/{GRAPH_API_VERSION}"
 
 # GitHub Pages base URLs for publicly accessible media
-GITHUB_PAGES_BASE = "https://zombielabsv2.github.io/lotus-lane"
+GITHUB_PAGES_BASE = "https://thelotuslane.in"
 IMAGE_URL_TEMPLATE = f"{GITHUB_PAGES_BASE}/strips/{{date}}.png"
 VIDEO_URL_TEMPLATE = f"{GITHUB_PAGES_BASE}/shorts/{{date}}.mp4"
 

@@ -169,7 +169,7 @@ def send_content_email(subscriber_email, strip):
         return
 
     yt_link = "https://www.youtube.com/@thelotuslane_ND"
-    site_link = "https://zombielabsv2.github.io/lotus-lane/"
+    site_link = "https://thelotuslane.in/"
 
     html = f"""
     <div style="font-family: -apple-system, sans-serif; max-width: 560px; margin: 0 auto;">

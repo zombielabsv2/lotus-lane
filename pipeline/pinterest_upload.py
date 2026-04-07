@@ -33,8 +33,8 @@ PINS_URL = "https://api.pinterest.com/v5/pins"
 SCOPES = "boards:read,pins:read,pins:write"
 
 # Where strip images are hosted
-IMAGE_BASE_URL = "https://zombielabsv2.github.io/lotus-lane/strips"
-SITE_URL = "https://zombielabsv2.github.io/lotus-lane/"
+IMAGE_BASE_URL = "https://thelotuslane.in/strips"
+SITE_URL = "https://thelotuslane.in/"
 
 # Pinterest redirect URI for manual copy-paste flow
 REDIRECT_URI = "https://localhost/"

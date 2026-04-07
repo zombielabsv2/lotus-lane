@@ -384,7 +384,7 @@ def generate_writing_html(writing, analysis, related_writings):
   <meta property="og:title" content="{title} — Plain English Explanation">
   <meta property="og:description" content="{meta_desc}">
   <meta property="og:type" content="article">
-  <link rel="canonical" href="https://thelotuslane.com/decoder/{slug}.html">
+  <link rel="canonical" href="https://thelotuslane.in/decoder/{slug}.html">
   <style>
     * {{ margin: 0; padding: 0; box-sizing: border-box; }}
 
@@ -631,12 +631,12 @@ def generate_writing_html(writing, analysis, related_writings):
 </head>
 <body>
   <header>
-    <h1><a href="https://thelotuslane.com/">The <span>Lotus</span> Lane</a></h1>
+    <h1><a href="https://thelotuslane.in/">The <span>Lotus</span> Lane</a></h1>
     <p class="tagline">Gosho Decoder — Buddhist wisdom in plain English</p>
   </header>
 
   <nav class="breadcrumb">
-    <a href="https://thelotuslane.com/">Home</a> &rsaquo;
+    <a href="https://thelotuslane.in/">Home</a> &rsaquo;
     <a href="index.html">Gosho Decoder</a> &rsaquo;
     {title}
   </nav>
@@ -697,7 +697,7 @@ def generate_writing_html(writing, analysis, related_writings):
   </main>
 
   <footer>
-    <p>Gosho Decoder is part of <a href="https://thelotuslane.com/">The Lotus Lane</a> &mdash; Buddhist wisdom for everyday life</p>
+    <p>Gosho Decoder is part of <a href="https://thelotuslane.in/">The Lotus Lane</a> &mdash; Buddhist wisdom for everyday life</p>
     <p style="margin-top:0.3rem;">Explanations generated with AI assistance. Source texts &copy; Soka Gakkai. <a href="{url}" target="_blank" rel="noopener">Read originals at Nichiren Library</a>.</p>
   </footer>
 
@@ -752,7 +752,7 @@ def generate_index_html(writings_data):
   <meta property="og:title" content="Gosho Decoder — Nichiren's Writings in Plain English">
   <meta property="og:description" content="Plain-English explanations of the most important Gosho. Key passages, core teachings, and modern applications.">
   <meta property="og:type" content="website">
-  <link rel="canonical" href="https://thelotuslane.com/decoder/index.html">
+  <link rel="canonical" href="https://thelotuslane.in/decoder/index.html">
   <style>
     * {{ margin: 0; padding: 0; box-sizing: border-box; }}
 
@@ -958,7 +958,7 @@ def generate_index_html(writings_data):
 </head>
 <body>
   <header>
-    <h1><a href="https://thelotuslane.com/">The <span>Lotus</span> Lane</a></h1>
+    <h1><a href="https://thelotuslane.in/">The <span>Lotus</span> Lane</a></h1>
     <p class="tagline">Gosho Decoder — Buddhist wisdom in plain English</p>
   </header>
 
@@ -983,7 +983,7 @@ def generate_index_html(writings_data):
   </div>
 
   <footer>
-    <p>Gosho Decoder is part of <a href="https://thelotuslane.com/">The Lotus Lane</a> &mdash; Buddhist wisdom for everyday life</p>
+    <p>Gosho Decoder is part of <a href="https://thelotuslane.in/">The Lotus Lane</a> &mdash; Buddhist wisdom for everyday life</p>
     <p style="margin-top:0.3rem;">Explanations generated with AI assistance. Source texts &copy; Soka Gakkai. <a href="https://www.nichirenlibrary.org" target="_blank" rel="noopener">Nichiren Library</a>.</p>
   </footer>
 
