@@ -1,23 +1,22 @@
 """
 Send email notification with the strip image and WhatsApp-ready caption.
-Uses Gmail SMTP (same setup as AstroMedha).
+Uses Resend API (consistent with rest of the empire).
 Triggered after each strip generation in the GitHub Actions pipeline.
 """
 
 import json
 import os
-import smtplib
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
-from email.mime.image import MIMEImage
+import base64
 from pathlib import Path
 
 import httpx
 
 
-GMAIL_ADDRESS = os.environ.get("GMAIL_ADDRESS", "")
-GMAIL_APP_PASSWORD = os.environ.get("GMAIL_APP_PASSWORD", "")
+RESEND_API_KEY = os.environ.get("RESEND_API_KEY", "")
 NOTIFY_EMAIL = os.environ.get("NOTIFY_EMAIL", "")
+FROM_EMAIL = "Lotus Lane Bot <notifications@rxjapps.in>"
+RESEND_API_URL = "https://api.resend.com/emails"
+
 STRIPS_DIR = Path(__file__).parent.parent / "strips"
 STRIPS_JSON = Path(__file__).parent.parent / "strips.json"
 
@@ -57,10 +56,43 @@ def build_status_caption(strip):
     return f"*{title}*\n\n_\"{quote[:100]}{'...' if len(quote) > 100 else ''}\"_\n\ntinyurl.com/thelotuslane"
 
 
+def _send_via_resend(to_email, subject, html, attachments=None):
+    """Send an email via Resend API."""
+    if not RESEND_API_KEY:
+        print("  [NOTIFY] Skipped — RESEND_API_KEY not set")
+        return False
+
+    payload = {
+        "from": FROM_EMAIL,
+        "to": [to_email],
+        "subject": subject,
+        "html": html,
+    }
+
+    if attachments:
+        payload["attachments"] = attachments
+
+    response = httpx.post(
+        RESEND_API_URL,
+        headers={
+            "Authorization": f"Bearer {RESEND_API_KEY}",
+            "Content-Type": "application/json",
+        },
+        json=payload,
+        timeout=30,
+    )
+
+    if response.status_code in (200, 201):
+        return True
+    else:
+        print(f"  [NOTIFY] Resend API error {response.status_code}: {response.text[:300]}")
+        return False
+
+
 def send_notification(strip):
-    """Send email with strip image and WhatsApp captions via Gmail SMTP."""
-    if not GMAIL_ADDRESS or not GMAIL_APP_PASSWORD or not NOTIFY_EMAIL:
-        print("  [NOTIFY] Skipped — GMAIL_ADDRESS, GMAIL_APP_PASSWORD, or NOTIFY_EMAIL not set")
+    """Send email with strip image and WhatsApp captions via Resend."""
+    if not RESEND_API_KEY or not NOTIFY_EMAIL:
+        print("  [NOTIFY] Skipped — RESEND_API_KEY or NOTIFY_EMAIL not set")
         return
 
     whatsapp_caption = build_whatsapp_caption(strip)
@@ -89,25 +121,25 @@ def send_notification(strip):
     </div>
     """
 
-    # Build email
-    msg = MIMEMultipart()
-    msg["From"] = f"Lotus Lane Bot <{GMAIL_ADDRESS}>"
-    msg["To"] = NOTIFY_EMAIL
-    msg["Subject"] = f"Post to WhatsApp: {strip['title']}"
-    msg.attach(MIMEText(html, "html"))
-
-    # Attach strip image
+    # Build attachment from strip image
+    attachments = []
     image_path = STRIPS_DIR.parent / strip["image"]
-    with open(image_path, "rb") as f:
-        img_attachment = MIMEImage(f.read(), name=f"lotus-lane-{strip['date']}.png")
-    msg.attach(img_attachment)
+    if image_path.exists():
+        with open(image_path, "rb") as f:
+            image_b64 = base64.b64encode(f.read()).decode()
+        attachments.append({
+            "filename": f"lotus-lane-{strip['date']}.png",
+            "content": image_b64,
+        })
 
-    # Send via Gmail SMTP
-    with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
-        server.login(GMAIL_ADDRESS, GMAIL_APP_PASSWORD)
-        server.send_message(msg)
-
-    print(f"  [NOTIFY] Email sent to {NOTIFY_EMAIL}")
+    success = _send_via_resend(
+        NOTIFY_EMAIL,
+        f"Post to WhatsApp: {strip['title']}",
+        html,
+        attachments=attachments if attachments else None,
+    )
+    if success:
+        print(f"  [NOTIFY] Email sent to {NOTIFY_EMAIL}")
 
 
 def get_content_subscribers():
@@ -132,11 +164,11 @@ def get_content_subscribers():
 
 
 def send_content_email(subscriber_email, strip):
-    """Send new content notification to a subscriber."""
-    if not GMAIL_ADDRESS or not GMAIL_APP_PASSWORD:
+    """Send new content notification to a subscriber via Resend."""
+    if not RESEND_API_KEY:
         return
 
-    yt_link = f"https://www.youtube.com/@thelotuslane_ND"
+    yt_link = "https://www.youtube.com/@thelotuslane_ND"
     site_link = "https://zombielabsv2.github.io/lotus-lane/"
 
     html = f"""
@@ -177,28 +209,30 @@ def send_content_email(subscriber_email, strip):
     </div>
     """
 
-    msg = MIMEMultipart()
-    msg["From"] = f"The Lotus Lane <{GMAIL_ADDRESS}>"
-    msg["To"] = subscriber_email
-    msg["Subject"] = f"New Strip: {strip.get('title', '')} — The Lotus Lane"
-    msg.attach(MIMEText(html, "html"))
-
     # Attach strip image
+    attachments = []
     image_path = STRIPS_DIR.parent / strip["image"]
-    with open(image_path, "rb") as f:
-        img_attachment = MIMEImage(f.read(), name=f"lotus-lane-{strip['date']}.png")
-    msg.attach(img_attachment)
+    if image_path.exists():
+        with open(image_path, "rb") as f:
+            image_b64 = base64.b64encode(f.read()).decode()
+        attachments.append({
+            "filename": f"lotus-lane-{strip['date']}.png",
+            "content": image_b64,
+        })
 
-    with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
-        server.login(GMAIL_ADDRESS, GMAIL_APP_PASSWORD)
-        server.send_message(msg)
+    _send_via_resend(
+        subscriber_email,
+        f"New Strip: {strip.get('title', '')} — The Lotus Lane",
+        html,
+        attachments=attachments if attachments else None,
+    )
 
 
 def notify_content_subscribers(strip):
     """Send new strip notification to all content subscribers."""
     subscribers = get_content_subscribers()
     if not subscribers:
-        print(f"  [CONTENT] No content subscribers to notify")
+        print("  [CONTENT] No content subscribers to notify")
         return
 
     print(f"  [CONTENT] Notifying {len(subscribers)} content subscribers...")
