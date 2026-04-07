@@ -276,17 +276,16 @@ def get_strip_data(date_str):
 
 def save_pin_id(date_str, pin_id):
     """Save the Pinterest pin ID back to strips.json for tracking."""
-    with open(STRIPS_JSON, "r", encoding="utf-8") as f:
-        strips = json.load(f)
+    from pipeline.utils import safe_update_strips, update_distribution_status
 
-    for s in strips:
-        if s["date"] == date_str:
-            s["pinterest_pin_id"] = pin_id
-            break
+    def _update(strips):
+        for s in strips:
+            if s["date"] == date_str:
+                s["pinterest_pin_id"] = pin_id
+                break
 
-    with open(STRIPS_JSON, "w", encoding="utf-8") as f:
-        json.dump(strips, f, indent=2, ensure_ascii=False)
-        f.write("\n")
+    safe_update_strips(_update)
+    update_distribution_status(date_str, "pinterest", "uploaded", platform_id=pin_id)
 
     print(f"  [{date_str}] Saved pinterest_pin_id={pin_id} to strips.json")
 

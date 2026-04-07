@@ -146,17 +146,16 @@ def get_strip_data(date_str):
 
 def save_youtube_id(date_str, video_id):
     """Save the YouTube video ID back to strips.json for upload tracking."""
-    with open(STRIPS_JSON, "r", encoding="utf-8") as f:
-        strips = json.load(f)
+    from pipeline.utils import safe_update_strips, update_distribution_status
 
-    for s in strips:
-        if s["date"] == date_str:
-            s["youtube_id"] = video_id
-            break
+    def _update(strips):
+        for s in strips:
+            if s["date"] == date_str:
+                s["youtube_id"] = video_id
+                break
 
-    with open(STRIPS_JSON, "w", encoding="utf-8") as f:
-        json.dump(strips, f, indent=2, ensure_ascii=False)
-        f.write("\n")
+    safe_update_strips(_update)
+    update_distribution_status(date_str, "youtube", "uploaded", platform_id=video_id)
 
     print(f"  [{date_str}] Saved youtube_id={video_id} to strips.json")
 
@@ -374,6 +373,8 @@ def swap_old_videos(max_per_run=5):
     Processes strips flagged with youtube_needs_reupload=True.
     Deletes old video, uploads new one, clears the flag.
     """
+    from pipeline.utils import safe_update_strips
+
     with open(STRIPS_JSON, "r", encoding="utf-8") as f:
         strips = json.load(f)
 
@@ -396,30 +397,43 @@ def swap_old_videos(max_per_run=5):
 
         # Step 1: Upload new video FIRST (so old one stays if upload fails)
         print(f"  [{date_str}] Uploading new version...")
-        strip["youtube_id"] = None  # clear so upload_video treats as new
-        with open(STRIPS_JSON, "w", encoding="utf-8") as f:
-            json.dump(strips, f, indent=2, ensure_ascii=False)
+
+        def _clear_yt_id(strips, _ds=date_str):
+            for s in strips:
+                if s["date"] == _ds:
+                    s["youtube_id"] = None
+                    break
+        safe_update_strips(_clear_yt_id)
 
         try:
             upload_video(date_str)
         except httpx.HTTPStatusError as e:
             if "uploadLimitExceeded" in str(e.response.text):
                 # Restore old ID since upload failed
-                strip["youtube_id"] = old_id
-                with open(STRIPS_JSON, "w", encoding="utf-8") as f:
-                    json.dump(strips, f, indent=2, ensure_ascii=False)
+                def _restore(strips, _ds=date_str, _oid=old_id):
+                    for s in strips:
+                        if s["date"] == _ds:
+                            s["youtube_id"] = _oid
+                            break
+                safe_update_strips(_restore)
                 print(f"\n  YouTube daily limit reached after {swapped} swaps. Will continue tomorrow.")
                 break
             # Restore old ID on other failures too
-            strip["youtube_id"] = old_id
-            with open(STRIPS_JSON, "w", encoding="utf-8") as f:
-                json.dump(strips, f, indent=2, ensure_ascii=False)
+            def _restore(strips, _ds=date_str, _oid=old_id):
+                for s in strips:
+                    if s["date"] == _ds:
+                        s["youtube_id"] = _oid
+                        break
+            safe_update_strips(_restore)
             print(f"  [{date_str}] Upload failed: {e}")
             continue
         except Exception as e:
-            strip["youtube_id"] = old_id
-            with open(STRIPS_JSON, "w", encoding="utf-8") as f:
-                json.dump(strips, f, indent=2, ensure_ascii=False)
+            def _restore(strips, _ds=date_str, _oid=old_id):
+                for s in strips:
+                    if s["date"] == _ds:
+                        s["youtube_id"] = _oid
+                        break
+            safe_update_strips(_restore)
             print(f"  [{date_str}] Upload failed: {e}")
             continue
 
@@ -432,9 +446,12 @@ def swap_old_videos(max_per_run=5):
                 print(f"  [{date_str}] Warning: delete failed ({e}) — old video may remain")
 
         # Step 3: Clear swap flag
-        strip.pop("youtube_needs_reupload", None)
-        with open(STRIPS_JSON, "w", encoding="utf-8") as f:
-            json.dump(strips, f, indent=2, ensure_ascii=False)
+        def _clear_flag(strips, _ds=date_str):
+            for s in strips:
+                if s["date"] == _ds:
+                    s.pop("youtube_needs_reupload", None)
+                    break
+        safe_update_strips(_clear_flag)
         swapped += 1
 
     remaining = len(to_swap) - swapped

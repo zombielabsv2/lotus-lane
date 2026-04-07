@@ -149,6 +149,28 @@ class TestGenerateStripModule:
         assert not missing, f"Missing functions in generate_strip.py: {missing}"
 
 
+class TestUtilsModule:
+    """Test pipeline/utils.py structure."""
+
+    def test_utils_py_exists(self):
+        assert (PIPELINE_DIR / "utils.py").exists()
+
+    def test_has_expected_functions(self):
+        source = (PIPELINE_DIR / "utils.py").read_text(encoding="utf-8")
+        tree = ast.parse(source, filename="utils.py")
+        func_names = {
+            node.name for node in ast.walk(tree) if isinstance(node, ast.FunctionDef)
+        }
+        expected = {
+            "safe_update_strips",
+            "update_distribution_status",
+            "get_strip_data",
+            "get_latest_date",
+        }
+        missing = expected - func_names
+        assert not missing, f"Missing functions in utils.py: {missing}"
+
+
 class TestQualityCheckModule:
     """Test quality_check.py structure (can't import due to Pillow/httpx)."""
 
