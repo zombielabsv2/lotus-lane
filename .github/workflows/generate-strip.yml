@@ -43,15 +43,15 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: |
-          ARGS=""
+          ARGS=()
           TOPIC="${{ github.event.inputs.topic }}"
           if [ -n "$TOPIC" ]; then
-            ARGS="$ARGS --topic \"$TOPIC\""
+            ARGS+=(--topic "$TOPIC")
           fi
           if [ "${{ github.event.inputs.dry_run }}" == "true" ]; then
-            ARGS="$ARGS --dry-run"
+            ARGS+=(--dry-run)
           fi
-          eval python pipeline/generate_strip.py $ARGS
+          python pipeline/generate_strip.py "${ARGS[@]}"
 
       # --- Core: commit strip to site FIRST, before any optional steps ---
       - name: Generate strip SEO page
@@ -79,11 +79,13 @@ jobs:
       - name: Generate YouTube Short video
         if: ${{ github.event.inputs.dry_run != 'true' }}
         continue-on-error: true
+        id: video
         run: python pipeline/video_generator.py --date $(date +%Y-%m-%d)
 
       - name: Upload to YouTube
         if: ${{ github.event.inputs.dry_run != 'true' }}
         continue-on-error: true
+        id: youtube
         env:
           YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
           YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
@@ -93,6 +95,7 @@ jobs:
       - name: Pin to Pinterest
         if: ${{ github.event.inputs.dry_run != 'true' }}
         continue-on-error: true
+        id: pinterest
         env:
           PINTEREST_ACCESS_TOKEN: ${{ secrets.PINTEREST_ACCESS_TOKEN }}
           PINTEREST_REFRESH_TOKEN: ${{ secrets.PINTEREST_REFRESH_TOKEN }}
@@ -104,6 +107,7 @@ jobs:
       - name: Post to Tumblr
         if: ${{ github.event.inputs.dry_run != 'true' }}
         continue-on-error: true
+        id: tumblr
         env:
           TUMBLR_ACCESS_TOKEN: ${{ secrets.TUMBLR_ACCESS_TOKEN }}
           TUMBLR_CONSUMER_KEY: ${{ secrets.TUMBLR_CONSUMER_KEY }}
@@ -114,6 +118,7 @@ jobs:
       - name: Post to Instagram
         if: ${{ github.event.inputs.dry_run != 'true' }}
         continue-on-error: true
+        id: instagram
         env:
           INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
           INSTAGRAM_USER_ID: ${{ secrets.INSTAGRAM_USER_ID }}
@@ -122,6 +127,7 @@ jobs:
       - name: Commit video and social media IDs
         if: ${{ github.event.inputs.dry_run != 'true' }}
         continue-on-error: true
+        id: commit_social
         run: |
           git pull --rebase || true
           git add strips.json shorts/
@@ -135,10 +141,45 @@ jobs:
       - name: Send notifications (WhatsApp reminder + content subscribers)
         if: ${{ github.event.inputs.dry_run != 'true' }}
         continue-on-error: true
+        id: notify
         env:
-          GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
-          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
           NOTIFY_EMAIL: ${{ secrets.NOTIFY_EMAIL }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
         run: python pipeline/notify.py
+
+      - name: Report failure summary
+        if: ${{ github.event.inputs.dry_run != 'true' && always() }}
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          NOTIFY_EMAIL: ${{ secrets.NOTIFY_EMAIL }}
+        run: |
+          FAILURES=""
+          if [ "${{ steps.video.outcome }}" == "failure" ]; then FAILURES="$FAILURES- Video generation FAILED\n"; fi
+          if [ "${{ steps.youtube.outcome }}" == "failure" ]; then FAILURES="$FAILURES- YouTube upload FAILED\n"; fi
+          if [ "${{ steps.pinterest.outcome }}" == "failure" ]; then FAILURES="$FAILURES- Pinterest pin FAILED\n"; fi
+          if [ "${{ steps.tumblr.outcome }}" == "failure" ]; then FAILURES="$FAILURES- Tumblr post FAILED\n"; fi
+          if [ "${{ steps.instagram.outcome }}" == "failure" ]; then FAILURES="$FAILURES- Instagram post FAILED\n"; fi
+          if [ "${{ steps.commit_social.outcome }}" == "failure" ]; then FAILURES="$FAILURES- Social ID commit FAILED\n"; fi
+          if [ "${{ steps.notify.outcome }}" == "failure" ]; then FAILURES="$FAILURES- Notifications FAILED\n"; fi
+
+          if [ -n "$FAILURES" ]; then
+            echo "## Lotus Lane Pipeline Failures" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo -e "$FAILURES" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "Check: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" >> $GITHUB_STEP_SUMMARY
+
+            # Send failure alert email via Resend if configured
+            if [ -n "$RESEND_API_KEY" ] && [ -n "$NOTIFY_EMAIL" ]; then
+              python -c "
+import httpx, os
+failures = '''$(echo -e "$FAILURES")'''
+body = f'<h3>Lotus Lane Pipeline Failures</h3><pre>{failures}</pre><p><a href=\"https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}\">View run</a></p>'
+httpx.post('https://api.resend.com/emails', headers={'Authorization': f\"Bearer {os.environ['RESEND_API_KEY']}\"}, json={'from': 'Lotus Lane Bot <notifications@rxjapps.in>', 'to': [os.environ['NOTIFY_EMAIL']], 'subject': 'Lotus Lane: Pipeline failures detected', 'html': body})
+"
+            fi
+          else
+            echo "All pipeline steps succeeded." >> $GITHUB_STEP_SUMMARY
+          fi
