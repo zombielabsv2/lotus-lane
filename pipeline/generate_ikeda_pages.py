@@ -19,7 +19,7 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).parent.parent
 IKEDA_DIR = PROJECT_ROOT / "ikeda"
 QUOTES_JSON = IKEDA_DIR / "quotes.json"
-SITE_URL = "https://thelotuslane.in"
+SITE_URL = "https://zombielabsv2.github.io/lotus-lane"
 
 # Icon mapping (theme id -> emoji)
 ICONS = {

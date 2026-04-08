@@ -25,7 +25,7 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).parent.parent
 STRIPS_JSON = PROJECT_ROOT / "strips.json"
 STRIPS_DIR = PROJECT_ROOT / "strips"
-SITE_URL = "https://thelotuslane.in"
+SITE_URL = "https://zombielabsv2.github.io/lotus-lane"
 
 
 def load_strips():
