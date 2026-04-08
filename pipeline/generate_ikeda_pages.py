@@ -237,9 +237,9 @@ def generate_theme_page(theme, all_themes):
 </head>
 <body>
   <header>
-    <h1><a href="../../">The <span>Lotus</span> Lane</a></h1>
+    <h1><a href="../">The <span>Lotus</span> Lane</a></h1>
     <div class="breadcrumb">
-      <a href="../../">Home</a> &rsaquo;
+      <a href="../">Home</a> &rsaquo;
       <a href="index.html">Ikeda Guidance</a> &rsaquo;
       {name}
     </div>
@@ -261,16 +261,16 @@ def generate_theme_page(theme, all_themes):
   <div class="cta">
     <div class="cta-box">
       <p style="font-size:0.95rem; color:#333; margin-bottom:0.3rem;">Want daily Buddhist wisdom in your inbox?</p>
-      <p><a href="../../subscribe.html">Subscribe to Daimoku Daily &rarr;</a></p>
+      <p><a href="../subscribe.html">Subscribe to Daimoku Daily &rarr;</a></p>
     </div>
   </div>
 
   <footer>
-    <p>Quotes by Daisaku Ikeda &middot; Curated by <a href="../../">The Lotus Lane</a></p>
+    <p>Quotes by Daisaku Ikeda &middot; Curated by <a href="../">The Lotus Lane</a></p>
     <p style="margin-top:0.3rem;">
       <a href="index.html">All Topics</a> &middot;
-      <a href="../../decoder/index.html">Gosho Decoder</a> &middot;
-      <a href="../../subscribe.html">Daimoku Daily</a>
+      <a href="../decoder/index.html">Gosho Decoder</a> &middot;
+      <a href="../subscribe.html">Daimoku Daily</a>
     </p>
   </footer>
 
