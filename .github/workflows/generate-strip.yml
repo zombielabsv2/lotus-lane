@@ -72,6 +72,7 @@ jobs:
             echo "No new changes to commit"
           else
             git commit -m "Add strip for $(date +%Y-%m-%d)"
+            git pull --rebase origin main
             git push
           fi
 

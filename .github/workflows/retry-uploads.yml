@@ -61,6 +61,7 @@ jobs:
             echo "No new uploads"
           else
             git commit -m "Auto-link YouTube IDs for newly uploaded shorts"
+            git pull --rebase origin main
             git push
           fi
 

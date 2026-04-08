@@ -12,6 +12,17 @@ from pathlib import Path
 
 import pytest
 
+# Playwright requires browser binaries — skip dependent tests when not installed
+_has_playwright = True
+try:
+    import playwright  # noqa: F401
+except ModuleNotFoundError:
+    _has_playwright = False
+
+needs_playwright = pytest.mark.skipif(
+    not _has_playwright, reason="playwright not installed (optional dependency)"
+)
+
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 PIPELINE_DIR = PROJECT_ROOT / "pipeline"
 
@@ -211,6 +222,7 @@ class TestDrawingHelpers:
 # ---------------------------------------------------------------------------
 
 
+@needs_playwright
 class TestImageGeneration:
     """Test Pillow image generation with mock data."""
 
@@ -312,6 +324,7 @@ class TestSEOPage:
 # ---------------------------------------------------------------------------
 
 
+@needs_playwright
 class TestSaveFlow:
     """Test the complete save pipeline with cleanup."""
 
