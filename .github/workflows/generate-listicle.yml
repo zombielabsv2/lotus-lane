@@ -28,7 +28,9 @@ jobs:
           python-version: '3.12'
 
       - name: Install dependencies
-        run: pip install Pillow httpx
+        run: |
+          pip install Pillow httpx playwright
+          playwright install chromium --with-deps
 
       - name: Generate listicle
         env:

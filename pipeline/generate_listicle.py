@@ -306,110 +306,271 @@ def draw_lotus_small(draw: ImageDraw.Draw, cx: int, cy: int, color: tuple, size:
 
 
 # ---------------------------------------------------------------------------
+# Playwright HTML → Image rendering (browser-quality typography)
+# ---------------------------------------------------------------------------
+
+def _render_html_to_image(html: str, width: int, height: int) -> Image.Image:
+    """Render HTML to a PIL Image using Playwright headless Chromium."""
+    from playwright.sync_api import sync_playwright
+    from io import BytesIO
+
+    with sync_playwright() as p:
+        browser = p.chromium.launch()
+        page = browser.new_page(viewport={"width": width, "height": height}, device_scale_factor=2)
+        page.set_content(html, wait_until="networkidle")
+        # Let the page determine its own height
+        actual_height = page.evaluate("document.body.scrollHeight")
+        if actual_height > height:
+            page.set_viewport_size({"width": width, "height": actual_height})
+        screenshot = page.screenshot(type="png", full_page=True)
+        browser.close()
+
+    img = Image.open(BytesIO(screenshot))
+    # Resize from 2x device scale to target dimensions
+    target_w = width
+    target_h = int(img.height * target_w / img.width)
+    img = img.resize((target_w, target_h), Image.LANCZOS)
+    return img
+
+
+def _infographic_html(listicle: dict) -> str:
+    """Build the HTML for a tall infographic."""
+    title = listicle["title"]
+    items = listicle["items"]
+
+    items_html = ""
+    for i, item in enumerate(items):
+        items_html += f"""
+        <div class="item">
+          <div class="number">{i + 1}</div>
+          <div class="content">
+            <div class="quote">&ldquo;{item['quote']}&rdquo;</div>
+            <div class="attribution">&mdash; Daisaku Ikeda, <em>{item['source']}</em></div>
+            <div class="explanation">{item['explanation']}</div>
+          </div>
+        </div>"""
+
+    return f"""<!DOCTYPE html>
+<html><head>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600&display=swap');
+  * {{ margin: 0; padding: 0; box-sizing: border-box; }}
+  body {{
+    width: 1080px;
+    background: linear-gradient(180deg, #FDF6E3 0%, #F5E6C8 40%, #EDD9B5 100%);
+    font-family: 'Inter', sans-serif;
+    color: #3E2723;
+    padding: 70px 70px 50px;
+  }}
+  .header {{
+    text-align: center;
+    margin-bottom: 40px;
+  }}
+  .lotus {{
+    font-size: 32px;
+    margin-bottom: 12px;
+  }}
+  .title {{
+    font-family: 'Playfair Display', serif;
+    font-size: 46px;
+    font-weight: 700;
+    line-height: 1.25;
+    color: #2C1810;
+    margin-bottom: 20px;
+  }}
+  .divider {{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin: 10px 0;
+  }}
+  .divider .line {{
+    width: 80px;
+    height: 1px;
+    background: #C4A265;
+  }}
+  .divider .diamond {{
+    width: 8px;
+    height: 8px;
+    background: #C4A265;
+    transform: rotate(45deg);
+  }}
+  .items {{
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }}
+  .item {{
+    display: flex;
+    gap: 24px;
+    padding: 32px 0;
+    border-bottom: 1px solid rgba(196, 162, 101, 0.3);
+  }}
+  .item:last-child {{
+    border-bottom: none;
+  }}
+  .number {{
+    font-family: 'Playfair Display', serif;
+    font-size: 52px;
+    font-weight: 700;
+    color: #C4A265;
+    line-height: 1;
+    min-width: 50px;
+  }}
+  .content {{
+    flex: 1;
+  }}
+  .quote {{
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-style: italic;
+    line-height: 1.45;
+    color: #2C1810;
+    margin-bottom: 10px;
+  }}
+  .attribution {{
+    font-size: 16px;
+    color: #8D6E63;
+    margin-bottom: 12px;
+    font-weight: 500;
+  }}
+  .explanation {{
+    font-size: 19px;
+    line-height: 1.5;
+    color: #5D4037;
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.45);
+    border-radius: 8px;
+    border-left: 3px solid #C4A265;
+  }}
+  .branding {{
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 20px;
+  }}
+  .branding .name {{
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    color: #A89070;
+    letter-spacing: 0.15em;
+  }}
+  .branding .url {{
+    font-size: 14px;
+    color: #BDBDBD;
+    margin-top: 4px;
+  }}
+</style></head>
+<body>
+  <div class="header">
+    <div class="lotus">&#x1F33A;</div>
+    <div class="title">{title}</div>
+    <div class="divider"><div class="line"></div><div class="diamond"></div><div class="line"></div></div>
+  </div>
+  <div class="items">{items_html}</div>
+  <div class="branding">
+    <div class="name">THE LOTUS LANE</div>
+    <div class="url">thelotuslane.in</div>
+  </div>
+</body></html>"""
+
+
+def _carousel_slide_html(item: dict, slide_num: int, total: int, title: str) -> str:
+    """Build HTML for a single carousel slide (1080x1080)."""
+    is_cover = slide_num == 0
+
+    if is_cover:
+        return f"""<!DOCTYPE html>
+<html><head>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600&display=swap');
+  * {{ margin: 0; padding: 0; box-sizing: border-box; }}
+  body {{
+    width: 1080px; height: 1080px;
+    background: linear-gradient(135deg, #2C1810 0%, #4E342E 50%, #3E2723 100%);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    font-family: 'Inter', sans-serif; color: white; text-align: center; padding: 80px;
+  }}
+  .lotus {{ font-size: 48px; margin-bottom: 30px; }}
+  .title {{
+    font-family: 'Playfair Display', serif; font-size: 52px; font-weight: 700;
+    line-height: 1.3; margin-bottom: 30px;
+  }}
+  .divider {{ display: flex; align-items: center; justify-content: center; gap: 12px; margin: 20px 0; }}
+  .divider .line {{ width: 60px; height: 1px; background: #C4A265; }}
+  .divider .diamond {{ width: 8px; height: 8px; background: #C4A265; transform: rotate(45deg); }}
+  .subtitle {{
+    font-size: 22px; color: rgba(255,255,255,0.6); font-style: italic;
+  }}
+  .branding {{
+    position: absolute; bottom: 40px; font-size: 16px; color: rgba(255,255,255,0.3);
+    letter-spacing: 0.15em;
+  }}
+</style></head>
+<body>
+  <div class="lotus">&#x1F33A;</div>
+  <div class="title">{title}</div>
+  <div class="divider"><div class="line"></div><div class="diamond"></div><div class="line"></div></div>
+  <div class="subtitle">Guidance from Daisaku Ikeda</div>
+  <div class="branding">THE LOTUS LANE</div>
+</body></html>"""
+
+    return f"""<!DOCTYPE html>
+<html><head>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600&display=swap');
+  * {{ margin: 0; padding: 0; box-sizing: border-box; }}
+  body {{
+    width: 1080px; height: 1080px;
+    background: linear-gradient(180deg, #FDF6E3 0%, #F5E6C8 100%);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    font-family: 'Inter', sans-serif; color: #3E2723; text-align: center; padding: 80px;
+  }}
+  .number {{
+    font-family: 'Playfair Display', serif; font-size: 72px; font-weight: 700;
+    color: #C4A265; margin-bottom: 24px;
+  }}
+  .quote {{
+    font-family: 'Playfair Display', serif; font-size: 34px; font-style: italic;
+    line-height: 1.45; color: #2C1810; margin-bottom: 24px; max-width: 850px;
+  }}
+  .divider {{ display: flex; align-items: center; justify-content: center; gap: 12px; margin: 16px 0; }}
+  .divider .line {{ width: 50px; height: 1px; background: #C4A265; }}
+  .divider .diamond {{ width: 6px; height: 6px; background: #C4A265; transform: rotate(45deg); }}
+  .attribution {{ font-size: 18px; color: #8D6E63; margin-bottom: 20px; }}
+  .explanation {{
+    font-size: 22px; line-height: 1.5; color: #5D4037; max-width: 800px;
+    padding: 16px 24px; background: rgba(255,255,255,0.5); border-radius: 10px;
+    border-left: 3px solid #C4A265;
+  }}
+  .counter {{
+    position: absolute; top: 40px; right: 50px;
+    font-size: 16px; color: #BDBDBD; font-weight: 500;
+  }}
+  .branding {{
+    position: absolute; bottom: 30px;
+    font-size: 14px; color: #BDBDBD; letter-spacing: 0.1em;
+  }}
+</style></head>
+<body>
+  <div class="counter">{slide_num}/{total}</div>
+  <div class="number">{slide_num}</div>
+  <div class="quote">&ldquo;{item['quote']}&rdquo;</div>
+  <div class="divider"><div class="line"></div><div class="diamond"></div><div class="line"></div></div>
+  <div class="attribution">&mdash; Daisaku Ikeda, <em>{item['source']}</em></div>
+  <div class="explanation">{item['explanation']}</div>
+  <div class="branding">THE LOTUS LANE &bull; thelotuslane.in</div>
+</body></html>"""
+
+
+# ---------------------------------------------------------------------------
 # Image generation — Tall infographic (1080x1920)
 # ---------------------------------------------------------------------------
 
 def generate_infographic(listicle: dict) -> Image.Image:
-    """Generate a tall 1080x1920 infographic image."""
-    w, h = INFOGRAPHIC_SIZE
-    img = Image.new("RGB", (w, h))
-    draw_gradient(img, BG_TOP, BG_BOTTOM)
-    draw = ImageDraw.Draw(img)
-
-    # Fonts
-    font_title = load_font("Nunito-Bold.ttf", 44)
-    font_quote = load_font("Nunito-Regular.ttf", 28)
-    font_attribution = load_font("Nunito-Bold.ttf", 20)
-    font_explanation = load_font("Nunito-Regular.ttf", 22)
-    font_number = load_font("Nunito-Bold.ttf", 48)
-    font_branding = load_font("Nunito-Regular.ttf", 18)
-    font_branding_sm = load_font("Nunito-Regular.ttf", 14)
-
-    margin_x = 80
-    text_area_width = w - 2 * margin_x
-    y = 70
-
-    # --- Lotus flower at top ---
-    draw_lotus_small(draw, w // 2, y, COLOR_NUMBER, size=22)
-    y += 40
-
-    # --- Title ---
-    title_lines = wrap_text(listicle["title"], font_title, text_area_width)
-    sample_bbox = font_title.getbbox("Ag")
-    title_line_h = int((sample_bbox[3] - sample_bbox[1]) * 1.4)
-    for line in title_lines:
-        bbox = font_title.getbbox(line)
-        tw = bbox[2] - bbox[0]
-        draw.text(((w - tw) // 2, y), line, fill=COLOR_TITLE, font=font_title)
-        y += title_line_h
-    y += 20
-
-    # --- Separator below title ---
-    draw_separator(draw, y, w, COLOR_SEPARATOR)
-    y += 30
-
-    # --- Items ---
-    items = listicle["items"]
-    # Calculate available height for items
-    bottom_reserve = 100  # space for branding
-    available_h = h - y - bottom_reserve
-    item_spacing = available_h // len(items)
-
-    for i, item in enumerate(items):
-        item_start_y = y
-
-        # Number
-        num_str = str(i + 1)
-        num_bbox = font_number.getbbox(num_str)
-        num_tw = num_bbox[2] - num_bbox[0]
-        draw.text((margin_x, item_start_y), num_str, fill=COLOR_NUMBER, font=font_number)
-
-        # Quote text (italic-like via regular font, in curly quotes)
-        quote_text = f"\u201C{item['quote']}\u201D"
-        quote_x = margin_x + num_tw + 20
-        quote_max_w = w - quote_x - margin_x
-        quote_lines = wrap_text(quote_text, font_quote, quote_max_w)
-        q_bbox = font_quote.getbbox("Ag")
-        quote_line_h = int((q_bbox[3] - q_bbox[1]) * 1.45)
-
-        qy = item_start_y + 5
-        for qline in quote_lines[:4]:  # max 4 lines per quote
-            draw.text((quote_x, qy), qline, fill=COLOR_QUOTE, font=font_quote)
-            qy += quote_line_h
-
-        # Attribution
-        attr_text = f"\u2014 Daisaku Ikeda, {item['source']}"
-        draw.text((quote_x, qy), attr_text, fill=COLOR_ATTRIBUTION, font=font_attribution)
-        qy += int(font_attribution.getbbox("Ag")[3] * 1.4)
-
-        # Explanation
-        expl_lines = wrap_text(item["explanation"], font_explanation, quote_max_w)
-        e_bbox = font_explanation.getbbox("Ag")
-        expl_line_h = int((e_bbox[3] - e_bbox[1]) * 1.4)
-        for eline in expl_lines[:2]:  # max 2 lines
-            draw.text((quote_x, qy), eline, fill=COLOR_EXPLANATION, font=font_explanation)
-            qy += expl_line_h
-
-        # Separator between items (not after the last)
-        if i < len(items) - 1:
-            sep_y = item_start_y + item_spacing - 15
-            draw_separator(draw, sep_y, w, COLOR_SEPARATOR)
-
-        y = item_start_y + item_spacing
-
-    # --- Branding at bottom ---
-    brand_y = h - 70
-    wm1 = "The Lotus Lane"
-    wm1_bbox = font_branding.getbbox(wm1)
-    wm1_tw = wm1_bbox[2] - wm1_bbox[0]
-    draw.text(((w - wm1_tw) // 2, brand_y), wm1, fill=COLOR_BRANDING, font=font_branding)
-
-    wm2 = "\u2022 thelotuslane.in \u2022"
-    wm2_bbox = font_branding_sm.getbbox(wm2)
-    wm2_tw = wm2_bbox[2] - wm2_bbox[0]
-    draw.text(((w - wm2_tw) // 2, brand_y + 26), wm2, fill=COLOR_BRANDING, font=font_branding_sm)
-
-    return img
+    """Generate a tall infographic using Playwright for browser-quality typography."""
+    html = _infographic_html(listicle)
+    return _render_html_to_image(html, 1080, 1920)
 
 
 # ---------------------------------------------------------------------------
@@ -417,159 +578,15 @@ def generate_infographic(listicle: dict) -> Image.Image:
 # ---------------------------------------------------------------------------
 
 def generate_carousel_cover(listicle: dict) -> Image.Image:
-    """Generate the cover slide (1080x1080) for the Instagram carousel."""
-    w, h = CAROUSEL_SIZE
-    img = Image.new("RGB", (w, h))
-    draw_gradient(img, BG_TOP, BG_BOTTOM)
-    draw = ImageDraw.Draw(img)
-
-    font_title = load_font("Nunito-Bold.ttf", 52)
-    font_subtitle = load_font("Nunito-Regular.ttf", 28)
-    font_branding = load_font("Nunito-Regular.ttf", 18)
-    font_branding_sm = load_font("Nunito-Regular.ttf", 14)
-
-    margin_x = 100
-    text_area_width = w - 2 * margin_x
-
-    # Lotus at top
-    draw_lotus_small(draw, w // 2, 180, COLOR_NUMBER, size=30)
-
-    # Title (centered vertically)
-    title_lines = wrap_text(listicle["title"], font_title, text_area_width)
-    t_bbox = font_title.getbbox("Ag")
-    title_line_h = int((t_bbox[3] - t_bbox[1]) * 1.5)
-    total_title_h = title_line_h * len(title_lines)
-    title_start_y = (h - total_title_h) // 2 - 40
-
-    for line in title_lines:
-        bbox = font_title.getbbox(line)
-        tw = bbox[2] - bbox[0]
-        draw.text(((w - tw) // 2, title_start_y), line, fill=COLOR_TITLE, font=font_title)
-        title_start_y += title_line_h
-
-    # Subtitle
-    sub_text = f"Wisdom from Daisaku Ikeda on {listicle.get('theme_name', 'life')}"
-    sub_lines = wrap_text(sub_text, font_subtitle, text_area_width)
-    sub_y = title_start_y + 30
-    s_bbox = font_subtitle.getbbox("Ag")
-    sub_line_h = int((s_bbox[3] - s_bbox[1]) * 1.4)
-    for sline in sub_lines:
-        sbbox = font_subtitle.getbbox(sline)
-        stw = sbbox[2] - sbbox[0]
-        draw.text(((w - stw) // 2, sub_y), sline, fill=COLOR_EXPLANATION, font=font_subtitle)
-        sub_y += sub_line_h
-
-    # Separator
-    draw_separator(draw, sub_y + 30, w, COLOR_SEPARATOR)
-
-    # Swipe indicator
-    swipe_font = load_font("Nunito-Regular.ttf", 22)
-    swipe_text = "Swipe for all 5 quotes \u2192"
-    sw_bbox = swipe_font.getbbox(swipe_text)
-    sw_tw = sw_bbox[2] - sw_bbox[0]
-    draw.text(((w - sw_tw) // 2, sub_y + 70), swipe_text, fill=COLOR_ATTRIBUTION, font=swipe_font)
-
-    # Branding at bottom
-    brand_y = h - 70
-    wm1 = "The Lotus Lane"
-    wm1_bbox = font_branding.getbbox(wm1)
-    wm1_tw = wm1_bbox[2] - wm1_bbox[0]
-    draw.text(((w - wm1_tw) // 2, brand_y), wm1, fill=COLOR_BRANDING, font=font_branding)
-    wm2 = "\u2022 thelotuslane.in \u2022"
-    wm2_bbox = font_branding_sm.getbbox(wm2)
-    wm2_tw = wm2_bbox[2] - wm2_bbox[0]
-    draw.text(((w - wm2_tw) // 2, brand_y + 26), wm2, fill=COLOR_BRANDING, font=font_branding_sm)
-
-    return img
+    """Generate the cover slide (1080x1080) using Playwright."""
+    html = _carousel_slide_html({}, 0, len(listicle["items"]), listicle["title"])
+    return _render_html_to_image(html, 1080, 1080)
 
 
 def generate_carousel_slide(item: dict, slide_num: int, total: int, theme_name: str) -> Image.Image:
-    """Generate a single carousel slide (1080x1080) for one quote."""
-    w, h = CAROUSEL_SIZE
-    img = Image.new("RGB", (w, h))
-    draw_gradient(img, BG_TOP, BG_BOTTOM)
-    draw = ImageDraw.Draw(img)
-
-    font_number = load_font("Nunito-Bold.ttf", 72)
-    font_quote = load_font("Nunito-Regular.ttf", 34)
-    font_attribution = load_font("Nunito-Bold.ttf", 22)
-    font_explanation = load_font("Nunito-Regular.ttf", 24)
-    font_branding = load_font("Nunito-Regular.ttf", 16)
-    font_counter = load_font("Nunito-Regular.ttf", 18)
-
-    margin_x = 90
-    text_area_width = w - 2 * margin_x
-
-    # Slide counter (top right)
-    counter_text = f"{slide_num}/{total}"
-    c_bbox = font_counter.getbbox(counter_text)
-    c_tw = c_bbox[2] - c_bbox[0]
-    draw.text((w - margin_x - c_tw, 50), counter_text, fill=COLOR_ATTRIBUTION, font=font_counter)
-
-    # Large number
-    num_str = str(slide_num)
-    num_bbox = font_number.getbbox(num_str)
-    num_tw = num_bbox[2] - num_bbox[0]
-    draw.text(((w - num_tw) // 2, 120), num_str, fill=COLOR_NUMBER, font=font_number)
-
-    # Separator
-    draw_separator(draw, 220, w, COLOR_SEPARATOR)
-
-    # Quote (centered, larger)
-    quote_text = f"\u201C{item['quote']}\u201D"
-    quote_lines = wrap_text(quote_text, font_quote, text_area_width)
-    q_bbox = font_quote.getbbox("Ag")
-    quote_line_h = int((q_bbox[3] - q_bbox[1]) * 1.55)
-    total_quote_h = quote_line_h * min(len(quote_lines), 8)
-
-    # Center the quote block vertically
-    quote_area_top = 260
-    quote_area_bottom = h - 320
-    quote_start_y = quote_area_top + (quote_area_bottom - quote_area_top - total_quote_h) // 2
-
-    for qline in quote_lines[:8]:
-        bbox = font_quote.getbbox(qline)
-        tw = bbox[2] - bbox[0]
-        draw.text(((w - tw) // 2, quote_start_y), qline, fill=COLOR_QUOTE, font=font_quote)
-        quote_start_y += quote_line_h
-
-    # Attribution
-    attr_y = quote_start_y + 20
-    attr_text = f"\u2014 Daisaku Ikeda"
-    a_bbox = font_attribution.getbbox(attr_text)
-    a_tw = a_bbox[2] - a_bbox[0]
-    draw.text(((w - a_tw) // 2, attr_y), attr_text, fill=COLOR_ATTRIBUTION, font=font_attribution)
-
-    # Source
-    source_font = load_font("Nunito-Regular.ttf", 18)
-    source_text = item["source"]
-    s_bbox = source_font.getbbox(source_text)
-    s_tw = s_bbox[2] - s_bbox[0]
-    draw.text(((w - s_tw) // 2, attr_y + 32), source_text, fill=COLOR_ATTRIBUTION, font=source_font)
-
-    # Separator above explanation
-    sep_y = h - 250
-    draw_separator(draw, sep_y, w, COLOR_SEPARATOR)
-
-    # Explanation
-    expl_lines = wrap_text(item["explanation"], font_explanation, text_area_width)
-    e_bbox = font_explanation.getbbox("Ag")
-    expl_line_h = int((e_bbox[3] - e_bbox[1]) * 1.45)
-    expl_y = sep_y + 25
-    for eline in expl_lines[:3]:
-        ebbox = font_explanation.getbbox(eline)
-        etw = ebbox[2] - ebbox[0]
-        draw.text(((w - etw) // 2, expl_y), eline, fill=COLOR_EXPLANATION, font=font_explanation)
-        expl_y += expl_line_h
-
-    # Branding
-    brand_y = h - 60
-    wm = "The Lotus Lane \u2022 thelotuslane.in"
-    wm_bbox = font_branding.getbbox(wm)
-    wm_tw = wm_bbox[2] - wm_bbox[0]
-    draw.text(((w - wm_tw) // 2, brand_y), wm, fill=COLOR_BRANDING, font=font_branding)
-
-    return img
+    """Generate a single carousel slide (1080x1080) using Playwright."""
+    html = _carousel_slide_html(item, slide_num, total, theme_name)
+    return _render_html_to_image(html, 1080, 1080)
 
 
 # ---------------------------------------------------------------------------
