@@ -228,6 +228,12 @@ def generate_sitemap(strips):
         for html_file in sorted(ikeda_dir.glob("*.html")):
             urls.append((f"{SITE_URL}/ikeda/{html_file.name}", "monthly", "0.7"))
 
+    # Listicle pages
+    listicles_dir = PROJECT_ROOT / "listicles"
+    if listicles_dir.exists():
+        for html_file in sorted(listicles_dir.glob("*.html")):
+            urls.append((f"{SITE_URL}/listicles/{html_file.name}", "monthly", "0.7"))
+
     xml_entries = "\n".join(
         f"  <url>\n    <loc>{url}</loc>\n    <changefreq>{freq}</changefreq>\n    <priority>{pri}</priority>\n  </url>"
         for url, freq, pri in urls
