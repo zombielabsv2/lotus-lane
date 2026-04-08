@@ -1,35 +1,35 @@
 [
   {
     "date": "2026-04-08",
-    "title": "When Everyone Else Stays Silent: 5 Quotes on Finding Your Voice",
-    "theme": "courage",
-    "theme_name": "Courage",
+    "title": "When Everything Falls Apart: 5 Reminders That Hope Will Carry You Through",
+    "theme": "hope",
+    "theme_name": "Hope",
     "image": "listicles/2026-04-08.png",
     "items": [
       {
-        "quote": "Courage is not the absence of fear. Courage is feeling fear, recognizing fear, and still taking action.",
+        "quote": "Winter always turns to spring. Never, from ancient times on, has anyone heard or seen of winter turning back to autumn.",
+        "source": "The Writings of Nichiren Daishonin",
+        "explanation": "No matter how endless your struggles feel right now, change is inevitable and better days are coming."
+      },
+      {
+        "quote": "Hope is not a matter of ability; it is a matter of decision.",
         "source": "Discussions on Youth",
-        "explanation": "True bravery means moving forward despite the butterflies in your stomach, not waiting until they disappear."
+        "explanation": "You don't need special skills or talents to have hope—you just need to choose it, right here, right now."
       },
       {
-        "quote": "A great human revolution in just a single individual will help achieve a change in the destiny of a nation and, further, will enable a change in the destiny of all humankind.",
-        "source": "The Human Revolution",
-        "explanation": "Your personal transformation isn't selfish—it creates ripple effects that can change the world around you."
+        "quote": "No matter how hopeless or bleak things appear, the moment you resolve to never give up, every nerve and fiber in your being will orient itself toward your success.",
+        "source": "Faith Into Action",
+        "explanation": "The simple decision to keep going literally rewires your mind and body to find solutions you couldn't see before."
       },
       {
-        "quote": "No matter what happens, I will not be defeated. I will not run away. I will not complain. I will not be negative. I will keep advancing.",
-        "source": "The New Human Revolution, Vol. 1",
-        "explanation": "When life knocks you down, this becomes your daily mantra for getting back up stronger."
+        "quote": "No one can make you feel hopeless unless you allow them to. Hope resides in the heart. It is something you create.",
+        "source": "Discussions on Youth",
+        "explanation": "Even when others doubt you or circumstances seem impossible, your inner hope belongs to you and no one else."
       },
       {
-        "quote": "Be the kind of person who, when your feet hit the floor in the morning, makes the devil say, 'Oh no, they're up!'",
-        "source": "Youth and the Writings of Nichiren Daishonin",
-        "explanation": "Start each day with such fierce determination that even your problems know they're in trouble."
-      },
-      {
-        "quote": "The true hero is one who conquers his own anger and hatred.",
+        "quote": "Each morning we are born again. What we do today is what matters most.",
         "source": "For Today and Tomorrow",
-        "explanation": "Real strength isn't overpowering others—it's mastering the negative emotions that try to control you."
+        "explanation": "Yesterday's failures don't define you—every sunrise offers a fresh start and new possibilities for your life."
       }
     ]
   }
