@@ -1,7 +1,7 @@
 # CLAUDE.md — The Lotus Lane
 
 ## What This Is
-Nichiren Buddhism-inspired 4-panel comic strip series. Auto-generates strips (Claude for scripts, GPT-4o for images), renders via Playwright, creates YouTube Shorts, hosts on GitHub Pages. Includes "Daimoku Daily" email subscriber system and "Gosho Decoder" sub-product.
+Nichiren Buddhism-inspired 4-panel comic strip series. Auto-generates strips (Claude for scripts, GPT-4o for images), renders via Playwright, creates YouTube Shorts, hosts on GitHub Pages. Includes "Daimoku Daily" email subscriber system, "Gosho Decoder" sub-product, and "Ikeda Guidance" quote library.
 
 ## Pipeline Flow
 ```
@@ -33,6 +33,10 @@ Mon/Wed/Fri 11:30 AM IST → generate-strip.yml
 | `pipeline/pinterest_upload.py` | Pinterest pin upload (built, needs credentials) |
 | `pipeline/tumblr_upload.py` | Tumblr post upload (built, needs credentials) |
 | `pipeline/instagram_upload.py` | Instagram post/reel upload (built, needs Meta verification) |
+| `pipeline/generate_ikeda_pages.py` | Ikeda Guidance — generates SEO pages from quotes library |
+| `ikeda/quotes.json` | 315 curated Ikeda quotes across 21 themes |
+| `ikeda/index.html` | Ikeda Guidance landing page (search + browse by theme) |
+| `ikeda/{theme}.html` | Individual theme pages (courage, hope, peace, etc.) |
 
 ## Cron Schedule
 

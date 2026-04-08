@@ -96,9 +96,36 @@ CHALLENGE_KEYWORDS = {
 
 _chunks_cache = None
 
+# Path to Ikeda quotes library
+IKEDA_QUOTES_PATH = Path(__file__).parent.parent / "ikeda" / "quotes.json"
+
+
+def _load_ikeda_as_chunks():
+    """Load Ikeda quotes library and convert to chunk format for unified search."""
+    if not IKEDA_QUOTES_PATH.exists():
+        return []
+
+    with open(IKEDA_QUOTES_PATH, "r", encoding="utf-8") as f:
+        data = json.load(f)
+
+    chunks = []
+    for theme in data.get("themes", []):
+        for quote in theme.get("quotes", []):
+            chunks.append({
+                "text": quote["text"],
+                "token_count": len(quote["text"].split()),
+                "metadata": {
+                    "collection_name": "Daisaku Ikeda Writings",
+                    "title": quote.get("source", "Daisaku Ikeda"),
+                    "theme": theme["id"],
+                    "theme_name": theme["name"],
+                },
+            })
+    return chunks
+
 
 def load_chunks():
-    """Load and cache the knowledge base chunks."""
+    """Load and cache the knowledge base chunks (Nichiren writings + Ikeda quotes)."""
     global _chunks_cache
     if _chunks_cache is not None:
         return _chunks_cache
@@ -107,19 +134,24 @@ def load_chunks():
     if not chunks_path.exists():
         print(f"  [WARN] Chunks file not found at {chunks_path}")
         _chunks_cache = []
-        return _chunks_cache
+    else:
+        with open(chunks_path, "r", encoding="utf-8") as f:
+            all_chunks = json.load(f)
 
-    with open(chunks_path, "r", encoding="utf-8") as f:
-        all_chunks = json.load(f)
+        # Filter to preferred collections and minimum quality
+        _chunks_cache = [
+            c for c in all_chunks
+            if c.get("metadata", {}).get("collection_name", "") in PREFERRED_COLLECTIONS
+            and c.get("token_count", 0) >= 80
+        ]
+        print(f"  [KB] Loaded {len(_chunks_cache)} quality chunks from {len(all_chunks)} total")
 
-    # Filter to preferred collections and minimum quality
-    _chunks_cache = [
-        c for c in all_chunks
-        if c.get("metadata", {}).get("collection_name", "") in PREFERRED_COLLECTIONS
-        and c.get("token_count", 0) >= 80
-    ]
+    # Add Ikeda quotes to the pool
+    ikeda_chunks = _load_ikeda_as_chunks()
+    if ikeda_chunks:
+        _chunks_cache.extend(ikeda_chunks)
+        print(f"  [KB] Added {len(ikeda_chunks)} Ikeda quotes to knowledge base")
 
-    print(f"  [KB] Loaded {len(_chunks_cache)} quality chunks from {len(all_chunks)} total")
     return _chunks_cache
 
 
@@ -331,7 +363,7 @@ def generate_email_content(subscriber: dict, challenge: str, passages: list[dict
 
     prompt = f"""You are a warm, wise Buddhist mentor writing a personal email to {name}, who is going through {challenge_desc}.{situation_line}
 
-Below are relevant passages from Nichiren Daishonin's writings and Buddhist commentaries. Use ONE of these as the basis for your email. Choose the most relevant and encouraging one.
+Below are relevant passages from Nichiren Daishonin's writings, Daisaku Ikeda's guidance, and Buddhist commentaries. Use ONE of these as the basis for your email. Choose the most relevant and encouraging one.
 
 PASSAGES:
 {passages_block}
@@ -342,7 +374,7 @@ Write a personal email with these sections:
 
 2. OPENING (2-3 sentences): Acknowledge their struggle with genuine empathy. Use their name. Don't be preachy or distant.
 
-3. NICHIREN PASSAGE: Quote the most relevant passage (the actual words, not a summary). Keep it under 100 words. Include the source title.
+3. WISDOM PASSAGE: Quote the most relevant passage (the actual words, not a summary). Keep it under 100 words. Include the source title and author (Nichiren Daishonin or Daisaku Ikeda).
 
 4. MODERN INTERPRETATION (3-4 sentences): What does this passage mean for {name}'s situation today? Be specific, practical, and grounded. Not abstract philosophy.
 
@@ -354,7 +386,7 @@ IMPORTANT RULES:
 - Write like a caring friend, not a religious authority
 - Be specific to their challenge, not generic
 - Keep total email under 300 words
-- The Nichiren passage must be an actual quote from the passages provided (do not invent quotes)
+- The passage must be an actual quote from the passages provided (do not invent quotes)
 - Use the person's name naturally (not in every paragraph)
 
 Return your response in this exact JSON format:

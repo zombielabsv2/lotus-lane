@@ -222,6 +222,12 @@ def generate_sitemap(strips):
         for html_file in sorted(decoder_dir.glob("*.html")):
             urls.append((f"{SITE_URL}/decoder/{html_file.name}", "monthly", "0.7"))
 
+    # Ikeda Guidance pages
+    ikeda_dir = PROJECT_ROOT / "ikeda"
+    if ikeda_dir.exists():
+        for html_file in sorted(ikeda_dir.glob("*.html")):
+            urls.append((f"{SITE_URL}/ikeda/{html_file.name}", "monthly", "0.7"))
+
     xml_entries = "\n".join(
         f"  <url>\n    <loc>{url}</loc>\n    <changefreq>{freq}</changefreq>\n    <priority>{pri}</priority>\n  </url>"
         for url, freq, pri in urls

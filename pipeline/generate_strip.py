@@ -132,8 +132,11 @@ TODAY'S CHALLENGE: {topic} (category: {category})
 Write a 4-panel comic strip. Requirements:
 1. Panel 1: Set up the relatable struggle. Show the character(s) in a specific, vivid moment.
 2. Panel 2: The struggle deepens or a conversation reveals the emotional core.
-3. Panel 3: A moment of wisdom — a character shares or recalls a Nichiren Buddhist insight.
-   Use an ACTUAL quote or paraphrase from Nichiren's writings that genuinely addresses this situation.
+3. Panel 3: A moment of wisdom — a character shares or recalls a Nichiren Buddhist insight
+   OR a guidance from Daisaku Ikeda (SGI President). Mix it up — sometimes use Nichiren's
+   writings (WND-1, WND-2, OTT), sometimes use Ikeda's guidance (from works like
+   "The New Human Revolution", "For Today and Tomorrow", "Discussions on Youth",
+   "The Wisdom for Creating Happiness and Peace", "Faith Into Action", etc.).
 4. Panel 4: A shift — not a full resolution, but a moment of determination, humor, or warmth.
    The character takes one small step or sees things differently.
 
@@ -144,7 +147,7 @@ SETTING: India. All cultural references, currency (use Rs. or rupees, never $), 
 slang, and social dynamics should be authentically Indian. Characters may use light Hindi/Marathi
 words naturally (arre, yaar, beta, bewakoof, etc.).
 
-IMPORTANT: Use a DIFFERENT Nichiren quote each time. Do NOT use any of these recently used quotes:
+IMPORTANT: Use a DIFFERENT quote each time. Do NOT use any of these recently used quotes:
 {chr(10).join(f'- "{q[:80]}..."' for q in _recent_quotes(existing_strips or [], 10)) or '(none yet)'}
 
 TITLE RULES — Use a UNIQUE, SPECIFIC title. Do NOT reuse any of these:
@@ -166,8 +169,8 @@ Return your response as JSON with this exact structure:
         }},
         // ... panels 2, 3, 4
     ],
-    "nichiren_quote": "The actual Nichiren quote referenced or paraphrased in the strip",
-    "source": "Source reference (e.g., WND-1, p. 302)",
+    "nichiren_quote": "The actual quote (from Nichiren OR Daisaku Ikeda) referenced in the strip",
+    "source": "Source reference (e.g., WND-1, p. 302 or Daisaku Ikeda, For Today and Tomorrow)",
     "message": "A 1-2 sentence takeaway that captures the wisdom of this strip for the reader",
     "tags": ["{category}", "one-or-two-more-relevant-tags"]
 }}

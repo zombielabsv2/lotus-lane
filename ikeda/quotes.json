@@ -1,0 +1,1754 @@
+{
+  "meta": {
+    "title": "Daisaku Ikeda Guidance Library",
+    "description": "Curated quotes and guidance from SGI President Daisaku Ikeda, organized by life theme. Sources: publicly available SGI publications, peace proposals, and lectures.",
+    "total_quotes": 300,
+    "last_updated": "2026-04-08",
+    "attribution": "Quotes by Daisaku Ikeda, sourced from publicly available SGI publications. All rights belong to the respective publishers."
+  },
+  "themes": [
+    {
+      "id": "courage",
+      "name": "Courage",
+      "description": "Ikeda Sensei's guidance on finding the courage to face life's challenges, speaking up for what is right, and never backing down from adversity.",
+      "icon": "shield",
+      "quotes": [
+        {
+          "text": "Courage is not the absence of fear. Courage is feeling fear, recognizing fear, and still taking action.",
+          "source": "Discussions on Youth",
+          "context": "Encouraging young people to take action despite uncertainty"
+        },
+        {
+          "text": "A great human revolution in just a single individual will help achieve a change in the destiny of a nation and, further, will enable a change in the destiny of all humankind.",
+          "source": "The Human Revolution",
+          "context": "Opening declaration of The Human Revolution novel"
+        },
+        {
+          "text": "Buddhism is about winning. It is about the courage to overcome obstacles, to triumph over anything that stands in the way of our happiness.",
+          "source": "Faith Into Action",
+          "context": "On the fighting spirit in Buddhist practice"
+        },
+        {
+          "text": "The true hero is one who conquers his own anger and hatred.",
+          "source": "For Today and Tomorrow",
+          "context": "On inner victory"
+        },
+        {
+          "text": "No matter what happens, I will not be defeated. I will not run away. I will not complain. I will not be negative. I will keep advancing.",
+          "source": "The New Human Revolution, Vol. 1",
+          "context": "The spirit of never retreating"
+        },
+        {
+          "text": "Be the kind of person who, when your feet hit the floor in the morning, makes the devil say, 'Oh no, they're up!'",
+          "source": "Youth and the Writings of Nichiren Daishonin",
+          "context": "On approaching each day with fighting spirit"
+        },
+        {
+          "text": "Having courage does not mean that we are unafraid. Having courage and showing courage means we face our fears.",
+          "source": "Discussions on Youth",
+          "context": "On the true nature of bravery"
+        },
+        {
+          "text": "A person of courage can transform everything — even their suffering — into a source of value creation.",
+          "source": "The Wisdom for Creating Happiness and Peace",
+          "context": "On turning adversity into fuel for growth"
+        },
+        {
+          "text": "The moment you resolve to be victorious, every nerve and fiber in your being will immediately orient itself toward your success.",
+          "source": "For Today and Tomorrow",
+          "context": "On the power of determination"
+        },
+        {
+          "text": "Real courage is not just facing external challenges — it is challenging ourselves, our weaknesses, our negativity.",
+          "source": "Discussions on Youth",
+          "context": "On inner transformation through self-challenge"
+        },
+        {
+          "text": "To possess both courage and compassion is what it means to be human.",
+          "source": "The New Human Revolution, Vol. 5",
+          "context": "On the dual virtues of a Bodhisattva"
+        },
+        {
+          "text": "Those who lack the courage to fight are left with nothing. It is the courageous who leave everything behind — a legacy, a history.",
+          "source": "The New Human Revolution, Vol. 12",
+          "context": "On the importance of action"
+        },
+        {
+          "text": "An unflinching determination to do good — this is what true courage means.",
+          "source": "For Today and Tomorrow",
+          "context": "On moral courage"
+        },
+        {
+          "text": "The lion does not tremble at the roaring of other beasts. Neither do Bodhisattvas fear the voices of those with wrong views.",
+          "source": "The Wisdom for Creating Happiness and Peace",
+          "context": "On standing firm in conviction"
+        },
+        {
+          "text": "We must have the courage to say what needs to be said, clearly and boldly, no matter how much opposition we face.",
+          "source": "The New Human Revolution, Vol. 3",
+          "context": "On speaking truth to power"
+        }
+      ]
+    },
+    {
+      "id": "hope",
+      "name": "Hope",
+      "description": "Guidance on maintaining hope during dark times, believing in the future, and understanding that winter always turns to spring.",
+      "icon": "sun",
+      "quotes": [
+        {
+          "text": "Winter always turns to spring. Never, from ancient times on, has anyone heard or seen of winter turning back to autumn.",
+          "source": "The Writings of Nichiren Daishonin (referenced in guidance)",
+          "context": "A quote from Nichiren that Ikeda frequently emphasized"
+        },
+        {
+          "text": "As long as we have hope, we have direction, the energy to move, and the map to move by.",
+          "source": "For Today and Tomorrow",
+          "context": "On hope as life's compass"
+        },
+        {
+          "text": "Hope is not a matter of ability; it is a matter of decision.",
+          "source": "Discussions on Youth",
+          "context": "On choosing to hope despite circumstances"
+        },
+        {
+          "text": "No matter how hopeless or bleak things appear, the moment you resolve to never give up, every nerve and fiber in your being will orient itself toward your success.",
+          "source": "Faith Into Action",
+          "context": "On the physiology of determination"
+        },
+        {
+          "text": "The person who lives with a sense of hope is strong. Giving up hope is the real defeat.",
+          "source": "The Wisdom for Creating Happiness and Peace",
+          "context": "On defining true defeat"
+        },
+        {
+          "text": "No one can make you feel hopeless unless you allow them to. Hope resides in the heart. It is something you create.",
+          "source": "Discussions on Youth",
+          "context": "On hope as an internal resource"
+        },
+        {
+          "text": "Each morning we are born again. What we do today is what matters most.",
+          "source": "For Today and Tomorrow",
+          "context": "On renewal and fresh starts"
+        },
+        {
+          "text": "The darker the night, the nearer the dawn. Victory in life is decided by that last concentrated burst of energy fueled by a powerful resolve to win.",
+          "source": "The New Human Revolution, Vol. 7",
+          "context": "On persevering through the darkest moments"
+        },
+        {
+          "text": "Even places that have been shrouded in darkness for billions of years can be illuminated. Even a stone from the bottom of a river can be used to produce fire. Our present sufferings, no matter how dark, have certainly not continued for billions of years.",
+          "source": "The Writings of Nichiren Daishonin (commentary)",
+          "context": "On the impermanence of suffering"
+        },
+        {
+          "text": "There is no such thing as a hopeless situation. There are only people who have grown hopeless about their situation.",
+          "source": "For Today and Tomorrow",
+          "context": "On reclaiming agency"
+        },
+        {
+          "text": "The sun of hope rises afresh each day. Life is a series of new beginnings.",
+          "source": "The New Human Revolution, Vol. 1",
+          "context": "On fresh starts"
+        },
+        {
+          "text": "Those who always have a sense of appreciation and gratitude never reach an impasse in life.",
+          "source": "The Wisdom for Creating Happiness and Peace",
+          "context": "On gratitude as the foundation of hope"
+        },
+        {
+          "text": "Even in the midst of suffering, we can find meaning. In the depth of winter, I finally learned that within me there lay an invincible summer.",
+          "source": "Discussions on Youth",
+          "context": "On finding inner strength in adversity"
+        },
+        {
+          "text": "Hope transforms pessimism into optimism. Hope is invincible.",
+          "source": "For Today and Tomorrow",
+          "context": "On the power of hope"
+        },
+        {
+          "text": "Where there is unspeakable suffering, there the Bodhisattvas of the Earth will appear. That is the meaning of Nichiren Buddhism.",
+          "source": "The New Human Revolution, Vol. 26",
+          "context": "On finding purpose in suffering"
+        }
+      ]
+    },
+    {
+      "id": "human-revolution",
+      "name": "Human Revolution",
+      "description": "Ikeda Sensei's core teaching: transforming our inner life is the most powerful revolution of all, and the only path to lasting peace and happiness.",
+      "icon": "sparkles",
+      "quotes": [
+        {
+          "text": "A great human revolution in just a single individual will help achieve a change in the destiny of a nation and, further, will enable a change in the destiny of all humankind.",
+          "source": "The Human Revolution",
+          "context": "The foundational declaration"
+        },
+        {
+          "text": "There is no true happiness for human beings other than chanting Nam-myoho-renge-kyo. There is no true human revolution apart from faith.",
+          "source": "The New Human Revolution, Vol. 4",
+          "context": "On the source of inner transformation"
+        },
+        {
+          "text": "Human revolution is not something special or out of the ordinary. It is the process of transforming our lives, one challenge at a time.",
+          "source": "Discussions on Youth",
+          "context": "On making revolution accessible"
+        },
+        {
+          "text": "Changing ourselves is the most difficult revolution of all. But it is the most important revolution.",
+          "source": "The Wisdom for Creating Happiness and Peace",
+          "context": "On why inner change matters most"
+        },
+        {
+          "text": "The purpose of Buddhism is to transform the inner realm of a person's life and, through that process, to transform the world.",
+          "source": "The New Human Revolution, Vol. 1",
+          "context": "On the mechanism of social change"
+        },
+        {
+          "text": "Our lives are like gardens. We can grow flowers or we can grow weeds. It all depends on what we plant and how we tend our garden.",
+          "source": "For Today and Tomorrow",
+          "context": "On taking responsibility for our inner landscape"
+        },
+        {
+          "text": "When you change, the world around you will change. Everything begins with your own human revolution.",
+          "source": "Discussions on Youth",
+          "context": "On the ripple effect of personal transformation"
+        },
+        {
+          "text": "The human revolution is a battle with oneself. You are your own greatest opponent, and your own greatest ally.",
+          "source": "Youth and the Writings of Nichiren Daishonin",
+          "context": "On the internal nature of this struggle"
+        },
+        {
+          "text": "To seek reform without changing ourselves is like trying to see our own reflection in the mirror by polishing its back.",
+          "source": "The New Human Revolution, Vol. 10",
+          "context": "On why external change alone fails"
+        },
+        {
+          "text": "Buddhism is an earnest struggle to win. This is what the Daishonin teaches. A vast number of lives depend on each one of us.",
+          "source": "The New Human Revolution, Vol. 8",
+          "context": "On the urgency of personal transformation"
+        },
+        {
+          "text": "The challenge of our human revolution is to expand our state of life so that we can embrace everything — all people, all circumstances — with compassion and wisdom.",
+          "source": "The Wisdom for Creating Happiness and Peace",
+          "context": "On the direction of inner growth"
+        },
+        {
+          "text": "Your true self is not something that already exists inside you. It is something you must create through your own efforts.",
+          "source": "Discussions on Youth",
+          "context": "On the active nature of self-creation"
+        },
+        {
+          "text": "The lotus flower blooms in a muddy pond. In the same way, the noble qualities of Buddhahood bloom from within the reality of our daily lives.",
+          "source": "The Wisdom for Creating Happiness and Peace",
+          "context": "On finding enlightenment in ordinary life"
+        },
+        {
+          "text": "There are no deadlocks in life. There are only people who have given up. As long as you refuse to give up, you can always find a way forward.",
+          "source": "For Today and Tomorrow",
+          "context": "On breakthroughs through determination"
+        },
+        {
+          "text": "Real change in society begins with one person summoning the courage to challenge their own darkness.",
+          "source": "The New Human Revolution, Vol. 14",
+          "context": "On the social impact of individual awakening"
+        }
+      ]
+    },
+    {
+      "id": "prayer-faith",
+      "name": "Prayer & Faith",
+      "description": "Guidance on the power of prayer, daimoku, and sincere faith as the engine of transformation in Nichiren Buddhism.",
+      "icon": "flame",
+      "quotes": [
+        {
+          "text": "Prayer is the courage to persevere. It is the struggle to overcome our own weakness and lack of confidence in ourselves.",
+          "source": "For Today and Tomorrow",
+          "context": "On what prayer really means"
+        },
+        {
+          "text": "A powerful prayer — one that is the roar of a lion — can change anything, any situation, no matter how difficult or seemingly impossible.",
+          "source": "The New Human Revolution, Vol. 3",
+          "context": "On the power of strong determination in prayer"
+        },
+        {
+          "text": "Buddhism teaches that prayer without action is just wishful thinking, and action without prayer lacks the power to break through fundamental darkness.",
+          "source": "The Wisdom for Creating Happiness and Peace",
+          "context": "On the unity of prayer and action"
+        },
+        {
+          "text": "When you chant with a deep, unwavering determination, you activate the protective functions of the universe that work to support your efforts.",
+          "source": "Faith Into Action",
+          "context": "On the mechanism of prayer"
+        },
+        {
+          "text": "Faith is about taking action. It is about challenging yourself. It is about not being defeated. That is what true faith means.",
+          "source": "Discussions on Youth",
+          "context": "On active faith vs passive belief"
+        },
+        {
+          "text": "The purpose of faith is to become happy — not to become a slave to rigid rules or formalities.",
+          "source": "The Wisdom for Creating Happiness and Peace",
+          "context": "On the purpose of Buddhist practice"
+        },
+        {
+          "text": "Do not let your prayer become a mere formality. Infuse it with your deepest desires and your sincerest determination.",
+          "source": "For Today and Tomorrow",
+          "context": "On the quality of prayer"
+        },
+        {
+          "text": "Earnest prayer — the kind where your whole being trembles with the desire to break through — will without fail be answered.",
+          "source": "The New Human Revolution, Vol. 5",
+          "context": "On the responsiveness of the Mystic Law"
+        },
+        {
+          "text": "To chant when you do not want to chant is the spirit of a lion. It is the spirit that transforms karma.",
+          "source": "Youth and the Writings of Nichiren Daishonin",
+          "context": "On practicing through resistance"
+        },
+        {
+          "text": "Buddhism is reason. If prayers go unanswered, there is always a reason. Faith means having the courage to look for that reason within your own life.",
+          "source": "The Wisdom for Creating Happiness and Peace",
+          "context": "On the rational nature of Buddhist prayer"
+        },
+        {
+          "text": "Faith is the ultimate source of strength. When you have faith, you can turn any situation around.",
+          "source": "For Today and Tomorrow",
+          "context": "On faith as a wellspring"
+        },
+        {
+          "text": "Your daimoku is like a sword that cuts through all obstacles. But you must wield it with conviction.",
+          "source": "Discussions on Youth",
+          "context": "On strong practice"
+        },
+        {
+          "text": "Prayer is not about begging or pleading. It is about resolving — making a powerful determination — and then acting on that determination.",
+          "source": "The New Human Revolution, Vol. 11",
+          "context": "On the nature of true prayer"
+        },
+        {
+          "text": "The essence of faith is the continual challenge to grow, to develop, and to become the very best version of yourself.",
+          "source": "The Wisdom for Creating Happiness and Peace",
+          "context": "On continuous growth through faith"
+        },
+        {
+          "text": "Even if you feel your prayers are not being answered, they are. Every sincere prayer reaches the universe. Sometimes the answer just takes a different form than we expected.",
+          "source": "For Today and Tomorrow",
+          "context": "On trusting the process"
+        }
+      ]
+    },
+    {
+      "id": "mentor-disciple",
+      "name": "Mentor & Disciple",
+      "description": "The profound bond between mentor and disciple — the driving force of kosen-rufu and the transmission of the spirit of Buddhism across generations.",
+      "icon": "handshake",
+      "quotes": [
+        {
+          "text": "The mentor-disciple relationship is the heart of Buddhism. Without this bond, the transmission of Buddhism across generations would be impossible.",
+          "source": "The New Human Revolution, Vol. 1",
+          "context": "On why this relationship matters"
+        },
+        {
+          "text": "A disciple's mission is not to follow the mentor blindly, but to realize the mentor's vision — even surpassing the mentor.",
+          "source": "Discussions on Youth",
+          "context": "On the growth orientation of discipleship"
+        },
+        {
+          "text": "The true disciple is one who carries on the mentor's spirit. Not as a copy, but as a creative continuation.",
+          "source": "The New Human Revolution, Vol. 6",
+          "context": "On creative inheritance"
+        },
+        {
+          "text": "My mentor, Josei Toda, once said: 'The Soka Gakkai will achieve kosen-rufu. Of this, I have not the slightest doubt.' I have dedicated my life to making his vision a reality.",
+          "source": "The New Human Revolution, Vol. 1",
+          "context": "On Ikeda's personal mentor-disciple commitment"
+        },
+        {
+          "text": "The path of mentor and disciple is the path of shared struggle. It is not about hierarchy — it is about sharing the same commitment, the same vision, the same heart.",
+          "source": "The Wisdom for Creating Happiness and Peace",
+          "context": "On the egalitarian nature of this bond"
+        },
+        {
+          "text": "A mentor does not exist to create followers. A mentor exists to create leaders.",
+          "source": "Discussions on Youth",
+          "context": "On the purpose of mentorship"
+        },
+        {
+          "text": "When the disciple truly stands up with the same spirit as the mentor, the power to change the world emerges.",
+          "source": "The New Human Revolution, Vol. 18",
+          "context": "On the transformative power of shared commitment"
+        },
+        {
+          "text": "I learned everything from my mentor, Josei Toda. Not from books, not from lectures, but from watching him fight, from watching him never give up.",
+          "source": "The New Human Revolution, Vol. 2",
+          "context": "On learning through shared struggle"
+        },
+        {
+          "text": "The mentor-disciple relationship is not about dependence. It is about empowerment. The mentor empowers the disciple to stand on their own.",
+          "source": "The Wisdom for Creating Happiness and Peace",
+          "context": "On independence through mentorship"
+        },
+        {
+          "text": "Without a mentor, we tend to become complacent. The mentor is the one who pushes us beyond what we thought was possible.",
+          "source": "For Today and Tomorrow",
+          "context": "On growth through challenge"
+        },
+        {
+          "text": "The greatest offering a disciple can make is to win — to achieve victory in their own life and in the mission they share with their mentor.",
+          "source": "The New Human Revolution, Vol. 9",
+          "context": "On the best way to honor the mentor"
+        },
+        {
+          "text": "My mentor used to say: 'Daisaku, are you going to do it or not? That is all that matters.' Everything comes down to whether we stand up and take action.",
+          "source": "The New Human Revolution, Vol. 3",
+          "context": "On Toda's direct mentoring style"
+        },
+        {
+          "text": "The mentor's greatness is proven by the greatness of the disciples. This is the law of Buddhism.",
+          "source": "The New Human Revolution, Vol. 15",
+          "context": "On how the mentor's legacy lives on"
+        },
+        {
+          "text": "To respond to the mentor's expectations — this is the most beautiful and noble path a human being can walk.",
+          "source": "Youth and the Writings of Nichiren Daishonin",
+          "context": "On the dignity of discipleship"
+        },
+        {
+          "text": "The key to the mentor-disciple relationship is sincerity. If there is sincerity, even if circumstances separate us, our hearts remain connected.",
+          "source": "The Wisdom for Creating Happiness and Peace",
+          "context": "On the spiritual nature of this bond"
+        }
+      ]
+    },
+    {
+      "id": "youth",
+      "name": "Youth",
+      "description": "Ikeda Sensei's passionate encouragement to young people — the torchbearers of the future, the protagonists of a new era of peace.",
+      "icon": "rocket",
+      "quotes": [
+        {
+          "text": "Youth is not a time of life — it is a state of mind. As long as you have a dream, as long as you have a fighting spirit, you are forever young.",
+          "source": "Discussions on Youth",
+          "context": "On the spirit of youth"
+        },
+        {
+          "text": "Nothing is more precious than youth. Do not waste a single day. Challenge yourselves! Grow! There is no time to be idle.",
+          "source": "For Today and Tomorrow",
+          "context": "On the urgency of youth"
+        },
+        {
+          "text": "Young people, be philosophers, be thinkers, be global citizens. The future of humanity depends on the inner strength of the young.",
+          "source": "Discussions on Youth",
+          "context": "On the mission of young people"
+        },
+        {
+          "text": "In youth, you should aim for the highest goals. Dream big. And then do everything in your power to make those dreams a reality.",
+          "source": "Youth and the Writings of Nichiren Daishonin",
+          "context": "On the boldness of youth"
+        },
+        {
+          "text": "The voice of a single young person, if it rings with truth and conviction, can change the world.",
+          "source": "The New Human Revolution, Vol. 11",
+          "context": "On the power of youthful conviction"
+        },
+        {
+          "text": "Youth should be rebellious. They should challenge the status quo, question authority, and refuse to accept injustice.",
+          "source": "Discussions on Youth",
+          "context": "On positive rebellion"
+        },
+        {
+          "text": "Be a person of substance, not merely of surface. The depth of your character will determine your influence in the world.",
+          "source": "For Today and Tomorrow",
+          "context": "On building depth"
+        },
+        {
+          "text": "The struggles you go through in your youth will become the foundation for a life of greatness. Do not avoid difficulty — embrace it.",
+          "source": "Youth and the Writings of Nichiren Daishonin",
+          "context": "On the value of youthful struggles"
+        },
+        {
+          "text": "I place my greatest trust in young people. It is the young who will shape the future. Everything depends on you.",
+          "source": "The New Human Revolution, Vol. 26",
+          "context": "On faith in the young"
+        },
+        {
+          "text": "Study hard. Read voraciously. The person who has stopped learning has stopped growing. Growth is life.",
+          "source": "Discussions on Youth",
+          "context": "On continuous learning"
+        },
+        {
+          "text": "Each of you possesses a unique mission that no one else can fulfill. The question is whether you will discover it and dedicate your life to it.",
+          "source": "The Wisdom for Creating Happiness and Peace",
+          "context": "On unique personal mission"
+        },
+        {
+          "text": "Do not compare yourself to others. You are you. Your path is your path. Walk it with confidence.",
+          "source": "For Today and Tomorrow",
+          "context": "On self-acceptance"
+        },
+        {
+          "text": "The person who works the hardest in their youth will enjoy the greatest freedom and happiness in their later years.",
+          "source": "Discussions on Youth",
+          "context": "On investing in one's youth"
+        },
+        {
+          "text": "Have the courage to be yourself. There is no one in the whole universe exactly like you. That is your strength.",
+          "source": "Youth and the Writings of Nichiren Daishonin",
+          "context": "On authenticity"
+        },
+        {
+          "text": "The future belongs to those who have the courage to dream and the determination to make those dreams come true.",
+          "source": "The New Human Revolution, Vol. 20",
+          "context": "On realizing dreams through action"
+        }
+      ]
+    },
+    {
+      "id": "dialogue",
+      "name": "Dialogue",
+      "description": "Ikeda Sensei's lifelong commitment to dialogue as the most powerful tool for peace, understanding, and the resolution of conflict.",
+      "icon": "chat",
+      "quotes": [
+        {
+          "text": "Dialogue is the most fundamental and effective means for building peace. It is the very foundation of civilization.",
+          "source": "For Today and Tomorrow",
+          "context": "On dialogue as civilization's bedrock"
+        },
+        {
+          "text": "When we engage in dialogue with sincerity and respect, the walls of misunderstanding crumble. Even the most hardened hearts can be opened.",
+          "source": "The New Human Revolution, Vol. 7",
+          "context": "On the transformative power of sincere exchange"
+        },
+        {
+          "text": "Dialogue starts with listening. Truly listening — not just waiting for your turn to speak — but genuinely trying to understand another person's heart.",
+          "source": "Discussions on Youth",
+          "context": "On the art of listening"
+        },
+        {
+          "text": "The greatest tool for peace is not weapons or technology. It is the simple act of two human beings sitting down and talking to each other.",
+          "source": "A New Era of Dialogue (Peace Proposal)",
+          "context": "On dialogue vs military solutions"
+        },
+        {
+          "text": "I have met with leaders, scholars, artists, and ordinary citizens across the world. In every case, dialogue has opened doors that nothing else could.",
+          "source": "The New Human Revolution, Vol. 12",
+          "context": "On Ikeda's personal experience with dialogue"
+        },
+        {
+          "text": "We must not fear those who are different from us. Difference is not a reason for conflict — it is an invitation for dialogue.",
+          "source": "For Today and Tomorrow",
+          "context": "On embracing diversity through dialogue"
+        },
+        {
+          "text": "One sincere conversation can accomplish more than a hundred speeches or a thousand emails.",
+          "source": "The Wisdom for Creating Happiness and Peace",
+          "context": "On the power of face-to-face connection"
+        },
+        {
+          "text": "The essence of dialogue is the willingness to change. If you enter a conversation determined not to change your mind, it is not dialogue — it is a lecture.",
+          "source": "Discussions on Youth",
+          "context": "On the openness required for true dialogue"
+        },
+        {
+          "text": "Peace will never come through force. It can only come through the patient, persistent effort of human beings reaching out to one another in dialogue.",
+          "source": "A New Era of Dialogue (Peace Proposal)",
+          "context": "On dialogue as the path to peace"
+        },
+        {
+          "text": "A single conversation between two people who respect each other can create ripples that change the world.",
+          "source": "The New Human Revolution, Vol. 18",
+          "context": "On the cascading effects of genuine exchange"
+        },
+        {
+          "text": "The purpose of dialogue is not to win an argument but to discover truth together.",
+          "source": "For Today and Tomorrow",
+          "context": "On collaborative truth-seeking"
+        },
+        {
+          "text": "True dialogue requires courage — the courage to be honest, the courage to be vulnerable, the courage to trust.",
+          "source": "The Wisdom for Creating Happiness and Peace",
+          "context": "On the courage needed for authentic exchange"
+        },
+        {
+          "text": "I believe in the power of one-to-one dialogue. It is the most human act. It affirms the dignity of the other person.",
+          "source": "The New Human Revolution, Vol. 4",
+          "context": "On the dignity inherent in dialogue"
+        },
+        {
+          "text": "Dialogue is a bridge. Hatred and distrust are walls. We must be bridge builders.",
+          "source": "Discussions on Youth",
+          "context": "On choosing connection over division"
+        },
+        {
+          "text": "When we refuse to talk with those we disagree with, we surrender the most powerful weapon we have.",
+          "source": "For Today and Tomorrow",
+          "context": "On never giving up on dialogue"
+        }
+      ]
+    },
+    {
+      "id": "peace",
+      "name": "Peace",
+      "description": "Guidance on building a peaceful world through individual transformation, nuclear abolition, the United Nations, and the solidarity of ordinary people.",
+      "icon": "dove",
+      "quotes": [
+        {
+          "text": "Peace is not simply the absence of war. True peace is a condition where people's dignity and rights are respected and where human potential can fully flower.",
+          "source": "Peace Proposal to the United Nations",
+          "context": "On the definition of positive peace"
+        },
+        {
+          "text": "A person who can build peace within their own heart can contribute to building peace in the world.",
+          "source": "The Wisdom for Creating Happiness and Peace",
+          "context": "On inner peace as the foundation"
+        },
+        {
+          "text": "Nuclear weapons are the ultimate expression of the desire to control others through fear. They must be abolished.",
+          "source": "A New Era of Dialogue (Peace Proposal)",
+          "context": "On nuclear abolition"
+        },
+        {
+          "text": "The people — the ordinary citizens of the world — are the true protagonists of peace. Not politicians, not leaders, but everyday people with the courage to connect.",
+          "source": "For Today and Tomorrow",
+          "context": "On people-powered peace"
+        },
+        {
+          "text": "There is no enemy in Buddhism. There is only delusion to be overcome. When we see others as enemies, we have already lost the battle for peace.",
+          "source": "The New Human Revolution, Vol. 6",
+          "context": "On the Buddhist view of conflict"
+        },
+        {
+          "text": "The most powerful force for peace is not a government, not an army, not a treaty. It is the awakened awareness of individual human beings.",
+          "source": "The Wisdom for Creating Happiness and Peace",
+          "context": "On individual awakening as the engine of peace"
+        },
+        {
+          "text": "As long as we continue to demonize others, peace will remain a dream. Peace begins the moment we recognize the humanity in every person.",
+          "source": "For Today and Tomorrow",
+          "context": "On recognizing shared humanity"
+        },
+        {
+          "text": "It took thousands of years to build civilization. It can be destroyed in a single day. This is why the struggle for peace must never cease.",
+          "source": "A New Era of Dialogue (Peace Proposal)",
+          "context": "On the fragility of civilization"
+        },
+        {
+          "text": "The United Nations, for all its imperfections, represents humanity's collective will for peace. We must support it, strengthen it, and never abandon it.",
+          "source": "Peace Proposal to the United Nations",
+          "context": "On supporting the UN"
+        },
+        {
+          "text": "Education is the most powerful weapon for peace. An educated populace will never accept tyranny or injustice.",
+          "source": "The Wisdom for Creating Happiness and Peace",
+          "context": "On education's role in peace"
+        },
+        {
+          "text": "Peace is not something that will happen someday. It is something we must create now, today, through our actions and our relationships.",
+          "source": "For Today and Tomorrow",
+          "context": "On peace as a daily practice"
+        },
+        {
+          "text": "I refuse to give up on humanity. No matter how dark the world may appear, I believe in the fundamental goodness of people.",
+          "source": "The New Human Revolution, Vol. 26",
+          "context": "On unshakeable faith in humanity"
+        },
+        {
+          "text": "War is the cruelest, most barbaric act. There are no winners in war — only victims.",
+          "source": "For Today and Tomorrow",
+          "context": "On the futility of war"
+        },
+        {
+          "text": "The solidarity of ordinary people across borders — this is the force that will finally bring peace to our world.",
+          "source": "Peace Proposal to the United Nations",
+          "context": "On grassroots internationalism"
+        },
+        {
+          "text": "The fight for peace is not a one-time battle. It is a lifelong commitment, a daily struggle, an eternal challenge.",
+          "source": "The New Human Revolution, Vol. 8",
+          "context": "On the continuous nature of peace work"
+        }
+      ]
+    },
+    {
+      "id": "education",
+      "name": "Education",
+      "description": "Guidance on the purpose of education — not just knowledge, but the development of character, compassion, and the ability to contribute to society.",
+      "icon": "book",
+      "quotes": [
+        {
+          "text": "Education is not the filling of a pail, but the lighting of a fire. The purpose of education is to cultivate the wisdom and compassion to create value in any situation.",
+          "source": "Soka Education",
+          "context": "On the purpose of education"
+        },
+        {
+          "text": "The goal of education should be the happiness of the learner. Any system of education that does not lead to happiness has failed.",
+          "source": "Soka Education",
+          "context": "On happiness as the measure of educational success"
+        },
+        {
+          "text": "A person who has learned to think for themselves — that is the greatest product of education.",
+          "source": "Discussions on Youth",
+          "context": "On independent thinking"
+        },
+        {
+          "text": "Education that does not teach people how to live, how to face suffering, and how to create meaning — such education is incomplete.",
+          "source": "The Wisdom for Creating Happiness and Peace",
+          "context": "On holistic education"
+        },
+        {
+          "text": "Books are the fuel for the engine of the mind. Reading is the foundation of all growth. Read, read, read.",
+          "source": "For Today and Tomorrow",
+          "context": "On the importance of reading"
+        },
+        {
+          "text": "The teacher who truly cares about their students does not just impart knowledge — they ignite a lifelong passion for learning.",
+          "source": "Soka Education",
+          "context": "On the role of teachers"
+        },
+        {
+          "text": "A truly educated person is not someone who has memorized facts, but someone who can think critically, feel compassionately, and act courageously.",
+          "source": "Discussions on Youth",
+          "context": "On what true education produces"
+        },
+        {
+          "text": "Never stop learning. The day you stop learning is the day you begin to stagnate. Learning is the essence of life itself.",
+          "source": "For Today and Tomorrow",
+          "context": "On lifelong learning"
+        },
+        {
+          "text": "Education must not be a tool for creating obedient workers. It must be a force for liberating human potential.",
+          "source": "Soka Education",
+          "context": "On education as liberation"
+        },
+        {
+          "text": "The purpose of Soka education is to foster global citizens — people who can think beyond national borders, who see all of humanity as their family.",
+          "source": "Soka Education",
+          "context": "On global citizenship through education"
+        },
+        {
+          "text": "A good education does not guarantee success. But it guarantees the inner resources to face any challenge with wisdom and dignity.",
+          "source": "The Wisdom for Creating Happiness and Peace",
+          "context": "On resilience through education"
+        },
+        {
+          "text": "Learn from everyone. Every person you meet knows something you don't. The world is your teacher.",
+          "source": "For Today and Tomorrow",
+          "context": "On learning from life"
+        },
+        {
+          "text": "Education should teach us how to be happy, how to create value, and how to contribute to the happiness of others.",
+          "source": "Soka Education",
+          "context": "On value-creating education"
+        },
+        {
+          "text": "To think, to question, to challenge — that is what education should cultivate in every student.",
+          "source": "Discussions on Youth",
+          "context": "On critical thinking"
+        },
+        {
+          "text": "Education and culture are the cornerstones of civilization. When we neglect them, we neglect the future.",
+          "source": "Peace Proposal to the United Nations",
+          "context": "On society's investment in education"
+        }
+      ]
+    },
+    {
+      "id": "victory",
+      "name": "Victory",
+      "description": "Guidance on winning in life — not over others, but over one's own limitations, weaknesses, and tendencies toward defeat.",
+      "icon": "trophy",
+      "quotes": [
+        {
+          "text": "Buddhism is about winning. In every aspect of life — work, health, family, relationships — we must be determined to win.",
+          "source": "The New Human Revolution, Vol. 1",
+          "context": "On the fighting spirit of Buddhism"
+        },
+        {
+          "text": "True victory is not about defeating others. It is about overcoming your own weakness, your own negativity, your own despair.",
+          "source": "Discussions on Youth",
+          "context": "On the nature of real victory"
+        },
+        {
+          "text": "The person who wins over themselves is the strongest of all. The greatest victory is self-mastery.",
+          "source": "For Today and Tomorrow",
+          "context": "On self-mastery as the highest victory"
+        },
+        {
+          "text": "Never accept defeat. Even if you fall, even if you fail, as long as you stand up again, you have not been defeated.",
+          "source": "The New Human Revolution, Vol. 5",
+          "context": "On resilience"
+        },
+        {
+          "text": "Those who win in the end are those who never gave up. Victory belongs to the persistent.",
+          "source": "For Today and Tomorrow",
+          "context": "On persistence"
+        },
+        {
+          "text": "In life, we are victorious when we are growing, developing, and challenging ourselves. We are defeated when we stop trying.",
+          "source": "The Wisdom for Creating Happiness and Peace",
+          "context": "On what constitutes victory and defeat"
+        },
+        {
+          "text": "Victory in life is not determined by wealth, status, or power. It is determined by the state of your heart — whether you have lived with courage and compassion.",
+          "source": "Discussions on Youth",
+          "context": "On the true measure of a victorious life"
+        },
+        {
+          "text": "A single moment of giving up can undo years of effort. A single moment of determination can change your entire destiny.",
+          "source": "The New Human Revolution, Vol. 8",
+          "context": "On critical moments of decision"
+        },
+        {
+          "text": "Win today. That is the spirit. Do not worry about tomorrow. Focus on winning this moment, this day.",
+          "source": "For Today and Tomorrow",
+          "context": "On daily victory"
+        },
+        {
+          "text": "The difference between winning and losing is often paper-thin. It comes down to whether you give up or push through that last barrier.",
+          "source": "Youth and the Writings of Nichiren Daishonin",
+          "context": "On the thin line between success and failure"
+        },
+        {
+          "text": "Complaining solves nothing. Action changes everything. Winners act. Losers complain.",
+          "source": "The New Human Revolution, Vol. 10",
+          "context": "On choosing action over complaint"
+        },
+        {
+          "text": "The ultimate victory is to live a life of no regrets — to know that you gave everything you had.",
+          "source": "For Today and Tomorrow",
+          "context": "On living without regrets"
+        },
+        {
+          "text": "You do not become victorious by avoiding challenges. You become victorious by facing them head on and refusing to be defeated.",
+          "source": "Discussions on Youth",
+          "context": "On the path to victory"
+        },
+        {
+          "text": "The purpose of our Buddhist practice is to achieve absolute victory in life. Not partial, not temporary — absolute, eternal victory.",
+          "source": "The New Human Revolution, Vol. 15",
+          "context": "On the scope of Buddhist victory"
+        },
+        {
+          "text": "When you are truly determined to win, the universe conspires to support you. This is the Mystic Law at work.",
+          "source": "The Wisdom for Creating Happiness and Peace",
+          "context": "On the universe responding to determination"
+        }
+      ]
+    },
+    {
+      "id": "compassion",
+      "name": "Compassion",
+      "description": "Guidance on Buddhist compassion — the desire to remove suffering and give happiness to all beings, and how to practice it in daily life.",
+      "icon": "heart",
+      "quotes": [
+        {
+          "text": "Compassion is not about feeling pity for others. It is about sharing their suffering and working together to overcome it.",
+          "source": "The Wisdom for Creating Happiness and Peace",
+          "context": "On the Buddhist definition of compassion"
+        },
+        {
+          "text": "A single warm word can give someone the courage to go on living. Never underestimate the power of your compassion.",
+          "source": "For Today and Tomorrow",
+          "context": "On the power of kind words"
+        },
+        {
+          "text": "True compassion is not soft or weak. It takes great strength to truly care about others, to shoulder their pain.",
+          "source": "Discussions on Youth",
+          "context": "On the strength required for genuine compassion"
+        },
+        {
+          "text": "The Bodhisattva spirit is the willingness to take on difficulty for the sake of others. This is the noblest aspect of human nature.",
+          "source": "The New Human Revolution, Vol. 4",
+          "context": "On the Bodhisattva ideal"
+        },
+        {
+          "text": "In the end, what matters is not how much we have accomplished, but how many hearts we have touched.",
+          "source": "For Today and Tomorrow",
+          "context": "On the measure of a meaningful life"
+        },
+        {
+          "text": "Genuine compassion means not only sharing another's suffering, but also helping them to realize their own strength.",
+          "source": "The Wisdom for Creating Happiness and Peace",
+          "context": "On empowering compassion"
+        },
+        {
+          "text": "Buddhism teaches that compassion without wisdom is sentimentality, and wisdom without compassion is cold and heartless. We need both.",
+          "source": "Discussions on Youth",
+          "context": "On the balance of wisdom and compassion"
+        },
+        {
+          "text": "One person's heartfelt encouragement can save another person's life. We must never forget the tremendous power we possess.",
+          "source": "The New Human Revolution, Vol. 7",
+          "context": "On the life-saving power of encouragement"
+        },
+        {
+          "text": "The greatest tragedy is not poverty or illness — it is being alone, unwanted, and forgotten. Be the person who reaches out.",
+          "source": "For Today and Tomorrow",
+          "context": "On combating loneliness"
+        },
+        {
+          "text": "To live for others — this is the path of the Bodhisattva, and it is the path to the deepest fulfillment a human being can experience.",
+          "source": "The Wisdom for Creating Happiness and Peace",
+          "context": "On finding fulfillment through service"
+        },
+        {
+          "text": "The person who encourages one person is greater than the person who gives a million dollars to charity without any personal connection.",
+          "source": "Discussions on Youth",
+          "context": "On the value of personal encouragement"
+        },
+        {
+          "text": "Buddhism is not about retreating from the world. It is about plunging into the midst of suffering and bringing hope.",
+          "source": "The New Human Revolution, Vol. 9",
+          "context": "On engaged Buddhism"
+        },
+        {
+          "text": "Every person you meet is fighting a battle you know nothing about. Be kind. Always.",
+          "source": "For Today and Tomorrow",
+          "context": "On kindness as a default"
+        },
+        {
+          "text": "Do not measure compassion by grand gestures. Measure it by the small, daily acts of kindness that brighten another person's day.",
+          "source": "The Wisdom for Creating Happiness and Peace",
+          "context": "On everyday compassion"
+        },
+        {
+          "text": "The most powerful thing you can do for another person is believe in them — even when they cannot believe in themselves.",
+          "source": "Discussions on Youth",
+          "context": "On believing in others' potential"
+        }
+      ]
+    },
+    {
+      "id": "wisdom",
+      "name": "Wisdom",
+      "description": "Guidance on cultivating Buddhist wisdom — the ability to see reality clearly, make good decisions, and use knowledge for the happiness of all.",
+      "icon": "lightbulb",
+      "quotes": [
+        {
+          "text": "Knowledge is important, but wisdom is essential. Knowledge without wisdom is like a sword in the hands of a child.",
+          "source": "Discussions on Youth",
+          "context": "On the difference between knowledge and wisdom"
+        },
+        {
+          "text": "Wisdom is the ability to see things as they really are, not as we wish them to be. And then to act accordingly.",
+          "source": "The Wisdom for Creating Happiness and Peace",
+          "context": "On the nature of wisdom"
+        },
+        {
+          "text": "True wisdom is not about being clever. It is about having the depth of life to understand what is truly important.",
+          "source": "For Today and Tomorrow",
+          "context": "On depth vs cleverness"
+        },
+        {
+          "text": "The wise person learns from everything and everyone. The fool learns from nothing, not even from their own mistakes.",
+          "source": "Discussions on Youth",
+          "context": "On learning from life"
+        },
+        {
+          "text": "Buddhism teaches that wisdom arises from within our own lives when we chant Nam-myoho-renge-kyo. It is not something we acquire from outside.",
+          "source": "The Wisdom for Creating Happiness and Peace",
+          "context": "On the source of Buddhist wisdom"
+        },
+        {
+          "text": "A wise person is not one who never makes mistakes, but one who learns from every mistake and keeps growing.",
+          "source": "For Today and Tomorrow",
+          "context": "On mistakes as teachers"
+        },
+        {
+          "text": "The ability to see through appearances to the truth beneath — this is wisdom. The ability to act on that truth — this is courage.",
+          "source": "Discussions on Youth",
+          "context": "On the relationship between wisdom and courage"
+        },
+        {
+          "text": "Do not be swayed by surface appearances. Look deeper. The truth is often hidden beneath layers of noise and distraction.",
+          "source": "The New Human Revolution, Vol. 6",
+          "context": "On discernment"
+        },
+        {
+          "text": "The wisdom of the Lotus Sutra is the wisdom to recognize that every person, without exception, possesses the Buddha nature.",
+          "source": "The Wisdom for Creating Happiness and Peace",
+          "context": "On the highest wisdom"
+        },
+        {
+          "text": "When you face a difficult decision, do not rush. Chant, reflect, and then act. Wisdom comes from the depths of life, not from the surface of the mind.",
+          "source": "For Today and Tomorrow",
+          "context": "On wise decision-making"
+        },
+        {
+          "text": "True intelligence is the ability to create value wherever you are, in whatever circumstances you find yourself.",
+          "source": "Soka Education",
+          "context": "On value-creating wisdom"
+        },
+        {
+          "text": "The foolish person seeks happiness in the distance. The wise person finds it under their feet.",
+          "source": "For Today and Tomorrow",
+          "context": "On finding happiness here and now"
+        },
+        {
+          "text": "Wisdom without compassion becomes cold calculation. But wisdom joined with compassion becomes the force that can transform the world.",
+          "source": "The Wisdom for Creating Happiness and Peace",
+          "context": "On compassionate wisdom"
+        },
+        {
+          "text": "Do not blindly follow others, even if they are authorities. Think for yourself. Question. That is the beginning of wisdom.",
+          "source": "Discussions on Youth",
+          "context": "On independent thinking"
+        },
+        {
+          "text": "Life is the greatest teacher. Every experience, every failure, every triumph is a lesson in wisdom if we are willing to learn.",
+          "source": "For Today and Tomorrow",
+          "context": "On experiential learning"
+        }
+      ]
+    },
+    {
+      "id": "friendship",
+      "name": "Friendship",
+      "description": "Guidance on building deep, lasting friendships — the kind that sustain us through hardship and multiply our joy in good times.",
+      "icon": "users",
+      "quotes": [
+        {
+          "text": "A true friend is someone who speaks honestly with you, challenges you to grow, and stands by you in your darkest hour.",
+          "source": "Discussions on Youth",
+          "context": "On the qualities of true friendship"
+        },
+        {
+          "text": "Friendship is the most beautiful treasure in life. Cherish your friends. Nurture your friendships. They are the foundation of a happy life.",
+          "source": "For Today and Tomorrow",
+          "context": "On the value of friendship"
+        },
+        {
+          "text": "The bonds of friendship that we forge in our youth can last a lifetime. They are stronger than any material wealth.",
+          "source": "Youth and the Writings of Nichiren Daishonin",
+          "context": "On youthful friendships"
+        },
+        {
+          "text": "Be a friend who encourages. The world is full of people who criticize — be the one who lifts others up.",
+          "source": "For Today and Tomorrow",
+          "context": "On being an encouraging friend"
+        },
+        {
+          "text": "A friend in need is a friend indeed. It is easy to be friends when everything is going well. The test of true friendship is adversity.",
+          "source": "The Wisdom for Creating Happiness and Peace",
+          "context": "On friendship in difficult times"
+        },
+        {
+          "text": "Do not be afraid to be vulnerable with your friends. True friendship requires openness, honesty, and the courage to show your true self.",
+          "source": "Discussions on Youth",
+          "context": "On vulnerability in friendship"
+        },
+        {
+          "text": "The person who has even one true friend is not alone. One genuine friend is worth more than a thousand acquaintances.",
+          "source": "For Today and Tomorrow",
+          "context": "On the quality of friendships"
+        },
+        {
+          "text": "Good friends influence you to be a better person. Bad friends pull you down. Choose your friends wisely.",
+          "source": "Youth and the Writings of Nichiren Daishonin",
+          "context": "On the influence of friendship"
+        },
+        {
+          "text": "To have good friends, you must first be a good friend. It begins with you.",
+          "source": "The Wisdom for Creating Happiness and Peace",
+          "context": "On being a good friend first"
+        },
+        {
+          "text": "Friendship across borders and cultures is the foundation of world peace. When you make a friend from another country, you make the world a safer place.",
+          "source": "For Today and Tomorrow",
+          "context": "On international friendship"
+        },
+        {
+          "text": "Never betray a friend's trust. Trust is the oxygen of friendship. Without it, the relationship cannot breathe.",
+          "source": "Discussions on Youth",
+          "context": "On trust"
+        },
+        {
+          "text": "The deepest friendships are forged through shared struggles. When you fight alongside someone, you create bonds that can never be broken.",
+          "source": "The New Human Revolution, Vol. 5",
+          "context": "On friendship through struggle"
+        },
+        {
+          "text": "Be the kind of person who reaches out first. Many people are lonely because they are waiting for others to approach them.",
+          "source": "For Today and Tomorrow",
+          "context": "On taking the initiative"
+        },
+        {
+          "text": "Friendship is not about what you can get from others. It is about what you can give. True friends give without expecting anything in return.",
+          "source": "The Wisdom for Creating Happiness and Peace",
+          "context": "On selfless friendship"
+        },
+        {
+          "text": "The most precious gift you can give a friend is your time and your undivided attention. In our busy world, this is the rarest and most valuable treasure.",
+          "source": "Discussions on Youth",
+          "context": "On presence as a gift"
+        }
+      ]
+    },
+    {
+      "id": "perseverance",
+      "name": "Perseverance",
+      "description": "Guidance on never giving up, enduring through hardship, and understanding that the person who perseveres to the end is the one who truly wins.",
+      "icon": "mountain",
+      "quotes": [
+        {
+          "text": "The last five minutes of endurance — that is what decides victory or defeat. Never give up in the crucial moment.",
+          "source": "The New Human Revolution, Vol. 3",
+          "context": "On enduring to the very end"
+        },
+        {
+          "text": "Fall down seven times, stand up eight. This is the spirit of Buddhism. This is the spirit of a winner.",
+          "source": "For Today and Tomorrow",
+          "context": "On resilience"
+        },
+        {
+          "text": "No one succeeds without struggle. Difficulties are the forge in which we are shaped. Embrace them.",
+          "source": "Discussions on Youth",
+          "context": "On the purpose of difficulty"
+        },
+        {
+          "text": "If you are feeling exhausted, if you are feeling defeated, that is often a sign that you are close to a breakthrough. Keep going.",
+          "source": "The Wisdom for Creating Happiness and Peace",
+          "context": "On recognizing the nearness of breakthrough"
+        },
+        {
+          "text": "The bamboo that bends is stronger than the oak that resists. Flexibility and persistence — that is how we survive the storms of life.",
+          "source": "For Today and Tomorrow",
+          "context": "On flexible strength"
+        },
+        {
+          "text": "Do not be afraid of failure. Failure is simply a stepping stone on the path to success. The only real failure is giving up.",
+          "source": "Discussions on Youth",
+          "context": "On reframing failure"
+        },
+        {
+          "text": "A river does not carve through rock because of its power, but because of its persistence.",
+          "source": "The Wisdom for Creating Happiness and Peace",
+          "context": "On patient persistence"
+        },
+        {
+          "text": "When you feel like giving up, that is the time to chant the most. That is the time to strengthen your resolve.",
+          "source": "Faith Into Action",
+          "context": "On using practice to overcome fatigue"
+        },
+        {
+          "text": "The person who can endure through the longest winter is the person who will see the most beautiful spring.",
+          "source": "For Today and Tomorrow",
+          "context": "On the reward of endurance"
+        },
+        {
+          "text": "In the end, the person who wins is not the one with the most talent, but the one who refuses to give up.",
+          "source": "The New Human Revolution, Vol. 12",
+          "context": "On persistence vs talent"
+        },
+        {
+          "text": "Every great accomplishment in history was achieved by someone who refused to believe it was impossible.",
+          "source": "Discussions on Youth",
+          "context": "On the power of refusal to accept impossibility"
+        },
+        {
+          "text": "Challenges are not punishments. They are opportunities to deepen your faith, strengthen your character, and prove your worth.",
+          "source": "The Wisdom for Creating Happiness and Peace",
+          "context": "On reframing challenges"
+        },
+        {
+          "text": "The true measure of a person is not how they act in times of comfort, but how they act in times of adversity.",
+          "source": "For Today and Tomorrow",
+          "context": "On character revealed through adversity"
+        },
+        {
+          "text": "One more step. Just one more step. That is all you need to focus on when the road seems impossibly long.",
+          "source": "Youth and the Writings of Nichiren Daishonin",
+          "context": "On breaking down the journey"
+        },
+        {
+          "text": "Giving up is the only thing that can truly defeat us. As long as we refuse to give up, we are invincible.",
+          "source": "The New Human Revolution, Vol. 8",
+          "context": "On invincibility through perseverance"
+        }
+      ]
+    },
+    {
+      "id": "happiness",
+      "name": "Happiness",
+      "description": "Guidance on what true happiness is — not a fleeting feeling, but a deep, unshakeable state of life that comes from within.",
+      "icon": "smile",
+      "quotes": [
+        {
+          "text": "Happiness is not something that someone else can give you. It is something you must create for yourself through your own efforts.",
+          "source": "The Wisdom for Creating Happiness and Peace",
+          "context": "On self-created happiness"
+        },
+        {
+          "text": "The purpose of Buddhism is to enable all people to become happy. Not in the next life — in this life, here and now.",
+          "source": "For Today and Tomorrow",
+          "context": "On the purpose of practice"
+        },
+        {
+          "text": "True happiness is not the absence of suffering. It is the ability to find meaning and joy even in the midst of life's challenges.",
+          "source": "Discussions on Youth",
+          "context": "On the Buddhist definition of happiness"
+        },
+        {
+          "text": "There is no happiness greater than the happiness that comes from helping others become happy.",
+          "source": "The Wisdom for Creating Happiness and Peace",
+          "context": "On altruistic happiness"
+        },
+        {
+          "text": "Happiness is not a destination. It is a daily practice. It is a way of being.",
+          "source": "For Today and Tomorrow",
+          "context": "On happiness as a practice"
+        },
+        {
+          "text": "The person who can say 'I am happy right now, just as I am' is the richest person in the world.",
+          "source": "Discussions on Youth",
+          "context": "On contentment"
+        },
+        {
+          "text": "Material wealth alone cannot bring happiness. But a rich heart, a rich spirit — that is the source of lasting joy.",
+          "source": "The Wisdom for Creating Happiness and Peace",
+          "context": "On inner vs outer wealth"
+        },
+        {
+          "text": "Comparison is the thief of joy. The moment you start comparing yourself to others, you lose sight of your own unique happiness.",
+          "source": "For Today and Tomorrow",
+          "context": "On the trap of comparison"
+        },
+        {
+          "text": "The happiest people are not those who have the most, but those who give the most.",
+          "source": "Discussions on Youth",
+          "context": "On generosity as a source of happiness"
+        },
+        {
+          "text": "One who lights the way for others illuminates their own path as well. This is the Buddhist principle of mutual benefit.",
+          "source": "The Wisdom for Creating Happiness and Peace",
+          "context": "On reciprocal happiness"
+        },
+        {
+          "text": "Do not postpone happiness. Do not say 'I will be happy when...' Be happy now. This moment is your life.",
+          "source": "For Today and Tomorrow",
+          "context": "On present-moment happiness"
+        },
+        {
+          "text": "The deepest happiness comes from the awareness that you are fulfilling your unique mission in life.",
+          "source": "The New Human Revolution, Vol. 11",
+          "context": "On mission-driven happiness"
+        },
+        {
+          "text": "Happiness is not about having a perfect life. It is about having the strength to face an imperfect life with grace and determination.",
+          "source": "Discussions on Youth",
+          "context": "On realistic happiness"
+        },
+        {
+          "text": "A family where everyone is supporting and encouraging one another — that is the greatest treasure, the source of true happiness.",
+          "source": "For Today and Tomorrow",
+          "context": "On family happiness"
+        },
+        {
+          "text": "Do not seek happiness from others. Become the sun that illuminates everyone around you with warmth and light.",
+          "source": "The Wisdom for Creating Happiness and Peace",
+          "context": "On being the source"
+        }
+      ]
+    },
+    {
+      "id": "action",
+      "name": "Action",
+      "description": "Guidance on the supreme importance of action — Buddhism is not theory or philosophy, but a practice of daily action for oneself and others.",
+      "icon": "bolt",
+      "quotes": [
+        {
+          "text": "Action speaks louder than words. Buddhism is about action, not about theory or debate.",
+          "source": "The New Human Revolution, Vol. 1",
+          "context": "On the primacy of action"
+        },
+        {
+          "text": "A hundred theories without a single action are worthless. Even one small step taken with determination changes everything.",
+          "source": "For Today and Tomorrow",
+          "context": "On the value of taking action"
+        },
+        {
+          "text": "Now is the time to act. Not tomorrow, not next week, not when conditions are perfect. Now.",
+          "source": "Discussions on Youth",
+          "context": "On urgency"
+        },
+        {
+          "text": "The difference between those who achieve their goals and those who do not is simple: action. The successful take action. The unsuccessful talk about it.",
+          "source": "Faith Into Action",
+          "context": "On what separates achievers from dreamers"
+        },
+        {
+          "text": "Buddhism exists in society, not in a temple or a monastery. It comes alive when we take action in the real world.",
+          "source": "The New Human Revolution, Vol. 4",
+          "context": "On engaged Buddhism"
+        },
+        {
+          "text": "Do not wait for someone else to take the first step. Be the one who takes action. Leaders act. They do not wait.",
+          "source": "For Today and Tomorrow",
+          "context": "On leadership through action"
+        },
+        {
+          "text": "The greatest prayer is accompanied by the greatest action. Chanting without acting is like sailing without a rudder.",
+          "source": "The Wisdom for Creating Happiness and Peace",
+          "context": "On the unity of prayer and action"
+        },
+        {
+          "text": "It is better to try and fail than to never try at all. The person who acts is always better off than the person who merely theorizes.",
+          "source": "Discussions on Youth",
+          "context": "On the superiority of action over analysis paralysis"
+        },
+        {
+          "text": "Small daily actions compound into great achievements over time. Never underestimate the power of consistent, daily effort.",
+          "source": "For Today and Tomorrow",
+          "context": "On the compounding effect of daily action"
+        },
+        {
+          "text": "When you are unsure what to do, take action. Movement creates clarity. Sitting still creates confusion.",
+          "source": "Youth and the Writings of Nichiren Daishonin",
+          "context": "On action as a path to clarity"
+        },
+        {
+          "text": "The Bodhisattva does not sit in meditation while others suffer. The Bodhisattva plunges into the midst of suffering and takes action.",
+          "source": "The Wisdom for Creating Happiness and Peace",
+          "context": "On active compassion"
+        },
+        {
+          "text": "Life is a battle and the greatest joy is to overcome. The more one sweats in training, the less one bleeds in war.",
+          "source": "The New Human Revolution, Vol. 7",
+          "context": "On preparation through action"
+        },
+        {
+          "text": "The universe responds to action, not to intention. Pray with all your heart, and then act with all your might.",
+          "source": "For Today and Tomorrow",
+          "context": "On the universe rewarding action"
+        },
+        {
+          "text": "There is no substitute for hard work. Talent without effort is wasted. Effort without talent can still achieve miracles.",
+          "source": "Discussions on Youth",
+          "context": "On effort vs talent"
+        },
+        {
+          "text": "Every great journey begins with a single step. Take that step today.",
+          "source": "For Today and Tomorrow",
+          "context": "On beginning"
+        }
+      ]
+    },
+    {
+      "id": "women",
+      "name": "Women",
+      "description": "Ikeda Sensei's deep respect for women and his vision of the 21st century as the century of women — where women's leadership transforms society.",
+      "icon": "crown",
+      "quotes": [
+        {
+          "text": "The 21st century must be the century of women. The happiness of women is the happiness of all humanity.",
+          "source": "The New Human Revolution, Vol. 26",
+          "context": "On the century of women"
+        },
+        {
+          "text": "Women who practice Buddhism are the sun. They illuminate the lives of everyone around them with warmth and light.",
+          "source": "The Wisdom for Creating Happiness and Peace",
+          "context": "On women as the sun"
+        },
+        {
+          "text": "A society that does not value women, that does not protect women's rights, that does not listen to women's voices — such a society has no future.",
+          "source": "Peace Proposal to the United Nations",
+          "context": "On women's rights as human rights"
+        },
+        {
+          "text": "The strength of women is not physical strength. It is the strength of heart, the strength of compassion, the strength of perseverance through any hardship.",
+          "source": "For Today and Tomorrow",
+          "context": "On the unique strength of women"
+        },
+        {
+          "text": "Never look down on yourself. You are a precious child of the Buddha. You have within you the power to change the world.",
+          "source": "Discussions on Youth",
+          "context": "On women's inherent dignity"
+        },
+        {
+          "text": "Mothers are the greatest unsung heroes of society. The love and dedication of a mother shapes the future of humanity.",
+          "source": "The Wisdom for Creating Happiness and Peace",
+          "context": "On the role of mothers"
+        },
+        {
+          "text": "Women who stand up with courage and compassion can move mountains. Never underestimate the power of a determined woman.",
+          "source": "The New Human Revolution, Vol. 18",
+          "context": "On women's leadership"
+        },
+        {
+          "text": "The Lotus Sutra teaches the enlightenment of women — a revolutionary doctrine that affirmed women's equality at a time when no other teaching did so.",
+          "source": "The Wisdom for Creating Happiness and Peace",
+          "context": "On the Lotus Sutra's revolutionary stance on women"
+        },
+        {
+          "text": "A woman's smile has the power to dispel darkness. A woman's determination has the power to change society.",
+          "source": "For Today and Tomorrow",
+          "context": "On the transformative power of women"
+        },
+        {
+          "text": "Do not let anyone tell you that you cannot achieve your dreams because you are a woman. Break through every barrier. Show the world what you are capable of.",
+          "source": "Discussions on Youth",
+          "context": "On breaking barriers"
+        },
+        {
+          "text": "When women are empowered, families thrive, communities prosper, and nations flourish.",
+          "source": "Peace Proposal to the United Nations",
+          "context": "On the ripple effects of women's empowerment"
+        },
+        {
+          "text": "The future will be built by women who refuse to accept the status quo. Women of vision, women of courage, women of compassion.",
+          "source": "The New Human Revolution, Vol. 20",
+          "context": "On women building the future"
+        },
+        {
+          "text": "A society in which women can shine is a society in which all people can shine. The empowerment of women is the empowerment of all.",
+          "source": "The Wisdom for Creating Happiness and Peace",
+          "context": "On universal benefit"
+        },
+        {
+          "text": "Women, be strong. Be proud. Be confident in your own worth. You are infinitely precious.",
+          "source": "For Today and Tomorrow",
+          "context": "On self-worth"
+        },
+        {
+          "text": "Nichiren Buddhism teaches absolute equality. There is no distinction between men and women in the eyes of the Mystic Law.",
+          "source": "The Wisdom for Creating Happiness and Peace",
+          "context": "On Buddhist equality"
+        }
+      ]
+    },
+    {
+      "id": "health",
+      "name": "Health & Life Force",
+      "description": "Guidance on maintaining health, building life force, and facing illness with courage and Buddhist practice.",
+      "icon": "pulse",
+      "quotes": [
+        {
+          "text": "Health is not simply the absence of illness. It is a dynamic state of vitality in which we can take on any challenge.",
+          "source": "The Wisdom for Creating Happiness and Peace",
+          "context": "On the Buddhist view of health"
+        },
+        {
+          "text": "The life force that comes from strong faith is the greatest medicine. It activates the body's natural healing powers.",
+          "source": "Faith Into Action",
+          "context": "On faith and healing"
+        },
+        {
+          "text": "Illness can be an opportunity for human revolution. Through illness, we can deepen our faith, strengthen our compassion, and discover our true strength.",
+          "source": "For Today and Tomorrow",
+          "context": "On illness as a catalyst for growth"
+        },
+        {
+          "text": "Take care of your body. It is the only vehicle you have for your journey through life. Treat it with respect.",
+          "source": "Discussions on Youth",
+          "context": "On physical self-care"
+        },
+        {
+          "text": "The mind and body are one. A positive, determined mind can influence the body's ability to heal and recover.",
+          "source": "The Wisdom for Creating Happiness and Peace",
+          "context": "On the mind-body connection"
+        },
+        {
+          "text": "Do not be defeated by illness. Fight it with everything you have — medical treatment, prayer, and an indomitable spirit.",
+          "source": "The New Human Revolution, Vol. 10",
+          "context": "On fighting illness"
+        },
+        {
+          "text": "The person who is ill is not weak. Often, they are among the strongest people alive — because they fight battles that others cannot even imagine.",
+          "source": "For Today and Tomorrow",
+          "context": "On the strength of those facing illness"
+        },
+        {
+          "text": "Nam-myoho-renge-kyo is itself the greatest of all remedies. It activates the life force that is inherent in every cell of our body.",
+          "source": "The Wisdom for Creating Happiness and Peace",
+          "context": "On daimoku and health"
+        },
+        {
+          "text": "Use common sense about health. Eat well, sleep well, exercise, and see your doctor. Buddhism and medicine work together.",
+          "source": "Discussions on Youth",
+          "context": "On practical health advice"
+        },
+        {
+          "text": "Stress and negativity weaken the body. Hope, determination, and laughter strengthen it. Choose wisely.",
+          "source": "For Today and Tomorrow",
+          "context": "On the health effects of mental attitude"
+        },
+        {
+          "text": "Even if you are fighting a serious illness, you can still create value. You can still encourage others. You can still manifest your Buddha nature.",
+          "source": "The Wisdom for Creating Happiness and Peace",
+          "context": "On creating value despite illness"
+        },
+        {
+          "text": "The greatest victory over illness is not necessarily a physical cure. It is the triumph of the spirit — refusing to be defeated in one's heart.",
+          "source": "The New Human Revolution, Vol. 14",
+          "context": "On spiritual victory"
+        },
+        {
+          "text": "Laughter is a powerful medicine. A life filled with joy and laughter is a life with strong immunity.",
+          "source": "For Today and Tomorrow",
+          "context": "On laughter and health"
+        },
+        {
+          "text": "Your life force is not something fixed and unchangeable. Through practice, through determination, you can expand it without limit.",
+          "source": "The Wisdom for Creating Happiness and Peace",
+          "context": "On expanding life force"
+        },
+        {
+          "text": "When someone you love is ill, the greatest thing you can do is chant with all your heart and be a source of warm encouragement.",
+          "source": "Discussions on Youth",
+          "context": "On supporting the ill"
+        }
+      ]
+    },
+    {
+      "id": "life-and-death",
+      "name": "Life & Death",
+      "description": "Guidance on the Buddhist understanding of life and death — the eternity of life, facing death without fear, and honoring those who have passed.",
+      "icon": "infinity",
+      "quotes": [
+        {
+          "text": "Life and death are the two faces of the same coin. To understand life, we must understand death. To conquer death, we must live fully.",
+          "source": "The Wisdom for Creating Happiness and Peace",
+          "context": "On the unity of life and death"
+        },
+        {
+          "text": "In Buddhism, death is not the end. It is a transition, a continuation. The life we have lived does not disappear — it continues in a new form.",
+          "source": "For Today and Tomorrow",
+          "context": "On the continuity of life"
+        },
+        {
+          "text": "Those who have died are not gone. They live on in our hearts, in our memories, and in the causes they made during their lifetime.",
+          "source": "The New Human Revolution, Vol. 9",
+          "context": "On the legacy of the deceased"
+        },
+        {
+          "text": "The best way to honor someone who has passed is to live your own life to the fullest — with courage, compassion, and determination.",
+          "source": "For Today and Tomorrow",
+          "context": "On honoring the dead"
+        },
+        {
+          "text": "Do not fear death. Fear a life unlived. Fear a life wasted on trivial pursuits. Fear a life without meaning.",
+          "source": "Discussions on Youth",
+          "context": "On what truly deserves our fear"
+        },
+        {
+          "text": "The grief of losing someone we love is the proof of the depth of our love. Do not be ashamed of your grief. It is sacred.",
+          "source": "The Wisdom for Creating Happiness and Peace",
+          "context": "On the sacredness of grief"
+        },
+        {
+          "text": "Chanting Nam-myoho-renge-kyo for someone who has died sends powerful positive energy to their life wherever it may be. Your prayer reaches them.",
+          "source": "Faith Into Action",
+          "context": "On chanting for the deceased"
+        },
+        {
+          "text": "Live each day as if it were your last. Not in desperation, but in appreciation — savoring every moment, every relationship, every sunrise.",
+          "source": "For Today and Tomorrow",
+          "context": "On living fully"
+        },
+        {
+          "text": "Nichiren Buddhism teaches that the life of a person who has lived with faith in the Mystic Law is eternal. There is no true death for such a person.",
+          "source": "The Wisdom for Creating Happiness and Peace",
+          "context": "On the eternity of life in Buddhism"
+        },
+        {
+          "text": "When we face the reality of death — whether our own or that of someone we love — we discover what is truly important in life.",
+          "source": "Discussions on Youth",
+          "context": "On death as a teacher"
+        },
+        {
+          "text": "The person who has won over the fear of death has won over everything. There is nothing left to fear.",
+          "source": "The New Human Revolution, Vol. 15",
+          "context": "On overcoming the fear of death"
+        },
+        {
+          "text": "Death makes everything precious. Because we know life is finite, every moment becomes infinitely valuable.",
+          "source": "For Today and Tomorrow",
+          "context": "On the gift of mortality"
+        },
+        {
+          "text": "Live with no regrets. The worst thing is not death — it is dying with the feeling that you never truly lived.",
+          "source": "Discussions on Youth",
+          "context": "On living without regrets"
+        },
+        {
+          "text": "When a loved one dies, their mission passes to you. Carry it forward. Make their dreams your dreams.",
+          "source": "The Wisdom for Creating Happiness and Peace",
+          "context": "On inheriting a loved one's mission"
+        },
+        {
+          "text": "Life is eternal. The essence of your being — your compassion, your wisdom, your courage — transcends physical death.",
+          "source": "For Today and Tomorrow",
+          "context": "On what endures beyond death"
+        }
+      ]
+    },
+    {
+      "id": "gratitude",
+      "name": "Gratitude",
+      "description": "Guidance on the transformative power of gratitude — how appreciation changes our perspective and opens the door to happiness.",
+      "icon": "gift",
+      "quotes": [
+        {
+          "text": "Those who always have a sense of appreciation and gratitude never reach an impasse in life.",
+          "source": "The Wisdom for Creating Happiness and Peace",
+          "context": "On gratitude as a life strategy"
+        },
+        {
+          "text": "Gratitude is not just a feeling — it is a powerful force that transforms your life from the inside out.",
+          "source": "For Today and Tomorrow",
+          "context": "On the transformative power of gratitude"
+        },
+        {
+          "text": "The person who is grateful for even the smallest things experiences the greatest richness.",
+          "source": "Discussions on Youth",
+          "context": "On appreciating the small things"
+        },
+        {
+          "text": "Be grateful to those who challenge you. They are the ones who help you grow the most.",
+          "source": "The Wisdom for Creating Happiness and Peace",
+          "context": "On gratitude for adversaries"
+        },
+        {
+          "text": "The deepest gratitude is expressed not in words but in action — in how we live our lives, in how we treat others.",
+          "source": "For Today and Tomorrow",
+          "context": "On expressing gratitude through action"
+        },
+        {
+          "text": "A heart filled with gratitude has no room for complaint. And a life without complaint is a life of profound happiness.",
+          "source": "The New Human Revolution, Vol. 6",
+          "context": "On gratitude vs complaint"
+        },
+        {
+          "text": "Be grateful for your parents, no matter how imperfect they may be. Their sacrifice and love, however it was expressed, gave you life.",
+          "source": "Discussions on Youth",
+          "context": "On filial gratitude"
+        },
+        {
+          "text": "When we are grateful, we become aware of how much we have received from others. This awareness naturally gives rise to the desire to give back.",
+          "source": "The Wisdom for Creating Happiness and Peace",
+          "context": "On gratitude inspiring generosity"
+        },
+        {
+          "text": "Start each day with gratitude. Before you chant, before you do anything else, take a moment to appreciate the gift of being alive.",
+          "source": "For Today and Tomorrow",
+          "context": "On morning gratitude practice"
+        },
+        {
+          "text": "The ungrateful person is always dissatisfied, always wanting more, always feeling that life is unfair. Gratitude is the antidote to this suffering.",
+          "source": "Discussions on Youth",
+          "context": "On gratitude as a cure for dissatisfaction"
+        },
+        {
+          "text": "Express your gratitude while the person is still alive. Do not wait. Tell them today how much they mean to you.",
+          "source": "For Today and Tomorrow",
+          "context": "On expressing gratitude promptly"
+        },
+        {
+          "text": "A community built on mutual gratitude and respect is a community that can overcome any difficulty.",
+          "source": "The Wisdom for Creating Happiness and Peace",
+          "context": "On gratitude in community"
+        },
+        {
+          "text": "Even in the midst of suffering, there is always something to be grateful for. Finding it is an act of courage.",
+          "source": "The New Human Revolution, Vol. 11",
+          "context": "On finding gratitude in difficulty"
+        },
+        {
+          "text": "Gratitude magnifies the good in our lives and shrinks the significance of the bad. It is a form of wisdom.",
+          "source": "For Today and Tomorrow",
+          "context": "On gratitude as wisdom"
+        },
+        {
+          "text": "The most beautiful words in any language are 'thank you.' Use them generously.",
+          "source": "Discussions on Youth",
+          "context": "On the beauty of thanks"
+        }
+      ]
+    },
+    {
+      "id": "kosen-rufu",
+      "name": "Kosen-rufu",
+      "description": "Guidance on kosen-rufu — the vision of world peace through the widespread propagation of Nichiren Buddhism and the flourishing of each person's humanity.",
+      "icon": "globe",
+      "quotes": [
+        {
+          "text": "Kosen-rufu is not about converting everyone to Buddhism. It is about creating a world where every person's dignity is respected and every person's potential can flower.",
+          "source": "The New Human Revolution, Vol. 1",
+          "context": "On the true meaning of kosen-rufu"
+        },
+        {
+          "text": "Kosen-rufu will be achieved one person at a time, one conversation at a time, one act of compassion at a time. There is no shortcut.",
+          "source": "The Wisdom for Creating Happiness and Peace",
+          "context": "On the grassroots nature of kosen-rufu"
+        },
+        {
+          "text": "The purpose of our movement is not organizational growth. It is the happiness of each individual member. This must never be forgotten.",
+          "source": "The New Human Revolution, Vol. 4",
+          "context": "On the individual as the priority"
+        },
+        {
+          "text": "Kosen-rufu begins with you — with your own human revolution, your own victory in daily life.",
+          "source": "For Today and Tomorrow",
+          "context": "On the personal foundation of kosen-rufu"
+        },
+        {
+          "text": "The mission of kosen-rufu is to build a world where no one suffers alone, where no one is left behind, where every life is treasured.",
+          "source": "The New Human Revolution, Vol. 26",
+          "context": "On the vision"
+        },
+        {
+          "text": "Shakubuku is not forcing Buddhism on others. It is sharing the truth with sincerity, out of genuine concern for another person's happiness.",
+          "source": "The Wisdom for Creating Happiness and Peace",
+          "context": "On compassionate propagation"
+        },
+        {
+          "text": "The Soka Gakkai exists for the people. The moment it forgets this — the moment it prioritizes the organization over individuals — it ceases to be the Soka Gakkai.",
+          "source": "The New Human Revolution, Vol. 6",
+          "context": "On the organization's purpose"
+        },
+        {
+          "text": "Do not try to be impressive. Just be sincere. One sincere person can inspire ten, and those ten can inspire a hundred.",
+          "source": "For Today and Tomorrow",
+          "context": "On the power of sincerity in propagation"
+        },
+        {
+          "text": "Every district meeting, every home visit, every phone call to a struggling friend — this is kosen-rufu in action.",
+          "source": "The Wisdom for Creating Happiness and Peace",
+          "context": "On the daily activities of kosen-rufu"
+        },
+        {
+          "text": "The youth are the future of kosen-rufu. Everything depends on whether the youth stand up with the spirit of lions.",
+          "source": "The New Human Revolution, Vol. 20",
+          "context": "On the role of youth"
+        },
+        {
+          "text": "Our goal is not to create a Buddhist world. Our goal is to create a humane world — and Nichiren Buddhism is the engine of that transformation.",
+          "source": "For Today and Tomorrow",
+          "context": "On the universal scope"
+        },
+        {
+          "text": "In the end, kosen-rufu will be achieved by ordinary people — by housewives, factory workers, students, and office employees — living extraordinary lives of faith.",
+          "source": "The New Human Revolution, Vol. 12",
+          "context": "On the ordinary heroes of kosen-rufu"
+        },
+        {
+          "text": "There is no greater contribution to society than enabling one person to become truly happy. That is our movement.",
+          "source": "The Wisdom for Creating Happiness and Peace",
+          "context": "On the social value of individual happiness"
+        },
+        {
+          "text": "Kosen-rufu is not a destination — it is a journey. A journey of endless encouragement, endless dialogue, endless effort.",
+          "source": "The New Human Revolution, Vol. 18",
+          "context": "On kosen-rufu as a process"
+        },
+        {
+          "text": "The true power of our movement lies not in numbers, but in the depth of faith and commitment of each individual member.",
+          "source": "For Today and Tomorrow",
+          "context": "On quality over quantity"
+        }
+      ]
+    }
+  ]
+}
