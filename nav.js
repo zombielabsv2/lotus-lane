@@ -6,14 +6,21 @@
   const path = window.location.pathname;
   const isDecoder = path.includes('/decoder');
   const isSubscribe = path.includes('subscribe');
-  const isStrips = !isDecoder && !isSubscribe;
-  const base = isDecoder ? '../' : '';
+  const isIkeda = path.includes('/ikeda');
+  const isStrips = !isDecoder && !isSubscribe && !isIkeda;
+
+  // Determine base path for links
+  let base = '';
+  if (isDecoder) base = '../';
+  if (isIkeda) base = '../';
 
   // --- TOP NAV (inline links below header) ---
   const topNav = document.createElement('div');
   topNav.id = 'lotus-top-nav';
   topNav.innerHTML = `
     <a href="${base}index.html" class="${isStrips ? 'active' : ''}">Comic Strips</a>
+    <span class="sep">|</span>
+    <a href="${base}ikeda/index.html" class="${isIkeda ? 'active' : ''}">Ikeda Guidance</a>
     <span class="sep">|</span>
     <a href="${base}decoder/index.html" class="${isDecoder ? 'active' : ''}">Gosho Decoder</a>
     <span class="sep">|</span>
@@ -35,6 +42,10 @@
     <a href="${base}index.html" class="${isStrips ? 'active' : ''}">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
       <span>Strips</span>
+    </a>
+    <a href="${base}ikeda/index.html" class="${isIkeda ? 'active' : ''}">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+      <span>Ikeda</span>
     </a>
     <a href="${base}decoder/index.html" class="${isDecoder ? 'active' : ''}">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
