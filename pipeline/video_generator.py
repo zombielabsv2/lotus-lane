@@ -635,7 +635,7 @@ def _compose_end_card(nichiren_quote, source, message, title):
     draw.text(((VIDEO_WIDTH - w) // 2, brand_y), brand_text, fill=ENDCARD_ACCENT, font=font_brand)
 
     url_font = _load_font(24, bold=False)
-    url_text = "tinyurl.com/thelotuslane"
+    url_text = "thelotuslane.in"
     bbox = draw.textbbox((0, 0), url_text, font=url_font)
     w = bbox[2] - bbox[0]
     draw.text(((VIDEO_WIDTH - w) // 2, brand_y + 45), url_text, fill=ENDCARD_DIM, font=url_font)

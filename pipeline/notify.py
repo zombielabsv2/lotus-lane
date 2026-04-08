@@ -44,7 +44,7 @@ def build_whatsapp_caption(strip):
             caption += f"— {source}\n"
     caption += "\n"
     caption += "Know someone who needs this? Forward it to them.\n\n"
-    caption += "Follow for more: tinyurl.com/thelotuslane"
+    caption += "Follow for more: thelotuslane.in"
 
     return caption
 
@@ -53,7 +53,7 @@ def build_status_caption(strip):
     """Build a shorter caption for WhatsApp Status."""
     title = strip.get("title", "")
     quote = strip.get("quote", "")
-    return f"*{title}*\n\n_\"{quote[:100]}{'...' if len(quote) > 100 else ''}\"_\n\ntinyurl.com/thelotuslane"
+    return f"*{title}*\n\n_\"{quote[:100]}{'...' if len(quote) > 100 else ''}\"_\n\nthelotuslane.in"
 
 
 def _send_via_resend(to_email, subject, html, attachments=None):
