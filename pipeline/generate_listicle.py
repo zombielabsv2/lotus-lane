@@ -636,7 +636,7 @@ def generate_seo_page(listicle: dict, target_date: str, all_listicles: list) -> 
     for i, item in enumerate(items):
         items_html += f"""
     <div class="quote-item">
-      <div class="quote-number">{i + 1}</div>
+      <div class="quote-number">{i + 1}.</div>
       <div class="quote-content">
         <blockquote>&ldquo;{item['quote']}&rdquo;</blockquote>
         <cite>&mdash; Daisaku Ikeda, {item['source']}</cite>
@@ -680,33 +680,33 @@ def generate_seo_page(listicle: dict, target_date: str, all_listicles: list) -> 
 {json.dumps(schema, indent=2)}
   </script>
 
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,500&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     * {{ margin: 0; padding: 0; box-sizing: border-box; }}
-    body {{ font-family: 'Segoe UI', system-ui, sans-serif; background: #faf9f6; color: #2d2d2d; }}
-    .container {{ max-width: 700px; margin: 0 auto; padding: 1rem; }}
-    header {{ text-align: center; padding: 1.2rem 0; border-bottom: 2px solid #e8e4de; }}
+    body {{ font-family: 'DM Sans', system-ui, sans-serif; background: #FFFFFF; color: #333; }}
+    .container {{ max-width: 640px; margin: 0 auto; padding: 0 1rem; }}
+    header {{ text-align: center; padding: 1rem 0; border-bottom: 1px solid #eee; }}
     header a {{ text-decoration: none; color: inherit; }}
-    header h1 {{ font-size: 1.5rem; font-weight: 300; letter-spacing: 0.15em; color: #4a4a4a; }}
+    header h1 {{ font-size: 1.2rem; font-weight: 400; letter-spacing: 0.15em; color: #999; }}
     header h1 span {{ font-weight: 600; color: #c0392b; }}
-    .listicle-header {{ padding: 1.5rem 0 0.5rem; text-align: center; }}
-    .listicle-header h2 {{ font-size: 1.6rem; color: #3E2723; margin-bottom: 0.4rem; line-height: 1.3; }}
-    .listicle-header .meta {{ font-size: 0.85rem; color: #999; }}
-    .quote-item {{ display: flex; gap: 1rem; padding: 1.2rem 0; border-bottom: 1px solid #e8e4de; }}
+    .listicle-header {{ padding: 1.2rem 0 0.8rem; }}
+    .listicle-header h2 {{ font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.8rem; color: #1a1a1a; margin-bottom: 0.3rem; line-height: 1.25; font-weight: 700; }}
+    .listicle-header .meta {{ font-size: 0.8rem; color: #aaa; }}
+    .quote-item {{ padding: 1rem 0; border-bottom: 1px solid #f0f0f0; }}
     .quote-item:last-child {{ border-bottom: none; }}
-    .quote-number {{ font-size: 2rem; font-weight: 700; color: #BF8C40; min-width: 2.5rem; padding-top: 0.2rem; }}
-    .quote-content {{ flex: 1; }}
-    .quote-content blockquote {{ font-style: italic; color: #3E2723; line-height: 1.6; font-size: 1.05rem; margin-bottom: 0.4rem; }}
-    .quote-content cite {{ display: block; font-size: 0.85rem; color: #795548; font-style: normal; margin-bottom: 0.4rem; }}
-    .quote-content .explanation {{ font-size: 0.95rem; color: #5D4037; line-height: 1.5; }}
-    .share-section {{ text-align: center; padding: 1.5rem; background: #f5f3ee; border-radius: 8px; margin: 1.5rem 0; }}
-    .share-section a {{ display: inline-block; padding: 0.6rem 1.2rem; background: #25D366; color: white; border-radius: 6px; text-decoration: none; font-weight: 600; margin: 0.3rem; font-size: 0.9rem; }}
+    .quote-number {{ font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 700; color: #c0392b; margin-bottom: 0.3rem; }}
+    .quote-content blockquote {{ font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; color: #1a1a1a; line-height: 1.5; font-size: 1.15rem; margin-bottom: 0.3rem; }}
+    .quote-content cite {{ display: block; font-size: 0.78rem; color: #999; font-style: normal; margin-bottom: 0.4rem; }}
+    .quote-content .explanation {{ font-size: 0.88rem; color: #666; line-height: 1.45; padding: 0.5rem 0.7rem; background: #f8f8f8; border-radius: 6px; border-left: 2px solid #c0392b; }}
+    .share-section {{ text-align: center; padding: 1rem; margin: 1rem 0; }}
+    .share-section a {{ display: inline-block; padding: 0.5rem 1rem; background: #25D366; color: white; border-radius: 6px; text-decoration: none; font-weight: 600; margin: 0.2rem; font-size: 0.85rem; }}
     .share-section a.pinterest {{ background: #E60023; }}
-    .subscribe {{ text-align: center; padding: 1.5rem; background: #f0ece4; border-radius: 8px; margin: 1.5rem 0; }}
-    .subscribe a {{ color: #c0392b; font-weight: 600; }}
-    .nav {{ display: flex; justify-content: space-between; padding: 1.5rem 0; border-top: 1px solid #e8e4de; margin-top: 1rem; }}
-    .nav-link {{ color: #c0392b; text-decoration: none; font-size: 0.9rem; max-width: 45%; }}
+    .subscribe {{ text-align: center; padding: 1rem; background: #f8f8f8; border-radius: 8px; margin: 1rem 0; }}
+    .subscribe a {{ color: #c0392b; font-weight: 600; text-decoration: none; }}
+    .nav {{ display: flex; justify-content: space-between; padding: 1rem 0; border-top: 1px solid #f0f0f0; }}
+    .nav-link {{ color: #c0392b; text-decoration: none; font-size: 0.85rem; max-width: 45%; }}
     .nav-link:hover {{ text-decoration: underline; }}
-    footer {{ text-align: center; padding: 1rem 0; color: #aaa; font-size: 0.8rem; border-top: 1px solid #e8e4de; margin-top: 1rem; }}
+    footer {{ text-align: center; padding: 0.8rem 0; color: #ccc; font-size: 0.75rem; border-top: 1px solid #f0f0f0; }}
   </style>
 
   <script data-goatcounter="https://zombielabs.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
