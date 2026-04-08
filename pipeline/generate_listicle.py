@@ -747,9 +747,19 @@ def generate_seo_page(listicle: dict, target_date: str, all_listicles: list) -> 
     header a {{ text-decoration: none; color: inherit; }}
     header h1 {{ font-size: 1.2rem; font-weight: 400; letter-spacing: 0.15em; color: #999; }}
     header h1 span {{ font-weight: 600; color: #c0392b; }}
-    .listicle-header {{ padding: 1.2rem 0 0.8rem; }}
-    .listicle-header h2 {{ font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.8rem; color: #1a1a1a; margin-bottom: 0.3rem; line-height: 1.25; font-weight: 700; }}
-    .listicle-header .meta {{ font-size: 0.8rem; color: #aaa; }}
+    .listicle-header {{
+      background: #1C1C1E; color: white; margin: 0 -1rem; padding: 2rem 1.5rem 1.5rem;
+      border-radius: 0 0 12px 12px; margin-bottom: 0.5rem;
+    }}
+    .listicle-header .tag {{
+      font-size: 0.7rem; color: #C8AA78; letter-spacing: 0.25em;
+      text-transform: uppercase; margin-bottom: 0.6rem;
+    }}
+    .listicle-header h2 {{
+      font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.8rem;
+      color: #FFFFFF; margin-bottom: 0.5rem; line-height: 1.25; font-weight: 700;
+    }}
+    .listicle-header .meta {{ font-size: 0.78rem; color: rgba(255,255,255,0.4); }}
     .quote-item {{ padding: 1rem 0; border-bottom: 1px solid #f0f0f0; }}
     .quote-item:last-child {{ border-bottom: none; }}
     .quote-number {{ font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 700; color: #c0392b; margin-bottom: 0.3rem; }}
@@ -776,12 +786,10 @@ def generate_seo_page(listicle: dict, target_date: str, all_listicles: list) -> 
     </header>
 
     <div class="listicle-header">
+      <div class="tag">Ikeda Sensei&rsquo;s Guidance</div>
       <h2>{title}</h2>
-      <div class="meta">{display_date} &middot; {theme_name} &middot; Ikeda Sensei&rsquo;s Guidance</div>
+      <div class="meta">{display_date} &middot; {theme_name}</div>
     </div>
-
-    <img src="{target_date}-hero.png" alt="{title}"
-         style="width:100%; border-radius:10px; margin-bottom:1.2rem; box-shadow:0 2px 16px rgba(0,0,0,0.08);">
 
     {items_html}
 
