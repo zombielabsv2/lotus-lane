@@ -451,7 +451,7 @@ def get_welcome_due_subscribers() -> list[dict]:
     return due
 
 
-def _build_welcome_html(subject: str, body_sections: list[dict]) -> str:
+def _build_welcome_html(subject: str, body_sections: list[dict], subscriber_email: str = "") -> str:
     """
     Build a welcome email HTML using the same template style as regular emails.
 
@@ -536,7 +536,7 @@ def _build_welcome_html(subject: str, body_sections: list[dict]) -> str:
           </p>
           <p style="margin:8px 0 0; font-size:11px; color:#bbb;">
             You received this because you signed up for Daimoku Daily.
-            <br>No longer want these? Simply reply with "unsubscribe".
+            <br>No longer want these? <a href="mailto:unsubscribe@rxjapps.in?subject=unsubscribe&body=Please%20unsubscribe%20{subscriber_email}" style="color:#999; text-decoration:underline;">Unsubscribe</a>
           </p>
         </td></tr>
 
@@ -617,7 +617,7 @@ def _build_welcome_1(subscriber: dict) -> dict:
         },
     ]
 
-    html_body = _build_welcome_html(subject, sections)
+    html_body = _build_welcome_html(subject, sections, subscriber_email=subscriber.get("email", ""))
     return {"subject": subject, "html_body": html_body, "quote": quote["text"], "source": quote.get("source", "")}
 
 
@@ -725,7 +725,7 @@ def _build_welcome_2(subscriber: dict) -> dict:
         },
     ]
 
-    html_body = _build_welcome_html(subject, sections)
+    html_body = _build_welcome_html(subject, sections, subscriber_email=subscriber.get("email", ""))
     return {"subject": subject, "html_body": html_body, "quote": nichiren_quote, "source": nichiren_source}
 
 
@@ -796,7 +796,7 @@ def _build_welcome_3(subscriber: dict) -> dict:
         },
     ]
 
-    html_body = _build_welcome_html(subject, sections)
+    html_body = _build_welcome_html(subject, sections, subscriber_email=subscriber.get("email", ""))
     return {"subject": subject, "html_body": html_body, "quote": quote["text"], "source": quote.get("source", "")}
 
 
@@ -962,7 +962,7 @@ Return ONLY the JSON, no other text."""
     email_data = json.loads(content_text)
 
     # Build HTML body
-    html_body = build_html_email(email_data, name)
+    html_body = build_html_email(email_data, name, subscriber_email=subscriber.get("email", ""))
 
     return {
         "subject": email_data["subject"],
@@ -972,7 +972,7 @@ Return ONLY the JSON, no other text."""
     }
 
 
-def build_html_email(data: dict, name: str) -> str:
+def build_html_email(data: dict, name: str, subscriber_email: str = "") -> str:
     """Build a beautiful HTML email from the generated content."""
     return f"""
 <!DOCTYPE html>
@@ -1045,7 +1045,7 @@ def build_html_email(data: dict, name: str) -> str:
           </p>
           <p style="margin:8px 0 0; font-size:11px; color:#bbb;">
             You received this because you signed up for Daimoku Daily.
-            <br>No longer want these? Simply reply with "unsubscribe".
+            <br>No longer want these? <a href="mailto:unsubscribe@rxjapps.in?subject=unsubscribe&body=Please%20unsubscribe%20{subscriber_email}" style="color:#999; text-decoration:underline;">Unsubscribe</a>
           </p>
         </td></tr>
 
@@ -1075,6 +1075,10 @@ def send_email(to_email: str, subject: str, html_body: str) -> bool:
                 "to": [to_email],
                 "subject": subject,
                 "html": html_body,
+                "headers": {
+                    "List-Unsubscribe": "<mailto:unsubscribe@rxjapps.in>",
+                    "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
+                },
             },
             timeout=30,
         )

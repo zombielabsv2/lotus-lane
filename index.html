@@ -10,14 +10,14 @@
   <meta property="og:type" content="website">
   <meta property="og:title" content="The Lotus Lane — Buddhist Wisdom for Everyday Struggles">
   <meta property="og:description" content="Comic strips sharing Nichiren Buddhist wisdom for modern life challenges. Daily encouragement for career, health, relationships, and more. New strips every Mon, Wed, Fri.">
-  <meta property="og:image" content="https://thelotuslane.in/strips/2026-04-05.png">
+  <meta property="og:image" content="https://thelotuslane.in/strips/2026-04-08.png">
   <meta property="og:url" content="https://thelotuslane.in/">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="The Lotus Lane — Buddhist Wisdom for Everyday Struggles">
   <meta name="twitter:description" content="Comic strips sharing Nichiren Buddhist wisdom for modern life challenges. Daily encouragement for career, health, relationships, and more. New strips every Mon, Wed, Fri.">
-  <meta name="twitter:image" content="https://thelotuslane.in/strips/2026-04-05.png">
+  <meta name="twitter:image" content="https://thelotuslane.in/strips/2026-04-08.png">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -559,6 +559,9 @@
           msg.style.display = 'block';
           msg.style.color = '#27ae60';
           msg.textContent = "You're in! You'll get new strips every Mon, Wed, Fri.";
+          if (window.goatcounter && window.goatcounter.count) {
+            window.goatcounter.count({ path: '/content-signup/success', event: true });
+          }
         } else {
           const errText = await resp.text();
           if (errText.includes('duplicate') || errText.includes('unique') || resp.status === 409) {

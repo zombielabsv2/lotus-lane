@@ -67,6 +67,10 @@ def _send_via_resend(to_email, subject, html, attachments=None):
         "to": [to_email],
         "subject": subject,
         "html": html,
+        "headers": {
+            "List-Unsubscribe": "<mailto:unsubscribe@rxjapps.in>",
+            "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
+        },
     }
 
     if attachments:
@@ -203,7 +207,8 @@ def send_content_email(subscriber_email, strip):
         <div style="border-top:1px solid #eee; padding:1rem 0; text-align:center;">
             <p style="color:#bbb; font-size:0.7rem;">
                 You're receiving this because you subscribed at The Lotus Lane.<br>
-                <a href="{site_link}" style="color:#999;">Visit site</a>
+                <a href="{site_link}" style="color:#999;">Visit site</a> &middot;
+                <a href="mailto:unsubscribe@rxjapps.in?subject=unsubscribe&body=Please%20unsubscribe%20{subscriber_email}" style="color:#999;">Unsubscribe</a>
             </p>
         </div>
     </div>

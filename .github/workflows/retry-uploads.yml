@@ -9,6 +9,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: strips-json-writer
+  cancel-in-progress: false
+
 jobs:
   retry:
     runs-on: ubuntu-latest

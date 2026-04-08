@@ -200,6 +200,7 @@ def generate_strip_page(strip, all_strips):
       <p>New strips every Monday, Wednesday, Friday</p>
     </footer>
   </div>
+  <script src="../nav.js" defer></script>
 </body>
 </html>"""
     return html
@@ -249,6 +250,95 @@ def generate_sitemap(strips):
     print(f"  Updated sitemap.xml ({len(urls)} URLs)")
 
 
+def generate_rss(strips):
+    """Generate an RSS 2.0 feed from strips data."""
+    # Sort newest first for the feed
+    sorted_strips = sorted(strips, key=lambda s: s["date"], reverse=True)
+
+    items = []
+    for s in sorted_strips[:50]:  # Limit to most recent 50 strips
+        date = s["date"]
+        title = s.get("title", "The Lotus Lane")
+        message = s.get("message", "")
+        image_url = f"{SITE_URL}/strips/{date}.png"
+        page_url = f"{SITE_URL}/strips/{date}.html"
+
+        # Format pubDate as RFC 822
+        try:
+            dt = datetime.strptime(date, "%Y-%m-%d")
+            pub_date = dt.strftime("%a, %d %b %Y 00:00:00 +0000")
+        except ValueError:
+            pub_date = date
+
+        # Escape XML special characters
+        safe_title = title.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+        safe_message = message.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+
+        items.append(f"""    <item>
+      <title>{safe_title}</title>
+      <link>{page_url}</link>
+      <description>{safe_message}</description>
+      <pubDate>{pub_date}</pubDate>
+      <guid isPermaLink="true">{page_url}</guid>
+      <enclosure url="{image_url}" type="image/png" />
+    </item>""")
+
+    items_xml = "\n".join(items)
+
+    rss = f"""<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>The Lotus Lane</title>
+    <link>{SITE_URL}/</link>
+    <description>Buddhist wisdom comic strips for everyday struggles. New strips every Monday, Wednesday, Friday.</description>
+    <language>en</language>
+    <atom:link href="{SITE_URL}/feed.xml" rel="self" type="application/rss+xml" />
+{items_xml}
+  </channel>
+</rss>
+"""
+    with open(PROJECT_ROOT / "feed.xml", "w", encoding="utf-8") as f:
+        f.write(rss)
+    print(f"  Updated feed.xml ({len(items)} items)")
+
+
+def update_og_image(strips):
+    """Update OG image meta tags in index.html and subscribe.html to latest strip."""
+    sorted_strips = sorted(strips, key=lambda s: s["date"], reverse=True)
+    if not sorted_strips:
+        return
+
+    latest_date = sorted_strips[0]["date"]
+    latest_image_url = f"https://thelotuslane.in/strips/{latest_date}.png"
+
+    for html_file in ["index.html", "subscribe.html"]:
+        filepath = PROJECT_ROOT / html_file
+        if not filepath.exists():
+            continue
+
+        with open(filepath, "r", encoding="utf-8") as f:
+            content = f.read()
+
+        import re
+        # Update og:image
+        new_content = re.sub(
+            r'<meta property="og:image" content="https://thelotuslane\.in/strips/[^"]+\.png">',
+            f'<meta property="og:image" content="{latest_image_url}">',
+            content,
+        )
+        # Update twitter:image
+        new_content = re.sub(
+            r'<meta name="twitter:image" content="https://thelotuslane\.in/strips/[^"]+\.png">',
+            f'<meta name="twitter:image" content="{latest_image_url}">',
+            new_content,
+        )
+
+        if new_content != content:
+            with open(filepath, "w", encoding="utf-8") as f:
+                f.write(new_content)
+            print(f"  Updated OG image in {html_file} to {latest_date}.png")
+
+
 def main():
     parser = argparse.ArgumentParser(description="Generate individual strip HTML pages for SEO")
     parser.add_argument("--date", help="Generate page for a specific date only")
@@ -278,6 +368,8 @@ def main():
         print(f"  Generated {count} strip pages")
 
     generate_sitemap(strips)
+    generate_rss(strips)
+    update_og_image(strips)
 
 
 if __name__ == "__main__":

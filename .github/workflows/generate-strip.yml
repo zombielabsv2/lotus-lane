@@ -19,6 +19,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: strips-json-writer
+  cancel-in-progress: false
+
 jobs:
   generate:
     runs-on: ubuntu-latest
@@ -67,7 +71,7 @@ jobs:
         run: |
           git config user.name "Lotus Lane Bot"
           git config user.email "bot@thelotus.lane"
-          git add strips/ strips.json sitemap.xml
+          git add strips/ strips.json sitemap.xml feed.xml index.html subscribe.html
           if git diff --staged --quiet; then
             echo "No new changes to commit"
           else
@@ -94,7 +98,7 @@ jobs:
         run: python pipeline/youtube_upload.py --latest
 
       - name: Pin to Pinterest
-        if: ${{ github.event.inputs.dry_run != 'true' }}
+        if: ${{ github.event.inputs.dry_run != 'true' && secrets.PINTEREST_ACCESS_TOKEN != '' }}
         continue-on-error: true
         id: pinterest
         env:
@@ -106,7 +110,7 @@ jobs:
         run: python pipeline/pinterest_upload.py --latest
 
       - name: Post to Tumblr
-        if: ${{ github.event.inputs.dry_run != 'true' }}
+        if: ${{ github.event.inputs.dry_run != 'true' && secrets.TUMBLR_ACCESS_TOKEN != '' }}
         continue-on-error: true
         id: tumblr
         env:
@@ -117,7 +121,7 @@ jobs:
         run: python pipeline/tumblr_upload.py --latest
 
       - name: Post to Instagram
-        if: ${{ github.event.inputs.dry_run != 'true' }}
+        if: ${{ github.event.inputs.dry_run != 'true' && secrets.INSTAGRAM_ACCESS_TOKEN != '' }}
         continue-on-error: true
         id: instagram
         env:
