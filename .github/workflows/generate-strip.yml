@@ -92,37 +92,38 @@ jobs:
           YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
         run: python pipeline/youtube_upload.py --latest
 
-      - name: Pin to Pinterest
-        if: ${{ github.event.inputs.dry_run != 'true' }}
-        continue-on-error: true
-        id: pinterest
-        env:
-          PINTEREST_ACCESS_TOKEN: ${{ secrets.PINTEREST_ACCESS_TOKEN }}
-          PINTEREST_REFRESH_TOKEN: ${{ secrets.PINTEREST_REFRESH_TOKEN }}
-          PINTEREST_APP_ID: ${{ secrets.PINTEREST_APP_ID }}
-          PINTEREST_APP_SECRET: ${{ secrets.PINTEREST_APP_SECRET }}
-          PINTEREST_BOARD_ID: ${{ secrets.PINTEREST_BOARD_ID }}
-        run: python pipeline/pinterest_upload.py --latest
+      # --- Deactivated: credentials not yet configured ---
+      # - name: Pin to Pinterest
+      #   if: ${{ github.event.inputs.dry_run != 'true' }}
+      #   continue-on-error: true
+      #   id: pinterest
+      #   env:
+      #     PINTEREST_ACCESS_TOKEN: ${{ secrets.PINTEREST_ACCESS_TOKEN }}
+      #     PINTEREST_REFRESH_TOKEN: ${{ secrets.PINTEREST_REFRESH_TOKEN }}
+      #     PINTEREST_APP_ID: ${{ secrets.PINTEREST_APP_ID }}
+      #     PINTEREST_APP_SECRET: ${{ secrets.PINTEREST_APP_SECRET }}
+      #     PINTEREST_BOARD_ID: ${{ secrets.PINTEREST_BOARD_ID }}
+      #   run: python pipeline/pinterest_upload.py --latest
 
-      - name: Post to Tumblr
-        if: ${{ github.event.inputs.dry_run != 'true' }}
-        continue-on-error: true
-        id: tumblr
-        env:
-          TUMBLR_ACCESS_TOKEN: ${{ secrets.TUMBLR_ACCESS_TOKEN }}
-          TUMBLR_CONSUMER_KEY: ${{ secrets.TUMBLR_CONSUMER_KEY }}
-          TUMBLR_CONSUMER_SECRET: ${{ secrets.TUMBLR_CONSUMER_SECRET }}
-          TUMBLR_BLOG_NAME: ${{ secrets.TUMBLR_BLOG_NAME }}
-        run: python pipeline/tumblr_upload.py --latest
+      # - name: Post to Tumblr
+      #   if: ${{ github.event.inputs.dry_run != 'true' }}
+      #   continue-on-error: true
+      #   id: tumblr
+      #   env:
+      #     TUMBLR_ACCESS_TOKEN: ${{ secrets.TUMBLR_ACCESS_TOKEN }}
+      #     TUMBLR_CONSUMER_KEY: ${{ secrets.TUMBLR_CONSUMER_KEY }}
+      #     TUMBLR_CONSUMER_SECRET: ${{ secrets.TUMBLR_CONSUMER_SECRET }}
+      #     TUMBLR_BLOG_NAME: ${{ secrets.TUMBLR_BLOG_NAME }}
+      #   run: python pipeline/tumblr_upload.py --latest
 
-      - name: Post to Instagram
-        if: ${{ github.event.inputs.dry_run != 'true' }}
-        continue-on-error: true
-        id: instagram
-        env:
-          INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
-          INSTAGRAM_USER_ID: ${{ secrets.INSTAGRAM_USER_ID }}
-        run: python pipeline/instagram_upload.py --latest
+      # - name: Post to Instagram
+      #   if: ${{ github.event.inputs.dry_run != 'true' }}
+      #   continue-on-error: true
+      #   id: instagram
+      #   env:
+      #     INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+      #     INSTAGRAM_USER_ID: ${{ secrets.INSTAGRAM_USER_ID }}
+      #   run: python pipeline/instagram_upload.py --latest
 
       - name: Commit video and social media IDs
         if: ${{ github.event.inputs.dry_run != 'true' }}
@@ -158,9 +159,7 @@ jobs:
           FAILURES=""
           if [ "${{ steps.video.outcome }}" == "failure" ]; then FAILURES="$FAILURES- Video generation FAILED\n"; fi
           if [ "${{ steps.youtube.outcome }}" == "failure" ]; then FAILURES="$FAILURES- YouTube upload FAILED\n"; fi
-          if [ "${{ steps.pinterest.outcome }}" == "failure" ]; then FAILURES="$FAILURES- Pinterest pin FAILED\n"; fi
-          if [ "${{ steps.tumblr.outcome }}" == "failure" ]; then FAILURES="$FAILURES- Tumblr post FAILED\n"; fi
-          if [ "${{ steps.instagram.outcome }}" == "failure" ]; then FAILURES="$FAILURES- Instagram post FAILED\n"; fi
+          # Pinterest, Tumblr, Instagram deactivated — no failure checks needed
           if [ "${{ steps.commit_social.outcome }}" == "failure" ]; then FAILURES="$FAILURES- Social ID commit FAILED\n"; fi
           if [ "${{ steps.notify.outcome }}" == "failure" ]; then FAILURES="$FAILURES- Notifications FAILED\n"; fi
 
