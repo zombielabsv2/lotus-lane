@@ -722,6 +722,10 @@ def generate_seo_page(listicle: dict, target_date: str, all_listicles: list) -> 
       <div class="meta">{display_date} &middot; {theme_name} &middot; Ikeda Sensei&rsquo;s Guidance</div>
     </div>
 
+    <a href="{target_date}.png" target="_blank" style="display:block; text-align:center; margin:1rem 0;">
+      <img src="{target_date}.png" alt="{title}" style="width:100%; max-width:360px; border-radius:8px; box-shadow:0 2px 12px rgba(0,0,0,0.1);" loading="eager">
+    </a>
+
     {items_html}
 
     <div class="share-section">
