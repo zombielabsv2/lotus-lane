@@ -557,6 +557,64 @@ def _carousel_slide_html(item: dict, slide_num: int, total: int, title: str) -> 
 # Image generation — Tall infographic (1080x1920)
 # ---------------------------------------------------------------------------
 
+def generate_hero(listicle: dict) -> Image.Image:
+    """Generate a wide hero banner (1200x630) for the web page — title + theme only."""
+    title = listicle["title"]
+    theme_name = listicle.get("theme_name", "")
+    first_quote = listicle["items"][0]["quote"]
+    if len(first_quote) > 90:
+        first_quote = first_quote[:87] + "..."
+
+    html = f"""<!DOCTYPE html>
+<html><head>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,500&family=DM+Sans:wght@400;500;600&display=swap');
+  * {{ margin: 0; padding: 0; box-sizing: border-box; }}
+  body {{
+    width: 1200px; height: 630px;
+    background: linear-gradient(135deg, #1C1C1E 0%, #2C2420 50%, #1C1C1E 100%);
+    display: flex; flex-direction: column; justify-content: center;
+    font-family: 'DM Sans', sans-serif; color: white; padding: 60px 80px;
+    position: relative; overflow: hidden;
+  }}
+  body::before {{
+    content: ''; position: absolute; top: -50%; right: -20%;
+    width: 600px; height: 600px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(200,170,120,0.08) 0%, transparent 70%);
+  }}
+  .tag {{
+    font-size: 13px; color: #C8AA78; letter-spacing: 0.3em;
+    text-transform: uppercase; margin-bottom: 20px;
+  }}
+  .title {{
+    font-family: 'Cormorant Garamond', serif; font-size: 52px; font-weight: 700;
+    line-height: 1.15; color: #FFFFFF; margin-bottom: 24px; max-width: 900px;
+  }}
+  .preview {{
+    font-family: 'Cormorant Garamond', serif; font-size: 22px; font-style: italic;
+    color: rgba(255,255,255,0.5); line-height: 1.4; max-width: 700px;
+  }}
+  .badge {{
+    position: absolute; top: 50px; right: 80px;
+    font-size: 12px; color: #C8AA78; letter-spacing: 0.15em;
+    border: 1px solid rgba(200,170,120,0.3); padding: 6px 14px;
+    border-radius: 20px; text-transform: uppercase;
+  }}
+  .branding {{
+    position: absolute; bottom: 30px; right: 80px;
+    font-size: 12px; color: rgba(255,255,255,0.2); letter-spacing: 0.1em;
+  }}
+</style></head>
+<body>
+  <div class="tag">The Lotus Lane</div>
+  <div class="title">{title}</div>
+  <div class="preview">&ldquo;{first_quote}&rdquo;</div>
+  <div class="badge">{theme_name}</div>
+  <div class="branding">thelotuslane.in</div>
+</body></html>"""
+    return _render_html_to_image(html, 1200, 630)
+
+
 def generate_infographic(listicle: dict) -> Image.Image:
     """Generate a tall infographic using Playwright for browser-quality typography."""
     html = _infographic_html(listicle)
@@ -722,6 +780,9 @@ def generate_seo_page(listicle: dict, target_date: str, all_listicles: list) -> 
       <div class="meta">{display_date} &middot; {theme_name} &middot; Ikeda Sensei&rsquo;s Guidance</div>
     </div>
 
+    <img src="{target_date}-hero.png" alt="{title}"
+         style="width:100%; border-radius:10px; margin-bottom:1.2rem; box-shadow:0 2px 16px rgba(0,0,0,0.08);">
+
     {items_html}
 
     <div class="share-section">
@@ -752,9 +813,17 @@ def generate_seo_page(listicle: dict, target_date: str, all_listicles: list) -> 
 # ---------------------------------------------------------------------------
 
 def save_listicle(listicle: dict, target_date: str, infographic: Image.Image | None,
-                  carousel_cover: Image.Image | None, carousel_slides: list | None) -> dict:
+                  carousel_cover: Image.Image | None, carousel_slides: list | None,
+                  hero: Image.Image | None = None) -> dict:
     """Save all listicle outputs and update listicles.json."""
     LISTICLES_DIR.mkdir(parents=True, exist_ok=True)
+
+    # Save hero banner
+    if hero:
+        hero_path = LISTICLES_DIR / f"{target_date}-hero.png"
+        hero.save(str(hero_path), "PNG", optimize=True)
+        size_kb = hero_path.stat().st_size / 1024
+        print(f"  Saved hero banner: {hero_path} ({size_kb:.0f} KB)")
 
     # Save infographic
     if infographic:
@@ -838,7 +907,10 @@ def generate(date_str: str | None = None, forced_theme: str | None = None,
         return listicle
 
     # Generate images
-    print(f"\n  Generating infographic (1080x1920)...")
+    print(f"\n  Generating hero banner (1200x630)...")
+    hero = generate_hero(listicle)
+
+    print(f"  Generating infographic (1080x1920)...")
     infographic = generate_infographic(listicle)
 
     print(f"  Generating carousel cover (1080x1080)...")
@@ -853,7 +925,7 @@ def generate(date_str: str | None = None, forced_theme: str | None = None,
 
     # Save everything
     print(f"\n  Saving...")
-    entry = save_listicle(listicle, date_str, infographic, carousel_cover, carousel_slides)
+    entry = save_listicle(listicle, date_str, infographic, carousel_cover, carousel_slides, hero)
 
     # Cost report
     print(f"\n  Done! Listicle saved for {date_str}")
