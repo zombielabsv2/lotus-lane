@@ -196,7 +196,7 @@ Return exactly 5 items. Return ONLY the JSON, no other text."""
             "content-type": "application/json",
         },
         json={
-            "model": "claude-sonnet-4-20250514",
+            "model": "claude-sonnet-4-6",
             "max_tokens": 1500,
             "messages": [{"role": "user", "content": prompt}],
         },
@@ -778,6 +778,7 @@ def generate_seo_page(listicle: dict, target_date: str, all_listicles: list) -> 
   </style>
 
   <script data-goatcounter="https://zombielabs.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  <script src="../nav.js" defer></script>
 </head>
 <body>
   <div class="container">

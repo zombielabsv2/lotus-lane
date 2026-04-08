@@ -36,7 +36,7 @@ load_dotenv(PROJECT_ROOT / ".env")
 ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
 
 # ----- Constants -----
-MODEL = "claude-sonnet-4-20250514"
+MODEL = "claude-sonnet-4-6"
 MAX_TOKENS = 8192
 INPUT_COST_PER_M = 3.0   # Sonnet input $/M tokens
 OUTPUT_COST_PER_M = 15.0  # Sonnet output $/M tokens
