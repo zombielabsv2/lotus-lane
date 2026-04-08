@@ -1,6 +1,8 @@
 name: Generate Lotus Lane Strip
 
 on:
+  push:
+    branches: [main]
   schedule:
     # 6 AM UTC on Mon, Wed, Fri (11:30 AM IST)
     - cron: '0 6 * * 1,3,5'
@@ -25,6 +27,7 @@ concurrency:
 
 jobs:
   generate:
+    if: github.event_name != 'push'
     runs-on: ubuntu-latest
 
     steps:
@@ -98,7 +101,7 @@ jobs:
         run: python pipeline/youtube_upload.py --latest
 
       - name: Pin to Pinterest
-        if: ${{ github.event.inputs.dry_run != 'true' && secrets.PINTEREST_ACCESS_TOKEN != '' }}
+        if: ${{ github.event.inputs.dry_run != 'true' }}
         continue-on-error: true
         id: pinterest
         env:
@@ -110,7 +113,7 @@ jobs:
         run: python pipeline/pinterest_upload.py --latest
 
       - name: Post to Tumblr
-        if: ${{ github.event.inputs.dry_run != 'true' && secrets.TUMBLR_ACCESS_TOKEN != '' }}
+        if: ${{ github.event.inputs.dry_run != 'true' }}
         continue-on-error: true
         id: tumblr
         env:
@@ -121,7 +124,7 @@ jobs:
         run: python pipeline/tumblr_upload.py --latest
 
       - name: Post to Instagram
-        if: ${{ github.event.inputs.dry_run != 'true' && secrets.INSTAGRAM_ACCESS_TOKEN != '' }}
+        if: ${{ github.event.inputs.dry_run != 'true' }}
         continue-on-error: true
         id: instagram
         env:
