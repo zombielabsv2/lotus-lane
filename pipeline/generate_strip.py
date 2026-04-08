@@ -192,7 +192,20 @@ Return ONLY the JSON, no other text."""
         timeout=60,
     )
     response.raise_for_status()
-    content = response.json()["content"][0]["text"]
+    resp_data = response.json()
+    content = resp_data["content"][0]["text"]
+
+    # Log to Supabase api_usage_log
+    try:
+        from usage_logger import log_usage as _log_usage
+        usage = resp_data.get("usage", {})
+        _log_usage(
+            app="lotus_lane", action="strip_script", model="claude-sonnet-4-6",
+            input_tokens=usage.get("input_tokens", 0),
+            output_tokens=usage.get("output_tokens", 0),
+        )
+    except Exception:
+        pass  # Don't break strip generation if usage logging fails
 
     # Parse JSON from response (handle potential markdown wrapping)
     content = content.strip()

@@ -951,6 +951,20 @@ Return ONLY the JSON, no other text."""
     resp.raise_for_status()
     result = resp.json()
 
+    # Log to Supabase api_usage_log
+    try:
+        import sys as _sys
+        _sys.path.insert(0, str(Path(__file__).parent.parent))
+        from usage_logger import log_usage as _log_usage
+        usage = result.get("usage", {})
+        _log_usage(
+            app="lotus_lane", action="daimoku_email", model="claude-sonnet-4-6",
+            input_tokens=usage.get("input_tokens", 0),
+            output_tokens=usage.get("output_tokens", 0),
+        )
+    except Exception:
+        pass  # Don't break email generation if usage logging fails
+
     # Parse response
     content_text = result["content"][0]["text"].strip()
 

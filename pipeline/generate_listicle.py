@@ -203,7 +203,22 @@ Return exactly 5 items. Return ONLY the JSON, no other text."""
         timeout=60,
     )
     response.raise_for_status()
-    content = response.json()["content"][0]["text"]
+    resp_data = response.json()
+    content = resp_data["content"][0]["text"]
+
+    # Log to Supabase api_usage_log
+    try:
+        import sys as _sys
+        _sys.path.insert(0, str(Path(__file__).parent.parent))
+        from usage_logger import log_usage as _log_usage
+        usage = resp_data.get("usage", {})
+        _log_usage(
+            app="lotus_lane", action="listicle", model="claude-sonnet-4-6",
+            input_tokens=usage.get("input_tokens", 0),
+            output_tokens=usage.get("output_tokens", 0),
+        )
+    except Exception:
+        pass  # Don't break listicle generation if usage logging fails
 
     # Parse JSON from response (handle potential markdown wrapping)
     content = content.strip()
