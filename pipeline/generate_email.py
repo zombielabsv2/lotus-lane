@@ -99,6 +99,38 @@ _chunks_cache = None
 # Path to Ikeda quotes library
 IKEDA_QUOTES_PATH = Path(__file__).parent.parent / "ikeda" / "quotes.json"
 
+# ---------------------------------------------------------------------------
+# Welcome Sequence — Challenge-to-Theme Mapping
+# ---------------------------------------------------------------------------
+
+CHALLENGE_THEME_MAP = {
+    "career": ["action", "victory"],
+    "health": ["health", "perseverance"],
+    "relationships": ["compassion", "friendship"],
+    "family": ["compassion", "gratitude"],
+    "finances": ["perseverance", "action"],
+    "self-doubt": ["courage", "human-revolution"],
+    "grief": ["life-and-death", "hope"],
+    "perseverance": ["perseverance", "victory"],
+}
+
+CHALLENGE_LABELS = {
+    "career": "career and work",
+    "health": "health",
+    "relationships": "relationships",
+    "family": "family",
+    "finances": "finances",
+    "self-doubt": "self-doubt",
+    "grief": "grief and loss",
+    "perseverance": "perseverance",
+}
+
+FREQUENCY_LABELS = {
+    "daily": "tomorrow morning",
+    "thrice_weekly": "on the next Mon, Wed, or Fri",
+    "weekly": "next Monday",
+}
+
 
 def _load_ikeda_as_chunks():
     """Load Ikeda quotes library and convert to chunk format for unified search."""
@@ -320,6 +352,505 @@ def pick_challenge(subscriber: dict) -> str:
 
     # All have been sent recently — pick least recent
     return challenges[0] if challenges else "perseverance"
+
+
+# ---------------------------------------------------------------------------
+# Welcome Sequence (Template-based — no Claude API)
+# ---------------------------------------------------------------------------
+
+_ikeda_quotes_cache = None
+
+
+def _load_ikeda_quotes() -> dict:
+    """Load and cache Ikeda quotes keyed by theme ID."""
+    global _ikeda_quotes_cache
+    if _ikeda_quotes_cache is not None:
+        return _ikeda_quotes_cache
+
+    if not IKEDA_QUOTES_PATH.exists():
+        _ikeda_quotes_cache = {}
+        return _ikeda_quotes_cache
+
+    with open(IKEDA_QUOTES_PATH, "r", encoding="utf-8") as f:
+        data = json.load(f)
+
+    _ikeda_quotes_cache = {}
+    for theme in data.get("themes", []):
+        _ikeda_quotes_cache[theme["id"]] = theme.get("quotes", [])
+    return _ikeda_quotes_cache
+
+
+def _pick_ikeda_quote(theme_ids: list[str]) -> dict:
+    """Pick a random Ikeda quote from the given theme IDs."""
+    quotes_by_theme = _load_ikeda_quotes()
+    pool = []
+    for tid in theme_ids:
+        pool.extend(quotes_by_theme.get(tid, []))
+    if not pool:
+        # Fallback: perseverance quotes
+        pool = quotes_by_theme.get("perseverance", [])
+    if not pool:
+        return {"text": "Winter always turns to spring.", "source": "Nichiren Daishonin"}
+    return random.choice(pool)
+
+
+def get_welcome_due_subscribers() -> list[dict]:
+    """
+    Find subscribers who haven't completed the 3-email welcome sequence.
+
+    Logic:
+    - welcome_1: due immediately (no welcome_1 log entry exists)
+    - welcome_2: due if welcome_1 was sent >= 1 day ago, and no welcome_2 log
+    - welcome_3: due if welcome_2 was sent >= 1 day ago, and no welcome_3 log
+    """
+    subscribers = supabase_get("daimoku_subscribers", {
+        "active": "eq.true",
+        "select": "*",
+    })
+
+    due = []
+    now = datetime.now(timezone.utc)
+
+    for sub in subscribers:
+        sub_id = sub["id"]
+
+        # Get all welcome log entries for this subscriber
+        welcome_logs = supabase_get("daimoku_email_log", {
+            "subscriber_id": f"eq.{sub_id}",
+            "challenge_category": "like.welcome_%",
+            "select": "challenge_category,sent_at,status",
+            "order": "sent_at.asc",
+        })
+
+        # Build a set of completed welcome steps
+        completed = set()
+        step_times = {}
+        for log in welcome_logs:
+            cat = log.get("challenge_category", "")
+            if cat in ("welcome_1", "welcome_2", "welcome_3") and log.get("status") == "sent":
+                completed.add(cat)
+                step_times[cat] = datetime.fromisoformat(
+                    log["sent_at"].replace("Z", "+00:00")
+                )
+
+        # Determine next step
+        if "welcome_1" not in completed:
+            due.append({**sub, "_welcome_step": 1})
+        elif "welcome_2" not in completed:
+            # Check if welcome_1 was sent >= 1 day ago
+            w1_time = step_times.get("welcome_1")
+            if w1_time and (now - w1_time) >= timedelta(days=1):
+                due.append({**sub, "_welcome_step": 2})
+        elif "welcome_3" not in completed:
+            # Check if welcome_2 was sent >= 1 day ago
+            w2_time = step_times.get("welcome_2")
+            if w2_time and (now - w2_time) >= timedelta(days=1):
+                due.append({**sub, "_welcome_step": 3})
+        # else: welcome sequence complete — skip
+
+    return due
+
+
+def _build_welcome_html(subject: str, body_sections: list[dict]) -> str:
+    """
+    Build a welcome email HTML using the same template style as regular emails.
+
+    body_sections is a list of dicts with keys:
+      - type: 'text' | 'quote' | 'highlight' | 'practice'
+      - content: str
+      - source: str (for quotes only)
+    """
+    sections_html = ""
+    for section in body_sections:
+        stype = section.get("type", "text")
+        content = section["content"]
+
+        if stype == "text":
+            sections_html += f"""
+        <tr><td style="padding:16px 30px 0;">
+          <p style="margin:0; font-size:15px; line-height:1.7; color:#333;">
+            {content}
+          </p>
+        </td></tr>"""
+        elif stype == "quote":
+            source = section.get("source", "")
+            sections_html += f"""
+        <tr><td style="padding:20px 30px;">
+          <div style="background:#fdf8f0; border-left:4px solid #c0392b; padding:16px 20px; border-radius:0 8px 8px 0;">
+            <p style="margin:0; font-size:14px; line-height:1.7; color:#444; font-style:italic;">
+              "{content}"
+            </p>
+            <p style="margin:8px 0 0; font-size:12px; color:#999;">
+              — {source}
+            </p>
+          </div>
+        </td></tr>"""
+        elif stype == "highlight":
+            sections_html += f"""
+        <tr><td style="padding:16px 30px;">
+          <div style="background:#f0f4fd; border-radius:8px; padding:16px 20px;">
+            <p style="margin:0; font-size:14px; line-height:1.7; color:#333;">
+              {content}
+            </p>
+          </div>
+        </td></tr>"""
+        elif stype == "practice":
+            sections_html += f"""
+        <tr><td style="padding:16px 30px;">
+          <div style="background:#f0fdf4; border-radius:8px; padding:16px 20px;">
+            <p style="margin:0; font-size:13px; font-weight:600; color:#15803d; text-transform:uppercase; letter-spacing:0.05em;">
+              Try This
+            </p>
+            <p style="margin:8px 0 0; font-size:14px; line-height:1.6; color:#333;">
+              {content}
+            </p>
+          </div>
+        </td></tr>"""
+
+    return f"""
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+<body style="margin:0; padding:0; background:#faf9f6; font-family:'Segoe UI',system-ui,-apple-system,sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background:#faf9f6; padding:20px 0;">
+    <tr><td align="center">
+      <table width="600" cellpadding="0" cellspacing="0" style="background:white; border-radius:12px; overflow:hidden; box-shadow:0 2px 16px rgba(0,0,0,0.06);">
+
+        <!-- Header -->
+        <tr><td style="background:#c0392b; padding:20px 30px; text-align:center;">
+          <h1 style="margin:0; color:white; font-size:20px; font-weight:300; letter-spacing:0.1em;">
+            The <strong>Lotus</strong> Lane
+          </h1>
+          <p style="margin:4px 0 0; color:rgba(255,255,255,0.8); font-size:12px; font-style:italic;">
+            Daimoku Daily
+          </p>
+        </td></tr>
+
+        <!-- Body sections -->
+        {sections_html}
+
+        <!-- Footer -->
+        <tr><td style="background:#f5f2ed; padding:20px 30px; text-align:center;">
+          <p style="margin:0; font-size:12px; color:#999;">
+            Sent with care from <a href="https://thelotuslane.in/" style="color:#c0392b; text-decoration:none;">The Lotus Lane</a>
+          </p>
+          <p style="margin:8px 0 0; font-size:11px; color:#bbb;">
+            You received this because you signed up for Daimoku Daily.
+            <br>No longer want these? Simply reply with "unsubscribe".
+          </p>
+        </td></tr>
+
+      </table>
+    </td></tr>
+  </table>
+</body>
+</html>"""
+
+
+def _build_welcome_1(subscriber: dict) -> dict:
+    """
+    Welcome Email 1 (Day 0): "Welcome to Daimoku Daily"
+    Sent immediately on signup.
+    """
+    name = subscriber.get("name", "friend")
+    challenges = subscriber.get("challenges", ["perseverance"])
+    frequency = subscriber.get("frequency", "weekly")
+    primary_challenge = challenges[0]
+
+    # Human-readable challenge list
+    challenge_names = [CHALLENGE_LABELS.get(c, c) for c in challenges]
+    if len(challenge_names) == 1:
+        challenges_text = challenge_names[0]
+    elif len(challenge_names) == 2:
+        challenges_text = f"{challenge_names[0]} and {challenge_names[1]}"
+    else:
+        challenges_text = f"{', '.join(challenge_names[:-1])}, and {challenge_names[-1]}"
+
+    # Pick a relevant Ikeda quote based on primary challenge
+    themes = CHALLENGE_THEME_MAP.get(primary_challenge, ["perseverance"])
+    quote = _pick_ikeda_quote(themes)
+    next_email = FREQUENCY_LABELS.get(frequency, "soon")
+
+    subject = f"Welcome to Daimoku Daily, {name}"
+
+    sections = [
+        {
+            "type": "text",
+            "content": (
+                f"Dear {name},<br><br>"
+                f"Welcome to Daimoku Daily. You told us you're going through challenges with "
+                f"<strong>{challenges_text}</strong> — and we want you to know: you're not alone in this, "
+                f"and you've taken a powerful step by showing up."
+            ),
+        },
+        {
+            "type": "text",
+            "content": (
+                "We're going to send you personalized wisdom from Nichiren Daishonin's writings "
+                "and Daisaku Ikeda's guidance — passages chosen specifically for what you're going through, "
+                "with practical ways to apply them in your life."
+            ),
+        },
+        {
+            "type": "text",
+            "content": "Here's something to carry with you today:",
+        },
+        {
+            "type": "quote",
+            "content": quote["text"],
+            "source": f"Daisaku Ikeda, {quote.get('source', '')}",
+        },
+        {
+            "type": "highlight",
+            "content": (
+                f"<strong>What to expect:</strong> Each email includes a hand-picked passage from the Buddhist writings, "
+                f"a modern interpretation for your situation, and one concrete practice suggestion. "
+                f"Your first regular email arrives <strong>{next_email}</strong>."
+            ),
+        },
+        {
+            "type": "text",
+            "content": (
+                "Until then — take a deep breath. You have more strength than you know.<br><br>"
+                "With warmth,<br>The Lotus Lane"
+            ),
+        },
+    ]
+
+    html_body = _build_welcome_html(subject, sections)
+    return {"subject": subject, "html_body": html_body, "quote": quote["text"], "source": quote.get("source", "")}
+
+
+def _build_welcome_2(subscriber: dict) -> dict:
+    """
+    Welcome Email 2 (Day 1): "The Heart of Practice"
+    Practical guidance on chanting, tied to their challenge.
+    """
+    name = subscriber.get("name", "friend")
+    challenges = subscriber.get("challenges", ["perseverance"])
+    primary_challenge = challenges[0]
+    challenge_label = CHALLENGE_LABELS.get(primary_challenge, primary_challenge)
+
+    # Nichiren passage about the power of daimoku
+    nichiren_quote = (
+        "If you recite these words of the Lotus Sutra before the Gohonzon, then the "
+        "five characters of Myoho-renge-kyo will appear in your heart, and you will "
+        "understand that the blessings contained in a single moment of faith are "
+        "immeasurable and boundless."
+    )
+    nichiren_source = "Nichiren Daishonin, On Attaining Buddhahood in This Lifetime (WND-1, p. 3)"
+
+    # Challenge-specific chanting guidance
+    chanting_tips = {
+        "career": (
+            "When chanting about your career, try visualizing yourself at your most capable and confident. "
+            "Don't chant to escape your situation — chant to bring out the wisdom and courage to transform it. "
+            "Ask yourself: 'What would I do if I truly believed in my abilities?'"
+        ),
+        "health": (
+            "When chanting for your health, focus on activating your life force — that deep inner vitality "
+            "that exists beyond illness. Don't chant in fear. Chant with the determination: 'My life force "
+            "is stronger than any illness. I will win over this.'"
+        ),
+        "relationships": (
+            "When chanting about relationships, start by chanting for the other person's happiness — "
+            "genuinely, without conditions. This shifts something profound inside you. "
+            "Then chant for the wisdom to see what you need to change in yourself."
+        ),
+        "family": (
+            "When chanting about family, resist the urge to chant for others to change. Instead, chant "
+            "to transform your own heart first. As Nichiren teaches, when you change, your environment changes. "
+            "Your family will feel the shift."
+        ),
+        "finances": (
+            "When chanting about finances, focus not on a specific dollar amount but on opening the way forward. "
+            "Chant to see opportunities clearly, to make wise decisions, and to develop the life condition "
+            "where you naturally attract abundance through value creation."
+        ),
+        "self-doubt": (
+            "When chanting through self-doubt, speak to your Buddha nature directly. Say in your heart: "
+            "'I am a Buddha. My potential is limitless.' This isn't wishful thinking — it's the deepest truth "
+            "of your existence. Chant until you feel that conviction rise in your chest."
+        ),
+        "grief": (
+            "When chanting through grief, let the tears come. Daimoku can hold all of your pain. "
+            "Chant for the person you've lost — for their peace and happiness wherever they are. "
+            "In Nichiren Buddhism, the bonds of love transcend life and death."
+        ),
+        "perseverance": (
+            "When you feel like giving up, chant with extra determination in those exact moments. "
+            "The darkest hour is just before dawn. Chant with the resolve: 'I will not be defeated. "
+            "I will break through this.' That fighting spirit IS your Buddha nature."
+        ),
+    }
+
+    tip = chanting_tips.get(primary_challenge, chanting_tips["perseverance"])
+
+    subject = f"{name}, the heart of practice"
+
+    sections = [
+        {
+            "type": "text",
+            "content": (
+                f"Dear {name},<br><br>"
+                f"Yesterday we welcomed you. Today, let's talk about the most powerful tool you have: "
+                f"your voice. In Nichiren Buddhism, chanting Nam-myoho-renge-kyo is not a ritual — "
+                f"it's a direct conversation with the deepest part of your life."
+            ),
+        },
+        {
+            "type": "quote",
+            "content": nichiren_quote,
+            "source": nichiren_source,
+        },
+        {
+            "type": "text",
+            "content": (
+                "What this means is simple but profound: when you chant sincerely, you're not asking "
+                "some external force for help. You're activating the wisdom, courage, and compassion "
+                "that already exist within your own life."
+            ),
+        },
+        {
+            "type": "practice",
+            "content": tip,
+        },
+        {
+            "type": "text",
+            "content": (
+                "Even 5 minutes of sincere daimoku can shift your entire day. Try it this morning — "
+                "and notice how you feel afterward.<br><br>"
+                "Warmly,<br>The Lotus Lane"
+            ),
+        },
+    ]
+
+    html_body = _build_welcome_html(subject, sections)
+    return {"subject": subject, "html_body": html_body, "quote": nichiren_quote, "source": nichiren_source}
+
+
+def _build_welcome_3(subscriber: dict) -> dict:
+    """
+    Welcome Email 3 (Day 2): "You Are Not Alone"
+    Encouragement about community + transition to regular emails.
+    """
+    name = subscriber.get("name", "friend")
+    challenges = subscriber.get("challenges", ["perseverance"])
+    frequency = subscriber.get("frequency", "weekly")
+
+    freq_text = {
+        "daily": "daily",
+        "thrice_weekly": "three-times-a-week",
+        "weekly": "weekly",
+    }.get(frequency, "regular")
+
+    # Pick an Ikeda quote about perseverance/community
+    quote = _pick_ikeda_quote(["perseverance", "friendship", "hope"])
+
+    # Human-readable challenge list
+    challenge_names = [CHALLENGE_LABELS.get(c, c) for c in challenges]
+    if len(challenge_names) == 1:
+        challenges_text = challenge_names[0]
+    elif len(challenge_names) == 2:
+        challenges_text = f"{challenge_names[0]} and {challenge_names[1]}"
+    else:
+        challenges_text = f"{', '.join(challenge_names[:-1])}, and {challenge_names[-1]}"
+
+    subject = f"{name}, you are not alone"
+
+    sections = [
+        {
+            "type": "text",
+            "content": (
+                f"Dear {name},<br><br>"
+                f"We want you to know something important: thousands of practitioners around the world "
+                f"are going through the very same challenges you are — {challenges_text}. "
+                f"Every single one of them has sat where you're sitting, wondering if things will get better."
+            ),
+        },
+        {
+            "type": "text",
+            "content": "They do. Not because circumstances magically change, but because <em>you</em> change.",
+        },
+        {
+            "type": "quote",
+            "content": quote["text"],
+            "source": f"Daisaku Ikeda, {quote.get('source', '')}",
+        },
+        {
+            "type": "highlight",
+            "content": (
+                f"From now on, you'll receive <strong>{freq_text} emails</strong> personalized to your journey. "
+                f"Each one draws from the writings of Nichiren Daishonin and the guidance of Daisaku Ikeda, "
+                f"chosen specifically for what you're going through."
+            ),
+        },
+        {
+            "type": "text",
+            "content": (
+                "You've already shown courage by signing up and showing up for three days. "
+                "That's not a small thing — that's the spirit of a Bodhisattva.<br><br>"
+                "We're rooting for you.<br><br>"
+                "With deep respect,<br>The Lotus Lane"
+            ),
+        },
+    ]
+
+    html_body = _build_welcome_html(subject, sections)
+    return {"subject": subject, "html_body": html_body, "quote": quote["text"], "source": quote.get("source", "")}
+
+
+WELCOME_BUILDERS = {
+    1: _build_welcome_1,
+    2: _build_welcome_2,
+    3: _build_welcome_3,
+}
+
+
+def process_welcome_subscriber(subscriber: dict) -> bool:
+    """Process a single welcome email for a subscriber."""
+    name = subscriber.get("name", "friend")
+    email = subscriber.get("email", "")
+    sub_id = subscriber["id"]
+    step = subscriber.get("_welcome_step", 1)
+
+    print(f"\n--- Welcome {step}/3: {name} ({email}) ---")
+
+    builder = WELCOME_BUILDERS.get(step)
+    if not builder:
+        print(f"  [ERROR] Invalid welcome step: {step}")
+        return False
+
+    try:
+        email_content = builder(subscriber)
+    except Exception as e:
+        print(f"  [ERROR] Failed to build welcome email: {e}")
+        supabase_post("daimoku_email_log", {
+            "subscriber_id": sub_id,
+            "challenge_category": f"welcome_{step}",
+            "status": "generation_failed",
+            "subject": str(e)[:200],
+        })
+        return False
+
+    print(f"  Subject: {email_content['subject']}")
+
+    # Send
+    sent = send_email(email, email_content["subject"], email_content["html_body"])
+
+    # Log
+    status = "sent" if sent else "send_failed"
+    supabase_post("daimoku_email_log", {
+        "subscriber_id": sub_id,
+        "subject": email_content["subject"],
+        "challenge_category": f"welcome_{step}",
+        "nichiren_quote": email_content.get("quote", "")[:500],
+        "source": email_content.get("source", "")[:200],
+        "status": status,
+    })
+
+    print(f"  Status: {status}")
+    return sent
 
 
 # ---------------------------------------------------------------------------
@@ -620,8 +1151,28 @@ def process_subscriber(subscriber: dict) -> bool:
 
 
 def main():
-    """Main entry point — process all due subscribers."""
+    """
+    Main entry point.
+
+    Flags:
+      --welcome   Process welcome sequence only
+      --regular   Process regular daily emails only (legacy default behavior)
+      --force     Send to all active subscribers (ignores frequency/schedule)
+      --dry-run   Show what would be sent without sending or logging
+
+    No flags = both welcome + regular (default for cron).
+    """
+    import sys
+
     print(f"=== Daimoku Daily — {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')} ===")
+
+    force = "--force" in sys.argv
+    dry_run = "--dry-run" in sys.argv
+    only_welcome = "--welcome" in sys.argv and "--regular" not in sys.argv
+    only_regular = "--regular" in sys.argv and "--welcome" not in sys.argv
+    # No flags or both flags = run both
+    run_welcome = not only_regular
+    run_regular = not only_welcome
 
     # Validate configuration
     missing = []
@@ -629,47 +1180,83 @@ def main():
         missing.append("SUPABASE_URL")
     if not SUPABASE_SERVICE_KEY:
         missing.append("SUPABASE_SERVICE_KEY")
-    if not ANTHROPIC_API_KEY:
-        missing.append("ANTHROPIC_API_KEY")
-    if not RESEND_API_KEY:
-        missing.append("RESEND_API_KEY")
+    if not dry_run:
+        if not RESEND_API_KEY:
+            missing.append("RESEND_API_KEY")
+        if run_regular and not ANTHROPIC_API_KEY:
+            missing.append("ANTHROPIC_API_KEY")
 
     if missing:
         print(f"  [FATAL] Missing environment variables: {', '.join(missing)}")
         return
 
-    # Check for --force flag (send to all active subscribers regardless of schedule)
-    import sys
-    force = "--force" in sys.argv
+    total_sent = 0
+    total_fail = 0
 
-    # Get due subscribers
-    if force:
-        due = supabase_get("daimoku_subscribers", {"active": "eq.true", "select": "*"})
-        print(f"\n[FORCE] All active subscribers: {len(due)}")
-    else:
-        due = get_due_subscribers()
-        print(f"\nDue subscribers: {len(due)}")
-
-    if not due:
-        print("No subscribers due for email today.")
-        return
-
-    # Process each subscriber
-    sent_count = 0
-    fail_count = 0
-
-    for sub in due:
+    # -------------------------------------------------------
+    # Phase 1: Welcome Sequence (runs first)
+    # -------------------------------------------------------
+    if run_welcome:
+        print("\n--- Welcome Sequence ---")
         try:
-            success = process_subscriber(sub)
-            if success:
-                sent_count += 1
-            else:
-                fail_count += 1
-        except Exception as e:
-            print(f"  [ERROR] Unhandled error for {sub.get('email', '?')}: {e}")
-            fail_count += 1
+            welcome_due = get_welcome_due_subscribers()
+            print(f"Welcome emails due: {len(welcome_due)}")
 
-    print(f"\n=== Done: {sent_count} sent, {fail_count} failed ===")
+            for sub in welcome_due:
+                step = sub.get("_welcome_step", 1)
+                if dry_run:
+                    email_content = WELCOME_BUILDERS[step](sub)
+                    print(f"\n  [DRY RUN] Welcome {step}/3 for {sub.get('name', '?')} ({sub.get('email', '?')})")
+                    print(f"    Subject: {email_content['subject']}")
+                    print(f"    Quote: {email_content.get('quote', '')[:80]}...")
+                    total_sent += 1
+                else:
+                    try:
+                        success = process_welcome_subscriber(sub)
+                        if success:
+                            total_sent += 1
+                        else:
+                            total_fail += 1
+                    except Exception as e:
+                        print(f"  [ERROR] Welcome error for {sub.get('email', '?')}: {e}")
+                        total_fail += 1
+        except Exception as e:
+            print(f"  [ERROR] Failed to fetch welcome subscribers: {e}")
+
+    # -------------------------------------------------------
+    # Phase 2: Regular Daily Emails
+    # -------------------------------------------------------
+    if run_regular:
+        print("\n--- Regular Daily Emails ---")
+
+        if force:
+            due = supabase_get("daimoku_subscribers", {"active": "eq.true", "select": "*"})
+            print(f"[FORCE] All active subscribers: {len(due)}")
+        else:
+            due = get_due_subscribers()
+            print(f"Due subscribers: {len(due)}")
+
+        if not due:
+            print("No subscribers due for regular email today.")
+        else:
+            for sub in due:
+                if dry_run:
+                    challenge = pick_challenge(sub)
+                    print(f"\n  [DRY RUN] Regular email for {sub.get('name', '?')} ({sub.get('email', '?')})")
+                    print(f"    Challenge: {challenge}")
+                    total_sent += 1
+                else:
+                    try:
+                        success = process_subscriber(sub)
+                        if success:
+                            total_sent += 1
+                        else:
+                            total_fail += 1
+                    except Exception as e:
+                        print(f"  [ERROR] Unhandled error for {sub.get('email', '?')}: {e}")
+                        total_fail += 1
+
+    print(f"\n=== Done: {total_sent} sent, {total_fail} failed ===")
 
 
 if __name__ == "__main__":

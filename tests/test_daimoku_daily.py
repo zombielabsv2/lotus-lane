@@ -168,6 +168,274 @@ def test_html_email_escaping():
     assert len(html) > 500
 
 
+# ---------------------------------------------------------------------------
+# Welcome Sequence Tests
+# ---------------------------------------------------------------------------
+
+def test_import_welcome_functions():
+    """Tier 1: Welcome sequence imports work."""
+    from pipeline.generate_email import (
+        get_welcome_due_subscribers,
+        process_welcome_subscriber,
+        WELCOME_BUILDERS,
+        CHALLENGE_THEME_MAP,
+        CHALLENGE_LABELS,
+        FREQUENCY_LABELS,
+        _load_ikeda_quotes,
+        _pick_ikeda_quote,
+        _build_welcome_html,
+        _build_welcome_1,
+        _build_welcome_2,
+        _build_welcome_3,
+    )
+    assert callable(get_welcome_due_subscribers)
+    assert callable(process_welcome_subscriber)
+    assert len(WELCOME_BUILDERS) == 3
+    assert len(CHALLENGE_THEME_MAP) == 8
+    assert len(CHALLENGE_LABELS) == 8
+    assert len(FREQUENCY_LABELS) == 3
+
+
+def test_challenge_theme_map_coverage():
+    """All 8 challenges map to valid Ikeda quote themes."""
+    from pipeline.generate_email import CHALLENGE_THEME_MAP, _load_ikeda_quotes
+
+    quotes = _load_ikeda_quotes()
+    all_theme_ids = set(quotes.keys())
+
+    for challenge, themes in CHALLENGE_THEME_MAP.items():
+        assert len(themes) >= 1, f"{challenge} has no mapped themes"
+        for theme in themes:
+            assert theme in all_theme_ids, f"Theme '{theme}' for '{challenge}' not in Ikeda quotes"
+
+
+def test_pick_ikeda_quote():
+    """Quote picker returns valid quotes for all challenge themes."""
+    from pipeline.generate_email import _pick_ikeda_quote, CHALLENGE_THEME_MAP
+
+    for challenge, themes in CHALLENGE_THEME_MAP.items():
+        quote = _pick_ikeda_quote(themes)
+        assert "text" in quote, f"No text for {challenge}"
+        assert len(quote["text"]) > 10, f"Quote too short for {challenge}"
+        assert "source" in quote, f"No source for {challenge}"
+
+
+def test_pick_ikeda_quote_fallback():
+    """Quote picker handles unknown themes gracefully."""
+    from pipeline.generate_email import _pick_ikeda_quote
+
+    quote = _pick_ikeda_quote(["nonexistent_theme_xyz"])
+    assert "text" in quote
+    assert len(quote["text"]) > 10  # Should fall back to perseverance
+
+
+_test_subscriber = {
+    "id": "test-welcome-uuid",
+    "name": "Priya",
+    "email": "priya@test.com",
+    "challenges": ["career", "self-doubt"],
+    "situation_text": "Struggling at work",
+    "frequency": "daily",
+}
+
+
+def test_build_welcome_1():
+    """Tier 2: Welcome email 1 renders correctly."""
+    from pipeline.generate_email import _build_welcome_1
+
+    result = _build_welcome_1(_test_subscriber)
+    assert result["subject"] == "Welcome to Daimoku Daily, Priya"
+    html = result["html_body"]
+    assert "Priya" in html
+    assert "career" in html.lower()
+    assert "self-doubt" in html.lower()
+    assert "tomorrow morning" in html  # daily frequency
+    assert "Daimoku Daily" in html
+    assert "Lotus Lane" in html
+    assert "unsubscribe" in html.lower()
+    assert len(result["quote"]) > 10
+    assert len(result["source"]) > 0
+
+
+def test_build_welcome_1_weekly():
+    """Welcome 1 shows correct frequency text for weekly subscribers."""
+    from pipeline.generate_email import _build_welcome_1
+
+    sub = {**_test_subscriber, "frequency": "weekly"}
+    result = _build_welcome_1(sub)
+    assert "next Monday" in result["html_body"]
+
+
+def test_build_welcome_1_thrice():
+    """Welcome 1 shows correct frequency text for thrice_weekly subscribers."""
+    from pipeline.generate_email import _build_welcome_1
+
+    sub = {**_test_subscriber, "frequency": "thrice_weekly"}
+    result = _build_welcome_1(sub)
+    assert "next Mon, Wed, or Fri" in result["html_body"]
+
+
+def test_build_welcome_2():
+    """Tier 2: Welcome email 2 renders correctly."""
+    from pipeline.generate_email import _build_welcome_2
+
+    result = _build_welcome_2(_test_subscriber)
+    assert "heart of practice" in result["subject"]
+    html = result["html_body"]
+    assert "Priya" in html
+    assert "Myoho-renge-kyo" in html  # Nichiren quote about daimoku
+    assert "career" in html.lower()  # Challenge-specific chanting tip
+    assert "Try This" in html  # Practice section header
+    assert len(result["quote"]) > 10
+
+
+def test_build_welcome_2_grief():
+    """Welcome 2 chanting tip varies by challenge."""
+    from pipeline.generate_email import _build_welcome_2
+
+    sub = {**_test_subscriber, "challenges": ["grief"]}
+    result = _build_welcome_2(sub)
+    html = result["html_body"]
+    assert "grief" in html.lower() or "tears" in html.lower() or "loss" in html.lower()
+
+
+def test_build_welcome_3():
+    """Tier 2: Welcome email 3 renders correctly."""
+    from pipeline.generate_email import _build_welcome_3
+
+    result = _build_welcome_3(_test_subscriber)
+    assert "not alone" in result["subject"]
+    html = result["html_body"]
+    assert "Priya" in html
+    assert "daily emails" in html  # frequency mention
+    assert "thousands" in html.lower() or "practitioners" in html.lower()
+    assert len(result["quote"]) > 10
+
+
+def test_build_welcome_3_single_challenge():
+    """Welcome 3 correctly renders a single challenge."""
+    from pipeline.generate_email import _build_welcome_3
+
+    sub = {**_test_subscriber, "challenges": ["health"]}
+    result = _build_welcome_3(sub)
+    html = result["html_body"]
+    assert "health" in html
+
+
+def test_build_welcome_3_three_challenges():
+    """Welcome 3 correctly formats 3 challenges with serial comma."""
+    from pipeline.generate_email import _build_welcome_3
+
+    sub = {**_test_subscriber, "challenges": ["health", "family", "finances"]}
+    result = _build_welcome_3(sub)
+    html = result["html_body"]
+    assert "health" in html
+    assert "family" in html
+    assert "finances" in html
+
+
+def test_welcome_all_challenges():
+    """Every challenge produces valid welcome emails for all 3 steps."""
+    from pipeline.generate_email import WELCOME_BUILDERS
+
+    challenges = ["career", "health", "relationships", "family", "finances", "self-doubt", "grief", "perseverance"]
+    for challenge in challenges:
+        sub = {
+            "id": f"test-{challenge}",
+            "name": "Test",
+            "email": "test@test.com",
+            "challenges": [challenge],
+            "frequency": "weekly",
+        }
+        for step in [1, 2, 3]:
+            sub["_welcome_step"] = step
+            result = WELCOME_BUILDERS[step](sub)
+            assert "subject" in result, f"No subject for {challenge} step {step}"
+            assert "html_body" in result, f"No html_body for {challenge} step {step}"
+            assert len(result["html_body"]) > 500, f"HTML too short for {challenge} step {step}"
+
+
+def test_welcome_no_api_cost():
+    """Welcome emails are template-based — no Claude API calls."""
+    from pipeline.generate_email import _build_welcome_1, _build_welcome_2, _build_welcome_3
+
+    # These should work without ANTHROPIC_API_KEY set
+    import os
+    old_key = os.environ.get("ANTHROPIC_API_KEY", "")
+    os.environ["ANTHROPIC_API_KEY"] = ""
+    try:
+        for builder in [_build_welcome_1, _build_welcome_2, _build_welcome_3]:
+            result = builder(_test_subscriber)
+            assert "html_body" in result
+    finally:
+        if old_key:
+            os.environ["ANTHROPIC_API_KEY"] = old_key
+
+
+def test_get_welcome_due_subscribers_mocked():
+    """Tier 2: Welcome subscriber detection with mocked Supabase."""
+    from unittest.mock import patch
+    from pipeline.generate_email import get_welcome_due_subscribers
+
+    mock_subscribers = [
+        {"id": "new-sub", "name": "New", "email": "new@test.com", "challenges": ["career"], "frequency": "daily", "active": True},
+    ]
+
+    # New subscriber with no welcome logs => step 1
+    with patch("pipeline.generate_email.supabase_get") as mock_get:
+        mock_get.side_effect = [
+            mock_subscribers,  # First call: get subscribers
+            [],                # Second call: get welcome logs (empty)
+        ]
+        due = get_welcome_due_subscribers()
+        assert len(due) == 1
+        assert due[0]["_welcome_step"] == 1
+
+    # Subscriber who completed welcome_1 yesterday => step 2
+    from datetime import datetime, timezone, timedelta
+    yesterday = (datetime.now(timezone.utc) - timedelta(days=1, hours=1)).isoformat()
+    with patch("pipeline.generate_email.supabase_get") as mock_get:
+        mock_get.side_effect = [
+            mock_subscribers,
+            [{"challenge_category": "welcome_1", "sent_at": yesterday, "status": "sent"}],
+        ]
+        due = get_welcome_due_subscribers()
+        assert len(due) == 1
+        assert due[0]["_welcome_step"] == 2
+
+    # Subscriber who completed all 3 => not due
+    with patch("pipeline.generate_email.supabase_get") as mock_get:
+        mock_get.side_effect = [
+            mock_subscribers,
+            [
+                {"challenge_category": "welcome_1", "sent_at": yesterday, "status": "sent"},
+                {"challenge_category": "welcome_2", "sent_at": yesterday, "status": "sent"},
+                {"challenge_category": "welcome_3", "sent_at": yesterday, "status": "sent"},
+            ],
+        ]
+        due = get_welcome_due_subscribers()
+        assert len(due) == 0
+
+
+def test_process_welcome_subscriber_mocked():
+    """Tier 2: Welcome processing with mocked send + log."""
+    from unittest.mock import patch
+    from pipeline.generate_email import process_welcome_subscriber
+
+    sub = {**_test_subscriber, "_welcome_step": 1}
+
+    with patch("pipeline.generate_email.send_email", return_value=True) as mock_send, \
+         patch("pipeline.generate_email.supabase_post") as mock_post:
+        result = process_welcome_subscriber(sub)
+        assert result is True
+        mock_send.assert_called_once()
+        mock_post.assert_called_once()
+        # Check log entry uses welcome_1 as category
+        log_data = mock_post.call_args[0][1]
+        assert log_data["challenge_category"] == "welcome_1"
+        assert log_data["status"] == "sent"
+
+
 if __name__ == "__main__":
     test_import_generate_email()
     print("PASS: test_import_generate_email")
