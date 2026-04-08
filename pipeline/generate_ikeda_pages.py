@@ -238,11 +238,6 @@ def generate_theme_page(theme, all_themes):
 <body>
   <header>
     <h1><a href="../">The <span>Lotus</span> Lane</a></h1>
-    <div class="breadcrumb">
-      <a href="../">Home</a> &rsaquo;
-      <a href="index.html">Ikeda Guidance</a> &rsaquo;
-      {name}
-    </div>
   </header>
 
   <nav style="display:flex; justify-content:center; gap:1.2rem; padding:0.6rem 1rem; background:#f5f2ed; font-size:0.8rem; flex-wrap:wrap;">
@@ -274,11 +269,6 @@ def generate_theme_page(theme, all_themes):
 
   <footer>
     <p>Quotes by Daisaku Ikeda &middot; Curated by <a href="../">The Lotus Lane</a></p>
-    <p style="margin-top:0.3rem;">
-      <a href="index.html">All Topics</a> &middot;
-      <a href="../decoder/index.html">Gosho Decoder</a> &middot;
-      <a href="../subscribe.html">Daimoku Daily</a>
-    </p>
   </footer>
 
   <script>
@@ -459,7 +449,6 @@ def generate_index_page(data):
 <body>
   <header>
     <h1><a href="../">The <span>Lotus</span> Lane</a></h1>
-    <p class="tagline">Buddhist wisdom for everyday struggles</p>
   </header>
 
   <nav style="display:flex; justify-content:center; gap:1.2rem; padding:0.6rem 1rem; background:#f5f2ed; font-size:0.8rem; flex-wrap:wrap;">
@@ -495,26 +484,8 @@ def generate_index_page(data):
     {cards_html}
   </div>
 
-  <div class="cta">
-    <a href="../decoder/index.html" class="cta-box">
-      <div class="cta-icon">&#x1F4DC;</div>
-      <div class="cta-title">Gosho Decoder</div>
-      <div class="cta-desc">Nichiren's writings in plain English &rarr;</div>
-    </a>
-    <a href="../subscribe.html" class="cta-box">
-      <div class="cta-icon">&#x1F4E7;</div>
-      <div class="cta-title">Daimoku Daily</div>
-      <div class="cta-desc">Personalized guidance emails &rarr;</div>
-    </a>
-  </div>
-
   <footer>
     <p>Quotes by Daisaku Ikeda &middot; Curated by <a href="../">The Lotus Lane</a></p>
-    <p style="margin-top:0.3rem;">
-      <a href="../">Comic Strips</a> &middot;
-      <a href="../decoder/index.html">Gosho Decoder</a> &middot;
-      <a href="../subscribe.html">Daimoku Daily</a>
-    </p>
   </footer>
 
   <script>
