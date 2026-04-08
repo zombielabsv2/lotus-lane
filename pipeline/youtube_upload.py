@@ -21,6 +21,9 @@ from pathlib import Path
 
 import httpx
 
+# Add project root to path so `from pipeline.utils import ...` works
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
 STRIPS_DIR = Path(__file__).parent.parent / "strips"
 SHORTS_DIR = Path(__file__).parent.parent / "shorts"
 STRIPS_JSON = Path(__file__).parent.parent / "strips.json"
