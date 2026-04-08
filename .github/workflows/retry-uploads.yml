@@ -26,6 +26,8 @@ jobs:
         run: pip install -r pipeline/requirements.txt
 
       - name: Swap old videos (delete + re-upload with new text)
+        continue-on-error: true
+        id: swap
         env:
           YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
           YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
@@ -33,6 +35,8 @@ jobs:
         run: python pipeline/youtube_upload.py --swap-old
 
       - name: Upload pending new videos
+        continue-on-error: true
+        id: upload
         env:
           YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
           YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
@@ -40,6 +44,8 @@ jobs:
         run: python pipeline/youtube_upload.py --all
 
       - name: Pull YouTube view counts
+        continue-on-error: true
+        id: views
         env:
           YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
           YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
@@ -58,23 +64,27 @@ jobs:
             git push
           fi
 
-      - name: Alert on failure
-        if: failure()
+      - name: Report failures
+        if: always()
         env:
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
           NOTIFY_EMAIL: ${{ secrets.NOTIFY_EMAIL }}
         run: |
-          python -c "
-          import httpx, os
-          api_key = os.environ.get('RESEND_API_KEY', '')
-          notify = os.environ.get('NOTIFY_EMAIL', '')
-          if api_key and notify:
-              httpx.post('https://api.resend.com/emails',
-                  headers={'Authorization': f'Bearer {api_key}'},
-                  json={
-                      'from': 'Lotus Lane Bot <notifications@rxjapps.in>',
-                      'to': [notify],
-                      'subject': 'Lotus Lane: YouTube upload retry FAILED',
-                      'html': '<p>YouTube upload retry failed. <a href=\"https://github.com/zombielabsv2/lotus-lane/actions\">Check Actions</a></p>'
-                  })
-          "
+          FAILURES=""
+          if [ "${{ steps.swap.outcome }}" == "failure" ]; then FAILURES="$FAILURES- Swap old videos FAILED\n"; fi
+          if [ "${{ steps.upload.outcome }}" == "failure" ]; then FAILURES="$FAILURES- Upload pending videos FAILED\n"; fi
+          if [ "${{ steps.views.outcome }}" == "failure" ]; then FAILURES="$FAILURES- Pull view counts FAILED\n"; fi
+
+          if [ -n "$FAILURES" ]; then
+            echo "## YouTube Retry Failures" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo -e "$FAILURES" >> $GITHUB_STEP_SUMMARY
+
+            if [ -n "$RESEND_API_KEY" ] && [ -n "$NOTIFY_EMAIL" ]; then
+              export FAIL_TEXT=$(echo -e "$FAILURES")
+              export RUN_URL="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+              python pipeline/send_failure_alert.py
+            fi
+          else
+            echo "All YouTube retry steps succeeded." >> $GITHUB_STEP_SUMMARY
+          fi
