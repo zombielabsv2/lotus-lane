@@ -298,8 +298,14 @@
       "arjun",
       "sudha"
     ],
-    "youtube_id": "enfVRpzpNzI",
-    "youtube_needs_reupload": true
+    "youtube_id": "zqkr-NHqNOk",
+    "distribution": {
+      "youtube": {
+        "status": "uploaded",
+        "id": "zqkr-NHqNOk",
+        "uploaded_at": "2026-04-08"
+      }
+    }
   },
   {
     "date": "2026-03-13",
@@ -319,8 +325,14 @@
       "meera",
       "sudha"
     ],
-    "youtube_id": "-oMD6dkhDEQ",
-    "youtube_needs_reupload": true
+    "youtube_id": "a0HeEOZL5nY",
+    "distribution": {
+      "youtube": {
+        "status": "uploaded",
+        "id": "a0HeEOZL5nY",
+        "uploaded_at": "2026-04-08"
+      }
+    }
   },
   {
     "date": "2026-03-16",
@@ -341,8 +353,14 @@
       "meera",
       "vikram"
     ],
-    "youtube_id": "dv3xrZqalSk",
-    "youtube_needs_reupload": true
+    "youtube_id": "Bf4iqFZaUeA",
+    "distribution": {
+      "youtube": {
+        "status": "uploaded",
+        "id": "Bf4iqFZaUeA",
+        "uploaded_at": "2026-04-08"
+      }
+    }
   },
   {
     "date": "2026-03-18",
@@ -362,8 +380,14 @@
       "sudha",
       "meera"
     ],
-    "youtube_id": "W6NwO7GleMQ",
-    "youtube_needs_reupload": true
+    "youtube_id": "TwyBvUJ6yVk",
+    "distribution": {
+      "youtube": {
+        "status": "uploaded",
+        "id": "TwyBvUJ6yVk",
+        "uploaded_at": "2026-04-08"
+      }
+    }
   },
   {
     "date": "2026-03-20",
@@ -384,8 +408,14 @@
       "arjun",
       "meera"
     ],
-    "youtube_id": "S5ec7nDlz2E",
-    "youtube_needs_reupload": true
+    "youtube_id": "of8ipoRNITU",
+    "distribution": {
+      "youtube": {
+        "status": "uploaded",
+        "id": "of8ipoRNITU",
+        "uploaded_at": "2026-04-08"
+      }
+    }
   },
   {
     "date": "2026-03-23",
