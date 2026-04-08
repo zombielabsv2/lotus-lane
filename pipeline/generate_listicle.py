@@ -691,7 +691,6 @@ def generate_seo_page(listicle: dict, target_date: str, all_listicles: list) -> 
     .listicle-header {{ padding: 1.5rem 0 0.5rem; text-align: center; }}
     .listicle-header h2 {{ font-size: 1.6rem; color: #3E2723; margin-bottom: 0.4rem; line-height: 1.3; }}
     .listicle-header .meta {{ font-size: 0.85rem; color: #999; }}
-    .infographic {{ width: 100%; max-width: 540px; margin: 1.5rem auto; display: block; border-radius: 8px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); }}
     .quote-item {{ display: flex; gap: 1rem; padding: 1.2rem 0; border-bottom: 1px solid #e8e4de; }}
     .quote-item:last-child {{ border-bottom: none; }}
     .quote-number {{ font-size: 2rem; font-weight: 700; color: #BF8C40; min-width: 2.5rem; padding-top: 0.2rem; }}
@@ -722,9 +721,6 @@ def generate_seo_page(listicle: dict, target_date: str, all_listicles: list) -> 
       <h2>{title}</h2>
       <div class="meta">{display_date} &middot; {theme_name} &middot; Ikeda Sensei&rsquo;s Guidance</div>
     </div>
-
-    <img src="{target_date}.png" alt="{title}"
-         class="infographic" loading="eager" width="1080" height="1920">
 
     {items_html}
 
