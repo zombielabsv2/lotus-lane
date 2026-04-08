@@ -34,6 +34,7 @@ CLIENT_SECRET_FILE = Path(__file__).parent.parent / "client_secret.json"
 AUTH_URL = "https://accounts.google.com/o/oauth2/v2/auth"
 TOKEN_URL = "https://oauth2.googleapis.com/token"
 UPLOAD_URL = "https://www.googleapis.com/upload/youtube/v3/videos"
+VIDEOS_API_URL = "https://www.googleapis.com/youtube/v3/videos"
 SCOPES = "https://www.googleapis.com/auth/youtube"
 
 
@@ -461,6 +462,82 @@ def swap_old_videos(max_per_run=5):
     print(f"\n  Swapped {swapped} video(s). {remaining} remaining.")
 
 
+def pull_view_counts():
+    """Fetch YouTube view counts for all strips with youtube_id and update strips.json.
+
+    Uses the YouTube Data API v3 videos.list endpoint (part=statistics).
+    Batches up to 50 IDs per request to minimize quota usage (1 unit per call).
+    """
+    from datetime import datetime, timezone
+    from pipeline.utils import safe_update_strips
+
+    with open(STRIPS_JSON, "r", encoding="utf-8") as f:
+        strips = json.load(f)
+
+    # Collect all strips that have a youtube_id
+    yt_strips = [(i, s["youtube_id"]) for i, s in enumerate(strips) if s.get("youtube_id")]
+    if not yt_strips:
+        print("  No strips with youtube_id found.")
+        return
+
+    print(f"  Fetching view counts for {len(yt_strips)} video(s)...")
+
+    access_token = get_access_token()
+
+    # Build a map of youtube_id -> view count from API responses
+    view_counts = {}  # youtube_id -> int view count
+
+    # Batch into groups of 50 (YouTube API max per request)
+    batch_size = 50
+    yt_ids = [yt_id for _, yt_id in yt_strips]
+
+    for batch_start in range(0, len(yt_ids), batch_size):
+        batch = yt_ids[batch_start:batch_start + batch_size]
+        ids_param = ",".join(batch)
+
+        response = httpx.get(
+            VIDEOS_API_URL,
+            params={
+                "id": ids_param,
+                "part": "statistics",
+            },
+            headers={
+                "Authorization": f"Bearer {access_token}",
+            },
+            timeout=30,
+        )
+        if response.status_code >= 400:
+            print(f"  YouTube API error {response.status_code}: {response.text[:500]}")
+            response.raise_for_status()
+
+        data = response.json()
+        for item in data.get("items", []):
+            video_id = item["id"]
+            stats = item.get("statistics", {})
+            views = int(stats.get("viewCount", 0))
+            view_counts[video_id] = views
+
+    # Update strips.json with view counts
+    now_iso = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    updated = 0
+
+    def _update_views(strips_data):
+        nonlocal updated
+        for s in strips_data:
+            yt_id = s.get("youtube_id")
+            if yt_id and yt_id in view_counts:
+                s["youtube_views"] = view_counts[yt_id]
+                s["youtube_views_updated_at"] = now_iso
+                updated += 1
+
+    safe_update_strips(_update_views)
+
+    print(f"  Updated view counts for {updated} video(s).")
+    # Print summary
+    for yt_id, views in sorted(view_counts.items(), key=lambda x: x[1], reverse=True):
+        print(f"    {yt_id}: {views:,} views")
+
+
 def get_latest_date():
     """Get the most recent strip date."""
     with open(STRIPS_JSON, "r", encoding="utf-8") as f:
@@ -479,6 +556,8 @@ def main():
     parser.add_argument("--force", action="store_true", help="Re-upload even if already uploaded")
     parser.add_argument("--swap-old", action="store_true",
                         help="Delete old YouTube videos and re-upload with new text (5/day)")
+    parser.add_argument("--views", action="store_true",
+                        help="Pull YouTube view counts for all uploaded videos")
     args = parser.parse_args()
 
     if args.auth:
@@ -491,6 +570,10 @@ def main():
 
     if args.swap_old:
         swap_old_videos()
+        return
+
+    if args.views:
+        pull_view_counts()
         return
 
     if args.latest:
@@ -532,7 +615,7 @@ def main():
             print(f"  {len(failures)} failure(s): {', '.join(failures)}")
             sys.exit(1)
     else:
-        print("Specify --auth, --date, --latest, --all, or --pending")
+        print("Specify --auth, --date, --latest, --all, --pending, or --views")
 
 
 if __name__ == "__main__":
