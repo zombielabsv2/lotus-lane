@@ -7,12 +7,14 @@
   const isDecoder = path.includes('/decoder');
   const isSubscribe = path.includes('subscribe');
   const isIkeda = path.includes('/ikeda');
-  const isStrips = !isDecoder && !isSubscribe && !isIkeda;
+  const isListicle = path.includes('/listicles');
+  const isStrips = !isDecoder && !isSubscribe && !isIkeda && !isListicle;
 
   // Determine base path for links
   let base = '';
   if (isDecoder) base = '../';
   if (isIkeda) base = '../';
+  if (isListicle) base = '../';
 
   // --- TOP NAV (inline links below header) ---
   const topNav = document.createElement('div');
@@ -21,6 +23,8 @@
     <a href="${base}index.html" class="${isStrips ? 'active' : ''}">Comic Strips</a>
     <span class="sep">|</span>
     <a href="${base}ikeda/index.html" class="${isIkeda ? 'active' : ''}">Ikeda Guidance</a>
+    <span class="sep">|</span>
+    <a href="${base}listicles/" class="${isListicle ? 'active' : ''}">Listicles</a>
     <span class="sep">|</span>
     <a href="${base}decoder/index.html" class="${isDecoder ? 'active' : ''}">Gosho Decoder</a>
     <span class="sep">|</span>
@@ -46,6 +50,10 @@
     <a href="${base}ikeda/index.html" class="${isIkeda ? 'active' : ''}">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
       <span>Ikeda</span>
+    </a>
+    <a href="${base}listicles/" class="${isListicle ? 'active' : ''}">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+      <span>Listicles</span>
     </a>
     <a href="${base}decoder/index.html" class="${isDecoder ? 'active' : ''}">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
@@ -103,13 +111,13 @@
       flex-direction: column;
       align-items: center;
       gap: 0.15rem;
-      padding: 0.3rem 1.5rem;
+      padding: 0.3rem 1rem;
       text-decoration: none;
       color: #999;
       font-size: 0.65rem;
       font-family: 'Segoe UI', system-ui, sans-serif;
       transition: color 0.2s;
-      min-width: 70px;
+      min-width: 60px;
     }
     #lotus-bottom-nav a:hover { color: #c0392b; }
     #lotus-bottom-nav a.active { color: #c0392b; font-weight: 600; }
@@ -120,6 +128,7 @@
     @media (max-width: 600px) {
       #lotus-top-nav { font-size: 0.78rem; gap: 0.3rem; }
       #lotus-top-nav a { padding: 0.2rem 0.3rem; }
+      #lotus-bottom-nav a { padding: 0.3rem 0.6rem; min-width: 50px; }
     }
   `;
 
