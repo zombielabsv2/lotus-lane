@@ -245,6 +245,13 @@ def generate_theme_page(theme, all_themes):
     </div>
   </header>
 
+  <nav style="display:flex; justify-content:center; gap:1.2rem; padding:0.6rem 1rem; background:#f5f2ed; font-size:0.8rem; flex-wrap:wrap;">
+    <a href="../" style="color:#555; text-decoration:none;">Comic Strips</a>
+    <a href="index.html" style="color:#c0392b; text-decoration:none; font-weight:600;">Ikeda Guidance</a>
+    <a href="../decoder/index.html" style="color:#555; text-decoration:none;">Gosho Decoder</a>
+    <a href="../subscribe.html" style="color:#555; text-decoration:none;">Daimoku Daily</a>
+  </nav>
+
   <div class="hero">
     <div class="icon">{icon}</div>
     <h2>Daisaku Ikeda on {name}</h2>
@@ -454,6 +461,13 @@ def generate_index_page(data):
     <h1><a href="../">The <span>Lotus</span> Lane</a></h1>
     <p class="tagline">Buddhist wisdom for everyday struggles</p>
   </header>
+
+  <nav style="display:flex; justify-content:center; gap:1.2rem; padding:0.6rem 1rem; background:#f5f2ed; font-size:0.8rem; flex-wrap:wrap;">
+    <a href="../" style="color:#555; text-decoration:none;">Comic Strips</a>
+    <a href="index.html" style="color:#c0392b; text-decoration:none; font-weight:600;">Ikeda Guidance</a>
+    <a href="../decoder/index.html" style="color:#555; text-decoration:none;">Gosho Decoder</a>
+    <a href="../subscribe.html" style="color:#555; text-decoration:none;">Daimoku Daily</a>
+  </nav>
 
   <div class="hero">
     <h2>Guidance from Daisaku Ikeda</h2>
