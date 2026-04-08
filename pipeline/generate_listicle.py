@@ -334,7 +334,7 @@ def _render_html_to_image(html: str, width: int, height: int) -> Image.Image:
 
 
 def _infographic_html(listicle: dict) -> str:
-    """Build the HTML for a tall infographic."""
+    """Build the HTML for a tall infographic — dark premium design, compact."""
     title = listicle["title"]
     items = listicle["items"]
 
@@ -353,48 +353,34 @@ def _infographic_html(listicle: dict) -> str:
     return f"""<!DOCTYPE html>
 <html><head>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,500&family=DM+Sans:wght@400;500;600&display=swap');
   * {{ margin: 0; padding: 0; box-sizing: border-box; }}
   body {{
     width: 1080px;
-    background: linear-gradient(180deg, #FDF6E3 0%, #F5E6C8 40%, #EDD9B5 100%);
-    font-family: 'Inter', sans-serif;
-    color: #3E2723;
-    padding: 70px 70px 50px;
+    background: #1C1C1E;
+    font-family: 'DM Sans', sans-serif;
+    color: #E8E0D4;
+    padding: 60px 60px 40px;
   }}
   .header {{
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 28px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid rgba(200, 170, 120, 0.25);
   }}
-  .lotus {{
-    font-size: 32px;
-    margin-bottom: 12px;
+  .brand-tag {{
+    font-size: 13px;
+    color: #C8AA78;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
   }}
   .title {{
-    font-family: 'Playfair Display', serif;
-    font-size: 46px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 44px;
     font-weight: 700;
-    line-height: 1.25;
-    color: #2C1810;
-    margin-bottom: 20px;
-  }}
-  .divider {{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    margin: 10px 0;
-  }}
-  .divider .line {{
-    width: 80px;
-    height: 1px;
-    background: #C4A265;
-  }}
-  .divider .diamond {{
-    width: 8px;
-    height: 8px;
-    background: #C4A265;
-    transform: rotate(45deg);
+    line-height: 1.2;
+    color: #FFFFFF;
   }}
   .items {{
     display: flex;
@@ -403,160 +389,164 @@ def _infographic_html(listicle: dict) -> str:
   }}
   .item {{
     display: flex;
-    gap: 24px;
-    padding: 32px 0;
-    border-bottom: 1px solid rgba(196, 162, 101, 0.3);
+    gap: 20px;
+    padding: 22px 0;
+    border-bottom: 1px solid rgba(200, 170, 120, 0.12);
   }}
   .item:last-child {{
     border-bottom: none;
   }}
   .number {{
-    font-family: 'Playfair Display', serif;
-    font-size: 52px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 42px;
     font-weight: 700;
-    color: #C4A265;
+    color: #C8AA78;
     line-height: 1;
-    min-width: 50px;
+    min-width: 40px;
+    padding-top: 2px;
   }}
   .content {{
     flex: 1;
   }}
   .quote {{
-    font-family: 'Playfair Display', serif;
-    font-size: 26px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
     font-style: italic;
-    line-height: 1.45;
-    color: #2C1810;
-    margin-bottom: 10px;
+    line-height: 1.4;
+    color: #F5F0E8;
+    margin-bottom: 6px;
   }}
   .attribution {{
-    font-size: 16px;
-    color: #8D6E63;
-    margin-bottom: 12px;
-    font-weight: 500;
+    font-size: 13px;
+    color: #9E8E78;
+    margin-bottom: 8px;
   }}
   .explanation {{
-    font-size: 19px;
-    line-height: 1.5;
-    color: #5D4037;
-    padding: 12px 16px;
-    background: rgba(255, 255, 255, 0.45);
-    border-radius: 8px;
-    border-left: 3px solid #C4A265;
+    font-size: 15px;
+    line-height: 1.45;
+    color: #B8ADA0;
+    padding: 8px 12px;
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 6px;
+    border-left: 2px solid #C8AA78;
   }}
   .branding {{
     text-align: center;
-    margin-top: 40px;
-    padding-top: 20px;
+    margin-top: 28px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(200, 170, 120, 0.15);
   }}
   .branding .name {{
-    font-family: 'Playfair Display', serif;
-    font-size: 20px;
-    color: #A89070;
-    letter-spacing: 0.15em;
+    font-size: 13px;
+    color: rgba(200, 170, 120, 0.5);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
   }}
   .branding .url {{
-    font-size: 14px;
-    color: #BDBDBD;
-    margin-top: 4px;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.2);
+    margin-top: 3px;
   }}
 </style></head>
 <body>
   <div class="header">
-    <div class="lotus">&#x1F33A;</div>
+    <div class="brand-tag">The Lotus Lane</div>
     <div class="title">{title}</div>
-    <div class="divider"><div class="line"></div><div class="diamond"></div><div class="line"></div></div>
   </div>
   <div class="items">{items_html}</div>
   <div class="branding">
-    <div class="name">THE LOTUS LANE</div>
+    <div class="name">Guidance from Daisaku Ikeda</div>
     <div class="url">thelotuslane.in</div>
   </div>
 </body></html>"""
 
 
 def _carousel_slide_html(item: dict, slide_num: int, total: int, title: str) -> str:
-    """Build HTML for a single carousel slide (1080x1080)."""
+    """Build HTML for a single carousel slide (1080x1080) — dark premium."""
     is_cover = slide_num == 0
 
     if is_cover:
         return f"""<!DOCTYPE html>
 <html><head>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600&display=swap');
   * {{ margin: 0; padding: 0; box-sizing: border-box; }}
   body {{
     width: 1080px; height: 1080px;
-    background: linear-gradient(135deg, #2C1810 0%, #4E342E 50%, #3E2723 100%);
+    background: #1C1C1E;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
-    font-family: 'Inter', sans-serif; color: white; text-align: center; padding: 80px;
+    font-family: 'DM Sans', sans-serif; color: white; text-align: center; padding: 100px;
   }}
-  .lotus {{ font-size: 48px; margin-bottom: 30px; }}
+  .brand-tag {{
+    font-size: 14px; color: #C8AA78; letter-spacing: 0.3em;
+    text-transform: uppercase; margin-bottom: 32px;
+  }}
   .title {{
-    font-family: 'Playfair Display', serif; font-size: 52px; font-weight: 700;
-    line-height: 1.3; margin-bottom: 30px;
+    font-family: 'Cormorant Garamond', serif; font-size: 54px; font-weight: 700;
+    line-height: 1.2; margin-bottom: 32px; color: #FFFFFF;
   }}
-  .divider {{ display: flex; align-items: center; justify-content: center; gap: 12px; margin: 20px 0; }}
-  .divider .line {{ width: 60px; height: 1px; background: #C4A265; }}
-  .divider .diamond {{ width: 8px; height: 8px; background: #C4A265; transform: rotate(45deg); }}
+  .rule {{
+    width: 60px; height: 2px; background: #C8AA78; margin: 0 auto 28px;
+  }}
   .subtitle {{
-    font-size: 22px; color: rgba(255,255,255,0.6); font-style: italic;
+    font-size: 20px; color: rgba(255,255,255,0.45); font-style: italic;
+    font-family: 'Cormorant Garamond', serif;
   }}
   .branding {{
-    position: absolute; bottom: 40px; font-size: 16px; color: rgba(255,255,255,0.3);
+    position: absolute; bottom: 40px; font-size: 12px; color: rgba(255,255,255,0.2);
     letter-spacing: 0.15em;
   }}
 </style></head>
 <body>
-  <div class="lotus">&#x1F33A;</div>
+  <div class="brand-tag">The Lotus Lane</div>
   <div class="title">{title}</div>
-  <div class="divider"><div class="line"></div><div class="diamond"></div><div class="line"></div></div>
+  <div class="rule"></div>
   <div class="subtitle">Guidance from Daisaku Ikeda</div>
-  <div class="branding">THE LOTUS LANE</div>
+  <div class="branding">thelotuslane.in</div>
 </body></html>"""
 
     return f"""<!DOCTYPE html>
 <html><head>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600&display=swap');
   * {{ margin: 0; padding: 0; box-sizing: border-box; }}
   body {{
     width: 1080px; height: 1080px;
-    background: linear-gradient(180deg, #FDF6E3 0%, #F5E6C8 100%);
+    background: #1C1C1E;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
-    font-family: 'Inter', sans-serif; color: #3E2723; text-align: center; padding: 80px;
+    font-family: 'DM Sans', sans-serif; color: #E8E0D4; text-align: center; padding: 80px;
   }}
   .number {{
-    font-family: 'Playfair Display', serif; font-size: 72px; font-weight: 700;
-    color: #C4A265; margin-bottom: 24px;
+    font-family: 'Cormorant Garamond', serif; font-size: 64px; font-weight: 700;
+    color: #C8AA78; margin-bottom: 20px;
   }}
   .quote {{
-    font-family: 'Playfair Display', serif; font-size: 34px; font-style: italic;
-    line-height: 1.45; color: #2C1810; margin-bottom: 24px; max-width: 850px;
+    font-family: 'Cormorant Garamond', serif; font-size: 36px; font-style: italic;
+    line-height: 1.4; color: #F5F0E8; margin-bottom: 20px; max-width: 850px;
   }}
-  .divider {{ display: flex; align-items: center; justify-content: center; gap: 12px; margin: 16px 0; }}
-  .divider .line {{ width: 50px; height: 1px; background: #C4A265; }}
-  .divider .diamond {{ width: 6px; height: 6px; background: #C4A265; transform: rotate(45deg); }}
-  .attribution {{ font-size: 18px; color: #8D6E63; margin-bottom: 20px; }}
+  .rule {{
+    width: 40px; height: 2px; background: #C8AA78; margin: 0 auto 20px;
+  }}
+  .attribution {{ font-size: 16px; color: #9E8E78; margin-bottom: 24px; }}
   .explanation {{
-    font-size: 22px; line-height: 1.5; color: #5D4037; max-width: 800px;
-    padding: 16px 24px; background: rgba(255,255,255,0.5); border-radius: 10px;
-    border-left: 3px solid #C4A265;
+    font-size: 20px; line-height: 1.5; color: #B8ADA0; max-width: 800px;
+    padding: 16px 24px; background: rgba(255, 255, 255, 0.06); border-radius: 8px;
+    border-left: 2px solid #C8AA78;
   }}
   .counter {{
-    position: absolute; top: 40px; right: 50px;
-    font-size: 16px; color: #BDBDBD; font-weight: 500;
+    position: absolute; top: 36px; right: 44px;
+    font-size: 14px; color: rgba(200, 170, 120, 0.4);
   }}
   .branding {{
     position: absolute; bottom: 30px;
-    font-size: 14px; color: #BDBDBD; letter-spacing: 0.1em;
+    font-size: 12px; color: rgba(255, 255, 255, 0.2); letter-spacing: 0.1em;
   }}
 </style></head>
 <body>
-  <div class="counter">{slide_num}/{total}</div>
+  <div class="counter">{slide_num} / {total}</div>
   <div class="number">{slide_num}</div>
   <div class="quote">&ldquo;{item['quote']}&rdquo;</div>
-  <div class="divider"><div class="line"></div><div class="diamond"></div><div class="line"></div></div>
+  <div class="rule"></div>
   <div class="attribution">&mdash; Daisaku Ikeda, <em>{item['source']}</em></div>
   <div class="explanation">{item['explanation']}</div>
   <div class="branding">THE LOTUS LANE &bull; thelotuslane.in</div>
