@@ -1,0 +1,42 @@
+name: Generate Missing MP4 Videos
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          pip install -r pipeline/requirements.txt
+          playwright install chromium --with-deps
+          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+
+      - name: Generate missing videos
+        run: python pipeline/video_generator.py --all
+
+      - name: Commit and push
+        run: |
+          git config user.name "Lotus Lane Bot"
+          git config user.email "bot@thelotuslane.in"
+          git add shorts/ strips.json
+          if git diff --staged --quiet; then
+            echo "No new videos generated"
+          else
+            git commit -m "generate missing MP4 videos"
+            git pull --rebase origin main
+            git push
+          fi
