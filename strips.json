@@ -625,5 +625,25 @@
     "category": "perseverance",
     "topic": "wanting to give up",
     "characters": []
+  },
+  {
+    "date": "2026-04-08",
+    "title": "Stuck in Neutral",
+    "image": "strips/2026-04-08.png",
+    "message": "Even in the depths of depression, hope exists within us like a sun behind clouds - practice helps us remember it's still there.",
+    "quote": "Hope is the sun of the heart. Without hope, our hearts would be shrouded in the darkness of despair.",
+    "source": "Daisaku Ikeda, For Today and Tomorrow",
+    "tags": [
+      "health",
+      "depression",
+      "hope"
+    ],
+    "category": "health",
+    "topic": "depression fog",
+    "characters": [
+      "vikram",
+      "sudha",
+      "arjun"
+    ]
   }
 ]
