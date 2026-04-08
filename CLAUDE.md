@@ -83,3 +83,37 @@ Mon/Wed/Fri 11:30 AM IST → generate-strip.yml
 - `pytest tests/ -v` — video generator tests, Daimoku Daily tests, import tests
 - `python pipeline/verify_integrity.py` — data integrity (strips.json ↔ files)
 - `python pipeline/youtube_upload.py --pending` — YouTube upload status dashboard
+
+## Session — Apr 8, 2026
+
+### Features Shipped
+- **Ikeda Guidance Library**: 315 quotes across 21 themes (courage, hope, human revolution, prayer, youth, dialogue, peace, education, victory, compassion, wisdom, friendship, perseverance, happiness, action, women, health, life & death, gratitude, kosen-rufu, mentor-disciple)
+- **Ikeda SEO Pages**: 22 HTML pages with Schema.org, OG tags, WhatsApp share buttons
+- **Strip Engine**: Now uses both Nichiren AND Ikeda quotes in comic strips
+- **Daimoku Daily KB**: 315 Ikeda quotes added to email knowledge base
+- **WhatsApp Quote Card Generator** (`pipeline/generate_quote_card.py`): 1080x1080 Pillow-generated "Good Morning" cards, rotates themes, tracks history
+- **Daimoku Daily Welcome Sequence**: 3-email automated sequence (zero Claude API cost), challenge-to-theme mapping, runs before regular emails
+- **Google Search Console**: Verified on both `thelotuslane.in` and `zombielabsv2.github.io/lotus-lane/`, sitemap submitted (106 URLs)
+- **Custom Domain DNS**: `thelotuslane.in` A records now point directly to GitHub Pages (was AWS redirect). HTTPS enforced.
+- **nav.js**: Added Ikeda Guidance to site-wide top nav + bottom tab bar
+- **YouTube retry fix**: `youtube_upload.py` was missing `sys.path.insert` — `from pipeline.utils` failed in CI
+
+### Gotchas
+- **nav.js is the single source of truth for navigation** — never add static `<nav>` elements to HTML pages. nav.js dynamically injects top bar + bottom tab bar on all pages.
+- **SITE_URL must match the Search Console verified property** — sitemap URLs pointing to a different domain than the verified property causes "couldn't fetch"
+- **GoDaddy domain forwarding locks A records** — must delete forwarding rule before you can edit DNS records
+- **GitHub Pages subdirectory paths**: from `ikeda/theme.html`, use `../` (one level up) not `../../` to reach site root
+
+### Growth Roadmap (#13-#22)
+| # | Priority | Feature |
+|---|----------|---------|
+| #13 | P0 | Google Search Console — DONE |
+| #14 | P0 | WhatsApp Good Morning cards — generator built, needs daily cron |
+| #15 | P1 | Pinterest distribution — needs credentials |
+| #16 | P1 | Reddit r/GetMotivated — manual posting |
+| #17 | P1 | Welcome email sequence — DONE |
+| #18 | P1 | TikTok cross-posting — manual initially |
+| #19 | P2 | Creative Commons licensing |
+| #20 | P2 | Community story submissions |
+| #21 | P2 | Listicle-format comics |
+| #22 | P3 | Hindi bilingual content |
