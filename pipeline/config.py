@@ -9,6 +9,9 @@ STRIPS_DIR = PROJECT_ROOT / "strips"
 STRIPS_JSON = PROJECT_ROOT / "strips.json"
 CHARACTERS_DIR = PROJECT_ROOT / "characters"
 
+# Image CDN — strip PNGs are hosted on a separate GitHub Pages repo
+ASSETS_BASE_URL = "https://zombielabsv2.github.io/lotus-lane-assets"
+
 # API Keys (from environment)
 ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
 OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY", "")

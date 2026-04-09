@@ -38,7 +38,8 @@ GRAPH_API_BASE = f"https://graph.facebook.com/{GRAPH_API_VERSION}"
 
 # GitHub Pages base URLs for publicly accessible media
 GITHUB_PAGES_BASE = "https://thelotuslane.in"
-IMAGE_URL_TEMPLATE = f"{GITHUB_PAGES_BASE}/strips/{{date}}.png"
+ASSETS_CDN = "https://zombielabsv2.github.io/lotus-lane-assets"
+IMAGE_URL_TEMPLATE = f"{ASSETS_CDN}/{{date}}.png"
 VIDEO_URL_TEMPLATE = f"{GITHUB_PAGES_BASE}/shorts/{{date}}.mp4"
 
 # Base hashtags (max 30 total)

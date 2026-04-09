@@ -31,7 +31,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 from pipeline.config import (
     CHARACTERS, CHALLENGE_TOPICS, ART_STYLE, STRIPS_DIR, STRIPS_JSON,
     ANTHROPIC_API_KEY, OPENAI_API_KEY, PANELS_PER_STRIP,
-    STRIP_WIDTH, PANEL_HEIGHT, PANEL_GAP,
+    STRIP_WIDTH, PANEL_HEIGHT, PANEL_GAP, ASSETS_BASE_URL,
 )
 
 # Load environment from .env if present
@@ -619,7 +619,7 @@ def save_strip(strip_image, script, date_str, category, topic, characters):
         **existing,  # preserve youtube_id and any other fields
         "date": date_str,
         "title": script.get("title", ""),
-        "image": f"strips/{filename}",
+        "image": f"{ASSETS_BASE_URL}/{filename}",
         "message": script.get("message", ""),
         "quote": script.get("nichiren_quote", ""),
         "source": script.get("source", ""),

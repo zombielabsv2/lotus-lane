@@ -60,6 +60,29 @@ jobs:
           fi
           python pipeline/generate_strip.py "${ARGS[@]}"
 
+      # --- Push strip PNG to assets CDN repo ---
+      - name: Push PNG to assets repo
+        if: ${{ github.event.inputs.dry_run != 'true' }}
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
+        run: |
+          DATE=$(date +%Y-%m-%d)
+          PNG_FILE="strips/${DATE}.png"
+          if [ ! -f "$PNG_FILE" ]; then
+            echo "No PNG generated for $DATE, skipping assets push"
+            exit 0
+          fi
+          cd /tmp
+          git clone --depth 1 https://x-access-token:${GH_PAT}@github.com/zombielabsv2/lotus-lane-assets.git
+          cp "$GITHUB_WORKSPACE/$PNG_FILE" lotus-lane-assets/
+          cd lotus-lane-assets
+          git config user.name "Lotus Lane Bot"
+          git config user.email "bot@thelotus.lane"
+          git add "${DATE}.png"
+          git commit -m "Add strip ${DATE}"
+          git push
+          echo "Pushed ${DATE}.png to assets repo"
+
       # --- Core: commit strip to site FIRST, before any optional steps ---
       - name: Generate strip SEO page
         if: ${{ github.event.inputs.dry_run != 'true' }}
@@ -74,7 +97,7 @@ jobs:
         run: |
           git config user.name "Lotus Lane Bot"
           git config user.email "bot@thelotus.lane"
-          git add strips/ strips.json sitemap.xml feed.xml index.html subscribe.html
+          git add strips/*.html strips.json sitemap.xml feed.xml index.html subscribe.html
           if git diff --staged --quiet; then
             echo "No new changes to commit"
           else

@@ -34,7 +34,7 @@ API_BASE = "https://api.tumblr.com/v2"
 REDIRECT_URI = "http://localhost:8888/callback"
 
 # Hosted strip base URL
-STRIP_BASE_URL = "https://thelotuslane.in/strips"
+STRIP_BASE_URL = "https://zombielabsv2.github.io/lotus-lane-assets"
 
 # Default tags added to every post
 DEFAULT_TAGS = [

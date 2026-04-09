@@ -127,7 +127,7 @@ def send_notification(strip):
 
     # Build attachment from strip image
     attachments = []
-    image_path = STRIPS_DIR.parent / strip["image"]
+    image_path = STRIPS_DIR / f"{strip['date']}.png"
     if image_path.exists():
         with open(image_path, "rb") as f:
             image_b64 = base64.b64encode(f.read()).decode()
@@ -216,7 +216,7 @@ def send_content_email(subscriber_email, strip):
 
     # Attach strip image
     attachments = []
-    image_path = STRIPS_DIR.parent / strip["image"]
+    image_path = STRIPS_DIR / f"{strip['date']}.png"
     if image_path.exists():
         with open(image_path, "rb") as f:
             image_b64 = base64.b64encode(f.read()).decode()

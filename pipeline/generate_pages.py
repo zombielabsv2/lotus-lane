@@ -22,6 +22,9 @@ import sys
 from datetime import datetime
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).parent.parent))
+from pipeline.config import ASSETS_BASE_URL
+
 PROJECT_ROOT = Path(__file__).parent.parent
 STRIPS_JSON = PROJECT_ROOT / "strips.json"
 STRIPS_DIR = PROJECT_ROOT / "strips"
@@ -42,7 +45,7 @@ def generate_strip_page(strip, all_strips):
     source = strip.get("source", "")
     category = strip.get("category", "")
     tags = strip.get("tags", [])
-    image_url = f"{SITE_URL}/strips/{date}.png"
+    image_url = f"{ASSETS_BASE_URL}/{date}.png"
     page_url = f"{SITE_URL}/strips/{date}.html"
     youtube_id = strip.get("youtube_id", "")
 
@@ -177,7 +180,7 @@ def generate_strip_page(strip, all_strips):
       <div class="date">{display_date} &middot; {category.replace('-', ' ').title()}</div>
     </div>
 
-    <img src="{date}.png" alt="{title} — Buddhist wisdom comic strip about {category.replace('-', ' ')}"
+    <img src="{image_url}" alt="{title} — Buddhist wisdom comic strip about {category.replace('-', ' ')}"
          class="strip-image" loading="eager" width="1024">
 
     <p class="message">{message}</p>
@@ -260,7 +263,7 @@ def generate_rss(strips):
         date = s["date"]
         title = s.get("title", "The Lotus Lane")
         message = s.get("message", "")
-        image_url = f"{SITE_URL}/strips/{date}.png"
+        image_url = f"{ASSETS_BASE_URL}/{date}.png"
         page_url = f"{SITE_URL}/strips/{date}.html"
 
         # Format pubDate as RFC 822
@@ -309,7 +312,7 @@ def update_og_image(strips):
         return
 
     latest_date = sorted_strips[0]["date"]
-    latest_image_url = f"https://thelotuslane.in/strips/{latest_date}.png"
+    latest_image_url = f"{ASSETS_BASE_URL}/{latest_date}.png"
 
     for html_file in ["index.html", "subscribe.html"]:
         filepath = PROJECT_ROOT / html_file
@@ -320,15 +323,15 @@ def update_og_image(strips):
             content = f.read()
 
         import re
-        # Update og:image
+        # Update og:image (match any previous URL pattern)
         new_content = re.sub(
-            r'<meta property="og:image" content="https://thelotuslane\.in/strips/[^"]+\.png">',
+            r'<meta property="og:image" content="[^"]+\.png">',
             f'<meta property="og:image" content="{latest_image_url}">',
             content,
         )
         # Update twitter:image
         new_content = re.sub(
-            r'<meta name="twitter:image" content="https://thelotuslane\.in/strips/[^"]+\.png">',
+            r'<meta name="twitter:image" content="[^"]+\.png">',
             f'<meta name="twitter:image" content="{latest_image_url}">',
             new_content,
         )
