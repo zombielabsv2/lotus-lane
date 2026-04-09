@@ -10,7 +10,7 @@ Mon/Wed/Fri 11:30 AM IST → generate-strip.yml
   2. GPT-4o (gpt-image-1) → 4 panel images (1024x1024)
   3. QC pass (gpt-4o-mini vision) → retry bad panels (max 3x)
   4. Playwright → dialogue bands + footer → final strip PNG
-  5. Commit strip + SEO page + sitemap
+  5. Push PNG to assets CDN repo → commit SEO page + sitemap to main
   6. [optional] Video → YouTube → Pinterest → Tumblr → Instagram → Notifications
 ```
 
@@ -117,3 +117,20 @@ Mon/Wed/Fri 11:30 AM IST → generate-strip.yml
 | #20 | P2 | Community story submissions |
 | #21 | P2 | Listicle-format comics |
 | #22 | P3 | Hindi bilingual content |
+
+## Session — Apr 10, 2026
+
+### Image CDN Migration
+- **Strip PNGs moved to separate repo**: `zombielabsv2/lotus-lane-assets` (public, GitHub Pages)
+- **CDN URL**: `https://zombielabsv2.github.io/lotus-lane-assets/{date}.png`
+- **Config**: `ASSETS_BASE_URL` in `pipeline/config.py` — single source of truth for CDN base
+- **Workflow**: `generate-strip.yml` pushes PNGs to assets repo via GH_PAT before committing metadata to main
+- **strips.json**: `image` field now contains absolute CDN URLs (not relative paths)
+- **notify.py**: uses `STRIPS_DIR / f"{strip['date']}.png"` for local path (not strip["image"] which is now a URL)
+- **verify_integrity.py**: updated to handle CDN URLs (skips local file check for http:// images)
+- **strips/*.png** in `.gitignore` — PNGs still generated locally during CI for video/email, just not committed
+
+### Gotchas
+- **PNGs still exist locally** in `strips/` (gitignored). Pipeline generates them for video_generator and notify email attachment. They're just not tracked in git.
+- **Legacy PNGs in git history** still bloat `.git/` (~636MB). Can be cleaned with `git filter-repo` later if needed — requires force push.
+- **GitHub Pages build takes 1-2 min** for the assets repo. New strip images have a brief delay before CDN serves them.
