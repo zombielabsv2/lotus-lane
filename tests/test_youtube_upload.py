@@ -294,12 +294,12 @@ class TestBuildVideoMetadata:
         assert sample_strip["quote"] in desc
         assert sample_strip["source"] in desc
 
-    def test_description_contains_subscribe_link(self, sample_strip):
+    def test_description_contains_strip_link(self, sample_strip):
         if str(PROJECT_ROOT) not in sys.path:
             sys.path.insert(0, str(PROJECT_ROOT))
         from pipeline.youtube_upload import build_video_metadata
         result = build_video_metadata(sample_strip)
-        assert "tinyurl.com/thelotuslane" in result["snippet"]["description"]
+        assert "thelotuslane.in/strips/" in result["snippet"]["description"]
 
     def test_tags_deduplicated_and_capped(self, sample_strip):
         if str(PROJECT_ROOT) not in sys.path:

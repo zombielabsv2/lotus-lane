@@ -19,6 +19,7 @@ RESEND_API_URL = "https://api.resend.com/emails"
 
 STRIPS_DIR = Path(__file__).parent.parent / "strips"
 STRIPS_JSON = Path(__file__).parent.parent / "strips.json"
+SITE_URL = "https://thelotuslane.in"
 
 
 def get_latest_strip():
@@ -29,12 +30,21 @@ def get_latest_strip():
     return strips[0] if strips else None
 
 
+def _strip_url(strip):
+    """Return the SEO page URL for a specific strip."""
+    date = strip.get("date", "")
+    if date:
+        return f"{SITE_URL}/strips/{date}.html"
+    return f"{SITE_URL}/"
+
+
 def build_whatsapp_caption(strip):
     """Build a WhatsApp-ready caption for copy-paste."""
     title = strip.get("title", "")
     message = strip.get("message", "")
     quote = strip.get("quote", "")
     source = strip.get("source", "")
+    strip_link = _strip_url(strip)
 
     caption = f"*{title}*\n\n"
     caption += f"{message}\n\n"
@@ -44,7 +54,7 @@ def build_whatsapp_caption(strip):
             caption += f"— {source}\n"
     caption += "\n"
     caption += "Know someone who needs this? Forward it to them.\n\n"
-    caption += "Follow for more: tinyurl.com/thelotuslane"
+    caption += f"Read the full strip: {strip_link}"
 
     return caption
 
@@ -53,7 +63,8 @@ def build_status_caption(strip):
     """Build a shorter caption for WhatsApp Status."""
     title = strip.get("title", "")
     quote = strip.get("quote", "")
-    return f"*{title}*\n\n_\"{quote[:100]}{'...' if len(quote) > 100 else ''}\"_\n\ntinyurl.com/thelotuslane"
+    strip_link = _strip_url(strip)
+    return f"*{title}*\n\n_\"{quote[:100]}{'...' if len(quote) > 100 else ''}\"_\n\n{strip_link}"
 
 
 def _send_via_resend(to_email, subject, html, attachments=None):

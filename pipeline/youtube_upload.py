@@ -266,7 +266,7 @@ def build_video_metadata(strip):
         f"— {strip.get('source', 'Nichiren Daishonin')}\n\n"
         f"The Lotus Lane brings Nichiren Buddhist wisdom to everyday struggles "
         f"through original comic strips. New episodes every Mon, Wed, Fri.\n\n"
-        f"Subscribe for daily wisdom emails: https://tinyurl.com/thelotuslane\n\n"
+        f"Read the full strip: https://thelotuslane.in/strips/{strip.get('date', '')}.html\n\n"
         f"#Shorts #BuddhistWisdom #NichirenBuddhism {cat_hashtags}\n"
         f"#Motivation #DailyWisdom #TheLotusLane"
     )

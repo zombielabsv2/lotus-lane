@@ -130,7 +130,7 @@ body{{width:{width}px;margin:0;background:{STRIP_BG_DIALOGUE_HEX};
 
 
 def strip_footer_html(quote, source, width,
-                      brand="The Lotus Lane  \u00b7  tinyurl.com/thelotuslane"):
+                      brand="The Lotus Lane  \u00b7  thelotuslane.in"):
     """HTML for the footer section (Nichiren quote + branding)."""
     quote_html = ""
     if quote:
@@ -230,7 +230,7 @@ body{{width:{width}px;height:{height}px;margin:0;
   {msg_html}
   <div class="accent"></div>
   <div class="brand">The Lotus Lane</div>
-  <div class="url">tinyurl.com/thelotuslane</div>
+  <div class="url">thelotuslane.in</div>
 </div>
 </body></html>"""
 

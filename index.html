@@ -524,10 +524,11 @@
 
     function shareStrip() {
       const strip = filtered[currentIndex];
+      const stripUrl = `https://thelotuslane.in/strips/${strip.date}.html`;
       const text = `*${strip.title}* - The Lotus Lane\n\n` +
         `${strip.message}\n\n` +
         `_"${strip.quote}"_\n— ${strip.source}\n\n` +
-        `Read more: https://tinyurl.com/thelotuslane`;
+        `Read the full strip: ${stripUrl}`;
       const url = `https://wa.me/?text=${encodeURIComponent(text)}`;
       window.open(url, '_blank');
     }
