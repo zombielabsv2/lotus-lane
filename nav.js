@@ -10,6 +10,7 @@
   const isListicle = path.includes('/listicles');
   const isWisdom = path.includes('/wisdom');
   const isStrips = !isDecoder && !isSubscribe && !isIkeda && !isListicle && !isWisdom;
+  const isStripPage = path.includes('/strips/');
 
   // Determine base path for links
   let base = '';
@@ -17,6 +18,7 @@
   if (isIkeda) base = '../';
   if (isListicle) base = '../';
   if (isWisdom) base = '../';
+  if (isStripPage) base = '../';
 
   // --- TOP NAV (inline links below header) ---
   const topNav = document.createElement('div');
