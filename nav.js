@@ -8,27 +8,31 @@
   const isSubscribe = path.includes('subscribe');
   const isIkeda = path.includes('/ikeda');
   const isListicle = path.includes('/listicles');
-  const isStrips = !isDecoder && !isSubscribe && !isIkeda && !isListicle;
+  const isWisdom = path.includes('/wisdom');
+  const isStrips = !isDecoder && !isSubscribe && !isIkeda && !isListicle && !isWisdom;
 
   // Determine base path for links
   let base = '';
   if (isDecoder) base = '../';
   if (isIkeda) base = '../';
   if (isListicle) base = '../';
+  if (isWisdom) base = '../';
 
   // --- TOP NAV (inline links below header) ---
   const topNav = document.createElement('div');
   topNav.id = 'lotus-top-nav';
   topNav.innerHTML = `
-    <a href="${base}index.html" class="${isStrips ? 'active' : ''}">Comic Strips</a>
+    <a href="${base}index.html" class="${isStrips ? 'active' : ''}">Stories</a>
     <span class="sep">|</span>
-    <a href="${base}ikeda/index.html" class="${isIkeda ? 'active' : ''}">Ikeda Guidance</a>
+    <a href="${base}wisdom/" class="${path.includes('/wisdom') ? 'active' : ''}">Life Challenges</a>
+    <span class="sep">|</span>
+    <a href="${base}ikeda/index.html" class="${isIkeda ? 'active' : ''}">Wisdom Library</a>
     <span class="sep">|</span>
     <a href="${base}listicles/" class="${isListicle ? 'active' : ''}">Listicles</a>
     <span class="sep">|</span>
-    <a href="${base}decoder/index.html" class="${isDecoder ? 'active' : ''}">Gosho Decoder</a>
+    <a href="${base}decoder/index.html" class="${isDecoder ? 'active' : ''}">Letters on Life</a>
     <span class="sep">|</span>
-    <a href="${base}subscribe.html" class="${isSubscribe ? 'active' : ''}">Daimoku Daily</a>
+    <a href="${base}subscribe.html" class="${isSubscribe ? 'active' : ''}">Daily Wisdom</a>
   `;
 
   // Insert after the header element
@@ -45,19 +49,19 @@
   bottomNav.innerHTML = `
     <a href="${base}index.html" class="${isStrips ? 'active' : ''}">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
-      <span>Strips</span>
+      <span>Stories</span>
+    </a>
+    <a href="${base}wisdom/" class="${path.includes('/wisdom') ? 'active' : ''}">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+      <span>Struggles</span>
     </a>
     <a href="${base}ikeda/index.html" class="${isIkeda ? 'active' : ''}">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-      <span>Ikeda</span>
-    </a>
-    <a href="${base}listicles/" class="${isListicle ? 'active' : ''}">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
-      <span>Listicles</span>
+      <span>Wisdom</span>
     </a>
     <a href="${base}decoder/index.html" class="${isDecoder ? 'active' : ''}">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-      <span>Decoder</span>
+      <span>Letters</span>
     </a>
     <a href="${base}subscribe.html" class="${isSubscribe ? 'active' : ''}">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>

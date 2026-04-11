@@ -123,7 +123,7 @@ not generic. Vary ages, backgrounds, and genders across strips. Include their ap
 in the scene descriptions so the artist can draw them consistently across all 4 panels."""
 
     prompt = f"""You are writing a 4-panel comic strip for "The Lotus Lane" — a series about
-everyday people discovering Nichiren Buddhist wisdom through real-life struggles.
+everyday people finding wisdom through real-life struggles.
 
 TODAY'S CHALLENGE: {topic} (category: {category})
 
@@ -132,9 +132,8 @@ TODAY'S CHALLENGE: {topic} (category: {category})
 Write a 4-panel comic strip. Requirements:
 1. Panel 1: Set up the relatable struggle. Show the character(s) in a specific, vivid moment.
 2. Panel 2: The struggle deepens or a conversation reveals the emotional core.
-3. Panel 3: A moment of wisdom — a character shares or recalls a Nichiren Buddhist insight
-   OR a guidance from Daisaku Ikeda (SGI President). Mix it up — sometimes use Nichiren's
-   writings (WND-1, WND-2, OTT), sometimes use Ikeda's guidance (from works like
+3. Panel 3: A moment of wisdom — a character shares or recalls an insight from Nichiren's
+   writings (WND-1, WND-2, OTT) OR guidance from Daisaku Ikeda (from works like
    "The New Human Revolution", "For Today and Tomorrow", "Discussions on Youth",
    "The Wisdom for Creating Happiness and Peace", "Faith Into Action", etc.).
 4. Panel 4: A shift — not a full resolution, but a moment of determination, humor, or warmth.
@@ -150,16 +149,21 @@ words naturally (arre, yaar, beta, bewakoof, etc.).
 IMPORTANT: Use a DIFFERENT quote each time. Do NOT use any of these recently used quotes:
 {chr(10).join(f'- "{q[:80]}..."' for q in _recent_quotes(existing_strips or [], 10)) or '(none yet)'}
 
-TITLE RULES — Use a UNIQUE, SPECIFIC title. Do NOT reuse any of these:
+TITLE RULES — The title should lead with the HUMAN STRUGGLE, not the tradition.
+Think: what would someone Googling this problem click on?
+Good examples: "When Your Boss Takes Credit", "3 AM and the Grief Won't Stop",
+"She Got the Promotion. You Got the Lesson.", "That Sinking Feeling After a Fight"
+Bad examples: "Buddhist Wisdom on Anger", "Nichiren's Teaching About Loss"
+
+Do NOT reuse any of these recent titles:
 {chr(10).join(f'- "{t}"' for t in _recent_titles(existing_strips or [], 30)) or '(none yet)'}
-- Never repeat an exact title from above
 - AVOID the pattern "The [Noun] of [Noun]" — it has been overused
 - AVOID generic titles like "The Silent Treatment" or "The Weight of..."
 - Make titles specific to THIS strip's unique situation and characters
 
 Return your response as JSON with this exact structure:
 {{
-    "title": "Short catchy title for this strip",
+    "title": "Problem-first catchy title (what the reader is feeling, not the source of wisdom)",
     "panels": [
         {{
             "panel_number": 1,
@@ -171,7 +175,8 @@ Return your response as JSON with this exact structure:
     ],
     "nichiren_quote": "The actual quote (from Nichiren OR Daisaku Ikeda) referenced in the strip",
     "source": "Source reference (e.g., WND-1, p. 302 or Daisaku Ikeda, For Today and Tomorrow)",
-    "message": "A 1-2 sentence takeaway that captures the wisdom of this strip for the reader",
+    "message": "A 1-2 sentence takeaway that captures the wisdom — written for someone searching for help with {topic}, not for a Buddhist practitioner",
+    "seo_description": "A 150-char meta description leading with the human problem, e.g. 'Struggling with imposter syndrome at work? A 13th-century letter has something to say about that.'",
     "tags": ["{category}", "one-or-two-more-relevant-tags"]
 }}
 

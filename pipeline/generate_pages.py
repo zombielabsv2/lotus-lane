@@ -61,6 +61,15 @@ def generate_strip_page(strip, all_strips):
     except ValueError:
         display_date = date
 
+    # SEO description: use seo_description if available, otherwise build problem-first one
+    seo_desc = strip.get("seo_description", "")
+    if not seo_desc:
+        topic = strip.get("topic", category.replace("-", " "))
+        seo_desc = f"Struggling with {topic}? {message}" if topic else message
+    # Trim to 160 chars for meta description
+    if len(seo_desc) > 160:
+        seo_desc = seo_desc[:157] + "..."
+
     # Schema.org JSON-LD
     schema = {
         "@context": "https://schema.org",
@@ -69,7 +78,7 @@ def generate_strip_page(strip, all_strips):
         "image": image_url,
         "datePublished": date,
         "dateModified": date,
-        "description": message,
+        "description": seo_desc,
         "author": {"@type": "Organization", "name": "The Lotus Lane"},
         "publisher": {
             "@type": "Organization",
@@ -112,14 +121,14 @@ def generate_strip_page(strip, all_strips):
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{title} | The Lotus Lane</title>
-  <meta name="description" content="{message}">
+  <meta name="description" content="{seo_desc}">
   <meta name="robots" content="max-image-preview:large">
   <link rel="canonical" href="{page_url}">
 
   <!-- Open Graph -->
   <meta property="og:type" content="article">
   <meta property="og:title" content="{title} | The Lotus Lane">
-  <meta property="og:description" content="{message}">
+  <meta property="og:description" content="{seo_desc}">
   <meta property="og:image" content="{image_url}">
   <meta property="og:image:width" content="1024">
   <meta property="og:image:height" content="3500">
@@ -131,7 +140,7 @@ def generate_strip_page(strip, all_strips):
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="{title} | The Lotus Lane">
-  <meta name="twitter:description" content="{message}">
+  <meta name="twitter:description" content="{seo_desc}">
   <meta name="twitter:image" content="{image_url}">
 
   <!-- Schema.org JSON-LD -->
@@ -180,7 +189,7 @@ def generate_strip_page(strip, all_strips):
       <div class="date">{display_date} &middot; {category.replace('-', ' ').title()}</div>
     </div>
 
-    <img src="{image_url}" alt="{title} — Buddhist wisdom comic strip about {category.replace('-', ' ')}"
+    <img src="{image_url}" alt="{title} — a story about {strip.get('topic', category.replace('-', ' '))}"
          class="strip-image" loading="eager" width="1024">
 
     <p class="message">{message}</p>
@@ -192,14 +201,14 @@ def generate_strip_page(strip, all_strips):
     {youtube_html}
 
     <div class="subscribe">
-      <p>Get daily Buddhist wisdom in your inbox</p>
-      <p><a href="../subscribe.html">Subscribe to Daimoku Daily &rarr;</a></p>
+      <p>Get wisdom for your struggles, delivered to your inbox</p>
+      <p><a href="../subscribe.html">Subscribe to The Daily Lotus &rarr;</a></p>
     </div>
 
     <nav class="nav">{nav_html}</nav>
 
     <footer>
-      <p>The Lotus Lane &middot; Buddhist wisdom for everyday struggles</p>
+      <p>The Lotus Lane &middot; Wisdom for everyday struggles</p>
       <p>New strips every Monday, Wednesday, Friday</p>
     </footer>
   </div>
@@ -237,6 +246,13 @@ def generate_sitemap(strips):
     if listicles_dir.exists():
         for html_file in sorted(listicles_dir.glob("*.html")):
             urls.append((f"{SITE_URL}/listicles/{html_file.name}", "monthly", "0.7"))
+
+    # Wisdom / affliction pages (high priority — these target universal search terms)
+    wisdom_dir = PROJECT_ROOT / "wisdom"
+    if wisdom_dir.exists():
+        for html_file in sorted(wisdom_dir.glob("*.html")):
+            pri = "0.9" if html_file.name == "index.html" else "0.85"
+            urls.append((f"{SITE_URL}/wisdom/{html_file.name}", "weekly", pri))
 
     xml_entries = "\n".join(
         f"  <url>\n    <loc>{url}</loc>\n    <changefreq>{freq}</changefreq>\n    <priority>{pri}</priority>\n  </url>"

@@ -41,9 +41,9 @@ REDIRECT_URI = "https://localhost/"
 
 # Base hashtags for all pins
 BASE_HASHTAGS = [
-    "#NichirenBuddhism", "#BuddhistWisdom", "#Motivation", "#DailyWisdom",
-    "#ComicStrip", "#LifeAdvice", "#SelfImprovement", "#Mindfulness",
-    "#InnerPeace", "#TheLotusLane",
+    "#LifeAdvice", "#SelfImprovement", "#Motivation", "#DailyWisdom",
+    "#WisdomQuotes", "#MentalHealth", "#Mindfulness", "#ComicStrip",
+    "#PersonalGrowth", "#TheLotusLane",
 ]
 
 # Category-specific hashtags mapped from strip tags
@@ -311,23 +311,26 @@ def build_hashtags(strip):
 
 
 def build_pin_description(strip):
-    """Build a Pinterest-optimized description with message, quote, and hashtags."""
+    """Build a Pinterest-optimized description leading with the human struggle."""
     parts = []
 
-    # Lead with the strip's message
+    # Lead with the problem, not the tradition
+    topic = strip.get("topic", "")
     message = strip.get("message", "")
+    if topic:
+        parts.append(f"Struggling with {topic}? You're not alone.")
     if message:
         parts.append(message)
 
-    # Add the Nichiren quote
+    # Add the quote with attribution
     quote = strip.get("quote", "")
-    source = strip.get("source", "Nichiren Daishonin")
+    source = strip.get("source", "")
     if quote:
         parts.append(f'"{quote}" -- {source}')
 
-    # Series tagline
-    parts.append("The Lotus Lane: Buddhist wisdom for everyday struggles.")
-    parts.append("New strips every Mon, Wed, Fri.")
+    # Series tagline — universal
+    parts.append("The Lotus Lane: stories about everyday struggles and the ancient wisdom that helps.")
+    parts.append("New strips every Mon, Wed, Fri at thelotuslane.in")
 
     # Hashtags for Pinterest SEO
     hashtags = build_hashtags(strip)

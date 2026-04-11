@@ -325,7 +325,7 @@ class TestBuildVideoMetadata:
         from pipeline.youtube_upload import build_video_metadata
         result = build_video_metadata(sample_strip)
         tags = result["snippet"]["tags"]
-        assert "nichiren buddhism" in tags
+        assert "self improvement" in tags
         assert "the lotus lane" in tags
         assert "shorts" in tags
 

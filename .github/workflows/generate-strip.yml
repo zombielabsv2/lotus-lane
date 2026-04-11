@@ -88,6 +88,10 @@ jobs:
         if: ${{ github.event.inputs.dry_run != 'true' }}
         run: python pipeline/generate_pages.py
 
+      - name: Generate affliction landing pages
+        if: ${{ github.event.inputs.dry_run != 'true' }}
+        run: python pipeline/generate_affliction_pages.py
+
       - name: Verify data integrity
         if: ${{ github.event.inputs.dry_run != 'true' }}
         run: python pipeline/verify_integrity.py
@@ -97,7 +101,7 @@ jobs:
         run: |
           git config user.name "Lotus Lane Bot"
           git config user.email "bot@thelotus.lane"
-          git add strips/*.html strips.json sitemap.xml feed.xml index.html subscribe.html
+          git add strips/*.html strips.json sitemap.xml feed.xml index.html subscribe.html wisdom/
           if git diff --staged --quiet; then
             echo "No new changes to commit"
           else

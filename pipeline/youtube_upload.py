@@ -236,38 +236,50 @@ def _category_hashtags(category):
 
 
 def build_video_metadata(strip):
-    """Build YouTube video metadata from strip data."""
+    """Build YouTube video metadata from strip data.
+
+    Titles and descriptions lead with the human problem, not the Buddhist tradition.
+    The algorithm surfaces Shorts based on interest, not subscribers — universal
+    framing reaches the billions who search for help, not just practitioners.
+    """
     title = f"{strip['title']} | The Lotus Lane"
     if len(title) > 100:
         title = f"{strip['title'][:90]} | Lotus Lane"
 
     category = strip.get("category", "")
+    topic = strip.get("topic", "")
     strip_tags = strip.get("tags", [])
 
+    # Tags: lead with universal human struggles, Buddhist terms secondary
     tags = strip_tags + [
-        # Core niche
-        "nichiren buddhism", "buddhist wisdom", "buddhism",
-        "nam myoho renge kyo", "lotus sutra", "buddhist quotes",
-        "nichiren daishonin",
-        # Broader discovery
+        # Universal discovery (what people search for)
         "motivation", "life advice", "daily motivation",
         "self improvement", "mindfulness", "inner peace",
-        "spiritual growth", "positive thinking", "wisdom quotes",
-        "life lessons",
+        "wisdom quotes", "life lessons", "mental health",
+        "dealing with anger", "overcoming jealousy", "grief support",
+        "how to forgive", "self doubt", "anxiety help",
+        "positive thinking", "spiritual growth",
+        # Source tradition (secondary discovery)
+        "buddhist wisdom", "ancient wisdom", "eastern philosophy",
         # Format
         "comic strip", "indian animation", "motivational shorts",
         "the lotus lane", "shorts",
     ]
 
+    # Add topic-specific tags for search
+    if topic:
+        tags.insert(0, topic)
+        tags.insert(1, topic.replace(" ", ""))
+
     cat_hashtags = _category_hashtags(category)
     description = (
         f"{strip.get('message', '')}\n\n"
         f'"{strip.get("quote", "")}"\n'
-        f"— {strip.get('source', 'Nichiren Daishonin')}\n\n"
-        f"The Lotus Lane brings Nichiren Buddhist wisdom to everyday struggles "
-        f"through original comic strips. New episodes every Mon, Wed, Fri.\n\n"
+        f"— {strip.get('source', '')}\n\n"
+        f"The Lotus Lane: stories about everyday struggles and the ancient wisdom "
+        f"that helps. New episodes every Mon, Wed, Fri.\n\n"
         f"Read the full strip: https://thelotuslane.in/strips/{strip.get('date', '')}.html\n\n"
-        f"#Shorts #BuddhistWisdom #NichirenBuddhism {cat_hashtags}\n"
+        f"#Shorts #Wisdom #LifeAdvice {cat_hashtags}\n"
         f"#Motivation #DailyWisdom #TheLotusLane"
     )
 
