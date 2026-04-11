@@ -1,7 +1,15 @@
 # CLAUDE.md — The Lotus Lane
 
 ## What This Is
-Nichiren Buddhism-inspired 4-panel comic strip series. Auto-generates strips (Claude for scripts, GPT-4o for images), renders via Playwright, creates YouTube Shorts, hosts on GitHub Pages. Includes "Daimoku Daily" email subscriber system, "Gosho Decoder" sub-product, and "Ikeda Guidance" quote library.
+Comic strip series about everyday human struggles and ancient wisdom. Auto-generates strips (Claude for scripts, GPT-4o for images), renders via Playwright, creates YouTube Shorts + 15-second hook reels, hosts on GitHub Pages. Includes "The Daily Lotus" email subscriber system, "Letters on Life" (decoded writings), and "Wisdom Library" (300+ quotes).
+
+## Universal Framing (Apr 12, 2026)
+Content targets universal human suffering, not Buddhist practitioners. All user-facing text uses problem-first language. The tradition is credited in source citations, not in headlines/nav/CTAs.
+- "Gosho Decoder" → "Letters on Life"
+- "Ikeda Guidance" → "Wisdom Library"  
+- "Daimoku Daily" → "The Daily Lotus" / "Daily Wisdom"
+- No "Nichiren Daishonin", "SGI", "Ikeda Sensei", "daimoku", "Nam-myoho-renge-kyo" in user-facing text
+- Quote attributions stay (e.g., "Daisaku Ikeda, Discussions on Youth") — that's proper citation
 
 ## Pipeline Flow
 ```
@@ -108,12 +116,12 @@ Mon/Wed/Fri 11:30 AM IST → generate-strip.yml
 | # | Priority | Feature |
 |---|----------|---------|
 | #13 | P0 | Google Search Console — DONE |
-| #14 | P0 | WhatsApp Good Morning cards — generator built, needs daily cron |
-| #15 | P1 | Pinterest distribution — needs credentials |
-| #16 | P1 | Reddit r/GetMotivated — manual posting |
+| #14 | P0 | WhatsApp Good Morning cards — generator built, needs daily cron + community seeding |
+| #15 | — | ~~Pinterest distribution~~ — RULED OUT (audience not there) |
+| #16 | — | ~~Reddit~~ — RULED OUT (r/SGI is anti-SGI, r/Buddhism hostile to SGI) |
 | #17 | P1 | Welcome email sequence — DONE |
-| #18 | P1 | TikTok cross-posting — manual initially |
-| #19 | P2 | Creative Commons licensing |
+| #18 | P1 | Facebook groups — BSG India community, not yet addressed |
+| #19 | P1 | Instagram — blocked on Meta Business verification |
 | #20 | P2 | Community story submissions |
 | #21 | P2 | Listicle-format comics |
 | #22 | P3 | Hindi bilingual content |
@@ -134,3 +142,52 @@ Mon/Wed/Fri 11:30 AM IST → generate-strip.yml
 - **PNGs still exist locally** in `strips/` (gitignored). Pipeline generates them for video_generator and notify email attachment. They're just not tracked in git.
 - **Legacy PNGs in git history** still bloat `.git/` (~636MB). Can be cleaned with `git filter-repo` later if needed — requires force push.
 - **GitHub Pages build takes 1-2 min** for the assets repo. New strip images have a brief delay before CDN serves them.
+
+## Session — Apr 12, 2026
+
+### Universal Distribution Reframe
+- **Identity targeting → Problem targeting**: From "are you a Nichiren practitioner?" to "are you suffering?"
+- **Topic taxonomy**: 8→11 categories (added anger, loneliness, envy), 80→121 sub-topics
+- **Strip generator prompt**: Now generates problem-first titles + seo_description field
+- **15 affliction SEO landing pages** in `wisdom/` — each with Claude-generated 1200-1500 word articles
+- **All user-facing copy** reframed across index, subscribe, nav, strip pages, decoder, Ikeda pages, listicles
+- **YouTube/Pinterest/Instagram metadata**: Universal hashtags and descriptions
+- **Reddit distribution script**: Built, targeting r/selfimprovement etc. Pending API approval.
+- **Strip footer**: Reassembled all 29 cached strips to fix tinyurl→thelotuslane.in branding
+- **Quote card watermark**: Fixed thelotus.lane→thelotuslane.in
+
+### Hook Reel Generator (NEW)
+- **15-second vertical video** format optimized for Reels/Shorts/TikTok algorithm discovery
+- Hook text (0-2.5s) → panel pan (2.5-8.5s) → wisdom quote (8.5-12.5s) → CTA (12.5-15s)
+- 40+ topic-specific scroll-stopping hooks
+- Zero API cost, ~1.3MB per reel
+- Wired into generate-strip.yml workflow
+- Output: `reels/{date}.mp4`
+
+### Key Files Added
+| File | Purpose |
+|------|---------|
+| `pipeline/hook_reel_generator.py` | 15-second hook reel video generator |
+| `pipeline/generate_affliction_pages.py` | SEO landing pages for human struggles |
+| `pipeline/reddit_upload.py` | Reddit distribution (pending API approval) |
+| `wisdom/*.html` | 15 affliction pages + index |
+| `wisdom/cache/*.json` | Cached article content (avoid re-generation) |
+| `reels/*.mp4` | Hook reel videos |
+
+### Distribution Status
+| Channel | Status | Next Step |
+|---------|--------|-----------|
+| YouTube Shorts | ACTIVE (low views) | Hook reel format should improve |
+| Instagram Reels | CODE READY | Create @thelotuslane account, set up Meta Graph API |
+| Pinterest | CODE READY | Set up Pinterest Developer App + credentials |
+| Reddit | CODE READY | Pending API approval from Reddit |
+| WhatsApp Channel | MANUAL | Create channel, post daily quote cards |
+| SEO (affliction pages) | LIVE | 15 pages with long-form articles, will compound |
+| TikTok | NOT BUILT | Cross-post hook reels (manual or future API) |
+
+### Gotchas
+- **Instagram**: Use a NEW account (@thelotuslane), NOT karibykriti. Different repo, different credentials, zero overlap.
+- **Reddit API**: Requires registration form + approval. Takes 1-3 business days.
+- **Hook reels need public hosting**: Currently only in `reels/` (gitignored). For Instagram Reels API, videos must be at a public URL. Either push to assets CDN or use direct upload.
+- **Affliction article cache**: Content in `wisdom/cache/*.json`. Delete a cache file to regenerate that article. Costs ~Rs.2/page.
+- **WhatsApp Channel has no API**: Manual posting is the workflow. Quote card generator produces the content.
