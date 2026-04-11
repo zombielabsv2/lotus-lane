@@ -33,6 +33,7 @@ import sys
 import tempfile
 from pathlib import Path
 
+import httpx
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 
 # ---------------------------------------------------------------------------
@@ -68,6 +69,18 @@ PROJECT_ROOT = Path(__file__).parent.parent
 STRIPS_DIR = PROJECT_ROOT / "strips"
 REELS_DIR = PROJECT_ROOT / "reels"
 FONTS_DIR = Path(__file__).parent / "fonts"
+
+# Load .env for API keys
+try:
+    from dotenv import load_dotenv
+    load_dotenv(PROJECT_ROOT / ".env")
+except ImportError:
+    pass
+
+# TTS config — OpenAI tts-1-hd with "nova" voice (warm, natural)
+TTS_MODEL = "tts-1-hd"
+TTS_VOICE = "nova"  # warm female; alternatives: "onyx" (deep male), "shimmer" (bright female)
+TTS_SPEED = 0.95  # slightly slower for dramatic effect
 
 
 # ---------------------------------------------------------------------------
@@ -142,6 +155,42 @@ def _draw_centered_text(draw, text, font, y, width, color, line_spacing=1.4):
         draw.text((x, y), line, fill=color, font=font)
         y += int(th * line_spacing)
     return y
+
+
+def _add_subtitle(frame, text):
+    """Add subtitle text at the bottom of a frame (Reels-style captions)."""
+    draw = ImageDraw.Draw(frame)
+    font = _load_font(36, bold=True)
+    max_w = VIDEO_WIDTH - 120
+    lines = _wrap_text(text, font, max_w)
+
+    # Position at bottom third of screen
+    line_height = 48
+    total_h = len(lines) * line_height
+    y = VIDEO_HEIGHT - 350 - total_h
+
+    # Semi-transparent background behind text
+    pad = 16
+    bg_top = y - pad
+    bg_bottom = y + total_h + pad
+    bg = Image.new("RGBA", frame.size, (0, 0, 0, 0))
+    bg_draw = ImageDraw.Draw(bg)
+    bg_draw.rounded_rectangle(
+        [(40, bg_top), (VIDEO_WIDTH - 40, bg_bottom)],
+        radius=12, fill=(0, 0, 0, 140),
+    )
+    frame.paste(Image.alpha_composite(frame.convert("RGBA"), bg).convert("RGB"))
+
+    draw = ImageDraw.Draw(frame)
+    for line in lines:
+        bbox = draw.textbbox((0, 0), line, font=font)
+        tw = bbox[2] - bbox[0]
+        x = (VIDEO_WIDTH - tw) // 2
+        # Shadow
+        draw.text((x + 2, y + 2), line, fill=(0, 0, 0), font=font)
+        # Text
+        draw.text((x, y), line, fill=(255, 255, 255), font=font)
+        y += line_height
 
 
 def _build_hook_text(strip):
@@ -389,6 +438,155 @@ def render_cta_frame(progress):
 
 
 # ---------------------------------------------------------------------------
+# TTS Audio — OpenAI tts-1-hd
+# ---------------------------------------------------------------------------
+
+def generate_tts(text, output_path, voice=TTS_VOICE, speed=TTS_SPEED):
+    """Generate TTS audio using OpenAI's tts-1-hd. Returns True on success."""
+    api_key = os.environ.get("OPENAI_API_KEY", "")
+    if not api_key:
+        return False
+
+    try:
+        response = httpx.post(
+            "https://api.openai.com/v1/audio/speech",
+            headers={
+                "Authorization": f"Bearer {api_key}",
+                "Content-Type": "application/json",
+            },
+            json={
+                "model": TTS_MODEL,
+                "voice": voice,
+                "input": text,
+                "speed": speed,
+                "response_format": "mp3",
+            },
+            timeout=30,
+        )
+        response.raise_for_status()
+        with open(output_path, "wb") as f:
+            f.write(response.content)
+        return True
+    except Exception as e:
+        print(f"  TTS error: {e}")
+        return False
+
+
+def _get_audio_duration(path, ffmpeg_path):
+    """Get duration of an audio file in seconds using ffprobe."""
+    # Find ffprobe next to ffmpeg (replace only the filename, not directory)
+    ffmpeg_dir = str(Path(ffmpeg_path).parent)
+    ffprobe = str(Path(ffmpeg_dir) / Path(ffmpeg_path).name.replace("ffmpeg", "ffprobe"))
+    if not Path(ffprobe).exists():
+        ffprobe = shutil.which("ffprobe")
+    if not ffprobe:
+        return 3.0
+
+    try:
+        result = subprocess.run(
+            [ffprobe, "-v", "quiet", "-show_entries", "format=duration",
+             "-of", "csv=p=0", str(path)],
+            capture_output=True, text=True, timeout=10,
+        )
+        dur = float(result.stdout.strip())
+        return dur
+    except Exception:
+        return 3.0
+
+
+def build_audio_segments(hook_text, quote, message, tmp_dir, ffmpeg_path):
+    """Generate separate TTS clips per section, measure each, concatenate.
+
+    Returns dict with exact timestamps per section, or None on failure.
+    """
+    hook_speech = hook_text.replace("\n", " ").strip()
+    bridge = "As one ancient letter puts it."
+
+    # Generate individual TTS clips
+    clips = [
+        ("hook", hook_speech, "nova", 0.88),
+        ("message", message, "nova", 0.92),
+        ("bridge", bridge, "nova", 0.85),
+        ("quote", quote, "nova", 0.88),
+        ("cta", "The Lotus Lane.", "nova", 0.9),
+    ]
+
+    paths = {}
+    durations = {}
+    for name, text, voice, speed in clips:
+        path = Path(tmp_dir) / f"{name}.mp3"
+        ok = generate_tts(text, path, voice=voice, speed=speed)
+        if not ok:
+            if name == "hook":
+                return None  # hook is required
+            continue
+        dur = _get_audio_duration(path, ffmpeg_path)
+        paths[name] = path
+        durations[name] = dur
+
+    # Small silence between sections
+    gap = 0.4
+    silence_path = Path(tmp_dir) / "gap.mp3"
+    subprocess.run([
+        ffmpeg_path, "-y",
+        "-f", "lavfi", "-i", "anullsrc=r=44100:cl=stereo",
+        "-t", str(gap), "-c:a", "libmp3lame", "-q:a", "4",
+        str(silence_path),
+    ], capture_output=True)
+
+    # CTA silence (2s)
+    cta_silence = Path(tmp_dir) / "cta_silence.mp3"
+    subprocess.run([
+        ffmpeg_path, "-y",
+        "-f", "lavfi", "-i", "anullsrc=r=44100:cl=stereo",
+        "-t", "2.0", "-c:a", "libmp3lame", "-q:a", "4",
+        str(cta_silence),
+    ], capture_output=True)
+
+    # Build concat list and calculate exact timestamps
+    concat_list = Path(tmp_dir) / "concat.txt"
+    entries = []
+    timestamps = {}
+    t = 0.0
+
+    for name in ["hook", "message", "bridge", "quote", "cta"]:
+        if name in paths:
+            timestamps[f"{name}_start"] = t
+            entries.append(f"file '{paths[name]}'")
+            t += durations[name]
+            timestamps[f"{name}_end"] = t
+            # Add gap after each section (except cta)
+            if name != "cta":
+                entries.append(f"file '{silence_path}'")
+                t += gap
+
+    # Add CTA silence at end
+    entries.append(f"file '{cta_silence}'")
+    timestamps["cta_visual_start"] = t
+    t += 2.0
+    timestamps["total_dur"] = t
+
+    with open(concat_list, "w") as f:
+        f.write("\n".join(entries))
+
+    output_audio = Path(tmp_dir) / "full_audio.mp3"
+    result = subprocess.run([
+        ffmpeg_path, "-y",
+        "-f", "concat", "-safe", "0",
+        "-i", str(concat_list),
+        "-c:a", "libmp3lame", "-q:a", "2",
+        str(output_audio),
+    ], capture_output=True, text=True)
+
+    if result.returncode != 0:
+        print(f"  Audio concat error: {result.stderr[:300]}")
+        return None
+
+    timestamps["audio_path"] = str(output_audio)
+    return timestamps
+
+
+# ---------------------------------------------------------------------------
 # Main generator
 # ---------------------------------------------------------------------------
 
@@ -453,71 +651,135 @@ def generate_hook_reel(date_str, verbose=True):
         print("  ERROR: ffmpeg not found")
         return None
 
-    # Create output directory
+    # Create output directory and temp space
     REELS_DIR.mkdir(parents=True, exist_ok=True)
-
-    # Render all frames
-    total_frames = int(TOTAL_DURATION * FPS)
     tmp_dir = tempfile.mkdtemp(prefix="lotus_reel_")
     frames_dir = Path(tmp_dir) / "frames"
     frames_dir.mkdir()
 
+    message = script.get("message", strip.get("message", ""))
+
+    # --- STEP 1: AUDIO — generate per-section clips, measure exact durations ---
     if verbose:
-        print(f"  Rendering {total_frames} frames...")
+        print(f"  [Step 1] Generating TTS (OpenAI {TTS_MODEL}/nova, per-section)...")
+
+    ts = build_audio_segments(hook_text, quote, message, tmp_dir, ffmpeg_path)
+    has_audio = ts is not None
+
+    if has_audio:
+        actual_duration = ts["total_dur"]
+        audio_path = ts["audio_path"]
+        # Exact timestamps from measured audio durations
+        t_hook_end = ts.get("hook_end", 2.0)
+        t_msg_start = ts.get("message_start", t_hook_end + 0.4)
+        t_msg_end = ts.get("message_end", t_msg_start + 4.0)
+        t_bridge_start = ts.get("bridge_start", t_msg_end + 0.4)
+        t_bridge_end = ts.get("bridge_end", t_bridge_start + 2.0)
+        t_quote_start = ts.get("quote_start", t_bridge_end + 0.4)
+        t_quote_end = ts.get("quote_end", t_quote_start + 3.0)
+        t_cta = ts.get("cta_visual_start", t_quote_end)
+
+        if verbose:
+            print(f"  hook 0-{t_hook_end:.1f}s | msg {t_msg_start:.1f}-{t_msg_end:.1f}s | bridge {t_bridge_start:.1f}-{t_bridge_end:.1f}s | quote {t_quote_start:.1f}-{t_quote_end:.1f}s | CTA {t_cta:.1f}-{actual_duration:.1f}s")
+    else:
+        actual_duration = TOTAL_DURATION
+        audio_path = None
+        t_hook_end = 2.5
+        t_msg_start, t_msg_end = 2.9, 7.0
+        t_bridge_start, t_bridge_end = 7.4, 9.0
+        t_quote_start, t_quote_end = 9.4, 13.0
+        t_cta = 13.0
+        if verbose:
+            print(f"  No audio — using fixed timing")
+
+    # Subtitle text matching exactly what the voice says
+    hook_speech = hook_text.replace("\n", " ").strip()
+    seg_message = message
+    seg_bridge = "As one ancient letter puts it."
+    seg_quote = f'"{quote}"'
+
+    # --- STEP 2: RENDER FRAMES with subtitles ---
+    total_frames = int(actual_duration * FPS)
+    if verbose:
+        print(f"  [Step 2] Rendering {total_frames} frames ({actual_duration:.1f}s)...")
 
     for frame_idx in range(total_frames):
-        t = frame_idx / FPS  # current time in seconds
+        t = frame_idx / FPS
 
-        if t < HOOK_END:
-            # HOOK section: text reveal on first panel
-            progress = min(1.0, (t - HOOK_START) / (HOOK_END - HOOK_START))
+        if t < t_hook_end:
+            # HOOK: bold hook text — both lines shown, text = what voice says
+            progress = 1.0  # show all lines immediately
             frame = render_hook_frame(panels[0], hook_text, progress)
 
-        elif t < STORY_END:
-            # STORY section: pan across panels 1 and 2
-            progress = (t - STORY_START) / (STORY_END - STORY_START)
-            # Switch between panels
+        elif t < t_msg_end:
+            # MESSAGE: pan across panels + full message as subtitle
+            span = t_msg_end - t_msg_start
+            progress = max(0.0, min(1.0, (t - t_msg_start) / max(span, 0.1)))
             if progress < 0.5:
                 panel = panels[0]
-                pan_progress = progress * 2  # 0 to 1 within first panel
+                pan_progress = progress * 2
             else:
-                panel = panels[1] if len(panels) > 1 else panels[0]
-                pan_progress = (progress - 0.5) * 2  # 0 to 1 within second panel
+                panel = panels[min(1, len(panels) - 1)]
+                pan_progress = (progress - 0.5) * 2
             frame = render_story_frame(panel, pan_progress)
+            _add_subtitle(frame, seg_message)
 
-        elif t < WISDOM_END:
-            # WISDOM section: quote overlay on last panel
-            progress = (t - WISDOM_START) / (WISDOM_END - WISDOM_START)
-            wisdom_panel = panels[-1]
-            frame = render_wisdom_frame(wisdom_panel, quote, source, progress)
+        elif t < t_bridge_end:
+            # BRIDGE: "As one ancient letter puts it."
+            progress = (t - t_bridge_start) / max(t_bridge_end - t_bridge_start, 0.1)
+            panel = panels[min(2, len(panels) - 1)]
+            frame = render_story_frame(panel, progress)
+            _add_subtitle(frame, seg_bridge)
 
-        else:
-            # CTA section
-            progress = (t - CTA_START) / (CTA_END - CTA_START)
+        elif t < t_quote_end:
+            # QUOTE: wisdom quote overlay — quote text visible in frame
+            progress = (t - t_quote_start) / max(t_quote_end - t_quote_start, 0.1)
+            frame = render_wisdom_frame(panels[-1], quote, source, progress)
+
+        elif t < actual_duration:
+            # CTA: follow + website
+            progress = (t - t_cta) / max(actual_duration - t_cta, 0.1)
             frame = render_cta_frame(progress)
 
-        # Save frame
+        else:
+            frame = render_cta_frame(1.0)
+
         frame.save(frames_dir / f"frame_{frame_idx:05d}.png", "PNG")
 
+    # --- STEP 3: ASSEMBLE video + audio ---
     if verbose:
-        print(f"  Assembling video with ffmpeg...")
+        print(f"  [Step 3] Assembling video...")
 
-    # Assemble with ffmpeg
     output_path = REELS_DIR / f"{date_str}.mp4"
 
-    cmd = [
-        ffmpeg_path,
-        "-y",  # overwrite
-        "-framerate", str(FPS),
-        "-i", str(frames_dir / "frame_%05d.png"),
-        "-c:v", "libx264",
-        "-pix_fmt", "yuv420p",
-        "-preset", "fast",
-        "-crf", "23",
-        "-movflags", "+faststart",
-        "-t", str(TOTAL_DURATION),
-        str(output_path),
-    ]
+    if has_audio:
+        cmd = [
+            ffmpeg_path, "-y",
+            "-framerate", str(FPS),
+            "-i", str(frames_dir / "frame_%05d.png"),
+            "-i", audio_path,
+            "-c:v", "libx264",
+            "-c:a", "aac", "-b:a", "128k",
+            "-pix_fmt", "yuv420p",
+            "-preset", "fast",
+            "-crf", "23",
+            "-movflags", "+faststart",
+            "-shortest",
+            str(output_path),
+        ]
+    else:
+        cmd = [
+            ffmpeg_path, "-y",
+            "-framerate", str(FPS),
+            "-i", str(frames_dir / "frame_%05d.png"),
+            "-c:v", "libx264",
+            "-pix_fmt", "yuv420p",
+            "-preset", "fast",
+            "-crf", "23",
+            "-movflags", "+faststart",
+            "-t", str(actual_duration),
+            str(output_path),
+        ]
 
     result = subprocess.run(cmd, capture_output=True, text=True)
     if result.returncode != 0:
