@@ -106,6 +106,8 @@ jobs:
             echo "No new changes to commit"
           else
             git commit -m "Add strip for $(date +%Y-%m-%d)"
+            git checkout -- . 2>/dev/null || true
+            git clean -fd 2>/dev/null || true
             git pull --rebase origin main
             git push
           fi
@@ -172,6 +174,8 @@ jobs:
         continue-on-error: true
         id: commit_social
         run: |
+          git checkout -- . 2>/dev/null || true
+          git clean -fd 2>/dev/null || true
           git pull --rebase || true
           git add strips.json shorts/
           if git diff --staged --quiet; then

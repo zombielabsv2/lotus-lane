@@ -54,6 +54,9 @@ jobs:
             echo "No new listicle to commit"
           else
             git commit -m "daily listicle: $(date -u +%Y-%m-%d)"
+            # Clean unstaged changes so rebase doesn't fail
+            git checkout -- . 2>/dev/null || true
+            git clean -fd 2>/dev/null || true
             git pull --rebase origin main
             git push
           fi

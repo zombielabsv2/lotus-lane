@@ -47,6 +47,8 @@ jobs:
             echo "No new card to commit"
           else
             git commit -m "daily quote card: $(date -u +%Y-%m-%d)"
+            git checkout -- . 2>/dev/null || true
+            git clean -fd 2>/dev/null || true
             git pull --rebase origin main
             git push
           fi

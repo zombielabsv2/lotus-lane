@@ -37,6 +37,8 @@ jobs:
             echo "No new videos generated"
           else
             git commit -m "generate missing MP4 videos"
+            git checkout -- . 2>/dev/null || true
+            git clean -fd 2>/dev/null || true
             git pull --rebase origin main
             git push
           fi
