@@ -345,7 +345,7 @@ def generate_card(quote_text: str, source: str, theme_name: str, target_date: da
 
     # --- Bottom watermark ---
     wm_line1 = "The Lotus Lane"
-    wm_line2 = "\u2022 thelotus.lane \u2022"
+    wm_line2 = "\u2022 thelotuslane.in \u2022"
 
     wm1_bbox = font_watermark.getbbox(wm_line1)
     wm1_tw = wm1_bbox[2] - wm1_bbox[0]

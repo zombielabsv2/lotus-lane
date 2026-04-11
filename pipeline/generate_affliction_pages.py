@@ -17,18 +17,120 @@ Usage:
 
 import argparse
 import json
+import os
 import sys
 from datetime import datetime
 from pathlib import Path
 
+import httpx
+
 sys.path.insert(0, str(Path(__file__).parent.parent))
+
+# Load .env for API keys
+try:
+    from dotenv import load_dotenv
+    load_dotenv(Path(__file__).parent.parent / ".env")
+except ImportError:
+    pass
+
 from pipeline.config import AFFLICTION_PAGES, ASSETS_BASE_URL
 
 PROJECT_ROOT = Path(__file__).parent.parent
 STRIPS_JSON = PROJECT_ROOT / "strips.json"
 IKEDA_QUOTES = PROJECT_ROOT / "ikeda" / "quotes.json"
 WISDOM_DIR = PROJECT_ROOT / "wisdom"
+CONTENT_CACHE = WISDOM_DIR / "cache"
 SITE_URL = "https://thelotuslane.in"
+
+
+def generate_article_content(slug, title, meta_desc, categories, relevant_quotes):
+    """Generate long-form article content using Claude. Cached to avoid re-generation.
+
+    Returns HTML paragraphs for the article body (1500-2000 words).
+    """
+    CONTENT_CACHE.mkdir(parents=True, exist_ok=True)
+    cache_file = CONTENT_CACHE / f"{slug}.json"
+
+    # Use cache if available
+    if cache_file.exists():
+        with open(cache_file, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        return data.get("article_html", "")
+
+    api_key = os.environ.get("ANTHROPIC_API_KEY", "")
+    if not api_key:
+        # No API key — return empty (pages will work without article content)
+        return ""
+
+    # Build context from quotes
+    quotes_context = ""
+    for q in relevant_quotes[:5]:
+        quotes_context += f'- "{q["text"]}" — {q.get("source", "")}\n'
+
+    prompt = f"""Write a genuine, helpful article about: {title}
+
+The article is for thelotuslane.in — a website that helps people deal with everyday
+human struggles using ancient wisdom (from 13th-century letters and a lifetime of
+philosophical teaching).
+
+TARGET READER: Someone who just Googled "{title.lower()}" at 2am because they're
+suffering. They are NOT a Buddhist practitioner. They don't know anything about
+Eastern philosophy. They just want help.
+
+META DESCRIPTION: {meta_desc}
+
+RELEVANT WISDOM QUOTES (weave 2-3 of these naturally into the article):
+{quotes_context}
+
+REQUIREMENTS:
+1. Write 1200-1500 words
+2. Open with a scene or moment the reader will immediately recognize ("You know
+   that feeling when...")
+3. Be honest and raw — not preachy, not self-help cliche
+4. Weave in 2-3 quotes from the list above naturally, attributing them simply
+   (e.g., "as one ancient philosopher wrote..." or "a 13th-century letter puts
+   it this way...")
+5. Include practical, actionable suggestions — not just philosophy
+6. End with genuine warmth, not a sales pitch
+7. Do NOT use the words: journey, unlock, transformative, empower, embrace
+8. Do NOT use any Buddhist-specific terms (dharma, sutra, daimoku, sangha, etc.)
+9. Write as if talking to a friend, not lecturing from a podium
+
+Return ONLY the article body as HTML paragraphs (<p>, <h3>, <blockquote>).
+No <html>, <head>, <body> tags. Just the content."""
+
+    try:
+        response = httpx.post(
+            "https://api.anthropic.com/v1/messages",
+            headers={
+                "x-api-key": api_key,
+                "anthropic-version": "2023-06-01",
+                "content-type": "application/json",
+            },
+            json={
+                "model": "claude-sonnet-4-6",
+                "max_tokens": 3000,
+                "messages": [{"role": "user", "content": prompt}],
+            },
+            timeout=90,
+        )
+        response.raise_for_status()
+        article_html = response.json()["content"][0]["text"].strip()
+
+        # Strip markdown code blocks if present
+        if article_html.startswith("```"):
+            article_html = article_html.split("\n", 1)[1]
+            article_html = article_html.rsplit("```", 1)[0]
+
+        # Cache it
+        with open(cache_file, "w", encoding="utf-8") as f:
+            json.dump({"slug": slug, "article_html": article_html, "generated_at": datetime.now().isoformat()}, f, indent=2, ensure_ascii=False)
+
+        return article_html
+
+    except Exception as e:
+        print(f"  Warning: article generation failed for {slug}: {e}")
+        return ""
 
 
 def load_strips():
@@ -94,10 +196,15 @@ def find_relevant_quotes(ikeda_themes, categories):
     return quotes[:9]  # Max 9 quotes per page
 
 
-def generate_affliction_page(slug, title, meta_desc, categories, strips, ikeda_themes):
+def generate_affliction_page(slug, title, meta_desc, categories, strips, ikeda_themes, generate_articles=False):
     """Generate a single affliction landing page."""
     relevant_strips = find_relevant_strips(strips, categories)
     relevant_quotes = find_relevant_quotes(ikeda_themes, categories)
+
+    # Generate long-form article content if requested
+    article_html = ""
+    if generate_articles:
+        article_html = generate_article_content(slug, title, meta_desc, categories, relevant_quotes)
     page_url = f"{SITE_URL}/wisdom/{slug}.html"
     now = datetime.now().strftime("%Y-%m-%d")
 
@@ -198,6 +305,11 @@ def generate_affliction_page(slug, title, meta_desc, categories, strips, ikeda_t
     .related-links a {{ padding: 0.4rem 0.8rem; background: white; border: 1px solid #d4cfc7; border-radius: 999px; font-size: 0.8rem; color: #666; text-decoration: none; transition: all 0.2s; }}
     .related-links a:hover {{ border-color: #c0392b; color: #c0392b; }}
 
+    .article-content {{ margin: 1.5rem 0; line-height: 1.8; color: #444; font-size: 1rem; }}
+    .article-content p {{ margin-bottom: 1rem; }}
+    .article-content h3 {{ font-size: 1.15rem; font-weight: 600; color: #333; margin: 1.5rem 0 0.5rem; }}
+    .article-content blockquote {{ border-left: 3px solid #c0392b; padding: 0.8rem 1.2rem; margin: 1.2rem 0; background: #f5f3ee; border-radius: 0 6px 6px 0; font-style: italic; color: #504638; }}
+
     .empty {{ color: #999; font-style: italic; padding: 1rem 0; }}
     footer {{ text-align: center; padding: 1.5rem 0; color: #aaa; font-size: 0.8rem; border-top: 1px solid #e8e4de; margin-top: 2rem; }}
 
@@ -220,6 +332,8 @@ def generate_affliction_page(slug, title, meta_desc, categories, strips, ikeda_t
       <h2>{title}</h2>
       <p>{meta_desc}</p>
     </div>
+
+    {"<article class=\"article-content\">" + article_html + "</article>" if article_html else ""}
 
     <h3 class="section-title">Stories about this</h3>
     {strips_html}
@@ -353,6 +467,8 @@ def generate_index_page():
 def main():
     parser = argparse.ArgumentParser(description="Generate affliction SEO landing pages")
     parser.add_argument("--slug", help="Generate a single page by slug")
+    parser.add_argument("--with-articles", action="store_true",
+                        help="Generate long-form article content via Claude (costs ~Rs.2/page)")
     args = parser.parse_args()
 
     WISDOM_DIR.mkdir(parents=True, exist_ok=True)
@@ -367,7 +483,8 @@ def main():
             sys.exit(1)
 
         title, meta_desc, categories = AFFLICTION_PAGES[args.slug]
-        html = generate_affliction_page(args.slug, title, meta_desc, categories, strips, ikeda_themes)
+        html = generate_affliction_page(args.slug, title, meta_desc, categories, strips, ikeda_themes,
+                                         generate_articles=args.with_articles)
         out_path = WISDOM_DIR / f"{args.slug}.html"
         with open(out_path, "w", encoding="utf-8") as f:
             f.write(html)
@@ -376,7 +493,8 @@ def main():
         # Generate all affliction pages
         count = 0
         for slug, (title, meta_desc, categories) in AFFLICTION_PAGES.items():
-            html = generate_affliction_page(slug, title, meta_desc, categories, strips, ikeda_themes)
+            html = generate_affliction_page(slug, title, meta_desc, categories, strips, ikeda_themes,
+                                             generate_articles=args.with_articles)
             out_path = WISDOM_DIR / f"{slug}.html"
             with open(out_path, "w", encoding="utf-8") as f:
                 f.write(html)

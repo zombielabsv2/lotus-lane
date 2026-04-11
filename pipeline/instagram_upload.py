@@ -29,6 +29,7 @@ import httpx
 PROJECT_ROOT = Path(__file__).parent.parent
 STRIPS_DIR = PROJECT_ROOT / "strips"
 SHORTS_DIR = PROJECT_ROOT / "shorts"
+REELS_DIR = PROJECT_ROOT / "reels"  # 15-second hook reels (preferred for IG)
 STRIPS_JSON = PROJECT_ROOT / "strips.json"
 TOKEN_FILE = PROJECT_ROOT / ".instagram_token.json"
 
@@ -42,12 +43,12 @@ ASSETS_CDN = "https://zombielabsv2.github.io/lotus-lane-assets"
 IMAGE_URL_TEMPLATE = f"{ASSETS_CDN}/{{date}}.png"
 VIDEO_URL_TEMPLATE = f"{GITHUB_PAGES_BASE}/shorts/{{date}}.mp4"
 
-# Base hashtags (max 30 total)
+# Base hashtags (max 30 total) — universal, problem-first
 BASE_HASHTAGS = [
-    "#NichirenBuddhism", "#BuddhistWisdom", "#Motivation", "#DailyWisdom",
-    "#ComicStrip", "#LifeAdvice", "#Buddhism", "#NamMyohoRengeKyo",
-    "#SelfImprovement", "#Mindfulness", "#InnerPeace", "#SpiritualGrowth",
-    "#PositiveThinking", "#MentalHealth", "#DailyMotivation",
+    "#LifeAdvice", "#SelfImprovement", "#Motivation", "#DailyWisdom",
+    "#ComicStrip", "#MentalHealth", "#Mindfulness", "#InnerPeace",
+    "#PersonalGrowth", "#WisdomQuotes", "#DailyMotivation",
+    "#PositiveThinking", "#LifeLessons", "#AncientWisdom",
 ]
 
 # Category-specific hashtags
@@ -276,8 +277,11 @@ def build_caption(strip):
         parts.append(f"-- {source}")
 
     # Website
-    parts.append("\nThe Lotus Lane: Buddhist wisdom for everyday struggles.")
-    parts.append("New strips every Mon, Wed, Fri.")
+    topic = strip.get("topic", "")
+    if topic:
+        parts.append(f"\nStruggling with {topic}? You're not alone.")
+    parts.append("The Lotus Lane: stories about everyday struggles and the ancient wisdom that helps.")
+    parts.append("New stories Mon, Wed, Fri.")
     parts.append(f"\n{GITHUB_PAGES_BASE}")
 
     # Hashtags (max 30 total)
@@ -291,10 +295,11 @@ def build_caption(strip):
             hashtags.append(tag)
 
     # Add generic filler tags if under 30
-    filler = ["#TheLotusLane", "#BuddhistComics", "#WisdomComics", "#IndianComics",
-              "#AnimatedWisdom", "#DailyInspiration", "#SpiritualAwakening",
-              "#ZenWisdom", "#Encouragement", "#LifeLessons",
-              "#Dharma", "#LotusLane", "#BuddhistArt", "#ComicArt", "#WebComic"]
+    filler = ["#TheLotusLane", "#WisdomComics", "#IndianComics",
+              "#DailyInspiration", "#Encouragement", "#LifeLessons",
+              "#LotusLane", "#ComicArt", "#WebComic", "#SelfLove",
+              "#Healing", "#GrowthMindset", "#Resilience", "#HealingJourney",
+              "#YouAreNotAlone"]
     for tag in filler:
         if len(hashtags) >= 30:
             break
@@ -375,7 +380,17 @@ def post_reels(date_str, force=False):
         return False
 
     access_token, user_id, _, _ = load_credentials()
-    video_url = VIDEO_URL_TEMPLATE.format(date=date_str)
+
+    # Prefer hook reel (15s, algorithm-optimized) over full short (45-60s)
+    hook_reel_path = REELS_DIR / f"{date_str}.mp4"
+    if hook_reel_path.exists():
+        # Hook reels aren't on GitHub Pages yet — need a public URL
+        # For now, fall back to full short if available
+        video_url = VIDEO_URL_TEMPLATE.format(date=date_str)
+        print(f"  [{date_str}] Note: hook reel exists locally but using hosted full short for now")
+    else:
+        video_url = VIDEO_URL_TEMPLATE.format(date=date_str)
+
     caption = build_caption(strip)
 
     print(f"  [{date_str}] Posting Reel: {strip['title']}")
@@ -565,10 +580,11 @@ def main():
         for strip in pending[:max_per_run]:
             date_str = strip["date"]
             try:
-                # Use reels if video exists, otherwise image
+                # Prefer hook reel > full short > image
+                has_hook_reel = (REELS_DIR / f"{date_str}.mp4").exists()
                 has_video = (SHORTS_DIR / f"{date_str}.mp4").exists()
                 effective_type = args.type
-                if effective_type == "reels" and not has_video:
+                if effective_type == "reels" and not has_hook_reel and not has_video:
                     effective_type = "image"
 
                 result = post_strip(date_str, post_type=effective_type, force=args.force)
