@@ -638,7 +638,7 @@ def _build_welcome_2(subscriber: dict) -> dict:
         "understand that the blessings contained in a single moment of faith are "
         "immeasurable and boundless."
     )
-    nichiren_source = "Nichiren Daishonin, On Attaining Buddhahood in This Lifetime (WND-1, p. 3)"
+    nichiren_source = "On Attaining Buddhahood in This Lifetime (13th century)"
 
     # Challenge-specific chanting guidance
     chanting_tips = {
@@ -659,7 +659,7 @@ def _build_welcome_2(subscriber: dict) -> dict:
         ),
         "family": (
             "When chanting about family, resist the urge to chant for others to change. Instead, chant "
-            "to transform your own heart first. As Nichiren teaches, when you change, your environment changes. "
+            "to transform your own heart first. The ancient wisdom teaches: when you change, your environment changes. "
             "Your family will feel the shift."
         ),
         "finances": (
@@ -673,9 +673,9 @@ def _build_welcome_2(subscriber: dict) -> dict:
             "of your existence. Chant until you feel that conviction rise in your chest."
         ),
         "grief": (
-            "When chanting through grief, let the tears come. Daimoku can hold all of your pain. "
+            "When chanting through grief, let the tears come. This practice can hold all of your pain. "
             "Chant for the person you've lost — for their peace and happiness wherever they are. "
-            "In Nichiren Buddhism, the bonds of love transcend life and death."
+            "In this tradition, the bonds of love transcend life and death."
         ),
         "perseverance": (
             "When you feel like giving up, chant with extra determination in those exact moments. "
@@ -694,7 +694,7 @@ def _build_welcome_2(subscriber: dict) -> dict:
             "content": (
                 f"Dear {name},<br><br>"
                 f"Yesterday we welcomed you. Today, let's talk about the most powerful tool you have: "
-                f"your voice. In Nichiren Buddhism, chanting Nam-myoho-renge-kyo is not a ritual — "
+                f"your voice. In this tradition, chanting is not a ritual — "
                 f"it's a direct conversation with the deepest part of your life."
             ),
         },
@@ -718,7 +718,7 @@ def _build_welcome_2(subscriber: dict) -> dict:
         {
             "type": "text",
             "content": (
-                "Even 5 minutes of sincere daimoku can shift your entire day. Try it this morning — "
+                "Even 5 minutes of sincere practice can shift your entire day. Try it this morning — "
                 "and notice how you feel afterward.<br><br>"
                 "Warmly,<br>The Lotus Lane"
             ),

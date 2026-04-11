@@ -379,7 +379,7 @@ def generate_writing_html(writing, analysis, related_writings):
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{title} — Explained in Plain English | Gosho Decoder</title>
+  <title>{title} — Explained in Plain English | Letters on Life</title>
   <meta name="description" content="{meta_desc}">
   <meta property="og:title" content="{title} — Plain English Explanation">
   <meta property="og:description" content="{meta_desc}">
@@ -632,12 +632,12 @@ def generate_writing_html(writing, analysis, related_writings):
 <body>
   <header>
     <h1><a href="https://thelotuslane.in/">The <span>Lotus</span> Lane</a></h1>
-    <p class="tagline">Gosho Decoder — Buddhist wisdom in plain English</p>
+    <p class="tagline">Letters on Life — ancient wisdom in plain English</p>
   </header>
 
   <nav class="breadcrumb">
     <a href="https://thelotuslane.in/">Home</a> &rsaquo;
-    <a href="index.html">Gosho Decoder</a> &rsaquo;
+    <a href="index.html">Letters on Life</a> &rsaquo;
     {title}
   </nav>
 
@@ -697,8 +697,8 @@ def generate_writing_html(writing, analysis, related_writings):
   </main>
 
   <footer>
-    <p>Gosho Decoder is part of <a href="https://thelotuslane.in/">The Lotus Lane</a> &mdash; Buddhist wisdom for everyday life</p>
-    <p style="margin-top:0.3rem;">Explanations generated with AI assistance. Source texts &copy; Soka Gakkai. <a href="{url}" target="_blank" rel="noopener">Read originals at Nichiren Library</a>.</p>
+    <p>Letters on Life is part of <a href="https://thelotuslane.in/">The Lotus Lane</a> &mdash; ancient wisdom for modern struggles</p>
+    <p style="margin-top:0.3rem;">Explanations generated with AI assistance. <a href="{url}" target="_blank" rel="noopener">Read original texts</a>.</p>
   </footer>
 
   <script data-goatcounter="https://zombielabs.goatcounter.com/count"
@@ -747,10 +747,10 @@ def generate_index_html(writings_data):
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gosho Decoder — Nichiren's Writings Explained in Plain English | The Lotus Lane</title>
-  <meta name="description" content="Plain-English explanations of Nichiren Daishonin's most important writings (Gosho). Understand the key passages, core messages, and how they apply to modern life.">
-  <meta property="og:title" content="Gosho Decoder — Nichiren's Writings in Plain English">
-  <meta property="og:description" content="Plain-English explanations of the most important Gosho. Key passages, core teachings, and modern applications.">
+  <title>Letters on Life — Ancient Writings Explained in Plain English | The Lotus Lane</title>
+  <meta name="description" content="Plain-English explanations of 800-year-old letters about courage, loss, anger, and finding meaning. The same problems you face today, answered centuries ago.">
+  <meta property="og:title" content="Letters on Life — Ancient Wisdom in Plain English">
+  <meta property="og:description" content="Plain-English explanations of 800-year-old letters about the problems you face today. Key passages, core messages, and modern applications.">
   <meta property="og:type" content="website">
   <link rel="canonical" href="https://thelotuslane.in/decoder/index.html">
   <style>
@@ -959,7 +959,7 @@ def generate_index_html(writings_data):
 <body>
   <header>
     <h1><a href="https://thelotuslane.in/">The <span>Lotus</span> Lane</a></h1>
-    <p class="tagline">Gosho Decoder — Buddhist wisdom in plain English</p>
+    <p class="tagline">Letters on Life — ancient wisdom in plain English</p>
   </header>
 
   <div class="hero">
@@ -983,8 +983,8 @@ def generate_index_html(writings_data):
   </div>
 
   <footer>
-    <p>Gosho Decoder is part of <a href="https://thelotuslane.in/">The Lotus Lane</a> &mdash; Buddhist wisdom for everyday life</p>
-    <p style="margin-top:0.3rem;">Explanations generated with AI assistance. Source texts &copy; Soka Gakkai. <a href="https://www.nichirenlibrary.org" target="_blank" rel="noopener">Nichiren Library</a>.</p>
+    <p>Letters on Life is part of <a href="https://thelotuslane.in/">The Lotus Lane</a> &mdash; ancient wisdom for modern struggles</p>
+    <p style="margin-top:0.3rem;">Explanations generated with AI assistance. <a href="https://www.nichirenlibrary.org" target="_blank" rel="noopener">Read original texts</a>.</p>
   </footer>
 
   <script data-goatcounter="https://zombielabs.goatcounter.com/count"

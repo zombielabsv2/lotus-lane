@@ -447,10 +447,10 @@ def generate_index_page(data):
   </header>
 
   <div class="hero">
-    <h2>Guidance from Daisaku Ikeda</h2>
+    <h2>Wisdom Library</h2>
     <p>
-      Explore the wisdom of SGI President Daisaku Ikeda &mdash; a lifetime of guidance
-      on courage, hope, peace, and the limitless potential within every human life.
+      Explore a lifetime of wisdom on courage, hope, peace, and the limitless
+      potential within every human life.
     </p>
     <div class="stats">
       <div class="stat">

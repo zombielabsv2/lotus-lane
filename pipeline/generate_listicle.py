@@ -143,8 +143,8 @@ def generate_listicle_content(theme: dict, existing_listicles: list) -> dict:
     recent_titles = [l.get("title", "") for l in existing_listicles[-15:]]
     recent_titles_block = "\n".join(f'- "{t}"' for t in recent_titles) or "(none yet)"
 
-    prompt = f"""You are creating a listicle infographic for "The Lotus Lane" — a Buddhist wisdom
-brand that shares Daisaku Ikeda's guidance for modern life struggles.
+    prompt = f"""You are creating a listicle infographic for "The Lotus Lane" — a wisdom
+brand that shares ancient guidance for modern life struggles.
 
 THEME: {theme["name"]}
 THEME DESCRIPTION: {theme["description"]}
@@ -162,8 +162,8 @@ TITLE STYLE — The title must be:
 - Speak to a real situation or feeling
 - Examples of GOOD titles:
   * "5 Quotes on Courage for When Fear Holds You Back"
-  * "When Life Feels Impossible: 5 Words of Hope from Ikeda Sensei"
-  * "Struggling at Work? Ikeda Sensei Has 5 Messages for You"
+  * "When Life Feels Impossible: 5 Words of Hope"
+  * "Struggling at Work? 5 Messages You Need to Hear"
   * "5 Truths About Happiness You Won't Learn in School"
   * "Feeling Stuck? Here Are 5 Reminders That You're Stronger Than You Think"
 - Examples of BAD titles:
@@ -470,7 +470,7 @@ def _infographic_html(listicle: dict) -> str:
   </div>
   <div class="items">{items_html}</div>
   <div class="branding">
-    <div class="name">Guidance from Daisaku Ikeda</div>
+    <div class="name">Ancient Wisdom for Modern Life</div>
     <div class="url">thelotuslane.in</div>
   </div>
 </body></html>"""
@@ -516,7 +516,7 @@ def _carousel_slide_html(item: dict, slide_num: int, total: int, title: str) -> 
   <div class="brand-tag">The Lotus Lane</div>
   <div class="title">{title}</div>
   <div class="rule"></div>
-  <div class="subtitle">Guidance from Daisaku Ikeda</div>
+  <div class="subtitle">Ancient Wisdom for Modern Life</div>
   <div class="branding">thelotuslane.in</div>
 </body></html>"""
 
@@ -802,7 +802,7 @@ def generate_seo_page(listicle: dict, target_date: str, all_listicles: list) -> 
     </header>
 
     <div class="listicle-header">
-      <div class="tag">Ikeda Sensei&rsquo;s Guidance</div>
+      <div class="tag">Wisdom Library</div>
       <h2>{title}</h2>
       <div class="meta">{display_date} &middot; {theme_name}</div>
     </div>
@@ -824,7 +824,7 @@ def generate_seo_page(listicle: dict, target_date: str, all_listicles: list) -> 
 
     <footer>
       <p>The Lotus Lane &middot; Buddhist wisdom for everyday life</p>
-      <p>Guidance by Daisaku Ikeda &middot; Curated with care</p>
+      <p>Ancient wisdom, curated &middot; thelotuslane.in</p>
     </footer>
   </div>
 </body>
