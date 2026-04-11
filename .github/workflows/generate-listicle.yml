@@ -49,7 +49,7 @@ jobs:
         run: |
           git config user.name "lotus-lane-bot"
           git config user.email "bot@thelotuslane.in"
-          git add listicles/ sitemap.xml feed.xml
+          git add listicles/ sitemap.xml feed.xml strips/*.html index.html subscribe.html
           if git diff --staged --quiet; then
             echo "No new listicle to commit"
           else
