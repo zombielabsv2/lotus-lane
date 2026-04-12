@@ -335,8 +335,9 @@ async def generate_all_audio(script_data, tmp_dir, verbose=True):
                 panel_segments[pidx] = []
             panel_segments[pidx].append(seg)
 
-    # Build audio for panels 0-3
-    for panel_idx in range(4):
+    # Build audio for each panel
+    num_panels = len(panels)
+    for panel_idx in range(num_panels):
         panel_start_ms = current_ms
         panel_segs = panel_segments.get(panel_idx, [])
 
@@ -354,7 +355,7 @@ async def generate_all_audio(script_data, tmp_dir, verbose=True):
         panel_timings.append((panel_start_ms, panel_end_ms))
 
         # Add silence between panels (except after last panel)
-        if panel_idx < 3:
+        if panel_idx < num_panels - 1:
             silence = _make_silence(SILENCE_BETWEEN_PANELS_MS)
             full_audio += silence
             current_ms += SILENCE_BETWEEN_PANELS_MS
@@ -704,7 +705,7 @@ def render_video_frames(script_data, panel_images, video_sections, total_video_s
             prerendered_text = prerendered_overlays.get(pidx)
 
             if verbose:
-                print(f"  Panel {pidx+1}/4: {section_frames} frames ({section['duration_sec']:.1f}s)")
+                print(f"  Panel {pidx+1}/{len(panels_data)}: {section_frames} frames ({section['duration_sec']:.1f}s)")
 
             for f_idx in range(section_frames):
                 progress = f_idx / max(section_frames - 1, 1)
