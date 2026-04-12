@@ -14,7 +14,7 @@
       {
         "quote": "Hope is not a matter of ability; it is a matter of decision.",
         "source": "Discussions on Youth",
-        "explanation": "You don't need special talents or perfect circumstances to have hope\u2014you simply need to choose it, right now."
+        "explanation": "You don't need special talents or perfect circumstances to have hope—you simply need to choose it, right now."
       },
       {
         "quote": "No matter how hopeless or bleak things appear, the moment you resolve to never give up, every nerve and fiber in your being will orient itself toward your success.",
@@ -29,7 +29,7 @@
       {
         "quote": "Each morning we are born again. What we do today is what matters most.",
         "source": "For Today and Tomorrow",
-        "explanation": "Yesterday's failures don't define you\u2014every sunrise offers a fresh start and new possibilities for your life."
+        "explanation": "Yesterday's failures don't define you—every sunrise offers a fresh start and new possibilities for your life."
       }
     ]
   },
@@ -58,12 +58,12 @@
       {
         "quote": "The true hero is one who conquers his own anger and hatred.",
         "source": "For Today and Tomorrow",
-        "explanation": "Real strength isn't about overpowering others \u2014 it's about mastering the inner battles that quietly drain your joy every day."
+        "explanation": "Real strength isn't about overpowering others — it's about mastering the inner battles that quietly drain your joy every day."
       },
       {
         "quote": "Buddhism is about winning. It is about the courage to overcome obstacles, to triumph over anything that stands in the way of our happiness.",
         "source": "Faith Into Action",
-        "explanation": "You are not meant to quietly endure your suffering \u2014 your practice is a daily declaration that you refuse to be defeated by it."
+        "explanation": "You are not meant to quietly endure your suffering — your practice is a daily declaration that you refuse to be defeated by it."
       }
     ]
   },
@@ -77,7 +77,7 @@
       {
         "quote": "When you change, the world around you will change. Everything begins with your own human revolution.",
         "source": "Discussions on Youth",
-        "explanation": "That difficult relationship, that dead-end situation \u2014 it can all shift the moment you decide to shift first."
+        "explanation": "That difficult relationship, that dead-end situation — it can all shift the moment you decide to shift first."
       },
       {
         "quote": "Changing ourselves is the most difficult revolution of all. But it is the most important revolution.",
@@ -87,12 +87,12 @@
       {
         "quote": "A great human revolution in just a single individual will help achieve a change in the destiny of a nation and, further, will enable a change in the destiny of all humankind.",
         "source": "The Human Revolution",
-        "explanation": "Your personal growth is never just personal \u2014 the ripple effects of one transformed life reach further than you can imagine."
+        "explanation": "Your personal growth is never just personal — the ripple effects of one transformed life reach further than you can imagine."
       },
       {
         "quote": "Human revolution is not something special or out of the ordinary. It is the process of transforming our lives, one challenge at a time.",
         "source": "Discussions on Youth",
-        "explanation": "Every hard Monday, every painful setback, every small victory is already part of your revolution \u2014 you don't have to wait for a dramatic turning point."
+        "explanation": "Every hard Monday, every painful setback, every small victory is already part of your revolution — you don't have to wait for a dramatic turning point."
       },
       {
         "quote": "Our lives are like gardens. We can grow flowers or we can grow weeds. It all depends on what we plant and how we tend our garden.",
@@ -132,6 +132,40 @@
         "quote": "The purpose of faith is to become happy — not to become a slave to rigid rules or formalities.",
         "source": "The Wisdom for Creating Happiness and Peace",
         "explanation": "If your practice ever starts to feel like a burden rather than a lifeline, come back to this simple, liberating truth."
+      }
+    ]
+  },
+  {
+    "date": "2026-04-12",
+    "title": "No One Succeeds Alone: 5 Truths About the Relationships That Shape Who You Become",
+    "theme": "mentor-disciple",
+    "theme_name": "Mentor & Disciple",
+    "image": "listicles/2026-04-12.png",
+    "items": [
+      {
+        "quote": "A mentor does not exist to create followers. A mentor exists to create leaders.",
+        "source": "Discussions on Youth",
+        "explanation": "The best teachers, coaches, and mentors in your life measure their success by your independence, not your loyalty to them."
+      },
+      {
+        "quote": "A disciple's mission is not to follow the mentor blindly, but to realize the mentor's vision — even surpassing the mentor.",
+        "source": "Discussions on Youth",
+        "explanation": "Honoring someone who believed in you means going further than they went, not simply doing exactly what they did."
+      },
+      {
+        "quote": "The true disciple is one who carries on the mentor's spirit. Not as a copy, but as a creative continuation.",
+        "source": "The New Human Revolution, Vol. 6",
+        "explanation": "Whether it's a parent, teacher, or boss who shaped you, your greatest tribute is applying their wisdom in your own unique way."
+      },
+      {
+        "quote": "The path of mentor and disciple is the path of shared struggle. It is not about hierarchy — it is about sharing the same commitment, the same vision, the same heart.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "The most transformative relationships in life aren't built on rank or status — they're built on fighting for the same thing together."
+      },
+      {
+        "quote": "When the disciple truly stands up with the same spirit as the mentor, the power to change the world emerges.",
+        "source": "The New Human Revolution, Vol. 18",
+        "explanation": "The moment you stop waiting for permission and fully commit to the values someone passed down to you, your real impact begins."
       }
     ]
   }
