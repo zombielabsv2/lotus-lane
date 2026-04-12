@@ -572,24 +572,23 @@ def _build_welcome_1(subscriber: dict) -> dict:
     quote = _pick_ikeda_quote(themes)
     next_email = FREQUENCY_LABELS.get(frequency, "soon")
 
-    subject = f"Welcome to Daimoku Daily, {name}"
+    subject = f"Welcome, {name}"
 
     sections = [
         {
             "type": "text",
             "content": (
-                f"Dear {name},<br><br>"
-                f"Welcome to Daimoku Daily. You told us you're going through challenges with "
-                f"<strong>{challenges_text}</strong> - and we want you to know: you're not alone in this, "
-                f"and you've taken a powerful step by showing up."
+                f"Hi {name},<br><br>"
+                f"Welcome. You told us you're going through "
+                f"<strong>{challenges_text}</strong>, and we want you to know: you're not alone in this, "
+                f"and you've taken a real step by showing up."
             ),
         },
         {
             "type": "text",
             "content": (
-                "We're going to send you personalized wisdom from Nichiren Daishonin's writings "
-                "and Daisaku Ikeda's guidance - passages chosen specifically for what you're going through, "
-                "with practical ways to apply them in your life."
+                "We're going to send you short, personal emails with wisdom passages chosen "
+                "for what you're going through, along with a practical way to apply each one today."
             ),
         },
         {
@@ -604,8 +603,8 @@ def _build_welcome_1(subscriber: dict) -> dict:
         {
             "type": "highlight",
             "content": (
-                f"<strong>What to expect:</strong> Each email includes a hand-picked passage from the Buddhist writings, "
-                f"a modern interpretation for your situation, and one concrete practice suggestion. "
+                f"<strong>What to expect:</strong> Each email has one passage, "
+                f"a grounded interpretation for your situation, and one small practice to try. "
                 f"Your first regular email arrives <strong>{next_email}</strong>."
             ),
         },
@@ -632,12 +631,10 @@ def _build_welcome_2(subscriber: dict) -> dict:
     primary_challenge = challenges[0]
     challenge_label = CHALLENGE_LABELS.get(primary_challenge, primary_challenge)
 
-    # Nichiren passage about the power of daimoku
+    # A passage about the power of sincere practice
     nichiren_quote = (
-        "If you recite these words of the Lotus Sutra before the Gohonzon, then the "
-        "five characters of Myoho-renge-kyo will appear in your heart, and you will "
-        "understand that the blessings contained in a single moment of faith are "
-        "immeasurable and boundless."
+        "The blessings contained in a single moment of faith are immeasurable and boundless. "
+        "Practice sincerely, and what you need will appear in your heart."
     )
     nichiren_source = "On Attaining Buddhahood in This Lifetime (13th century)"
 
@@ -693,10 +690,10 @@ def _build_welcome_2(subscriber: dict) -> dict:
         {
             "type": "text",
             "content": (
-                f"Dear {name},<br><br>"
-                f"Yesterday we welcomed you. Today, let's talk about the most powerful tool you have: "
-                f"your voice. In this tradition, chanting is not a ritual - "
-                f"it's a direct conversation with the deepest part of your life."
+                f"Hi {name},<br><br>"
+                f"Yesterday we welcomed you. Today, let's talk about one of the most powerful tools you have: "
+                f"your voice. Chanting isn't a ritual - "
+                f"it's a direct conversation with the deepest part of your own life."
             ),
         },
         {
@@ -763,9 +760,9 @@ def _build_welcome_3(subscriber: dict) -> dict:
         {
             "type": "text",
             "content": (
-                f"Dear {name},<br><br>"
-                f"We want you to know something important: thousands of practitioners around the world "
-                f"are going through the very same challenges you are - {challenges_text}. "
+                f"Hi {name},<br><br>"
+                f"Here's something worth remembering: thousands of people around the world "
+                f"are going through the same challenges you are - {challenges_text}. "
                 f"Every single one of them has sat where you're sitting, wondering if things will get better."
             ),
         },
@@ -781,18 +778,18 @@ def _build_welcome_3(subscriber: dict) -> dict:
         {
             "type": "highlight",
             "content": (
-                f"From now on, you'll receive <strong>{freq_text} emails</strong> personalized to what you're going through. "
-                f"Each one draws from the writings of Nichiren Daishonin and the guidance of Daisaku Ikeda, "
-                f"chosen specifically for what you're going through."
+                f"From here on, you'll get <strong>{freq_text} emails</strong> chosen for what you're going through. "
+                f"Each one pulls from wisdom writings and experienced teachers, "
+                f"picked for your specific situation."
             ),
         },
         {
             "type": "text",
             "content": (
                 "You've already shown courage by signing up and showing up for three days. "
-                "That's not a small thing - that's the spirit of a Bodhisattva.<br><br>"
+                "That's not a small thing - that's real resilience.<br><br>"
                 "We're rooting for you.<br><br>"
-                "With deep respect,<br>The Lotus Lane"
+                "With care,<br>The Lotus Lane"
             ),
         },
     ]
@@ -893,29 +890,31 @@ def generate_email_content(subscriber: dict, challenge: str, passages: list[dict
     if situation:
         situation_line = f"\nTheir specific situation: {situation}\n"
 
-    prompt = f"""You are a warm, wise Buddhist mentor writing a personal email to {name}, who is going through {challenge_desc}.{situation_line}
+    prompt = f"""You are a warm, grounded mentor writing a personal email to {name}, who is going through {challenge_desc}.{situation_line}
 
-Below are relevant passages from Nichiren Daishonin's writings, Daisaku Ikeda's guidance, and Buddhist commentaries. Use ONE of these as the basis for your email. Choose the most relevant and encouraging one.
+Below are wisdom passages relevant to their situation. Use ONE of these as the basis for your email. Choose the most relevant and encouraging one.
 
 PASSAGES:
 {passages_block}
 
 Write a personal email with these sections:
 
-1. SUBJECT LINE: Warm, specific to their challenge. Not clickbait. Under 60 chars. Do not use the word "Daimoku" in the subject.
+1. SUBJECT LINE: Warm, specific to their challenge. Not clickbait. Under 60 chars. Avoid religious or tradition-specific words.
 
-2. OPENING (2-3 sentences): Acknowledge their struggle with genuine empathy. Use their name. Don't be preachy or distant.
+2. OPENING (2-3 sentences): Acknowledge their struggle with genuine empathy. Use their name. Don't be preachy or distant. No religious framing.
 
-3. WISDOM PASSAGE: Quote the most relevant passage (the actual words, not a summary). Keep it under 100 words. Include the source title and author (Nichiren Daishonin or Daisaku Ikeda).
+3. WISDOM PASSAGE: Quote the most relevant passage (the actual words, not a summary). Keep it under 100 words. Include the source title and author exactly as given (attribution is fine).
 
-4. MODERN INTERPRETATION (3-4 sentences): What does this passage mean for {name}'s situation today? Be specific, practical, and grounded. Not abstract philosophy.
+4. MODERN INTERPRETATION (3-4 sentences): What does this passage mean for {name}'s situation today? Be specific, practical, and grounded. Plain language, not abstract philosophy.
 
-5. PRACTICE SUGGESTION: One concrete action they can do today. Be specific (e.g., "Chant for 10 minutes focusing on..." not "try to practice more").
+5. PRACTICE SUGGESTION: One concrete action they can do today. Be specific (e.g., "Spend 10 minutes writing about..." or "Take a 15-minute walk and notice..." not "try to practice more").
 
 6. CLOSING (1-2 sentences): Warm encouragement. End with strength, not pity.
 
 IMPORTANT RULES:
 - Write like a caring friend, not a religious authority
+- Do NOT use tradition-specific jargon in the email body: no "Buddhist", "Nichiren Daishonin", "Gohonzon", "daimoku", "Nam-myoho-renge-kyo", "Bodhisattva", "SGI", "Ikeda Sensei", "practitioner"
+- Quote source attributions CAN include the author name (e.g., "Daisaku Ikeda, Discussions on Youth") — that's proper citation
 - Be specific to their challenge, not generic
 - Keep total email under 300 words
 - The passage must be an actual quote from the passages provided (do not invent quotes)
@@ -1107,7 +1106,7 @@ def send_email(to_email: str, subject: str, html_body: str) -> bool:
             "https://api.resend.com/emails",
             headers={"Authorization": f"Bearer {RESEND_API_KEY}"},
             json={
-                "from": "Daimoku Daily <daimoku@rxjapps.in>",
+                "from": "Daily Wisdom <daimoku@rxjapps.in>",
                 "to": [to_email],
                 "subject": subject,
                 "html": html_body,

@@ -244,17 +244,19 @@ def test_build_welcome_1():
     from pipeline.generate_email import _build_welcome_1
 
     result = _build_welcome_1(_test_subscriber)
-    assert result["subject"] == "Welcome to Daimoku Daily, Priya"
+    assert result["subject"] == "Welcome, Priya"
     html = result["html_body"]
     assert "Priya" in html
     assert "career" in html.lower()
     assert "self-doubt" in html.lower()
     assert "tomorrow morning" in html  # daily frequency
-    assert "Daimoku Daily" in html
     assert "Lotus Lane" in html
     assert "unsubscribe" in html.lower()
     assert len(result["quote"]) > 10
     assert len(result["source"]) > 0
+    # Universal framing: specific narrative jargon removed (quotes may still contain Buddhist concepts — those are attributed wisdom content)
+    for phrase in ("Welcome to Daimoku Daily", "Nichiren Daishonin's writings", "writings of Nichiren Daishonin", "Buddhist writings"):
+        assert phrase not in html, f"Jargon leaked into welcome_1 narrative: {phrase}"
 
 
 def test_build_welcome_1_weekly():
@@ -283,8 +285,8 @@ def test_build_welcome_2():
     assert "heart of practice" in result["subject"]
     html = result["html_body"]
     assert "Priya" in html
-    assert "Myoho-renge-kyo" in html  # Nichiren quote about daimoku
-    assert "career" in html.lower()  # Challenge-specific chanting tip
+    assert "blessings contained in a single moment" in html  # simplified wisdom passage
+    assert "career" in html.lower()  # Challenge-specific practice tip
     assert "Try This" in html  # Practice section header
     assert len(result["quote"]) > 10
 
