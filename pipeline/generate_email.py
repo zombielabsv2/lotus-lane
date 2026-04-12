@@ -13,6 +13,7 @@ import json
 import os
 import random
 import re
+import time
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
@@ -935,22 +936,41 @@ Return your response in this exact JSON format:
 
 Return ONLY the JSON, no other text."""
 
-    # Call Claude Sonnet API
-    resp = httpx.post(
-        "https://api.anthropic.com/v1/messages",
-        headers={
-            "x-api-key": ANTHROPIC_API_KEY,
-            "anthropic-version": "2023-06-01",
-            "content-type": "application/json",
-        },
-        json={
-            "model": "claude-sonnet-4-6",
-            "max_tokens": 1024,
-            "messages": [{"role": "user", "content": prompt}],
-        },
-        timeout=60,
-    )
-    resp.raise_for_status()
+    # Call Claude Sonnet API — with exponential backoff on 429 rate limits
+    max_retries = 5
+    for attempt in range(max_retries):
+        resp = httpx.post(
+            "https://api.anthropic.com/v1/messages",
+            headers={
+                "x-api-key": ANTHROPIC_API_KEY,
+                "anthropic-version": "2023-06-01",
+                "content-type": "application/json",
+            },
+            json={
+                "model": "claude-sonnet-4-6",
+                "max_tokens": 1024,
+                "messages": [{"role": "user", "content": prompt}],
+            },
+            timeout=60,
+        )
+        if resp.status_code == 429:
+            # Check Retry-After header first; fall back to exponential backoff
+            retry_after = resp.headers.get("retry-after") or resp.headers.get("x-ratelimit-reset-requests")
+            if retry_after:
+                try:
+                    wait = int(retry_after)
+                except ValueError:
+                    wait = min(2 ** attempt * 10, 120)
+            else:
+                wait = min(2 ** attempt * 10, 120)  # 10s, 20s, 40s, 80s, 120s
+            print(f"  [RATE LIMITED] Claude API 429 — waiting {wait}s before retry {attempt + 1}/{max_retries}...")
+            time.sleep(wait)
+            continue
+        resp.raise_for_status()
+        break
+    else:
+        # All retries exhausted — re-raise the last response error
+        resp.raise_for_status()
     result = resp.json()
 
     # Log to Supabase api_usage_log
