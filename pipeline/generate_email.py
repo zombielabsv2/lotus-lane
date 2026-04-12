@@ -481,7 +481,7 @@ def _build_welcome_html(subject: str, body_sections: list[dict], subscriber_emai
               "{content}"
             </p>
             <p style="margin:8px 0 0; font-size:12px; color:#999;">
-              — {source}
+              - {source}
             </p>
           </div>
         </td></tr>"""
@@ -579,7 +579,7 @@ def _build_welcome_1(subscriber: dict) -> dict:
             "content": (
                 f"Dear {name},<br><br>"
                 f"Welcome to Daimoku Daily. You told us you're going through challenges with "
-                f"<strong>{challenges_text}</strong> — and we want you to know: you're not alone in this, "
+                f"<strong>{challenges_text}</strong> - and we want you to know: you're not alone in this, "
                 f"and you've taken a powerful step by showing up."
             ),
         },
@@ -587,7 +587,7 @@ def _build_welcome_1(subscriber: dict) -> dict:
             "type": "text",
             "content": (
                 "We're going to send you personalized wisdom from Nichiren Daishonin's writings "
-                "and Daisaku Ikeda's guidance — passages chosen specifically for what you're going through, "
+                "and Daisaku Ikeda's guidance - passages chosen specifically for what you're going through, "
                 "with practical ways to apply them in your life."
             ),
         },
@@ -611,7 +611,7 @@ def _build_welcome_1(subscriber: dict) -> dict:
         {
             "type": "text",
             "content": (
-                "Until then — take a deep breath. You have more strength than you know.<br><br>"
+                "Until then - take a deep breath. You have more strength than you know.<br><br>"
                 "With warmth,<br>The Lotus Lane"
             ),
         },
@@ -644,17 +644,17 @@ def _build_welcome_2(subscriber: dict) -> dict:
     chanting_tips = {
         "career": (
             "When chanting about your career, try visualizing yourself at your most capable and confident. "
-            "Don't chant to escape your situation — chant to bring out the wisdom and courage to transform it. "
+            "Don't chant to escape your situation - chant to bring out the wisdom and courage to transform it. "
             "Ask yourself: 'What would I do if I truly believed in my abilities?'"
         ),
         "health": (
-            "When chanting for your health, focus on activating your life force — that deep inner vitality "
+            "When chanting for your health, focus on activating your life force - that deep inner vitality "
             "that exists beyond illness. Don't chant in fear. Chant with the determination: 'My life force "
             "is stronger than any illness. I will win over this.'"
         ),
         "relationships": (
-            "When chanting about relationships, start by chanting for the other person's happiness — "
-            "genuinely, without conditions. This shifts something profound inside you. "
+            "When chanting about relationships, start by chanting for the other person's happiness - "
+            "genuinely, without conditions. This shifts something deep inside you. "
             "Then chant for the wisdom to see what you need to change in yourself."
         ),
         "family": (
@@ -669,12 +669,12 @@ def _build_welcome_2(subscriber: dict) -> dict:
         ),
         "self-doubt": (
             "When chanting through self-doubt, speak to your Buddha nature directly. Say in your heart: "
-            "'I am a Buddha. My potential is limitless.' This isn't wishful thinking — it's the deepest truth "
+            "'I am a Buddha. My potential is limitless.' This isn't wishful thinking - it's the deepest truth "
             "of your existence. Chant until you feel that conviction rise in your chest."
         ),
         "grief": (
             "When chanting through grief, let the tears come. This practice can hold all of your pain. "
-            "Chant for the person you've lost — for their peace and happiness wherever they are. "
+            "Chant for the person you've lost - for their peace and happiness wherever they are. "
             "In this tradition, the bonds of love transcend life and death."
         ),
         "perseverance": (
@@ -694,7 +694,7 @@ def _build_welcome_2(subscriber: dict) -> dict:
             "content": (
                 f"Dear {name},<br><br>"
                 f"Yesterday we welcomed you. Today, let's talk about the most powerful tool you have: "
-                f"your voice. In this tradition, chanting is not a ritual — "
+                f"your voice. In this tradition, chanting is not a ritual - "
                 f"it's a direct conversation with the deepest part of your life."
             ),
         },
@@ -706,7 +706,7 @@ def _build_welcome_2(subscriber: dict) -> dict:
         {
             "type": "text",
             "content": (
-                "What this means is simple but profound: when you chant sincerely, you're not asking "
+                "What this means is simple but real: when you chant sincerely, you're not asking "
                 "some external force for help. You're activating the wisdom, courage, and compassion "
                 "that already exist within your own life."
             ),
@@ -718,7 +718,7 @@ def _build_welcome_2(subscriber: dict) -> dict:
         {
             "type": "text",
             "content": (
-                "Even 5 minutes of sincere practice can shift your entire day. Try it this morning — "
+                "Even 5 minutes of sincere practice can shift your entire day. Try it this morning - "
                 "and notice how you feel afterward.<br><br>"
                 "Warmly,<br>The Lotus Lane"
             ),
@@ -764,7 +764,7 @@ def _build_welcome_3(subscriber: dict) -> dict:
             "content": (
                 f"Dear {name},<br><br>"
                 f"We want you to know something important: thousands of practitioners around the world "
-                f"are going through the very same challenges you are — {challenges_text}. "
+                f"are going through the very same challenges you are - {challenges_text}. "
                 f"Every single one of them has sat where you're sitting, wondering if things will get better."
             ),
         },
@@ -780,7 +780,7 @@ def _build_welcome_3(subscriber: dict) -> dict:
         {
             "type": "highlight",
             "content": (
-                f"From now on, you'll receive <strong>{freq_text} emails</strong> personalized to your journey. "
+                f"From now on, you'll receive <strong>{freq_text} emails</strong> personalized to what you're going through. "
                 f"Each one draws from the writings of Nichiren Daishonin and the guidance of Daisaku Ikeda, "
                 f"chosen specifically for what you're going through."
             ),
@@ -789,7 +789,7 @@ def _build_welcome_3(subscriber: dict) -> dict:
             "type": "text",
             "content": (
                 "You've already shown courage by signing up and showing up for three days. "
-                "That's not a small thing — that's the spirit of a Bodhisattva.<br><br>"
+                "That's not a small thing - that's the spirit of a Bodhisattva.<br><br>"
                 "We're rooting for you.<br><br>"
                 "With deep respect,<br>The Lotus Lane"
             ),
@@ -872,7 +872,7 @@ def generate_email_content(subscriber: dict, challenge: str, passages: list[dict
         source = meta.get("title", "")
         collection = meta.get("collection_name", "")
         text = p["text"][:500]  # truncate long passages
-        passage_texts.append(f"[{collection} — {source}]\n{text}")
+        passage_texts.append(f"[{collection} - {source}]\n{text}")
 
     passages_block = "\n\n---\n\n".join(passage_texts)
 
@@ -919,6 +919,8 @@ IMPORTANT RULES:
 - Keep total email under 300 words
 - The passage must be an actual quote from the passages provided (do not invent quotes)
 - Use the person's name naturally (not in every paragraph)
+- NEVER use em dashes. Use regular dashes (-) instead.
+- NEVER use these words: journey, transformative, profound, empower, delve, navigate, embrace, tapestry, nuanced, holistic, foster, leverage, curated, robust, pivotal, paramount, testament, unwavering, seamless, comprehensive, beacon, cornerstone
 
 Return your response in this exact JSON format:
 {{
@@ -1021,7 +1023,7 @@ def build_html_email(data: dict, name: str, subscriber_email: str = "") -> str:
               "{data['quote']}"
             </p>
             <p style="margin:8px 0 0; font-size:12px; color:#999;">
-              — {data['quote_source']}
+              - {data['quote_source']}
             </p>
           </div>
         </td></tr>

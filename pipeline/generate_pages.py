@@ -99,7 +99,7 @@ def generate_strip_page(strip, all_strips):
         quote_html = f"""
     <blockquote class="quote">
       <p>&ldquo;{quote}&rdquo;</p>
-      <cite>&mdash; {source or 'Nichiren Daishonin'}</cite>
+      <cite>- {source or 'Nichiren Daishonin'}</cite>
     </blockquote>"""
 
     youtube_html = ""
@@ -189,7 +189,7 @@ def generate_strip_page(strip, all_strips):
       <div class="date">{display_date} &middot; {category.replace('-', ' ').title()}</div>
     </div>
 
-    <img src="{image_url}" alt="{title} — a story about {strip.get('topic', category.replace('-', ' '))}"
+    <img src="{image_url}" alt="{title} - a story about {strip.get('topic', category.replace('-', ' '))}"
          class="strip-image" loading="eager" width="1024">
 
     <p class="message">{message}</p>

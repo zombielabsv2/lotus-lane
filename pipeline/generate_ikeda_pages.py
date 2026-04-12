@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Ikeda Guidance — Static page generator for Daisaku Ikeda's quotes and wisdom.
+Ikeda Guidance | Static page generator for Daisaku Ikeda's quotes and wisdom.
 
 Reads the curated quotes library (ikeda/quotes.json) and generates SEO-optimized
 static HTML pages: one index page + one page per theme.
@@ -76,7 +76,7 @@ def generate_theme_page(theme, all_themes):
         <p>&ldquo;{q['text']}&rdquo;</p>
       </blockquote>
       <div class="quote-meta">
-        <span class="quote-source">&mdash; Daisaku Ikeda, <em>{q['source']}</em></span>
+        <span class="quote-source">- Daisaku Ikeda, <em>{q['source']}</em></span>
       </div>
       <button class="share-btn" onclick="shareQuote({i})" title="Share on WhatsApp">Share</button>
     </div>"""
@@ -96,7 +96,7 @@ def generate_theme_page(theme, all_themes):
     schema = {
         "@context": "https://schema.org",
         "@type": "CollectionPage",
-        "name": f"Daisaku Ikeda on {name} — Quotes & Guidance",
+        "name": f"Daisaku Ikeda on {name} | Quotes & Guidance",
         "description": description,
         "url": page_url,
         "isPartOf": {
@@ -125,19 +125,19 @@ def generate_theme_page(theme, all_themes):
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Daisaku Ikeda on {name} — Quotes & Guidance | The Lotus Lane</title>
+  <title>Daisaku Ikeda on {name} | Quotes & Guidance | The Lotus Lane</title>
   <meta name="description" content="{description}">
   <meta name="robots" content="max-image-preview:large">
   <link rel="canonical" href="{page_url}">
 
   <meta property="og:type" content="article">
-  <meta property="og:title" content="Daisaku Ikeda on {name} — Quotes & Guidance">
+  <meta property="og:title" content="Daisaku Ikeda on {name} | Quotes & Guidance">
   <meta property="og:description" content="{description}">
   <meta property="og:url" content="{page_url}">
   <meta property="og:site_name" content="The Lotus Lane">
 
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Daisaku Ikeda on {name} — Quotes & Guidance">
+  <meta name="twitter:title" content="Daisaku Ikeda on {name} | Quotes & Guidance">
   <meta name="twitter:description" content="{description}">
 
   <script type="application/ld+json">
@@ -271,7 +271,7 @@ def generate_theme_page(theme, all_themes):
     const themeName = "{name}";
 
     function shareQuote(idx) {{
-      const text = `*"${{quotes[idx]}}"*\\n\\n— Daisaku Ikeda, ${{sources[idx]}}\\n\\nMore wisdom on ${{themeName}}:\\n{page_url}`;
+      const text = `*"${{quotes[idx]}}"*\\n\\n- Daisaku Ikeda, ${{sources[idx]}}\\n\\nMore wisdom on ${{themeName}}:\\n{page_url}`;
       window.open(`https://wa.me/?text=${{encodeURIComponent(text)}}`, '_blank');
     }}
   </script>
@@ -307,7 +307,7 @@ def generate_index_page(data):
     schema = {
         "@context": "https://schema.org",
         "@type": "CollectionPage",
-        "name": "Daisaku Ikeda Guidance — Quotes & Wisdom for Life",
+        "name": "Daisaku Ikeda Guidance | Quotes & Wisdom for Life",
         "description": f"Explore {total} curated quotes and guidance from Daisaku Ikeda across {len(themes)} life themes. Buddhist wisdom for courage, hope, peace, and daily life.",
         "url": f"{SITE_URL}/ikeda/index.html",
         "isPartOf": {"@type": "WebSite", "name": "The Lotus Lane", "url": SITE_URL},
@@ -318,19 +318,19 @@ def generate_index_page(data):
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Daisaku Ikeda Guidance — Quotes & Wisdom for Life | The Lotus Lane</title>
+  <title>Daisaku Ikeda Guidance | Quotes & Wisdom for Life | The Lotus Lane</title>
   <meta name="description" content="Explore {total} curated quotes and guidance from Daisaku Ikeda across {len(themes)} life themes. Buddhist wisdom for courage, hope, peace, and daily life.">
   <meta name="robots" content="max-image-preview:large">
   <link rel="canonical" href="{SITE_URL}/ikeda/index.html">
 
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Daisaku Ikeda Guidance — Quotes & Wisdom for Life">
+  <meta property="og:title" content="Daisaku Ikeda Guidance | Quotes & Wisdom for Life">
   <meta property="og:description" content="Explore {total} curated quotes from Ikeda Sensei across {len(themes)} life themes. Buddhist wisdom for everyday life.">
   <meta property="og:url" content="{SITE_URL}/ikeda/index.html">
   <meta property="og:site_name" content="The Lotus Lane">
 
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Daisaku Ikeda Guidance — Quotes & Wisdom for Life">
+  <meta name="twitter:title" content="Daisaku Ikeda Guidance | Quotes & Wisdom for Life">
   <meta name="twitter:description" content="Explore {total} curated quotes from Ikeda Sensei across {len(themes)} life themes.">
 
   <script type="application/ld+json">

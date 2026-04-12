@@ -86,13 +86,18 @@ REQUIREMENTS:
 1. Write 1200-1500 words
 2. Open with a scene or moment the reader will immediately recognize ("You know
    that feeling when...")
-3. Be honest and raw — not preachy, not self-help cliche
+3. Be honest and raw - not preachy, not self-help cliche
 4. Weave in 2-3 quotes from the list above naturally, attributing them simply
    (e.g., "as one ancient philosopher wrote..." or "a 13th-century letter puts
    it this way...")
-5. Include practical, actionable suggestions — not just philosophy
+5. Include practical, actionable suggestions - not just philosophy
 6. End with genuine warmth, not a sales pitch
-7. Do NOT use the words: journey, unlock, transformative, empower, embrace
+7. NEVER use these words: journey, unlock, transformative, empower, embrace,
+   delve, tapestry, nuanced, multifaceted, landscape, realm, paradigm, embark,
+   foster, leverage, utilize, furthermore, moreover, comprehensive, robust,
+   pivotal, paramount, vibrant, testament, unwavering, curate, holistic, myriad,
+   resonate, seamless, profound, navigate, cornerstone, beacon, pivotal, elevate
+8. NEVER use em dashes. Use regular dashes (-) instead.
 8. Do NOT use any Buddhist-specific terms (dharma, sutra, daimoku, sangha, etc.)
 9. Write as if talking to a friend, not lecturing from a podium
 
@@ -242,7 +247,7 @@ def generate_affliction_page(slug, title, meta_desc, categories, strips, ikeda_t
         quotes_html += f"""
     <div class="wisdom-quote">
       <p>&ldquo;{q['text']}&rdquo;</p>
-      <cite>&mdash; {q['source']}</cite>
+      <cite>- {q['source']}</cite>
     </div>"""
 
     html = f"""<!DOCTYPE html>

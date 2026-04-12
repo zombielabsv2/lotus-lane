@@ -143,7 +143,7 @@ def generate_listicle_content(theme: dict, existing_listicles: list) -> dict:
     recent_titles = [l.get("title", "") for l in existing_listicles[-15:]]
     recent_titles_block = "\n".join(f'- "{t}"' for t in recent_titles) or "(none yet)"
 
-    prompt = f"""You are creating a listicle infographic for "The Lotus Lane" — a wisdom
+    prompt = f"""You are creating a listicle infographic for "The Lotus Lane" - a wisdom
 brand that shares ancient guidance for modern life struggles.
 
 THEME: {theme["name"]}
@@ -157,7 +157,7 @@ Create a listicle with EXACTLY 5 items. Requirements:
 2. Write a catchy, emotional, specific title for the listicle
 3. For each quote, write a 1-sentence explanation (15-25 words) that makes the quote feel relevant to everyday life
 
-TITLE STYLE — The title must be:
+TITLE STYLE - The title must be:
 - Specific and emotional, not generic
 - Speak to a real situation or feeling
 - Examples of GOOD titles:
@@ -185,6 +185,10 @@ Return ONLY valid JSON:
         }}
     ]
 }}
+
+WRITING RULES:
+- NEVER use em dashes. Use regular dashes (-) instead.
+- NEVER use these words in explanations: journey, transformative, profound, empower, delve, navigate, embrace, tapestry, nuanced, holistic, foster, leverage, curated, robust, pivotal, paramount, testament, unwavering, seamless, comprehensive, beacon
 
 Return exactly 5 items. Return ONLY the JSON, no other text."""
 
@@ -360,7 +364,7 @@ def _infographic_html(listicle: dict) -> str:
           <div class="number">{i + 1}</div>
           <div class="content">
             <div class="quote">&ldquo;{item['quote']}&rdquo;</div>
-            <div class="attribution">&mdash; Daisaku Ikeda, <em>{item['source']}</em></div>
+            <div class="attribution">- Daisaku Ikeda, <em>{item['source']}</em></div>
             <div class="explanation">{item['explanation']}</div>
           </div>
         </div>"""
@@ -562,7 +566,7 @@ def _carousel_slide_html(item: dict, slide_num: int, total: int, title: str) -> 
   <div class="number">{slide_num}</div>
   <div class="quote">&ldquo;{item['quote']}&rdquo;</div>
   <div class="rule"></div>
-  <div class="attribution">&mdash; Daisaku Ikeda, <em>{item['source']}</em></div>
+  <div class="attribution">- Daisaku Ikeda, <em>{item['source']}</em></div>
   <div class="explanation">{item['explanation']}</div>
   <div class="branding">THE LOTUS LANE &bull; thelotuslane.in</div>
 </body></html>"""
@@ -712,7 +716,7 @@ def generate_seo_page(listicle: dict, target_date: str, all_listicles: list) -> 
       <div class="quote-number">{i + 1}.</div>
       <div class="quote-content">
         <blockquote>&ldquo;{item['quote']}&rdquo;</blockquote>
-        <cite>&mdash; Daisaku Ikeda, {item['source']}</cite>
+        <cite>- Daisaku Ikeda, {item['source']}</cite>
         <p class="explanation">{item['explanation']}</p>
       </div>
     </div>"""
@@ -824,7 +828,7 @@ def generate_seo_page(listicle: dict, target_date: str, all_listicles: list) -> 
 
     <footer>
       <p>The Lotus Lane &middot; Buddhist wisdom for everyday life</p>
-      <p>Ancient wisdom, curated &middot; thelotuslane.in</p>
+      <p>Ancient wisdom, daily &middot; thelotuslane.in</p>
     </footer>
   </div>
 </body>

@@ -184,7 +184,7 @@ def build_claude_prompt(writing):
     if len(full_text) > 80000:
         full_text = full_text[:80000] + "\n\n[Text truncated for length]"
 
-    prompt = f"""You are a scholar of Nichiren Buddhism who explains Gosho (Nichiren's writings) in plain, modern English for people new to Buddhism. Your tone is warm, clear, and practical — like a wise friend explaining something meaningful over coffee.
+    prompt = f"""You are a scholar of Nichiren Buddhism who explains Gosho (Nichiren's writings) in plain, modern English for people new to Buddhism. Your tone is warm, clear, and practical - like a wise friend explaining something meaningful over coffee.
 
 Analyze this writing from Nichiren Daishonin and produce a structured explanation.
 
@@ -201,7 +201,7 @@ Please provide your analysis in the following JSON format (and ONLY valid JSON, 
   "background": {{
     "recipient": "Who Nichiren wrote this to (name and brief description)",
     "date_period": "When it was written (year, era, circumstances)",
-    "context": "Why he wrote it — what was happening in the recipient's life or in society",
+    "context": "Why he wrote it - what was happening in the recipient's life or in society",
     "significance": "Why this writing is considered important in Nichiren Buddhism"
   }},
   "key_passages": [
@@ -211,9 +211,14 @@ Please provide your analysis in the following JSON format (and ONLY valid JSON, 
     }}
   ],
   "core_message": "A 3-5 paragraph plain-English explanation of the writing's central teaching. What is Nichiren trying to tell the reader? What principle of life or Buddhism is he illuminating? Write this for someone who has never read Buddhist scripture before.",
-  "modern_application": "A 2-3 paragraph section on how this teaching applies to everyday life today. Give specific, relatable examples. How would someone apply this wisdom to their career, relationships, health struggles, or personal growth? Be concrete and practical.",
+  "modern_application": "A 2-3 paragraph section on how this teaching applies to everyday life today. Give specific, relatable examples. How would someone apply this wisdom to their career, relationships, health struggles, or personal growth? Be concrete and practical. Do NOT start with 'In today\\'s world'. Do NOT use the pattern 'Whether you\\'re X or Y'. Just state the point directly with one concrete example.",
   "related_themes": ["theme1", "theme2", "theme3"]
 }}
+
+WRITING RULES:
+- NEVER use em dashes. Use regular dashes (-) instead.
+- NEVER use these words: journey, transformative, profound, empower, delve, navigate, embrace, tapestry, nuanced, holistic, foster, leverage, curated, robust, pivotal, paramount, testament, unwavering, seamless, comprehensive, multifaceted, embark, beacon, cornerstone, vibrant, myriad, resonate
+- Write like a human, not an AI. Be direct. Be specific. Skip the filler adjectives.
 
 Pick 3-5 of the most powerful and meaningful passages as key_passages. For related_themes, choose from: faith, perseverance, courage, karma, compassion, wisdom, mentor-disciple, prayer, protection, human revolution, correct teaching, lotus sutra, women, illness, death."""
 
@@ -697,7 +702,7 @@ def generate_writing_html(writing, analysis, related_writings):
   </main>
 
   <footer>
-    <p>Letters on Life is part of <a href="https://thelotuslane.in/">The Lotus Lane</a> &mdash; ancient wisdom for modern struggles</p>
+    <p>Letters on Life is part of <a href="https://thelotuslane.in/">The Lotus Lane</a> - ancient wisdom for modern struggles</p>
     <p style="margin-top:0.3rem;">Explanations generated with AI assistance. <a href="{url}" target="_blank" rel="noopener">Read original texts</a>.</p>
   </footer>
 
@@ -983,7 +988,7 @@ def generate_index_html(writings_data):
   </div>
 
   <footer>
-    <p>Letters on Life is part of <a href="https://thelotuslane.in/">The Lotus Lane</a> &mdash; ancient wisdom for modern struggles</p>
+    <p>Letters on Life is part of <a href="https://thelotuslane.in/">The Lotus Lane</a> - ancient wisdom for modern struggles</p>
     <p style="margin-top:0.3rem;">Explanations generated with AI assistance. <a href="https://www.nichirenlibrary.org" target="_blank" rel="noopener">Read original texts</a>.</p>
   </footer>
 

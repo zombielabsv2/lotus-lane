@@ -276,7 +276,7 @@ def build_video_metadata(strip):
     description = (
         f"{strip.get('message', '')}\n\n"
         f'"{strip.get("quote", "")}"\n'
-        f"— {strip.get('source', '')}\n\n"
+        f"- {strip.get('source', '')}\n\n"
         f"The Lotus Lane: stories about everyday struggles and the ancient wisdom "
         f"that helps. New episodes every Mon, Wed, Fri.\n\n"
         f"Read the full strip: https://thelotuslane.in/strips/{strip.get('date', '')}.html\n\n"

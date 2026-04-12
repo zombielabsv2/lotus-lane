@@ -149,7 +149,7 @@ words naturally (arre, yaar, beta, bewakoof, etc.).
 IMPORTANT: Use a DIFFERENT quote each time. Do NOT use any of these recently used quotes:
 {chr(10).join(f'- "{q[:80]}..."' for q in _recent_quotes(existing_strips or [], 10)) or '(none yet)'}
 
-TITLE RULES — The title should lead with the HUMAN STRUGGLE, not the tradition.
+TITLE RULES - The title should lead with the HUMAN STRUGGLE, not the tradition.
 Think: what would someone Googling this problem click on?
 Good examples: "When Your Boss Takes Credit", "3 AM and the Grief Won't Stop",
 "She Got the Promotion. You Got the Lesson.", "That Sinking Feeling After a Fight"
@@ -157,7 +157,7 @@ Bad examples: "Buddhist Wisdom on Anger", "Nichiren's Teaching About Loss"
 
 Do NOT reuse any of these recent titles:
 {chr(10).join(f'- "{t}"' for t in _recent_titles(existing_strips or [], 30)) or '(none yet)'}
-- AVOID the pattern "The [Noun] of [Noun]" — it has been overused
+- AVOID the pattern "The [Noun] of [Noun]" - it has been overused
 - AVOID generic titles like "The Silent Treatment" or "The Weight of..."
 - Make titles specific to THIS strip's unique situation and characters
 
@@ -175,7 +175,7 @@ Return your response as JSON with this exact structure:
     ],
     "nichiren_quote": "The actual quote (from Nichiren OR Daisaku Ikeda) referenced in the strip",
     "source": "Source reference (e.g., WND-1, p. 302 or Daisaku Ikeda, For Today and Tomorrow)",
-    "message": "A 1-2 sentence takeaway that captures the wisdom — written for someone searching for help with {topic}, not for a Buddhist practitioner",
+    "message": "A 1-2 sentence takeaway that captures the wisdom - written for someone searching for help with {topic}, not for a Buddhist practitioner. NEVER use em dashes or these banned words: journey, transformative, profound, empower, delve, navigate, embrace, tapestry, nuanced, holistic, foster, leverage, curated, robust, pivotal, paramount, testament, unwavering, seamless",
     "seo_description": "A 150-char meta description leading with the human problem, e.g. 'Struggling with imposter syndrome at work? A 13th-century letter has something to say about that.'",
     "tags": ["{category}", "one-or-two-more-relevant-tags"]
 }}

@@ -51,7 +51,7 @@ def build_whatsapp_caption(strip):
     if quote:
         caption += f'_"{quote}"_\n'
         if source:
-            caption += f"— {source}\n"
+            caption += f"- {source}\n"
     caption += "\n"
     caption += "Know someone who needs this? Forward it to them.\n\n"
     caption += f"Read the full strip: {strip_link}"
