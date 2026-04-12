@@ -26,6 +26,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 STRIPS_DIR = Path(__file__).parent.parent / "strips"
 SHORTS_DIR = Path(__file__).parent.parent / "shorts"
+REELS_DIR = Path(__file__).parent.parent / "reels"
 STRIPS_JSON = Path(__file__).parent.parent / "strips.json"
 TOKEN_FILE = Path(__file__).parent.parent / ".youtube_token.json"
 CLIENT_SECRET_FILE = Path(__file__).parent.parent / "client_secret.json"
@@ -266,8 +267,8 @@ def build_video_metadata(strip):
         "the lotus lane", "shorts",
     ]
 
-    # Add topic-specific tags for search
-    if topic:
+    # Add topic-specific tags for search (YouTube max 30 chars per tag)
+    if topic and len(topic) <= 30:
         tags.insert(0, topic)
         tags.insert(1, topic.replace(" ", ""))
 
@@ -287,7 +288,7 @@ def build_video_metadata(strip):
         "snippet": {
             "title": title,
             "description": description,
-            "tags": list(dict.fromkeys(tags))[:30],  # dedupe, max 30
+            "tags": [t for t in dict.fromkeys(tags) if len(t) <= 30 and t.replace(" ", "").replace("-", "").isalnum()][:30],
             "categoryId": "27",  # Education (better for seekers)
             "defaultLanguage": "en",
         },
@@ -360,6 +361,76 @@ def upload_video(date_str, force=False):
     # Save youtube_id back to strips.json for tracking
     if video_id != "unknown":
         save_youtube_id(date_str, video_id)
+
+    return True
+
+
+def upload_hook_reel(date_str, force=False):
+    """Upload a hook reel for a given date to YouTube."""
+    video_path = REELS_DIR / f"{date_str}.mp4"
+    if not video_path.exists():
+        print(f"  [{date_str}] No hook reel at {video_path}")
+        return False
+
+    strip = get_strip_data(date_str)
+    if not strip:
+        print(f"  [{date_str}] No strip data in strips.json")
+        return False
+
+    if not force and strip.get("youtube_hook_reel_id"):
+        print(f"  [{date_str}] Hook reel already uploaded (youtube_hook_reel_id={strip['youtube_hook_reel_id']})")
+        return False
+
+    print(f"  [{date_str}] Uploading hook reel: {strip['title']}")
+
+    access_token = get_access_token()
+    metadata = build_video_metadata(strip)
+
+    # Resumable upload
+    init_response = httpx.post(
+        f"{UPLOAD_URL}?uploadType=resumable&part=snippet,status",
+        headers={
+            "Authorization": f"Bearer {access_token}",
+            "Content-Type": "application/json; charset=UTF-8",
+            "X-Upload-Content-Type": "video/mp4",
+            "X-Upload-Content-Length": str(video_path.stat().st_size),
+        },
+        json=metadata,
+        timeout=30,
+    )
+    if init_response.status_code >= 400:
+        print(f"  YouTube API error {init_response.status_code}: {init_response.text[:500]}")
+        init_response.raise_for_status()
+    upload_url = init_response.headers["Location"]
+
+    with open(video_path, "rb") as f:
+        video_data = f.read()
+
+    upload_response = httpx.put(
+        upload_url,
+        headers={
+            "Authorization": f"Bearer {access_token}",
+            "Content-Type": "video/mp4",
+            "Content-Length": str(len(video_data)),
+        },
+        content=video_data,
+        timeout=300,
+    )
+    upload_response.raise_for_status()
+    result = upload_response.json()
+
+    video_id = result.get("id", "unknown")
+    print(f"  [{date_str}] Uploaded! https://youtube.com/shorts/{video_id}")
+
+    if video_id != "unknown":
+        from pipeline.utils import safe_update_strips
+        def _update(strips):
+            for s in strips:
+                if s["date"] == date_str:
+                    s["youtube_hook_reel_id"] = video_id
+                    break
+        safe_update_strips(_update)
+        print(f"  [{date_str}] Saved youtube_hook_reel_id={video_id}")
 
     return True
 
@@ -566,6 +637,8 @@ def main():
     parser.add_argument("--all", action="store_true", help="Upload all videos")
     parser.add_argument("--pending", action="store_true", help="Show upload status of all shorts")
     parser.add_argument("--force", action="store_true", help="Re-upload even if already uploaded")
+    parser.add_argument("--hook-reels", action="store_true",
+                        help="Upload hook reels from reels/ directory (5/day)")
     parser.add_argument("--swap-old", action="store_true",
                         help="Delete old YouTube videos and re-upload with new text (5/day)")
     parser.add_argument("--views", action="store_true",
@@ -578,6 +651,32 @@ def main():
 
     if args.pending:
         show_pending()
+        return
+
+    if args.hook_reels:
+        max_per_run = 5
+        uploaded = 0
+        with open(STRIPS_JSON, "r", encoding="utf-8") as f:
+            strips = json.load(f)
+        pending = [s for s in strips
+                   if not s.get("youtube_hook_reel_id")
+                   and (REELS_DIR / f"{s['date']}.mp4").exists()]
+        pending.sort(key=lambda s: s["date"], reverse=True)  # newest first
+
+        print(f"  {len(pending)} hook reels pending upload. Uploading up to {max_per_run}...")
+        for strip in pending[:max_per_run]:
+            try:
+                result = upload_hook_reel(strip["date"], force=args.force)
+                if result:
+                    uploaded += 1
+            except httpx.HTTPStatusError as e:
+                if "uploadLimitExceeded" in str(e.response.text):
+                    print(f"\n  YouTube daily limit reached. Stopping.")
+                    break
+                print(f"  FAILED [{strip['date']}]: {e}")
+            except Exception as e:
+                print(f"  FAILED [{strip['date']}]: {e}")
+        print(f"\n  Uploaded {uploaded} hook reel(s). {len(pending) - uploaded} remaining.")
         return
 
     if args.swap_old:
