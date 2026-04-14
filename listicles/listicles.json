@@ -202,5 +202,39 @@
         "explanation": "In a world of highlight reels and personal brands, the person who actually reads, reflects, and grows quietly becomes the one everyone trusts."
       }
     ]
+  },
+  {
+    "date": "2026-04-14",
+    "title": "Can't Stop Fighting With Someone You Love? 5 Truths About the Power of Real Conversation",
+    "theme": "dialogue",
+    "theme_name": "Dialogue",
+    "image": "listicles/2026-04-14.png",
+    "items": [
+      {
+        "quote": "Dialogue starts with listening. Truly listening - not just waiting for your turn to speak - but genuinely trying to understand another person's heart.",
+        "source": "Discussions on Youth",
+        "explanation": "Most arguments last longer than they should because both people are focused on being heard, not on actually hearing the other person."
+      },
+      {
+        "quote": "When we engage in dialogue with sincerity and respect, the walls of misunderstanding crumble. Even the most hardened hearts can be opened.",
+        "source": "The New Human Revolution, Vol. 7",
+        "explanation": "That family member or coworker you think will never change may simply be waiting for a conversation that finally treats them with real respect."
+      },
+      {
+        "quote": "We must not fear those who are different from us. Difference is not a reason for conflict - it is an invitation for dialogue.",
+        "source": "For Today and Tomorrow",
+        "explanation": "The person whose opinions frustrate you most is often the one whose perspective, if you heard it fully, would surprise you."
+      },
+      {
+        "quote": "One sincere conversation can accomplish more than a hundred speeches or a thousand emails.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "If you have been texting back and forth trying to fix a broken relationship, one honest face-to-face talk will do more than all of it combined."
+      },
+      {
+        "quote": "The greatest tool for peace is not weapons or technology. It is the simple act of two human beings sitting down and talking to each other.",
+        "source": "A New Era of Dialogue (Peace Proposal)",
+        "explanation": "No strategy, ultimatum, or silent treatment has ever resolved a conflict the way a calm, open, honest conversation can."
+      }
+    ]
   }
 ]
