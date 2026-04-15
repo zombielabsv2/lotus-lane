@@ -550,75 +550,86 @@ def pull_view_counts():
 
     Uses the YouTube Data API v3 videos.list endpoint (part=statistics).
     Batches up to 50 IDs per request to minimize quota usage (1 unit per call).
+
+    Best-effort: any failure is logged with full traceback but does not raise.
+    View counts are cosmetic; a failure here should never fail the retry workflow.
     """
+    import traceback
     from datetime import datetime, timezone
     from pipeline.utils import safe_update_strips
 
-    with open(STRIPS_JSON, "r", encoding="utf-8") as f:
-        strips = json.load(f)
+    try:
+        with open(STRIPS_JSON, "r", encoding="utf-8") as f:
+            strips = json.load(f)
 
-    # Collect all strips that have a youtube_id
-    yt_strips = [(i, s["youtube_id"]) for i, s in enumerate(strips) if s.get("youtube_id")]
-    if not yt_strips:
-        print("  No strips with youtube_id found.")
-        return
+        # Collect all strips that have a youtube_id
+        yt_strips = [(i, s["youtube_id"]) for i, s in enumerate(strips) if s.get("youtube_id")]
+        if not yt_strips:
+            print("  No strips with youtube_id found.")
+            return
 
-    print(f"  Fetching view counts for {len(yt_strips)} video(s)...")
+        print(f"  Fetching view counts for {len(yt_strips)} video(s)...")
 
-    access_token = get_access_token()
+        access_token = get_access_token()
 
-    # Build a map of youtube_id -> view count from API responses
-    view_counts = {}  # youtube_id -> int view count
+        # Build a map of youtube_id -> view count from API responses
+        view_counts = {}  # youtube_id -> int view count
 
-    # Batch into groups of 50 (YouTube API max per request)
-    batch_size = 50
-    yt_ids = [yt_id for _, yt_id in yt_strips]
+        # Batch into groups of 50 (YouTube API max per request)
+        batch_size = 50
+        yt_ids = [yt_id for _, yt_id in yt_strips]
 
-    for batch_start in range(0, len(yt_ids), batch_size):
-        batch = yt_ids[batch_start:batch_start + batch_size]
-        ids_param = ",".join(batch)
+        for batch_start in range(0, len(yt_ids), batch_size):
+            batch = yt_ids[batch_start:batch_start + batch_size]
+            ids_param = ",".join(batch)
 
-        response = httpx.get(
-            VIDEOS_API_URL,
-            params={
-                "id": ids_param,
-                "part": "statistics",
-            },
-            headers={
-                "Authorization": f"Bearer {access_token}",
-            },
-            timeout=30,
-        )
-        if response.status_code >= 400:
-            print(f"  YouTube API error {response.status_code}: {response.text[:500]}")
-            response.raise_for_status()
+            response = httpx.get(
+                VIDEOS_API_URL,
+                params={
+                    "id": ids_param,
+                    "part": "statistics",
+                },
+                headers={
+                    "Authorization": f"Bearer {access_token}",
+                },
+                timeout=30,
+            )
+            if response.status_code >= 400:
+                print(f"  YouTube API error {response.status_code}: {response.text[:500]}")
+                print("  Skipping view count update (non-critical).")
+                return
 
-        data = response.json()
-        for item in data.get("items", []):
-            video_id = item["id"]
-            stats = item.get("statistics", {})
-            views = int(stats.get("viewCount", 0))
-            view_counts[video_id] = views
+            data = response.json()
+            for item in data.get("items", []):
+                video_id = item["id"]
+                stats = item.get("statistics", {})
+                views = int(stats.get("viewCount", 0))
+                view_counts[video_id] = views
 
-    # Update strips.json with view counts
-    now_iso = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
-    updated = 0
+        # Update strips.json with view counts
+        now_iso = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+        updated = 0
 
-    def _update_views(strips_data):
-        nonlocal updated
-        for s in strips_data:
-            yt_id = s.get("youtube_id")
-            if yt_id and yt_id in view_counts:
-                s["youtube_views"] = view_counts[yt_id]
-                s["youtube_views_updated_at"] = now_iso
-                updated += 1
+        def _update_views(strips_data):
+            nonlocal updated
+            for s in strips_data:
+                yt_id = s.get("youtube_id")
+                if yt_id and yt_id in view_counts:
+                    s["youtube_views"] = view_counts[yt_id]
+                    s["youtube_views_updated_at"] = now_iso
+                    updated += 1
 
-    safe_update_strips(_update_views)
+        safe_update_strips(_update_views)
 
-    print(f"  Updated view counts for {updated} video(s).")
-    # Print summary
-    for yt_id, views in sorted(view_counts.items(), key=lambda x: x[1], reverse=True):
-        print(f"    {yt_id}: {views:,} views")
+        print(f"  Updated view counts for {updated} video(s).")
+        # Print summary
+        for yt_id, views in sorted(view_counts.items(), key=lambda x: x[1], reverse=True):
+            print(f"    {yt_id}: {views:,} views")
+    except Exception as e:
+        print(f"  Pull view counts failed: {type(e).__name__}: {e}")
+        print("  Full traceback (non-fatal, view counts are cosmetic):")
+        traceback.print_exc()
+        print("  Skipping view count update.")
 
 
 def get_latest_date():
