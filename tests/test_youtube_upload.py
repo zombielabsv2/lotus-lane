@@ -344,6 +344,28 @@ class TestBuildVideoMetadata:
         result = build_video_metadata(sample_strip)
         assert result["snippet"]["categoryId"] == "27"
 
+    def test_tags_total_serialized_length_under_500(self):
+        """YouTube rejects uploads when joined tags exceed 500 chars.
+
+        Multi-word tags get wrapped in quotes (+2 chars); commas separate tags.
+        Strips with long `topic` fields (e.g. "argument with partner") had been
+        pushing past 500 before the length cap was added.
+        """
+        if str(PROJECT_ROOT) not in sys.path:
+            sys.path.insert(0, str(PROJECT_ROOT))
+        from pipeline.youtube_upload import build_video_metadata
+        strip = {
+            "date": "2026-03-02",
+            "title": "The Silent Treatment",
+            "message": "m", "quote": "q", "source": "s",
+            "category": "relationships",
+            "topic": "argument with partner",
+            "tags": ["relationships", "communication", "self-reflection"],
+        }
+        tags = build_video_metadata(strip)["snippet"]["tags"]
+        total = sum(len(t) + (2 if " " in t else 0) for t in tags) + max(len(tags) - 1, 0)
+        assert total <= 500, f"Serialized tag length {total} exceeds YouTube's 500-char cap"
+
     def test_missing_optional_fields_handled(self):
         """Strip with minimal fields should not crash."""
         if str(PROJECT_ROOT) not in sys.path:

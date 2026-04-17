@@ -289,11 +289,31 @@ def build_video_metadata(strip):
         f"#Motivation #DailyWisdom #TheLotusLane"
     )
 
+    # YouTube rules: each tag ≤30 chars, total serialized tag string ≤500 chars.
+    # Multi-word tags get wrapped in quotes by the API (+2 chars each); commas
+    # separate tags (+1 between each). Stay under 480 for safety.
+    filtered_tags = [
+        t for t in dict.fromkeys(tags)
+        if len(t) <= 30 and t.replace(" ", "").replace("-", "").isalnum()
+    ]
+    safe_tags: list[str] = []
+    total = 0
+    for t in filtered_tags:
+        cost = len(t) + (2 if " " in t else 0)
+        if safe_tags:
+            cost += 1  # comma separator
+        if total + cost > 480:
+            continue
+        safe_tags.append(t)
+        total += cost
+        if len(safe_tags) >= 30:
+            break
+
     return {
         "snippet": {
             "title": title,
             "description": description,
-            "tags": [t for t in dict.fromkeys(tags) if len(t) <= 30 and t.replace(" ", "").replace("-", "").isalnum()][:30],
+            "tags": safe_tags,
             "categoryId": "27",  # Education (better for seekers)
             "defaultLanguage": "en",
         },
