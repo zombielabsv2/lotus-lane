@@ -135,6 +135,11 @@ def get_access_token():
         "refresh_token": refresh_token,
         "grant_type": "refresh_token",
     })
+    if response.status_code >= 400:
+        # Surface the actual Google error so we can diagnose without pulling logs.
+        # Common causes: invalid_grant (refresh token revoked/expired — user must
+        # re-run `youtube_upload.py --auth` and update the GitHub secret).
+        print(f"  OAuth token refresh FAILED ({response.status_code}): {response.text}", file=sys.stderr)
     response.raise_for_status()
     return response.json()["access_token"]
 
@@ -696,15 +701,14 @@ def main():
     elif args.date:
         upload_video(args.date, force=args.force)
     elif args.all:
-        from datetime import date, timedelta
-        cutoff = (date.today() - timedelta(days=30)).isoformat()
         max_per_run = 5  # stay well under YouTube's daily limit (~6)
         uploaded = 0
         failures = []
-        for f in sorted(SHORTS_DIR.glob("*.mp4")):
+        # Upload newest-first so recent strips publish fastest; older backlog
+        # (Jan/Feb strips with MP4 but no youtube_id) drains over subsequent
+        # daily runs. No date cutoff — the pending-upload queue drives itself empty.
+        for f in sorted(SHORTS_DIR.glob("*.mp4"), reverse=True):
             date_str = f.stem.replace("_narrated", "")
-            if date_str < cutoff:
-                continue  # skip videos older than 30 days
             try:
                 result = upload_video(date_str, force=args.force)
                 if result:

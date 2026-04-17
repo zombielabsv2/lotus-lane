@@ -684,7 +684,15 @@
     ],
     "category": "perseverance",
     "topic": "wanting to give up",
-    "characters": []
+    "characters": [],
+    "youtube_id": "AZ_En0KETE8",
+    "distribution": {
+      "youtube": {
+        "status": "uploaded",
+        "id": "AZ_En0KETE8",
+        "uploaded_at": "2026-04-06"
+      }
+    }
   },
   {
     "date": "2026-04-08",
@@ -760,7 +768,15 @@
     ],
     "category": "envy",
     "topic": "sibling has it all",
-    "characters": []
+    "characters": [],
+    "youtube_id": "isJ6vjUDBkk",
+    "distribution": {
+      "youtube": {
+        "status": "uploaded",
+        "id": "isJ6vjUDBkk",
+        "uploaded_at": "2026-04-13"
+      }
+    }
   },
   {
     "date": "2026-04-15",

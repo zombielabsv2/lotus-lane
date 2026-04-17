@@ -106,9 +106,10 @@ jobs:
             echo "No new changes to commit"
           else
             git commit -m "Add strip for $(date +%Y-%m-%d)"
-            git checkout -- . 2>/dev/null || true
-            git clean -fd 2>/dev/null || true
-            git pull --rebase origin main
+            # Rebase onto latest main, --autostash handles any stray unstaged tracked files
+            # without destroying them. Do NOT use `git checkout -- .` or `git clean -fd` here —
+            # they throw away the outputs that later pipeline steps produce (see Apr 11 incident).
+            git pull --rebase --autostash origin main
             git push
           fi
 
@@ -171,17 +172,22 @@ jobs:
 
       - name: Commit video and social media IDs
         if: ${{ github.event.inputs.dry_run != 'true' }}
-        continue-on-error: true
+        # NOTE: continue-on-error removed deliberately. If we can't commit the
+        # freshly-uploaded youtube_id + MP4, the run should turn RED so the
+        # failure email is meaningful. Silent failure here was the Apr 11–17
+        # incident root cause.
         id: commit_social
         run: |
-          git checkout -- . 2>/dev/null || true
-          git clean -fd 2>/dev/null || true
-          git pull --rebase || true
+          # Stage the outputs produced by the video + upload steps BEFORE
+          # touching the working tree. Do NOT run `git checkout -- .` or
+          # `git clean -fd` here — they wipe the untracked MP4 and revert the
+          # strips.json edit that save_youtube_id() just made.
           git add strips.json shorts/
           if git diff --staged --quiet; then
             echo "No video/social updates"
           else
             git commit -m "Update video + social media IDs for $(date +%Y-%m-%d)"
+            git pull --rebase --autostash origin main
             git push
           fi
 

@@ -86,6 +86,9 @@ Mon/Wed/Fri 11:30 AM IST → generate-strip.yml
 7. **continue-on-error**: All optional steps (video, social, notify) use `continue-on-error: true` — failures are silent unless the report step catches them
 8. **nichiren-chatbot dependency**: Daimoku Daily emails require `chunks.json` from sibling repo `zombielabsv2/nichiren-chatbot`
 9. **Cost per strip**: ~Rs. 5-7 (Claude ~Rs. 1.1, GPT images ~Rs. 3.6/panel × retries, QC negligible)
+10. **NEVER `git checkout -- .` or `git clean -fd` before staging in CI commit steps**. They destroy the untracked MP4s and revert the strips.json edits that the step is about to commit. If `git pull --rebase` needs a clean tree, use `--autostash` or commit first then rebase. (Apr 11–17 incident: 4 lost YouTube uploads, `git clean -fd` deleted `shorts/*.mp4` after the MP4s had been generated but before `git add`.)
+11. **After any `.github/workflows/*.yml` edit, dispatch it once via `gh workflow run` before relying on cron.** The Apr 11 "hardening" commit waited 2 days for the Mon/Wed cron to expose a bug that a workflow_dispatch would have caught same-day.
+12. **Video pipeline cache is ephemeral** (`strips/cache/{date}/` is gitignored + job-local). If a run's video step fails mid-pipeline, the cache dies with the runner and the video cannot be re-generated later without re-running the full Claude+GPT pipeline (which will produce *different* content). Loud failure on the video step is essential.
 
 ## Testing
 - `pytest tests/ -v` — video generator tests, Daimoku Daily tests, import tests
