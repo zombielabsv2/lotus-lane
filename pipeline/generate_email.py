@@ -1189,15 +1189,58 @@ def process_subscriber(subscriber: dict) -> bool:
     return sent
 
 
+def send_welcome_single(email: str, dry_run: bool = False) -> bool:
+    """
+    Send welcome_1 to a single subscriber by email. Idempotent — skips if
+    welcome_1 already logged. Used by the on-signup trigger workflow so the
+    user gets an acknowledgement within ~60s instead of waiting for the
+    daily cron.
+    """
+    email_norm = (email or "").strip().lower()
+    if not email_norm:
+        print("  [ERROR] No email provided")
+        return False
+
+    rows = supabase_get("daimoku_subscribers", {
+        "email": f"eq.{email_norm}",
+        "active": "eq.true",
+        "select": "*",
+        "limit": "1",
+    })
+    if not rows:
+        print(f"  [SKIP] No active subscriber for {email_norm}")
+        return False
+    sub = rows[0]
+
+    existing = supabase_get("daimoku_email_log", {
+        "subscriber_id": f"eq.{sub['id']}",
+        "challenge_category": "eq.welcome_1",
+        "status": "eq.sent",
+        "select": "id",
+        "limit": "1",
+    })
+    if existing:
+        print(f"  [SKIP] welcome_1 already sent to {email_norm}")
+        return False
+
+    sub["_welcome_step"] = 1
+    if dry_run:
+        content = WELCOME_BUILDERS[1](sub)
+        print(f"  [DRY RUN] welcome_1 for {sub.get('name')} ({email_norm}): {content['subject']}")
+        return True
+    return process_welcome_subscriber(sub)
+
+
 def main():
     """
     Main entry point.
 
     Flags:
-      --welcome   Process welcome sequence only
-      --regular   Process regular daily emails only (legacy default behavior)
-      --force     Send to all active subscribers (ignores frequency/schedule)
-      --dry-run   Show what would be sent without sending or logging
+      --welcome              Process welcome sequence only
+      --regular              Process regular daily emails only (legacy default behavior)
+      --welcome-single EMAIL Send welcome_1 to a single subscriber (on-signup trigger)
+      --force                Send to all active subscribers (ignores frequency/schedule)
+      --dry-run              Show what would be sent without sending or logging
 
     No flags = both welcome + regular (default for cron).
     """
@@ -1209,6 +1252,28 @@ def main():
     dry_run = "--dry-run" in sys.argv
     only_welcome = "--welcome" in sys.argv and "--regular" not in sys.argv
     only_regular = "--regular" in sys.argv and "--welcome" not in sys.argv
+
+    if "--welcome-single" in sys.argv:
+        idx = sys.argv.index("--welcome-single")
+        if idx + 1 >= len(sys.argv):
+            print("  [FATAL] --welcome-single requires an email argument")
+            return
+        target_email = sys.argv[idx + 1]
+
+        missing = []
+        if not SUPABASE_URL:
+            missing.append("SUPABASE_URL")
+        if not SUPABASE_SERVICE_KEY:
+            missing.append("SUPABASE_SERVICE_KEY")
+        if not dry_run and not RESEND_API_KEY:
+            missing.append("RESEND_API_KEY")
+        if missing:
+            print(f"  [FATAL] Missing environment variables: {', '.join(missing)}")
+            return
+
+        ok = send_welcome_single(target_email, dry_run=dry_run)
+        print(f"\n=== Done: welcome_single {'sent' if ok else 'skipped/failed'} ===")
+        return
     # No flags or both flags = run both
     run_welcome = not only_regular
     run_regular = not only_welcome

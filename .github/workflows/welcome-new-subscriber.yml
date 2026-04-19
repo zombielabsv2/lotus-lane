@@ -1,0 +1,64 @@
+name: Welcome — New Subscriber
+
+# Fired by Supabase trigger via repository_dispatch when a new row is inserted
+# into daimoku_subscribers. Sends welcome_1 immediately so the subscriber gets
+# acknowledgement within ~60s instead of waiting for the daily 11:00 AM IST cron.
+#
+# Payload shape: { "client_payload": { "email": "user@example.com" } }
+
+on:
+  repository_dispatch:
+    types: [new_subscriber]
+  workflow_dispatch:
+    inputs:
+      email:
+        description: 'Subscriber email to welcome'
+        required: true
+        type: string
+      dry_run:
+        description: 'Dry run (skip sending)'
+        required: false
+        type: boolean
+        default: false
+
+jobs:
+  send-welcome:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout lotus-lane
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install -r pipeline/requirements.txt
+
+      - name: Resolve target email
+        id: target
+        env:
+          DISPATCH_EMAIL: ${{ github.event.client_payload.email }}
+          INPUT_EMAIL: ${{ github.event.inputs.email }}
+        run: |
+          EMAIL="${DISPATCH_EMAIL:-$INPUT_EMAIL}"
+          if [ -z "$EMAIL" ]; then
+            echo "::error::No email in payload or inputs"
+            exit 1
+          fi
+          echo "email=$EMAIL" >> "$GITHUB_OUTPUT"
+          echo "Target: $EMAIL"
+
+      - name: Send welcome_1
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+        run: |
+          if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
+            python pipeline/generate_email.py --welcome-single "${{ steps.target.outputs.email }}" --dry-run
+          else
+            python pipeline/generate_email.py --welcome-single "${{ steps.target.outputs.email }}"
+          fi
