@@ -295,6 +295,7 @@ def get_due_subscribers() -> list[dict]:
 
     subscribers = supabase_get("daimoku_subscribers", {
         "active": "eq.true",
+        "confirmed": "eq.true",
         "select": "*",
     })
 
@@ -406,6 +407,7 @@ def get_welcome_due_subscribers() -> list[dict]:
     """
     subscribers = supabase_get("daimoku_subscribers", {
         "active": "eq.true",
+        "confirmed": "eq.true",
         "select": "*",
     })
 
@@ -1204,11 +1206,12 @@ def send_welcome_single(email: str, dry_run: bool = False) -> bool:
     rows = supabase_get("daimoku_subscribers", {
         "email": f"eq.{email_norm}",
         "active": "eq.true",
+        "confirmed": "eq.true",
         "select": "*",
         "limit": "1",
     })
     if not rows:
-        print(f"  [SKIP] No active subscriber for {email_norm}")
+        print(f"  [SKIP] No confirmed active subscriber for {email_norm}")
         return False
     sub = rows[0]
 
@@ -1334,8 +1337,8 @@ def main():
         print("\n--- Regular Daily Emails ---")
 
         if force:
-            due = supabase_get("daimoku_subscribers", {"active": "eq.true", "select": "*"})
-            print(f"[FORCE] All active subscribers: {len(due)}")
+            due = supabase_get("daimoku_subscribers", {"active": "eq.true", "confirmed": "eq.true", "select": "*"})
+            print(f"[FORCE] All confirmed active subscribers: {len(due)}")
         else:
             due = get_due_subscribers()
             print(f"Due subscribers: {len(due)}")

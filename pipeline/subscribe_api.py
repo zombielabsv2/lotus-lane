@@ -60,16 +60,20 @@ def get_stats() -> dict:
     all_subs = list_subscribers(active_only=False)
     active = [s for s in all_subs if s.get("active")]
     inactive = [s for s in all_subs if not s.get("active")]
+    # Confirmed = opted in via the double opt-in confirmation link. Pending rows
+    # have not clicked the confirm link yet and do NOT receive emails.
+    confirmed_active = [s for s in active if s.get("confirmed")]
+    pending_active = [s for s in active if not s.get("confirmed")]
 
-    # Frequency breakdown
+    # Frequency breakdown (confirmed active only — these are who actually get emails)
     freq_counts = {}
-    for s in active:
+    for s in confirmed_active:
         freq = s.get("frequency", "weekly")
         freq_counts[freq] = freq_counts.get(freq, 0) + 1
 
-    # Challenge breakdown
+    # Challenge breakdown (confirmed active only)
     challenge_counts = {}
-    for s in active:
+    for s in confirmed_active:
         for c in s.get("challenges", []):
             challenge_counts[c] = challenge_counts.get(c, 0) + 1
 
@@ -77,6 +81,8 @@ def get_stats() -> dict:
         "total": len(all_subs),
         "active": len(active),
         "inactive": len(inactive),
+        "confirmed": len(confirmed_active),
+        "pending_confirmation": len(pending_active),
         "by_frequency": freq_counts,
         "by_challenge": dict(sorted(challenge_counts.items(), key=lambda x: -x[1])),
     }
@@ -170,6 +176,7 @@ def get_welcome_sequence_progress() -> dict:
     """
     subscribers = _supabase_get("daimoku_subscribers", {
         "active": "eq.true",
+        "confirmed": "eq.true",
         "select": "id",
     })
 
@@ -237,8 +244,10 @@ def dashboard():
     print()
     print("  SUBSCRIBERS")
     print("  " + "-" * 40)
-    print(f"    Daimoku Daily (active):  {stats['active']}")
-    print(f"    Daimoku Daily (inactive): {stats['inactive']}")
+    print(f"    Daimoku Daily (confirmed):     {stats['confirmed']}")
+    print(f"    Daimoku Daily (pending confirm): {stats['pending_confirmation']}")
+    print(f"    Daimoku Daily (active total):   {stats['active']}")
+    print(f"    Daimoku Daily (inactive):        {stats['inactive']}")
     if content_count is not None:
         print(f"    Content subscribers:      {content_count}")
     else:

@@ -505,6 +505,16 @@
           </div>
         </div>
 
+        <!-- Cloudflare Turnstile (invisible bot check) -->
+        <div class="form-group" style="display:flex;justify-content:center;">
+          <div class="cf-turnstile"
+               data-sitekey="0x4AAAAAAC_83pyMUMU6aGiw"
+               data-callback="onTurnstileSuccess"
+               data-error-callback="onTurnstileError"
+               data-expired-callback="onTurnstileExpired"
+               data-theme="light"></div>
+        </div>
+
         <button type="submit" class="submit-btn" id="submitBtn">Start receiving wisdom</button>
 
         <div class="form-message" id="formMessage"></div>
@@ -512,9 +522,10 @@
 
       <!-- Success view (hidden by default) -->
       <div class="success-view" id="successView">
-        <div class="icon">&#x2728;</div>
-        <h3>You're in, <span id="successName">friend</span>.</h3>
-        <p>Your first email is on its way. Each message draws from centuries of wisdom about the exact struggles you're facing - personalized to what you're going through.</p>
+        <div class="icon">&#x1F4E7;</div>
+        <h3>Almost there, <span id="successName">friend</span>.</h3>
+        <p>We just sent a confirmation email to <strong id="successEmail"></strong>.</p>
+        <p style="margin-top: 0.8rem;">Click the link inside to activate your subscription. (Check spam / promotions if you don't see it in a minute.)</p>
         <p style="margin-top: 1rem; font-size: 0.85rem; color: #999;">
           "Winter always turns to spring."<br>
           - From a 13th-century letter
@@ -555,10 +566,18 @@
   <script data-goatcounter="https://zombielabs.goatcounter.com/count"
           async src="//gc.zgo.at/count.js"></script>
 
+  <!-- Cloudflare Turnstile -->
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
   <script>
-    // Supabase config (publishable/anon key only - safe for frontend)
-    const SUPABASE_URL = 'https://ejvavmpieilvigjktugh.supabase.co';
-    const SUPABASE_ANON_KEY = 'sb_publishable_mRBRRhLpQCK2_GOO_XUwsg_vcCNt51K';
+    // Signup gateway — Supabase Edge Function (verifies Turnstile + disposable
+    // domains, then inserts a pending row and sends a confirmation email)
+    const SUBSCRIBE_ENDPOINT = 'https://ejvavmpieilvigjktugh.supabase.co/functions/v1/subscribe-daimoku';
+
+    let turnstileToken = null;
+    window.onTurnstileSuccess = (token) => { turnstileToken = token; };
+    window.onTurnstileError = () => { turnstileToken = null; };
+    window.onTurnstileExpired = () => { turnstileToken = null; };
 
     // Enforce 1-3 challenge limit
     const checkboxes = document.querySelectorAll('input[name="challenges"]');
@@ -599,65 +618,64 @@
         return;
       }
 
+      if (!turnstileToken) {
+        msg.textContent = 'Please complete the bot check above and try again.';
+        msg.className = 'form-message error';
+        return;
+      }
+
       btn.disabled = true;
-      btn.textContent = 'Signing you up...';
+      btn.textContent = 'Sending confirmation email...';
 
       try {
-        const response = await fetch(`${SUPABASE_URL}/rest/v1/daimoku_subscribers`, {
+        const response = await fetch(SUBSCRIBE_ENDPOINT, {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'apikey': SUPABASE_ANON_KEY,
-            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-            'Prefer': 'return=minimal'
-          },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            email: email,
-            name: name,
-            challenges: challenges,
-            situation_text: situation || null,
-            frequency: frequency
+            turnstileToken,
+            email,
+            name,
+            situation: situation || null,
+            frequency,
+            challenges
           })
         });
 
-        if (response.ok || response.status === 201) {
-          // Success - show success view
+        const data = await response.json().catch(() => ({}));
+
+        if (response.ok) {
           document.getElementById('subscribeForm').style.display = 'none';
           document.getElementById('successName').textContent = name;
+          document.getElementById('successEmail').textContent = email;
           document.getElementById('successView').style.display = 'block';
-
-          // Scroll to success message
           document.getElementById('successView').scrollIntoView({ behavior: 'smooth' });
-
-          // Track signup in GoatCounter
           if (window.goatcounter && window.goatcounter.count) {
             window.goatcounter.count({
-              path: '/subscribe/success',
-              title: 'Daily Lotus Signup',
+              path: '/subscribe/pending-confirmation',
+              title: 'Daily Lotus Pending Confirmation',
               event: true
             });
           }
-
-        } else if (response.status === 409) {
-          // Duplicate email
-          msg.textContent = 'This email is already subscribed! Check your inbox.';
-          msg.className = 'form-message error';
-          btn.disabled = false;
-          btn.textContent = 'Start receiving wisdom';
-        } else {
-          const errorData = await response.text();
-          console.error('Supabase error:', response.status, errorData);
-
-          // Check for unique constraint violation in error body
-          if (errorData.includes('duplicate') || errorData.includes('unique')) {
-            msg.textContent = 'This email is already subscribed! Check your inbox.';
-          } else {
-            msg.textContent = 'Something went wrong. Please try again.';
-          }
-          msg.className = 'form-message error';
-          btn.disabled = false;
-          btn.textContent = 'Start receiving wisdom';
+          return;
         }
+
+        // Error path — map known server codes to friendly copy
+        const code = data.error || '';
+        const friendly = {
+          already_subscribed: 'This email is already subscribed and confirmed.',
+          disposable_email_not_allowed: 'Please use a permanent email address.',
+          bot_check_failed: 'Bot check failed. Please refresh and try again.',
+          turnstile_required: 'Please complete the bot check and try again.',
+          invalid_email: 'That email doesn\u2019t look right — please check it.',
+          pick_at_least_one_challenge: 'Please pick at least one challenge.',
+        }[code] || 'Something went wrong. Please try again.';
+        msg.textContent = friendly;
+        msg.className = 'form-message error';
+        btn.disabled = false;
+        btn.textContent = 'Start receiving wisdom';
+        // Reset Turnstile so the user gets a fresh token on retry
+        if (window.turnstile) { window.turnstile.reset(); }
+        turnstileToken = null;
       } catch (err) {
         console.error('Network error:', err);
         msg.textContent = 'Network error. Please check your connection and try again.';
