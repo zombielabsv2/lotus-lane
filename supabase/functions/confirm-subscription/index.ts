@@ -52,9 +52,10 @@ Deno.serve(async (req: Request) => {
   const token = String(body.token ?? "").trim();
   if (!isUuid(token)) return json(400, { error: "invalid_token" });
 
-  // Look up by token
+  // Look up by token — include challenges so the confirm page can deep-link
+  // the CTA to the affliction article matching the user's top challenge.
   const lookupResp = await fetch(
-    `${SUPABASE_URL}/rest/v1/daimoku_subscribers?confirmation_token=eq.${token}&select=id,name,email,confirmed`,
+    `${SUPABASE_URL}/rest/v1/daimoku_subscribers?confirmation_token=eq.${token}&select=id,name,email,confirmed,challenges`,
     { headers: { apikey: SERVICE_KEY, Authorization: `Bearer ${SERVICE_KEY}` } },
   );
   if (!lookupResp.ok) {
@@ -68,7 +69,12 @@ Deno.serve(async (req: Request) => {
 
   const row = rows[0];
   if (row.confirmed) {
-    return json(200, { ok: true, status: "already_confirmed", name: row.name ?? "" });
+    return json(200, {
+      ok: true,
+      status: "already_confirmed",
+      name: row.name ?? "",
+      challenges: row.challenges ?? [],
+    });
   }
 
   // Flip confirmed=TRUE + null the token so the link can't be reused.
@@ -94,5 +100,10 @@ Deno.serve(async (req: Request) => {
     return json(500, { error: "db_error" });
   }
 
-  return json(200, { ok: true, status: "confirmed", name: row.name ?? "" });
+  return json(200, {
+    ok: true,
+    status: "confirmed",
+    name: row.name ?? "",
+    challenges: row.challenges ?? [],
+  });
 });
