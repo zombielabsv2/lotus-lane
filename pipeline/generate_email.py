@@ -89,6 +89,67 @@ CHALLENGE_KEYWORDS = {
         "winter", "spring", "obstacle", "struggle", "victory",
         "determination", "challenge", "hardship", "advance", "continue",
     ],
+    # --- Apr 2026: narrow buckets 1:1 with /wisdom/ articles -----------------
+    "burnout": [
+        "burnout", "exhausted", "depleted", "hustle", "running on empty",
+        "work", "tired", "rest", "recover", "breath",
+    ],
+    "toxic-workplace": [
+        "toxic", "hostile", "boss", "coworker", "survive", "difficult people",
+        "workplace", "bully", "wisdom", "courage",
+    ],
+    "sidelined": [
+        "sidelined", "invisible", "unseen", "overlooked", "forgotten",
+        "ignored", "passed over", "meeting", "dignity", "presence",
+    ],
+    "imposter": [
+        "doubt", "fraud", "impostor", "worthy", "belong", "confidence",
+        "buddha nature", "capable", "trust", "self",
+    ],
+    "relationship-conflict": [
+        "relationship", "partner", "conflict", "falling apart", "distance",
+        "strangers", "love", "heart", "understanding", "bond",
+    ],
+    "divorce": [
+        "divorce", "marriage", "separation", "ending", "ended", "parting",
+        "unraveling", "loss", "life and death", "impermanence",
+    ],
+    "parenting": [
+        "parent", "child", "children", "mother", "father", "raising",
+        "family", "exhausted parent", "home", "responsibility",
+    ],
+    "caregiving": [
+        "caregiver", "caring for", "aging", "parent", "disabled", "sick",
+        "tend", "burden", "compassion", "patience",
+    ],
+    "forgiveness": [
+        "forgive", "forgiveness", "let go", "wounded", "hurt", "resentment",
+        "grudge", "compassion", "heart",
+    ],
+    "money": [
+        "money", "wealth", "treasure", "poverty", "prosperity", "debt",
+        "bills", "financial", "livelihood", "abundance",
+    ],
+    "chronic-illness": [
+        "illness", "chronic", "body", "pain", "diagnosis", "suffering",
+        "recovery", "life force", "vitality", "healing",
+    ],
+    "depression": [
+        "depression", "fog", "heavy", "dark", "bed", "hopeless",
+        "mental", "life force", "hope", "winter",
+    ],
+    "anxiety": [
+        "anxiety", "worry", "mind", "sleep", "3am", "overthinking",
+        "panic", "fear", "calm", "courage",
+    ],
+    "loneliness": [
+        "lonely", "alone", "isolation", "disconnected", "friendship",
+        "connection", "heart", "together", "presence",
+    ],
+    "starting-over": [
+        "start over", "begin again", "reset", "new chapter", "fresh",
+        "rebuild", "courage", "persevere", "winter", "spring",
+    ],
 }
 
 # ---------------------------------------------------------------------------
@@ -105,6 +166,7 @@ IKEDA_QUOTES_PATH = Path(__file__).parent.parent / "ikeda" / "quotes.json"
 # ---------------------------------------------------------------------------
 
 CHALLENGE_THEME_MAP = {
+    # Legacy broad keys (retired from signup Apr 2026, still on existing rows)
     "career": ["action", "victory"],
     "health": ["health", "perseverance"],
     "relationships": ["compassion", "friendship"],
@@ -113,9 +175,26 @@ CHALLENGE_THEME_MAP = {
     "self-doubt": ["courage", "human-revolution"],
     "grief": ["life-and-death", "hope"],
     "perseverance": ["perseverance", "victory"],
+    # Apr 2026: narrow buckets
+    "burnout": ["perseverance", "health"],
+    "toxic-workplace": ["courage", "wisdom"],
+    "sidelined": ["courage", "human-revolution"],
+    "imposter": ["courage", "human-revolution"],
+    "relationship-conflict": ["compassion", "dialogue"],
+    "divorce": ["life-and-death", "hope"],
+    "parenting": ["compassion", "education"],
+    "caregiving": ["compassion", "perseverance"],
+    "forgiveness": ["compassion", "wisdom"],
+    "money": ["perseverance", "action"],
+    "chronic-illness": ["health", "life-and-death"],
+    "depression": ["health", "hope"],
+    "anxiety": ["courage", "hope"],
+    "loneliness": ["friendship", "compassion"],
+    "starting-over": ["perseverance", "courage"],
 }
 
 CHALLENGE_LABELS = {
+    # Legacy broad keys (retired from signup Apr 2026, still on existing rows)
     "career": "career and work",
     "health": "health",
     "relationships": "relationships",
@@ -124,6 +203,42 @@ CHALLENGE_LABELS = {
     "self-doubt": "self-doubt",
     "grief": "grief and loss",
     "perseverance": "perseverance",
+    # Apr 2026: narrow buckets
+    "burnout": "burning out at work",
+    "toxic-workplace": "a toxic workplace",
+    "sidelined": "feeling invisible at work",
+    "imposter": "feeling like a fraud",
+    "relationship-conflict": "a relationship falling apart",
+    "divorce": "a marriage ending",
+    "parenting": "parenting that is breaking you",
+    "caregiving": "caring for someone who can't care for themselves",
+    "forgiveness": "the struggle to forgive",
+    "money": "money worries",
+    "chronic-illness": "a body that is failing you",
+    "depression": "depression that won't lift",
+    "anxiety": "a mind that won't stop",
+    "loneliness": "loneliness even in a crowd",
+    "starting-over": "starting over",
+}
+
+# When a narrow-bucket subscriber hits the welcome-email step 2 (chanting tips),
+# fall back to the closest legacy bucket so the tip text remains relevant.
+LEGACY_CHANTING_FALLBACK = {
+    "burnout": "career",
+    "toxic-workplace": "career",
+    "sidelined": "career",
+    "imposter": "self-doubt",
+    "relationship-conflict": "relationships",
+    "divorce": "relationships",
+    "parenting": "family",
+    "caregiving": "family",
+    "forgiveness": "relationships",
+    "money": "finances",
+    "chronic-illness": "health",
+    "depression": "health",
+    "anxiety": "self-doubt",
+    "loneliness": "relationships",
+    "starting-over": "perseverance",
 }
 
 FREQUENCY_LABELS = {
@@ -684,7 +799,8 @@ def _build_welcome_2(subscriber: dict) -> dict:
         ),
     }
 
-    tip = chanting_tips.get(primary_challenge, chanting_tips["perseverance"])
+    tip_key = LEGACY_CHANTING_FALLBACK.get(primary_challenge, primary_challenge)
+    tip = chanting_tips.get(tip_key, chanting_tips["perseverance"])
 
     subject = f"{name}, the heart of practice"
 
@@ -877,6 +993,7 @@ def generate_email_content(subscriber: dict, challenge: str, passages: list[dict
     passages_block = "\n\n---\n\n".join(passage_texts)
 
     challenge_labels = {
+        # Legacy broad keys
         "career": "career and work struggles",
         "health": "health challenges",
         "relationships": "relationship difficulties",
@@ -885,6 +1002,22 @@ def generate_email_content(subscriber: dict, challenge: str, passages: list[dict
         "self-doubt": "self-doubt and lack of confidence",
         "grief": "grief and loss",
         "perseverance": "feeling like giving up",
+        # Narrow buckets (Apr 2026)
+        "burnout": "burnout at work",
+        "toxic-workplace": "surviving a toxic workplace",
+        "sidelined": "feeling invisible and overlooked at work",
+        "imposter": "feeling like a fraud, like they don't belong",
+        "relationship-conflict": "a relationship that is falling apart",
+        "divorce": "a marriage that is ending",
+        "parenting": "parenting that is breaking them",
+        "caregiving": "caring for someone who cannot care for themselves",
+        "forgiveness": "the struggle to forgive someone who hurt them",
+        "money": "money worries and financial stress",
+        "chronic-illness": "living with a body that is failing them",
+        "depression": "depression that will not lift",
+        "anxiety": "anxiety and a mind that will not stop, especially at night",
+        "loneliness": "loneliness even in a crowd",
+        "starting-over": "starting over after a life change",
     }
     challenge_desc = challenge_labels.get(challenge, challenge)
 

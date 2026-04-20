@@ -72,17 +72,26 @@
   <script>
     const CONFIRM_ENDPOINT = 'https://ejvavmpieilvigjktugh.supabase.co/functions/v1/confirm-subscription';
 
-    // Challenge -> wisdom page mapping. Keys must match VALID_CHALLENGES in the
-    // subscribe edge function; slugs must match files in /wisdom/.
+    // Challenge -> wisdom page mapping. 1:1 with the signup buckets in
+    // subscribe.html + VALID_CHALLENGES in the subscribe edge fn. Slugs must
+    // match files in /wisdom/.
     const CHALLENGE_PAGES = {
-      'career':        { slug: 'burnout-recovery',             label: 'Burnout Recovery' },
-      'health':        { slug: 'depression-fog',               label: 'Depression Fog' },
-      'relationships': { slug: 'relationship-falling-apart',   label: 'When a Relationship Falls Apart' },
-      'family':        { slug: 'how-to-forgive',               label: 'How to Forgive' },
-      'finances':      { slug: 'financial-anxiety',            label: 'Financial Anxiety' },
-      'self-doubt':    { slug: 'overcoming-imposter-syndrome', label: 'Overcoming Imposter Syndrome' },
-      'grief':         { slug: 'when-grief-wont-stop',         label: "When Grief Won\u2019t Stop" },
-      'perseverance':  { slug: 'starting-over',                label: 'Starting Over' }
+      'burnout':               { slug: 'burnout-recovery',             label: 'Burnout Recovery' },
+      'toxic-workplace':       { slug: 'toxic-workplace-survival',     label: 'Surviving a Toxic Workplace' },
+      'sidelined':             { slug: 'sidelined-at-work',            label: 'Invisible at Work' },
+      'imposter':              { slug: 'overcoming-imposter-syndrome', label: 'Overcoming Imposter Syndrome' },
+      'relationship-conflict': { slug: 'relationship-falling-apart',   label: 'When a Relationship Falls Apart' },
+      'divorce':               { slug: 'divorce',                      label: 'When a Marriage Ends' },
+      'parenting':             { slug: 'parenting-is-breaking-me',     label: 'When Parenting Feels Impossible' },
+      'caregiving':            { slug: 'caregiver-burden',             label: 'Caring for Someone Who Can\u2019t' },
+      'forgiveness':           { slug: 'how-to-forgive',               label: 'How to Forgive' },
+      'money':                 { slug: 'financial-anxiety',            label: 'Financial Anxiety' },
+      'chronic-illness':       { slug: 'chronic-illness',              label: 'When Your Body Is Failing You' },
+      'depression':            { slug: 'depression-fog',               label: 'Depression Fog' },
+      'anxiety':               { slug: 'anxiety-insomnia',             label: 'The 3am Mind' },
+      'grief':                 { slug: 'when-grief-wont-stop',         label: "When Grief Won\u2019t Stop" },
+      'loneliness':            { slug: 'loneliness-despite-everything', label: 'Lonely Even in a Crowd' },
+      'starting-over':         { slug: 'starting-over',                label: 'Starting Over' }
     };
 
     function personalizeCtas(challenges) {

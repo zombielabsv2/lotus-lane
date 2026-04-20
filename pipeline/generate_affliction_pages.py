@@ -182,6 +182,12 @@ def find_relevant_quotes(ikeda_themes, categories):
         "anger": ["courage", "wisdom", "dialogue"],
         "loneliness": ["friendship", "compassion", "hope"],
         "envy": ["happiness", "human-revolution", "wisdom"],
+        "chronic-illness": ["health", "life-and-death", "perseverance"],
+        "caregiving": ["compassion", "perseverance", "gratitude"],
+        "anxiety": ["courage", "hope", "wisdom"],
+        "divorce": ["life-and-death", "human-revolution", "hope"],
+        "workplace-politics": ["courage", "wisdom", "human-revolution"],
+        "rejection": ["courage", "human-revolution", "hope"],
     }
 
     theme_ids = set()

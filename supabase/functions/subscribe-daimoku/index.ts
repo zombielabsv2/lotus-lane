@@ -15,9 +15,18 @@ import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 const CONFIRM_URL_BASE = "https://thelotuslane.in/confirm.html";
 const MAX_CHALLENGES = 3;
 const VALID_FREQUENCIES = new Set(["daily", "thrice_weekly", "weekly"]);
+// Signup bucket keys — kept narrow 1:1 with a /wisdom/ article so the confirm
+// CTA and welcome-email routing never show the wrong page. Legacy broad keys
+// (career/health/relationships/family/finances/self-doubt/perseverance) were
+// retired from signup Apr 2026; existing subscribers still carry them and the
+// email pipeline resolves them via fallback maps.
 const VALID_CHALLENGES = new Set([
-  "career", "health", "relationships", "family",
-  "finances", "self-doubt", "grief", "perseverance",
+  "burnout", "toxic-workplace", "sidelined", "imposter",
+  "relationship-conflict", "divorce",
+  "parenting", "caregiving", "forgiveness",
+  "money",
+  "chronic-illness", "depression", "anxiety",
+  "grief", "loneliness", "starting-over",
 ]);
 
 // Disposable / throwaway email domains. Not exhaustive — just the common ones.

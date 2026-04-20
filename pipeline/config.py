@@ -207,6 +207,36 @@ AFFLICTION_PAGES = {
         "You've given everything and there's nothing left. What to do when hustle culture breaks you.",
         ["work-stress", "health"],
     ),
+    "chronic-illness": (
+        "When Your Body Is Failing You",
+        "A diagnosis, a flare-up, a body that won't cooperate. Wisdom for living alongside illness without losing yourself.",
+        ["chronic-illness", "health"],
+    ),
+    "caregiver-burden": (
+        "Caring for Someone Who Can't Care for Themselves",
+        "Aging parents, a disabled child, a sick partner — the quiet exhaustion of being the one who holds it together. You are not invisible.",
+        ["caregiving", "family", "health"],
+    ),
+    "anxiety-insomnia": (
+        "The 3am Mind That Won't Stop",
+        "Your body is tired but your mind won't let you sleep. What to do when anxiety runs a loop you can't escape.",
+        ["anxiety", "health"],
+    ),
+    "divorce": (
+        "When a Marriage Ends",
+        "The life you built is ending. Grief, shame, and starting over all at once. Wisdom for the hardest unraveling.",
+        ["divorce", "relationships", "grief-loss"],
+    ),
+    "sidelined-at-work": (
+        "Invisible at Work",
+        "You're still on the team but no longer in the room. The quiet pain of being talked around. How to find your footing again.",
+        ["workplace-politics", "work-stress", "self-doubt"],
+    ),
+    "rejection": (
+        "After Being Rejected",
+        "The job, the relationship, the friend group. Rejection lands in the body. Wisdom for standing back up without armoring up.",
+        ["rejection", "self-doubt", "relationships"],
+    ),
 }
 
 # Art style prompt prefix (for consistent visual style)
