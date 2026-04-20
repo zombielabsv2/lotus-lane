@@ -1090,6 +1090,30 @@ def process_writing(writing, all_writings, force=False):
     }
 
 
+def _index_entry_from_cache_file(cache_file):
+    """Load one cache JSON, return the 5-field index entry, or None on failure.
+
+    Streams: reads the file, extracts only what the index needs, and drops the
+    full object so a growing cache can't pile up in RAM.
+    """
+    try:
+        with open(cache_file, "r", encoding="utf-8") as f:
+            cached = json.load(f)
+    except Exception as e:
+        print(f"  [WARN] skipping {cache_file.name}: {e}")
+        return None
+    analysis = cached.get("analysis") or {}
+    snippet_src = analysis.get("core_message", "") or ""
+    snippet = snippet_src[:150].rsplit(" ", 1)[0] + "..." if snippet_src else ""
+    return {
+        "slug": cached.get("slug"),
+        "title": cached.get("title"),
+        "collection": cached.get("collection"),
+        "themes": analysis.get("related_themes", []),
+        "snippet": snippet,
+    }
+
+
 def main():
     parser = argparse.ArgumentParser(description="Generate Gosho Decoder static pages")
     parser.add_argument("--limit", type=int, default=50, help="Number of writings to process (default: 50)")
@@ -1110,20 +1134,12 @@ def main():
     all_writings = find_top_writings(chunks, limit=args.limit)
 
     if args.index_only:
-        # Rebuild index from existing cache files
+        # Rebuild index from existing cache files — stream to keep RAM flat
+        # regardless of cache size. Each cached JSON is loaded, its 5 index
+        # fields extracted, and the full object discarded before moving on.
         print("Rebuilding index from cache...")
-        writings_data = []
-        for cache_file in sorted(CACHE_DIR.glob("*.json")):
-            with open(cache_file, "r", encoding="utf-8") as f:
-                cached = json.load(f)
-            analysis = cached["analysis"]
-            writings_data.append({
-                "slug": cached["slug"],
-                "title": cached["title"],
-                "collection": cached["collection"],
-                "themes": analysis.get("related_themes", []),
-                "snippet": analysis.get("core_message", "")[:150].rsplit(" ", 1)[0] + "...",
-            })
+        writings_data = [_index_entry_from_cache_file(cf) for cf in sorted(CACHE_DIR.glob("*.json"))]
+        writings_data = [w for w in writings_data if w is not None]
         index_html = generate_index_html(writings_data)
         with open(DECODER_DIR / "index.html", "w", encoding="utf-8") as f:
             f.write(index_html)
@@ -1167,20 +1183,14 @@ def main():
             traceback.print_exc()
             continue
 
-    # Also load any other cached writings not in current batch (for index completeness)
+    # Also load any other cached writings not in current batch (for index completeness).
+    # Stream one-at-a-time and discard the full JSON after extracting the 5 index fields.
     cached_slugs = {w["slug"] for w in writings_data}
     for cache_file in sorted(CACHE_DIR.glob("*.json")):
-        with open(cache_file, "r", encoding="utf-8") as f:
-            cached = json.load(f)
-        if cached["slug"] not in cached_slugs:
-            analysis = cached["analysis"]
-            writings_data.append({
-                "slug": cached["slug"],
-                "title": cached["title"],
-                "collection": cached["collection"],
-                "themes": analysis.get("related_themes", []),
-                "snippet": analysis.get("core_message", "")[:150].rsplit(" ", 1)[0] + "...",
-            })
+        entry = _index_entry_from_cache_file(cache_file)
+        if entry and entry["slug"] not in cached_slugs:
+            writings_data.append(entry)
+            cached_slugs.add(entry["slug"])
 
     # Generate index
     print(f"\nGenerating index page with {len(writings_data)} writings...")
