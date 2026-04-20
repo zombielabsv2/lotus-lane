@@ -7,6 +7,7 @@ Triggered after each strip generation in the GitHub Actions pipeline.
 import json
 import os
 import base64
+import time
 from pathlib import Path
 
 import httpx
@@ -179,11 +180,15 @@ def get_content_subscribers():
 
 
 def send_content_email(subscriber_email, strip):
-    """Send new content notification to a subscriber via Resend."""
+    """Send new content notification to a subscriber via Resend. Returns True on success."""
     if not RESEND_API_KEY:
-        return
+        return False
 
-    yt_link = "https://www.youtube.com/@thelotuslane_ND"
+    youtube_id = strip.get("youtube_id") or ""
+    if youtube_id:
+        yt_link = f"https://youtube.com/shorts/{youtube_id}"
+    else:
+        yt_link = "https://www.youtube.com/@thelotuslane_ND"
     site_link = "https://thelotuslane.in/"
 
     html = f"""
@@ -236,7 +241,7 @@ def send_content_email(subscriber_email, strip):
             "content": image_b64,
         })
 
-    _send_via_resend(
+    return _send_via_resend(
         subscriber_email,
         f"New Strip: {strip.get('title', '')} — The Lotus Lane",
         html,
@@ -253,10 +258,15 @@ def notify_content_subscribers(strip):
 
     print(f"  [CONTENT] Notifying {len(subscribers)} content subscribers...")
     sent = 0
-    for email in subscribers:
+    for i, email in enumerate(subscribers):
+        # Resend caps at 2 requests/sec — throttle to stay under it.
+        if i > 0:
+            time.sleep(0.6)
         try:
-            send_content_email(email, strip)
-            sent += 1
+            if send_content_email(email, strip):
+                sent += 1
+            else:
+                print(f"  [CONTENT] Send failed for {email}")
         except Exception as e:
             print(f"  [CONTENT] Failed to send to {email}: {e}")
 
