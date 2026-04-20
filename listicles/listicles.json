@@ -406,5 +406,39 @@
         "explanation": "No matter how badly yesterday went, today is a clean reset - a real, practical chance to start differently."
       }
     ]
+  },
+  {
+    "date": "2026-04-20",
+    "title": "Scared to Take the Next Step? 5 Truths About Courage That Will Push You Forward",
+    "theme": "courage",
+    "theme_name": "Courage",
+    "image": "listicles/2026-04-20.png",
+    "items": [
+      {
+        "quote": "Courage is not the absence of fear. Courage is feeling fear, recognizing fear, and still taking action.",
+        "source": "Discussions on Youth",
+        "explanation": "The fear you feel before a hard conversation, a bold move, or a big change is not a sign to stop - it is a sign you are human."
+      },
+      {
+        "quote": "No matter what happens, I will not be defeated. I will not run away. I will not complain. I will not be negative. I will keep advancing.",
+        "source": "The New Human Revolution, Vol. 1",
+        "explanation": "When life piles on all at once, this kind of quiet, stubborn resolve is the most powerful decision you can make each morning."
+      },
+      {
+        "quote": "Be the kind of person who, when your feet hit the floor in the morning, makes the devil say, 'Oh no, they're up!'",
+        "source": "Youth and the Writings of Nichiren Daishonin",
+        "explanation": "Your daily effort - showing up, trying again, refusing to shrink - is far more powerful than any dramatic act of bravery."
+      },
+      {
+        "quote": "The true hero is one who conquers his own anger and hatred.",
+        "source": "For Today and Tomorrow",
+        "explanation": "Real strength is not fighting the people who hurt you - it is refusing to let that hurt turn you into someone you do not want to be."
+      },
+      {
+        "quote": "A great human revolution in just a single individual will help achieve a change in the destiny of a nation and, further, will enable a change in the destiny of all humankind.",
+        "source": "The Human Revolution",
+        "explanation": "When you feel too small to matter, remember that every large shift in history started with one person choosing to change from the inside out."
+      }
+    ]
   }
 ]
