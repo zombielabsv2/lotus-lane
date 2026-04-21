@@ -621,6 +621,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://thelotuslane.in/listicles/2026-04-21.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://thelotuslane.in/listicles/index.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -631,7 +636,22 @@
     <priority>0.85</priority>
   </url>
   <url>
+    <loc>https://thelotuslane.in/wisdom/anxiety-insomnia.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
     <loc>https://thelotuslane.in/wisdom/burnout-recovery.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://thelotuslane.in/wisdom/caregiver-burden.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://thelotuslane.in/wisdom/chronic-illness.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
@@ -647,6 +667,11 @@
   </url>
   <url>
     <loc>https://thelotuslane.in/wisdom/depression-fog.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://thelotuslane.in/wisdom/divorce.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
@@ -686,7 +711,17 @@
     <priority>0.85</priority>
   </url>
   <url>
+    <loc>https://thelotuslane.in/wisdom/rejection.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
     <loc>https://thelotuslane.in/wisdom/relationship-falling-apart.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://thelotuslane.in/wisdom/sidelined-at-work.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
