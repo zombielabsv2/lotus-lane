@@ -136,6 +136,22 @@
 
   <script data-goatcounter="https://zombielabs.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
   <script src="../nav.js" defer></script>
+
+<!-- ga4 -->
+<script>
+  (function() {
+    var mid = 'G-4DM9P70KJ6';
+    if (mid.indexOf('PLACEHOLDER') !== -1) return;
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + mid;
+    document.head.appendChild(s);
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function(){window.dataLayer.push(arguments);};
+    window.gtag('js', new Date());
+    window.gtag('config', mid);
+  })();
+</script>
 </head>
 <body>
   <header>
