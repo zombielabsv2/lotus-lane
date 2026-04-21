@@ -49,10 +49,16 @@ def test_import_subscribe_api():
 
 
 def test_challenge_keywords_coverage():
-    """All 8 subscriber challenge categories have keywords."""
+    """Legacy 8 broad + Apr 2026 narrow buckets all carry keywords."""
     from pipeline.generate_email import CHALLENGE_KEYWORDS
 
-    expected = {"career", "health", "relationships", "family", "finances", "self-doubt", "grief", "perseverance"}
+    legacy = {"career", "health", "relationships", "family", "finances", "self-doubt", "grief", "perseverance"}
+    narrow = {
+        "burnout", "toxic-workplace", "sidelined", "imposter", "relationship-conflict",
+        "divorce", "parenting", "caregiving", "forgiveness", "money",
+        "chronic-illness", "depression", "anxiety", "loneliness", "starting-over",
+    }
+    expected = legacy | narrow
     assert set(CHALLENGE_KEYWORDS.keys()) == expected
 
     for category, keywords in CHALLENGE_KEYWORDS.items():
@@ -191,8 +197,10 @@ def test_import_welcome_functions():
     assert callable(get_welcome_due_subscribers)
     assert callable(process_welcome_subscriber)
     assert len(WELCOME_BUILDERS) == 3
-    assert len(CHALLENGE_THEME_MAP) == 8
-    assert len(CHALLENGE_LABELS) == 8
+    # Legacy 8 broad + Apr 2026 narrow buckets — must stay in lockstep
+    assert len(CHALLENGE_THEME_MAP) == len(CHALLENGE_LABELS)
+    assert set(CHALLENGE_THEME_MAP.keys()) == set(CHALLENGE_LABELS.keys())
+    assert len(CHALLENGE_THEME_MAP) >= 8
     assert len(FREQUENCY_LABELS) == 3
 
 
