@@ -92,6 +92,10 @@ jobs:
         if: ${{ github.event.inputs.dry_run != 'true' }}
         run: python pipeline/generate_affliction_pages.py
 
+      - name: Inject GA4 tag into newly-generated pages
+        if: ${{ github.event.inputs.dry_run != 'true' }}
+        run: python pipeline/patch_ga4.py
+
       - name: Verify data integrity
         if: ${{ github.event.inputs.dry_run != 'true' }}
         run: python pipeline/verify_integrity.py

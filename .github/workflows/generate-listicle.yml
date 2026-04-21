@@ -45,6 +45,9 @@ jobs:
       - name: Regenerate sitemap
         run: python pipeline/generate_pages.py
 
+      - name: Inject GA4 tag into newly-generated pages
+        run: python pipeline/patch_ga4.py
+
       - name: Commit and push
         run: |
           git config user.name "lotus-lane-bot"
