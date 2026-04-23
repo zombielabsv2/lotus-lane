@@ -1,0 +1,29 @@
+name: Test GCS Sync (manual only)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Auth to GCP
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCS_SA_KEY }}
+
+      - name: Set up gcloud
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: List lotus-lane-content bucket
+        run: gcloud storage ls gs://lotus-lane-content/
+
+      - name: Round-trip write test
+        run: |
+          echo "ci-sync-smoke-test $(date -u)" > /tmp/smoke.txt
+          gcloud storage cp /tmp/smoke.txt gs://lotus-lane-content/_ci_smoke.txt
+          gcloud storage cat gs://lotus-lane-content/_ci_smoke.txt
+          gcloud storage rm gs://lotus-lane-content/_ci_smoke.txt
