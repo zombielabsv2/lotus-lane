@@ -4,6 +4,8 @@ __pycache__/
 .DS_Store
 strips/cache/
 strips/*.png
+cards/
+reels/
 .youtube_token.json
 .tumblr_token.json
 .pinterest_token.json
