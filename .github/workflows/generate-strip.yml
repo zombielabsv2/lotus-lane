@@ -195,6 +195,34 @@ jobs:
             git push
           fi
 
+      # --- Sync ephemeral content (reels, strips/cache) to gs://lotus-lane-content ---
+      # Per empire storage doctrine: local is a cache, GCS is source of truth for blobs
+      # that aren't (and shouldn't be) in Git. reels/ and strips/cache/ cost API $ to
+      # regenerate with identical content.
+      - name: Auth to GCP for content sync
+        if: ${{ github.event.inputs.dry_run != 'true' }}
+        id: gcs_auth
+        continue-on-error: true
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCS_SA_KEY }}
+
+      - name: Set up gcloud
+        if: ${{ github.event.inputs.dry_run != 'true' && steps.gcs_auth.outcome == 'success' }}
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Sync content to gs://lotus-lane-content
+        if: ${{ github.event.inputs.dry_run != 'true' && steps.gcs_auth.outcome == 'success' }}
+        continue-on-error: true
+        id: gcs_sync
+        run: |
+          if [ -d reels ] && [ -n "$(ls -A reels 2>/dev/null)" ]; then
+            gcloud storage rsync --recursive reels gs://lotus-lane-content/reels
+          fi
+          if [ -d strips/cache ] && [ -n "$(ls -A strips/cache 2>/dev/null)" ]; then
+            gcloud storage rsync --recursive strips/cache gs://lotus-lane-content/strips_cache
+          fi
+
       - name: Send notifications (WhatsApp reminder + content subscribers)
         if: ${{ github.event.inputs.dry_run != 'true' }}
         continue-on-error: true
@@ -217,6 +245,8 @@ jobs:
           if [ "${{ steps.youtube.outcome }}" == "failure" ]; then FAILURES="$FAILURES- YouTube upload FAILED\n"; fi
           # Pinterest, Tumblr, Instagram checks removed — steps disabled
           if [ "${{ steps.commit_social.outcome }}" == "failure" ]; then FAILURES="$FAILURES- Social ID commit FAILED\n"; fi
+          if [ "${{ steps.gcs_auth.outcome }}" == "failure" ]; then FAILURES="$FAILURES- GCS auth FAILED (content not backed up this run)\n"; fi
+          if [ "${{ steps.gcs_sync.outcome }}" == "failure" ]; then FAILURES="$FAILURES- GCS sync FAILED (reels/cache not backed up this run)\n"; fi
           if [ "${{ steps.notify.outcome }}" == "failure" ]; then FAILURES="$FAILURES- Notifications FAILED\n"; fi
 
           if [ -n "$FAILURES" ]; then
