@@ -68,19 +68,31 @@ def build_status_caption(strip):
     return f"*{title}*\n\n_\"{quote[:100]}{'...' if len(quote) > 100 else ''}\"_\n\n{strip_link}"
 
 
-def _send_via_resend(to_email, subject, html, attachments=None):
-    """Send an email via Resend API."""
+def _send_via_resend(to_email, subject, html, attachments=None, unsubscribe_url=None):
+    """Send an email via Resend API.
+
+    `unsubscribe_url`, if provided, populates the per-recipient
+    List-Unsubscribe header. Callers who have the subscriber's email
+    should pass `build_unsubscribe_url(to_email)` — the default fallback
+    is a catch-all that still renders a valid header but requires the
+    user to manually mail rahul@thelotuslane.in.
+    """
     if not RESEND_API_KEY:
         print("  [NOTIFY] Skipped — RESEND_API_KEY not set")
         return False
 
+    header_value = (
+        f"<{unsubscribe_url}>"
+        if unsubscribe_url
+        else "<mailto:rahul@thelotuslane.in?subject=unsubscribe>"
+    )
     payload = {
         "from": FROM_EMAIL,
         "to": [to_email],
         "subject": subject,
         "html": html,
         "headers": {
-            "List-Unsubscribe": "<mailto:unsubscribe@rxjapps.in>",
+            "List-Unsubscribe": header_value,
             "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
         },
     }
@@ -191,6 +203,13 @@ def send_content_email(subscriber_email, strip):
         yt_link = "https://www.youtube.com/@thelotuslane_ND"
     site_link = "https://thelotuslane.in/"
 
+    try:
+        from pipeline.subscribe_api import build_unsubscribe_url
+        unsubscribe_url = build_unsubscribe_url(subscriber_email)
+    except Exception as exc:
+        print(f"  [NOTIFY] build_unsubscribe_url failed for {subscriber_email}: {exc}")
+        unsubscribe_url = None
+
     html = f"""
     <div style="font-family: -apple-system, sans-serif; max-width: 560px; margin: 0 auto;">
         <div style="text-align:center; padding:1rem 0; border-bottom:2px solid #e8e4de;">
@@ -224,7 +243,7 @@ def send_content_email(subscriber_email, strip):
             <p style="color:#bbb; font-size:0.7rem;">
                 You're receiving this because you subscribed at The Lotus Lane.<br>
                 <a href="{site_link}" style="color:#999;">Visit site</a> &middot;
-                <a href="mailto:unsubscribe@rxjapps.in?subject=unsubscribe&body=Please%20unsubscribe%20{subscriber_email}" style="color:#999;">Unsubscribe</a>
+                <a href="{unsubscribe_url or 'https://thelotuslane.in/unsubscribe.html'}" style="color:#999;">Unsubscribe</a>
             </p>
         </div>
     </div>
@@ -246,6 +265,7 @@ def send_content_email(subscriber_email, strip):
         f"New Strip: {strip.get('title', '')} — The Lotus Lane",
         html,
         attachments=attachments if attachments else None,
+        unsubscribe_url=unsubscribe_url,
     )
 
 

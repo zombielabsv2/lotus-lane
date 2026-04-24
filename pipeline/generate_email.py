@@ -19,6 +19,8 @@ from pathlib import Path
 
 import httpx
 
+from pipeline.subscribe_api import build_unsubscribe_url
+
 # ---------------------------------------------------------------------------
 # Configuration
 # ---------------------------------------------------------------------------
@@ -569,6 +571,17 @@ def get_welcome_due_subscribers() -> list[dict]:
     return due
 
 
+def _safe_unsubscribe_url(subscriber_email: str) -> str:
+    """Return a signed unsubscribe URL or a plain landing page on failure."""
+    if not subscriber_email:
+        return "https://thelotuslane.in/unsubscribe.html"
+    try:
+        return build_unsubscribe_url(subscriber_email)
+    except Exception as exc:
+        print(f"  [WARN] build_unsubscribe_url failed for {subscriber_email}: {exc}")
+        return "https://thelotuslane.in/unsubscribe.html"
+
+
 def _build_welcome_html(subject: str, body_sections: list[dict], subscriber_email: str = "") -> str:
     """
     Build a welcome email HTML using the same template style as regular emails.
@@ -654,7 +667,7 @@ def _build_welcome_html(subject: str, body_sections: list[dict], subscriber_emai
           </p>
           <p style="margin:8px 0 0; font-size:11px; color:#bbb;">
             You received this because you signed up for Daimoku Daily.
-            <br>No longer want these? <a href="mailto:unsubscribe@rxjapps.in?subject=unsubscribe&body=Please%20unsubscribe%20{subscriber_email}" style="color:#999; text-decoration:underline;">Unsubscribe</a>
+            <br>No longer want these? <a href="{_safe_unsubscribe_url(subscriber_email)}" style="color:#999; text-decoration:underline;">Unsubscribe</a>
           </p>
         </td></tr>
 
@@ -1215,7 +1228,7 @@ def build_html_email(data: dict, name: str, subscriber_email: str = "") -> str:
           </p>
           <p style="margin:8px 0 0; font-size:11px; color:#bbb;">
             You received this because you signed up for Daimoku Daily.
-            <br>No longer want these? <a href="mailto:unsubscribe@rxjapps.in?subject=unsubscribe&body=Please%20unsubscribe%20{subscriber_email}" style="color:#999; text-decoration:underline;">Unsubscribe</a>
+            <br>No longer want these? <a href="{_safe_unsubscribe_url(subscriber_email)}" style="color:#999; text-decoration:underline;">Unsubscribe</a>
           </p>
         </td></tr>
 
@@ -1231,11 +1244,13 @@ def build_html_email(data: dict, name: str, subscriber_email: str = "") -> str:
 # ---------------------------------------------------------------------------
 
 def send_email(to_email: str, subject: str, html_body: str) -> bool:
-    """Send an email via Resend API."""
+    """Send an email via Resend API. Builds a per-recipient signed
+    List-Unsubscribe header so Gmail one-click actually unsubscribes."""
     if not RESEND_API_KEY:
         print(f"  [SKIP] RESEND_API_KEY not set — would send to {to_email}")
         return False
 
+    unsubscribe_url = _safe_unsubscribe_url(to_email)
     try:
         resp = httpx.post(
             "https://api.resend.com/emails",
@@ -1246,7 +1261,7 @@ def send_email(to_email: str, subject: str, html_body: str) -> bool:
                 "subject": subject,
                 "html": html_body,
                 "headers": {
-                    "List-Unsubscribe": "<mailto:unsubscribe@rxjapps.in>",
+                    "List-Unsubscribe": f"<{unsubscribe_url}>",
                     "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
                 },
             },

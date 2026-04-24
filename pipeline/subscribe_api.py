@@ -10,6 +10,9 @@ The subscribe form uses direct Supabase REST API calls from frontend JavaScript
 """
 
 import argparse
+import base64
+import hashlib
+import hmac
 import os
 from datetime import datetime, timedelta, timezone
 
@@ -17,6 +20,56 @@ import httpx
 
 SUPABASE_URL = os.environ.get("SUPABASE_URL", "")
 SUPABASE_SERVICE_KEY = os.environ.get("SUPABASE_SERVICE_KEY", "")
+
+UNSUBSCRIBE_HANDLER_PATH = "/functions/v1/unsubscribe-handler"
+UNSUBSCRIBE_SECRET_KEY = "lotus_lane_unsubscribe_hmac"
+
+_unsubscribe_secret_cache: str | None = None
+
+
+def _load_unsubscribe_secret() -> str:
+    """Fetch the HMAC secret from public.pipeline_secrets via PostgREST.
+
+    Cached per-process. Same row is read from the edge function side so
+    signatures match without a separately-managed env var.
+    """
+    global _unsubscribe_secret_cache
+    if _unsubscribe_secret_cache:
+        return _unsubscribe_secret_cache
+    if not SUPABASE_URL or not SUPABASE_SERVICE_KEY:
+        raise RuntimeError(
+            "SUPABASE_URL / SUPABASE_SERVICE_KEY missing — cannot load unsubscribe secret"
+        )
+    resp = httpx.get(
+        f"{SUPABASE_URL}/rest/v1/pipeline_secrets",
+        headers=_headers(),
+        params={"key": f"eq.{UNSUBSCRIBE_SECRET_KEY}", "select": "value"},
+        timeout=15,
+    )
+    resp.raise_for_status()
+    rows = resp.json()
+    if not rows:
+        raise RuntimeError(
+            f"pipeline_secrets row missing for key={UNSUBSCRIBE_SECRET_KEY!r}"
+        )
+    _unsubscribe_secret_cache = str(rows[0]["value"])
+    return _unsubscribe_secret_cache
+
+
+def build_unsubscribe_url(email: str) -> str:
+    """Return a signed one-click unsubscribe URL for `email`.
+
+    Format: <SUPABASE_URL>/functions/v1/unsubscribe-handler?e=<b64>&t=<hex>
+    The edge function verifies the HMAC, flips daimoku_subscribers.active=false,
+    and 302-redirects to https://thelotuslane.in/unsubscribe.html?ok=1.
+    """
+    if not SUPABASE_URL:
+        raise RuntimeError("SUPABASE_URL missing — cannot build unsubscribe URL")
+    norm = email.lower().strip()
+    secret = _load_unsubscribe_secret()
+    e = base64.urlsafe_b64encode(norm.encode("utf-8")).rstrip(b"=").decode("ascii")
+    t = hmac.new(secret.encode("utf-8"), norm.encode("utf-8"), hashlib.sha256).hexdigest()
+    return f"{SUPABASE_URL.rstrip('/')}{UNSUBSCRIBE_HANDLER_PATH}?e={e}&t={t}"
 
 
 def _headers():

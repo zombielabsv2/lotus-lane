@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unsubscribed | The Lotus Lane</title>
+  <meta name="robots" content="noindex">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: #faf9f6; color: #2d2d2d; min-height: 100vh; }
+    main { max-width: 560px; margin: 5rem auto 3rem; padding: 0 1.5rem; text-align: center; }
+    .card { background: #fff; border-radius: 12px; box-shadow: 0 2px 20px rgba(0,0,0,0.06); padding: 3rem 2rem; }
+    .icon { font-size: 3rem; margin-bottom: 1rem; }
+    h2 { font-size: 1.5rem; font-weight: 500; color: #333; margin-bottom: 0.8rem; line-height: 1.3; }
+    p { font-size: 0.95rem; color: #666; line-height: 1.6; margin-bottom: 0.8rem; }
+    .cta { display: inline-block; margin-top: 1.5rem; padding: 0.75rem 1.8rem; background: #c0392b; color: #fff; text-decoration: none; border-radius: 8px; font-weight: 500; font-size: 0.95rem; }
+    .hint { margin-top: 1.2rem; font-size: 0.85rem; color: #999; }
+    .hint a { color: #c0392b; text-decoration: none; }
+    footer { text-align: center; padding: 1.5rem 1rem; font-size: 0.75rem; color: #bbb; }
+    footer a { color: #c0392b; text-decoration: none; }
+  </style>
+</head>
+<body>
+
+  <main>
+    <div class="card">
+      <div id="success" class="hidden">
+        <div class="icon">&#x1F33F;</div>
+        <h2>You're unsubscribed.</h2>
+        <p>We've removed you from The Lotus Lane. You won't get any more emails from us.</p>
+        <p class="hint">Changed your mind? <a href="/subscribe.html">Resubscribe any time.</a></p>
+        <a href="/" class="cta">Back to the strips</a>
+      </div>
+
+      <div id="default">
+        <div class="icon">&#x270B;</div>
+        <h2>Want to unsubscribe?</h2>
+        <p>Click the <strong>Unsubscribe</strong> link at the bottom of any email from The Lotus Lane, and you'll be removed immediately.</p>
+        <p class="hint">If the link isn't working, email <a href="mailto:rahul@thelotuslane.in?subject=unsubscribe">rahul@thelotuslane.in</a> and we'll take care of it by hand.</p>
+        <a href="/" class="cta">Back to the strips</a>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>A <a href="/">Lotus Lane</a> project &middot; Ancient wisdom for modern struggles</p>
+  </footer>
+
+  <script src="/nav.js" defer></script>
+  <script data-goatcounter="https://zombielabs.goatcounter.com/count"
+          async src="//gc.zgo.at/count.js"></script>
+  <script>
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      if (params.get('ok') === '1') {
+        document.getElementById('success').classList.remove('hidden');
+        document.getElementById('default').classList.add('hidden');
+      }
+    })();
+  </script>
+
+  <style>
+    .hidden { display: none; }
+  </style>
+</body>
+</html>
