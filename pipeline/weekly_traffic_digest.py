@@ -13,6 +13,7 @@ Run:
 Env:
     SUPABASE_URL, SUPABASE_SERVICE_KEY   — subscriber stats
     YOUTUBE_CLIENT_ID, YOUTUBE_CLIENT_SECRET, YOUTUBE_REFRESH_TOKEN — channel + video views
+    GA4_SA_KEY (JSON), GA4_PROPERTY_ID   — sessions, top pages, referrers, devices
     RESEND_API_KEY, NOTIFY_EMAIL         — send
 """
 from __future__ import annotations
@@ -36,6 +37,7 @@ RESEND_API_URL = "https://api.resend.com/emails"
 FROM_EMAIL = "Lotus Lane Bot <notifications@rxjapps.in>"
 YT_TOKEN_URL = "https://oauth2.googleapis.com/token"
 YT_API = "https://www.googleapis.com/youtube/v3"
+GA4_API = "https://analyticsdata.googleapis.com/v1beta"
 
 
 # ---------------------------------------------------------------------------
@@ -186,6 +188,142 @@ def collect_youtube(recent_video_ids: list[str]) -> dict:
 
 
 # ---------------------------------------------------------------------------
+# GA4 — sessions, top pages, top referrers, device mix
+# ---------------------------------------------------------------------------
+
+def _ga4_access_token() -> str | None:
+    raw = os.environ.get("GA4_SA_KEY", "").strip()
+    if not raw:
+        return None
+    try:
+        from google.oauth2 import service_account
+        from google.auth.transport.requests import Request
+        info = json.loads(raw)
+        creds = service_account.Credentials.from_service_account_info(
+            info, scopes=["https://www.googleapis.com/auth/analytics.readonly"]
+        )
+        creds.refresh(Request())
+        return creds.token
+    except Exception as e:
+        print(f"[ga4] auth failed: {type(e).__name__}: {e}", file=sys.stderr)
+        return None
+
+
+def _ga4_run_report(token: str, property_id: str, body: dict) -> dict | None:
+    resp = httpx.post(
+        f"{GA4_API}/properties/{property_id}:runReport",
+        headers={"Authorization": f"Bearer {token}", "Content-Type": "application/json"},
+        json=body,
+        timeout=30,
+    )
+    if resp.status_code >= 400:
+        print(f"[ga4] runReport failed ({resp.status_code}): {resp.text}", file=sys.stderr)
+        return None
+    return resp.json()
+
+
+def _ga4_rows(report: dict | None, dim_count: int = 1) -> list[tuple]:
+    if not report:
+        return []
+    out = []
+    for row in report.get("rows", []) or []:
+        dims = [d.get("value", "") for d in row.get("dimensionValues", [])][:dim_count]
+        metrics = [m.get("value", "") for m in row.get("metricValues", [])]
+        out.append((*dims, *metrics))
+    return out
+
+
+def collect_ga4() -> dict:
+    out = {
+        "available": False,
+        "totals": {},
+        "top_pages": [],
+        "top_referrers": [],
+        "device_mix": [],
+        "country_mix": [],
+        "source_error": None,
+    }
+    prop_id = os.environ.get("GA4_PROPERTY_ID", "").strip()
+    if not prop_id:
+        out["source_error"] = "GA4_PROPERTY_ID env var not set"
+        return out
+
+    token = _ga4_access_token()
+    if not token:
+        out["source_error"] = "GA4 service account auth failed (check GA4_SA_KEY + property grant)"
+        return out
+
+    date_range = [{"startDate": "7daysAgo", "endDate": "yesterday"}]
+
+    # 1. Totals
+    totals = _ga4_run_report(token, prop_id, {
+        "dateRanges": date_range,
+        "metrics": [
+            {"name": "sessions"},
+            {"name": "activeUsers"},
+            {"name": "screenPageViews"},
+            {"name": "engagementRate"},
+            {"name": "averageSessionDuration"},
+        ],
+    })
+    rows = _ga4_rows(totals, dim_count=0)
+    if rows:
+        s, u, pv, er, asd = rows[0]
+        out["totals"] = {
+            "sessions": int(s or 0),
+            "users": int(u or 0),
+            "pageviews": int(pv or 0),
+            "engagement_rate": float(er or 0.0),
+            "avg_session_sec": float(asd or 0.0),
+        }
+        out["available"] = True
+    else:
+        out["source_error"] = "GA4 returned no data (property has no events in last 7d, or auth mis-scoped)"
+        return out
+
+    # 2. Top pages
+    pages = _ga4_run_report(token, prop_id, {
+        "dateRanges": date_range,
+        "dimensions": [{"name": "pagePath"}],
+        "metrics": [{"name": "screenPageViews"}],
+        "orderBys": [{"metric": {"metricName": "screenPageViews"}, "desc": True}],
+        "limit": 10,
+    })
+    out["top_pages"] = [(p, int(v or 0)) for p, v in _ga4_rows(pages)]
+
+    # 3. Top referrers (session source, excluding direct)
+    refs = _ga4_run_report(token, prop_id, {
+        "dateRanges": date_range,
+        "dimensions": [{"name": "sessionSource"}],
+        "metrics": [{"name": "sessions"}],
+        "orderBys": [{"metric": {"metricName": "sessions"}, "desc": True}],
+        "limit": 8,
+    })
+    out["top_referrers"] = [(s, int(v or 0)) for s, v in _ga4_rows(refs)]
+
+    # 4. Device mix
+    dev = _ga4_run_report(token, prop_id, {
+        "dateRanges": date_range,
+        "dimensions": [{"name": "deviceCategory"}],
+        "metrics": [{"name": "sessions"}],
+        "orderBys": [{"metric": {"metricName": "sessions"}, "desc": True}],
+    })
+    out["device_mix"] = [(d, int(v or 0)) for d, v in _ga4_rows(dev)]
+
+    # 5. Top countries
+    ctry = _ga4_run_report(token, prop_id, {
+        "dateRanges": date_range,
+        "dimensions": [{"name": "country"}],
+        "metrics": [{"name": "sessions"}],
+        "orderBys": [{"metric": {"metricName": "sessions"}, "desc": True}],
+        "limit": 5,
+    })
+    out["country_mix"] = [(c, int(v or 0)) for c, v in _ga4_rows(ctry)]
+
+    return out
+
+
+# ---------------------------------------------------------------------------
 # strips.json — publishing signal + top views
 # ---------------------------------------------------------------------------
 
@@ -258,7 +396,78 @@ def _delta(n: int) -> str:
     return f"+{n:,}"
 
 
-def build_html(subs: dict, yt: dict, strips: dict) -> str:
+def _fmt_duration(seconds: float) -> str:
+    s = int(round(seconds or 0))
+    m, s = divmod(s, 60)
+    return f"{m}m {s}s" if m else f"{s}s"
+
+
+def _fmt_pct(frac: float) -> str:
+    return f"{(frac or 0.0) * 100:.1f}%"
+
+
+def _ga4_section(ga4: dict) -> str:
+    if not ga4.get("available"):
+        return f"""
+  <div style="margin-bottom:28px;padding:14px 16px;background:#fff8e1;border-left:3px solid #f5a623;">
+    <div style="font-size:14px;color:#555;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Site Traffic (GA4)</div>
+    <p style="margin:6px 0 0;color:#8a5a00;">Unavailable: {ga4.get('source_error') or 'unknown error'}</p>
+  </div>
+  """
+
+    t = ga4["totals"]
+    totals_html = f"""
+    <table style="width:100%;border-collapse:collapse;margin-top:8px;">
+      <tr><td style="padding:6px 0;color:#555;">Sessions</td><td style="padding:6px 0;text-align:right;font-weight:600;">{_fmt_int(t['sessions'])}</td></tr>
+      <tr><td style="padding:6px 0;color:#555;">Users</td><td style="padding:6px 0;text-align:right;font-weight:600;">{_fmt_int(t['users'])}</td></tr>
+      <tr><td style="padding:6px 0;color:#555;">Pageviews</td><td style="padding:6px 0;text-align:right;font-weight:600;">{_fmt_int(t['pageviews'])}</td></tr>
+      <tr><td style="padding:6px 0;color:#555;">Engagement rate</td><td style="padding:6px 0;text-align:right;font-weight:600;">{_fmt_pct(t['engagement_rate'])}</td></tr>
+      <tr><td style="padding:6px 0;color:#555;">Avg session duration</td><td style="padding:6px 0;text-align:right;font-weight:600;">{_fmt_duration(t['avg_session_sec'])}</td></tr>
+    </table>
+    """
+
+    def _table(title: str, rows: list[tuple], col_label: str) -> str:
+        if not rows:
+            return ""
+        body = ""
+        for label, value in rows:
+            label_html = (label or "(direct / none)").replace("<", "&lt;")[:80]
+            body += f"""
+            <tr>
+              <td style="padding:6px 12px 6px 0;color:#111;font-size:13px;">{label_html}</td>
+              <td style="padding:6px 0;text-align:right;font-weight:600;font-size:13px;">{_fmt_int(value)}</td>
+            </tr>
+            """
+        return f"""
+        <div style="margin-top:16px;">
+          <div style="font-size:12px;color:#999;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px;">{title}</div>
+          <table style="width:100%;border-collapse:collapse;border-top:1px solid #eee;">
+            <thead><tr style="color:#999;font-size:11px;"><th style="padding:4px 0;text-align:left;font-weight:500;">&nbsp;</th><th style="padding:4px 0;text-align:right;font-weight:500;">{col_label}</th></tr></thead>
+            <tbody>{body}</tbody>
+          </table>
+        </div>
+        """
+
+    top_pages = _table("Top pages", ga4["top_pages"], "views")
+    top_refs = _table("Traffic sources", ga4["top_referrers"], "sessions")
+    devices = _table("Device", ga4["device_mix"], "sessions")
+    countries = _table("Top countries", ga4["country_mix"], "sessions")
+
+    return f"""
+  <div style="margin-bottom:28px;">
+    <div style="font-size:14px;color:#999;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">Site Traffic (GA4, last 7 days)</div>
+    {totals_html}
+    {top_pages}
+    {top_refs}
+    <div style="display:flex;gap:16px;">
+      <div style="flex:1;">{devices}</div>
+      <div style="flex:1;">{countries}</div>
+    </div>
+  </div>
+  """
+
+
+def build_html(subs: dict, yt: dict, strips: dict, ga4: dict) -> str:
     today = datetime.now(timezone.utc).strftime("%b %d, %Y")
     week_start = (datetime.now(timezone.utc) - timedelta(days=7)).strftime("%b %d")
     week_end = datetime.now(timezone.utc).strftime("%b %d")
@@ -326,6 +535,8 @@ def build_html(subs: dict, yt: dict, strips: dict) -> str:
         health_flags.append(f"<li>YouTube: {yt['source_error']}</li>")
     if subs.get("source_error"):
         health_flags.append(f"<li>Supabase: {subs['source_error']}</li>")
+    if ga4.get("source_error") and not ga4.get("available"):
+        health_flags.append(f"<li>GA4: {ga4['source_error']}</li>")
     health_html = (
         f"<ul style='margin:8px 0 0 20px;padding:0;color:#c33;'>{''.join(health_flags)}</ul>"
         if health_flags
@@ -368,6 +579,8 @@ def build_html(subs: dict, yt: dict, strips: dict) -> str:
     </table>
   </div>
 
+  {_ga4_section(ga4)}
+
   <div style="margin-bottom:28px;">
     <div style="font-size:14px;color:#999;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">YouTube Channel</div>
     {ch_rows}
@@ -400,8 +613,8 @@ def build_html(subs: dict, yt: dict, strips: dict) -> str:
   </div>
 
   <div style="margin-top:32px;padding-top:16px;border-top:1px solid #eee;font-size:12px;color:#999;line-height:1.6;">
-    <p style="margin:0 0 8px;"><b>Sources wired:</b> Supabase (subscribers), YouTube Data API (channel + video views), strips.json (publishing).</p>
-    <p style="margin:0 0 8px;"><b>Not yet wired:</b> GA4 ({GA4_MEASUREMENT_ID}) — needs service account / Data API. GoatCounter ({GOATCOUNTER_DASHBOARD}) — needs API token. Reply with &quot;wire up GA4&quot; to add.</p>
+    <p style="margin:0 0 8px;"><b>Sources wired:</b> Supabase (subscribers), YouTube Data API (channel + video views), GA4 (site traffic), strips.json (publishing).</p>
+    <p style="margin:0 0 8px;"><b>Not yet wired:</b> GoatCounter ({GOATCOUNTER_DASHBOARD}) — needs API token. Reply with &quot;wire up GoatCounter&quot; to add.</p>
     <p style="margin:0;">Generated {today} UTC. Runs every Monday 8:00 IST.</p>
   </div>
 
@@ -447,8 +660,9 @@ def main() -> None:
     strips_signal = collect_strips_signal()
     yt = collect_youtube(strips_signal["recent_video_ids"])
     subs = collect_subscribers()
+    ga4 = collect_ga4()
 
-    html = build_html(subs, yt, strips_signal)
+    html = build_html(subs, yt, strips_signal, ga4)
 
     today = datetime.now(timezone.utc).strftime("%b %d")
     ch = yt.get("channel") or {}
