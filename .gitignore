@@ -10,3 +10,4 @@ reels/
 .pinterest_token.json
 .instagram_token.json
 client_secret.json
+supabase/.temp/
