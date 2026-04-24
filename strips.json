@@ -998,5 +998,25 @@
     },
     "youtube_views": 0,
     "youtube_views_updated_at": "2026-04-24T05:13:25Z"
+  },
+  {
+    "date": "2026-04-24",
+    "title": "I Haven't Eaten Lunch Away From My Desk in Six Months",
+    "image": "https://zombielabsv2.github.io/lotus-lane-assets/2026-04-24.png",
+    "message": "When work swallows everything, the problem is not laziness — it is forgetting that your life is the point, not the output. One small act of presence, chosen deliberately, is where balance actually starts.",
+    "quote": "Those who work the hardest should also laugh the most, play the most, and find the most joy in being alive.",
+    "source": "Daisaku Ikeda, The New Human Revolution",
+    "tags": [
+      "work-stress",
+      "single-parenting",
+      "burnout"
+    ],
+    "category": "work-stress",
+    "topic": "work-life balance",
+    "characters": [
+      "sudha",
+      "meera",
+      "vikram"
+    ]
   }
 ]
