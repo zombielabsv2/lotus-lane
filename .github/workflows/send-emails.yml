@@ -40,7 +40,8 @@ jobs:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
-        run: python pipeline/generate_email.py --welcome
+        # `python -m` puts repo root on sys.path so `from pipeline.X` works
+        run: python -m pipeline.generate_email --welcome
 
       - name: Send regular Daimoku Daily emails
         env:
@@ -49,4 +50,4 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
           CHUNKS_PATH: nichiren-chatbot/data/processed/chunks.json
-        run: python pipeline/generate_email.py --regular
+        run: python -m pipeline.generate_email --regular
