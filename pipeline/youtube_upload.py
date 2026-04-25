@@ -102,37 +102,95 @@ def load_client_config():
     return config["client_id"], config["client_secret"]
 
 
-def do_auth():
-    """Interactive OAuth2 flow — opens browser, saves refresh token."""
+def do_auth(code=None, redirect_uri=None):
+    """OAuth2 flow — opens browser, captures code via localhost loopback,
+    exchanges for refresh token.
+
+    Google deprecated the OOB flow ('urn:ietf:wg:oauth:2.0:oob') in 2022,
+    so we use the loopback pattern: spin up a one-shot HTTP server on a
+    free port, redirect to it, read the code from the query string. The
+    OAuth client (mykuber-491719) has 'http://localhost' registered, which
+    accepts any port for Desktop App clients.
+
+    Pass `code` + `redirect_uri` to skip the browser flow (e.g. when you've
+    already captured a code manually). Both must come from the same flow.
+    """
     client_id, client_secret = load_client_config()
 
-    # Step 1: Get authorization code via browser
-    auth_params = {
-        "client_id": client_id,
-        "redirect_uri": "urn:ietf:wg:oauth:2.0:oob",
-        "scope": SCOPES,
-        "response_type": "code",
-        "access_type": "offline",
-        "prompt": "consent",
-    }
-    auth_url = f"{AUTH_URL}?{'&'.join(f'{k}={v}' for k, v in auth_params.items())}"
+    if code is None:
+        import http.server
+        import urllib.parse
+        import webbrowser
 
-    print(f"\nOpen this URL in your browser:\n\n{auth_url}\n")
-    print("After authorizing, paste the authorization code below:")
+        captured = {}
 
-    import webbrowser
-    webbrowser.open(auth_url)
+        class _Handler(http.server.BaseHTTPRequestHandler):
+            def do_GET(self):
+                qs = urllib.parse.urlparse(self.path).query
+                params = urllib.parse.parse_qs(qs)
+                captured["code"] = (params.get("code") or [None])[0]
+                captured["error"] = (params.get("error") or [None])[0]
+                self.send_response(200)
+                self.send_header("Content-type", "text/html; charset=utf-8")
+                self.end_headers()
+                if captured["code"]:
+                    self.wfile.write(
+                        b"<h1>Auth received.</h1><p>You can close this tab and return to the terminal.</p>"
+                    )
+                else:
+                    msg = f"<h1>Auth failed: {captured['error']}</h1>".encode()
+                    self.wfile.write(msg)
 
-    code = input("\nAuthorization code: ").strip()
+            def log_message(self, *args, **kwargs):
+                pass  # silence default request logging
 
-    # Step 2: Exchange code for tokens
+        httpd = http.server.HTTPServer(("127.0.0.1", 0), _Handler)
+        port = httpd.server_address[1]
+        redirect_uri = f"http://localhost:{port}"
+
+        auth_params = {
+            "client_id": client_id,
+            "redirect_uri": redirect_uri,
+            "scope": SCOPES,
+            "response_type": "code",
+            "access_type": "offline",
+            "prompt": "consent",
+        }
+        auth_url = f"{AUTH_URL}?{'&'.join(f'{k}={v}' for k, v in auth_params.items())}"
+
+        print(f"\nListening for redirect on {redirect_uri} ...")
+        print(f"Opening browser. If it doesn't open, paste this URL manually:\n\n{auth_url}\n")
+        try:
+            webbrowser.open(auth_url)
+        except Exception:
+            pass
+
+        # Block until the browser hits the loopback once
+        httpd.handle_request()
+        httpd.server_close()
+
+        if captured.get("error") or not captured.get("code"):
+            print(f"\nAuth failed: {captured.get('error') or 'no code received'}")
+            sys.exit(1)
+        code = captured["code"]
+        print(f"Auth code received (len={len(code)}). Exchanging for tokens...")
+    else:
+        code = code.strip()
+        if not redirect_uri:
+            print("ERROR: --code requires --redirect-uri (must match the URI from the auth URL)")
+            sys.exit(1)
+        print(f"Exchanging provided auth code (len={len(code)})...")
+
+    # Step 2: Exchange code for tokens. redirect_uri MUST match the one used in step 1.
     response = httpx.post(TOKEN_URL, data={
         "client_id": client_id,
         "client_secret": client_secret,
         "code": code,
         "grant_type": "authorization_code",
-        "redirect_uri": "urn:ietf:wg:oauth:2.0:oob",
+        "redirect_uri": redirect_uri,
     })
+    if response.status_code >= 400:
+        print(f"Token exchange FAILED ({response.status_code}): {response.text}", file=sys.stderr)
     response.raise_for_status()
     tokens = response.json()
 
@@ -726,10 +784,12 @@ def main():
                         help="Delete old YouTube videos and re-upload with new text (5/day)")
     parser.add_argument("--views", action="store_true",
                         help="Pull YouTube view counts for all uploaded videos")
+    parser.add_argument("--code", help="OAuth authorization code (use with --auth in non-tty shells)")
+    parser.add_argument("--redirect-uri", help="Redirect URI used when generating --code (must match)")
     args = parser.parse_args()
 
     if args.auth:
-        do_auth()
+        do_auth(code=args.code, redirect_uri=args.redirect_uri)
         return
 
     if args.pending:
