@@ -1,0 +1,43 @@
+name: Workflow Verify
+
+# Layer 1 of the empire reliability stack: a fast post-push gate that
+# runs every cron's primary command in dry-run mode. Catches the import-
+# chain / missing-deps / stale-secret classes that bit us on 2026-04-25.
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install runtime deps
+        run: |
+          set -e
+          python -m pip install --upgrade pip
+          if [ -f pipeline/requirements.txt ]; then pip install -r pipeline/requirements.txt; fi
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+      - name: Run verifier
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          if [ -f scripts/verify_workflows.sh ]; then
+            bash scripts/verify_workflows.sh
+          else
+            echo "::warning::no scripts/verify_workflows.sh found; skipping"
+          fi

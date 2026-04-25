@@ -1513,10 +1513,11 @@ def main():
 
     print(f"\n=== Done: {total_sent} sent, {total_fail} failed ===")
 
-    # Empire heartbeat — only on a clean run. Watcher in empire-dashboard
-    # alerts if this cron stops beating, catching "didn't run" + silent
-    # no-op classes that GH Actions failure-emails miss.
-    if total_fail == 0:
+    # Empire heartbeat — only on a clean LIVE run. The post-push verifier
+    # also calls main() in --dry-run; if that updated the heartbeat, a
+    # frequently-pushed repo would mask a broken daily cron because the
+    # row would always look fresh.
+    if total_fail == 0 and not dry_run:
         try:
             from pipeline.empire_heartbeat import beat
             beat("lotus_lane:daimoku_daily", {
