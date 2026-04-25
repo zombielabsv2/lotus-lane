@@ -36,7 +36,44 @@ AUTH_URL = "https://accounts.google.com/o/oauth2/v2/auth"
 TOKEN_URL = "https://oauth2.googleapis.com/token"
 UPLOAD_URL = "https://www.googleapis.com/upload/youtube/v3/videos"
 VIDEOS_API_URL = "https://www.googleapis.com/youtube/v3/videos"
+CHANNELS_API_URL = "https://www.googleapis.com/youtube/v3/channels"
 SCOPES = "https://www.googleapis.com/auth/youtube"
+
+# Channel guard — refresh tokens bound to the wrong Google account silently route
+# uploads to a personal channel. The handle below is The Lotus Lane's public channel
+# (rahul@karibykriti.com → @thelotuslane_ND). Any --auth run that picks a different
+# Google account in the browser will fail this check before uploading.
+# Override only if the canonical channel handle changes.
+EXPECTED_CHANNEL_HANDLE = os.environ.get("YOUTUBE_EXPECTED_CHANNEL_HANDLE", "thelotuslane_ND")
+
+
+def assert_authenticated_channel(access_token):
+    """Fail loudly if the token is bound to a channel other than EXPECTED_CHANNEL_HANDLE.
+
+    Why: on 2026-04-17 a refresh-token rotation under the wrong Google session
+    silently routed three uploads to @zombielab123 (jindal.rahul@gmail.com's default
+    channel). This guard catches the mistake on the next run, not three weeks later.
+    """
+    response = httpx.get(
+        CHANNELS_API_URL,
+        params={"part": "snippet", "mine": "true"},
+        headers={"Authorization": f"Bearer {access_token}"},
+        timeout=30,
+    )
+    response.raise_for_status()
+    items = response.json().get("items", [])
+    if not items:
+        raise RuntimeError("YouTube channels.list returned no channel for this token")
+    snippet = items[0]["snippet"]
+    handle = (snippet.get("customUrl") or "").lstrip("@")
+    if handle.lower() != EXPECTED_CHANNEL_HANDLE.lower():
+        raise RuntimeError(
+            f"YouTube channel mismatch: token authenticates as @{handle} "
+            f"({snippet.get('title')}), expected @{EXPECTED_CHANNEL_HANDLE}. "
+            "Re-run `python pipeline/youtube_upload.py --auth` while signed into "
+            "the correct Google account, then update the YOUTUBE_REFRESH_TOKEN secret."
+        )
+    return items[0]["id"], snippet.get("title", "")
 
 
 def load_client_config():
@@ -99,16 +136,28 @@ def do_auth():
     response.raise_for_status()
     tokens = response.json()
 
+    # Verify the issued token resolves to the expected channel BEFORE saving.
+    # Saving a wrong-account token is what caused the 2026-04-17 misroute.
+    try:
+        channel_id, channel_title = assert_authenticated_channel(tokens["access_token"])
+    except RuntimeError as e:
+        print(f"\nABORT: {e}")
+        print("Token NOT saved. Re-run --auth in a browser session signed into the correct Google account.")
+        sys.exit(1)
+
     # Save refresh token
     token_data = {
         "refresh_token": tokens["refresh_token"],
         "client_id": client_id,
         "client_secret": client_secret,
+        "channel_id": channel_id,
+        "channel_title": channel_title,
     }
     with open(TOKEN_FILE, "w") as f:
         json.dump(token_data, f, indent=2)
 
-    print(f"\nAuth successful! Refresh token saved to {TOKEN_FILE}")
+    print(f"\nAuth successful! Token bound to: {channel_title} (@{EXPECTED_CHANNEL_HANDLE}, id={channel_id})")
+    print(f"Refresh token saved to {TOKEN_FILE}")
     print("You can now upload videos with --date or --latest")
 
 
@@ -141,7 +190,16 @@ def get_access_token():
         # re-run `youtube_upload.py --auth` and update the GitHub secret).
         print(f"  OAuth token refresh FAILED ({response.status_code}): {response.text}", file=sys.stderr)
     response.raise_for_status()
-    return response.json()["access_token"]
+    access_token = response.json()["access_token"]
+
+    # Guard runs once per process — _channel_verified caches the result so we don't
+    # burn quota on every upload in --all / --swap-old loops.
+    if not getattr(get_access_token, "_channel_verified", False):
+        channel_id, channel_title = assert_authenticated_channel(access_token)
+        print(f"  YouTube auth OK — channel: {channel_title} (@{EXPECTED_CHANNEL_HANDLE})")
+        get_access_token._channel_verified = True
+
+    return access_token
 
 
 def get_strip_data(date_str):
