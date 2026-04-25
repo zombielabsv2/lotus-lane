@@ -815,6 +815,19 @@ def main():
         generate(date_str=args.date, forced_topic=args.topic,
                  dry_run=args.dry_run, reassemble=args.reassemble)
 
+    # Empire heartbeat — only for fresh non-dry-run generates. Reassembly
+    # and dry-run paths are zero-API-cost rebuilds, not the daily delivery
+    # the watcher cares about.
+    if not args.dry_run and not args.reassemble and not args.reassemble_all:
+        try:
+            from pipeline.empire_heartbeat import beat
+            beat("lotus_lane:generate_strip", {
+                "date": args.date,
+                "topic": args.topic,
+            })
+        except Exception as e:
+            print(f"  [heartbeat] non-fatal: {e}")
+
 
 if __name__ == "__main__":
     main()
