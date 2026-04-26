@@ -76,9 +76,27 @@ def _send_via_resend(to_email, subject, html, attachments=None, unsubscribe_url=
     should pass `build_unsubscribe_url(to_email)` — the default fallback
     is a catch-all that still renders a valid header but requires the
     user to manually mail rahul@thelotuslane.in.
+
+    Pre-send: lint the html body for fabricated UI references. Empire-wide
+    rule (2026-04-26): outbound copy that names a page/button/setting must
+    map to a real surface in the live site (Lotus Lane is static HTML —
+    the linter discovers <title>/<h1>/<h2>/<h3> + filenames at the project
+    root). Hard-stop on any unverified claim so we never ship a fabricated
+    "Wisdom page" or "Decoder button" to a subscriber.
     """
     if not RESEND_API_KEY:
         print("  [NOTIFY] Skipped — RESEND_API_KEY not set")
+        return False
+
+    from pathlib import Path
+    from pipeline.ui_claim_linter import lint_outbound_copy
+    lint = lint_outbound_copy(html, Path(__file__).resolve().parent.parent)
+    if not lint.ok:
+        print(
+            f"  [NOTIFY] BLOCKED send to {to_email}: "
+            f"unverified UI surfaces in copy: {', '.join(lint.unverified)}. "
+            f"Either add the surface or rewrite the copy."
+        )
         return False
 
     header_value = (
