@@ -58,9 +58,9 @@ jobs:
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
         run: |
           if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
-            python pipeline/generate_email.py --welcome-single "${{ steps.target.outputs.email }}" --dry-run
+            python -m pipeline.generate_email --welcome-single "${{ steps.target.outputs.email }}" --dry-run
           else
-            python pipeline/generate_email.py --welcome-single "${{ steps.target.outputs.email }}"
+            python -m pipeline.generate_email --welcome-single "${{ steps.target.outputs.email }}"
           fi
 
       # Replaces the 6-hourly check-subscribers cron (~120 runs/mo of pure
