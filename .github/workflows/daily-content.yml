@@ -1,0 +1,141 @@
+name: Daily Content + Email
+
+# Consolidated daily workflow (replaces generate-quote-card.yml,
+# generate-listicle.yml, send-emails.yml). Runs once a day at 5:30 UTC
+# (11:00 AM IST) and recovers the per-workflow runner-minute overhead
+# the three separate workflows were paying.
+#
+# Step order (intentional):
+#   1. Quote card (continue-on-error — failure must not block email)
+#   2. Listicle  (continue-on-error — failure must not block email)
+#   3. Sitemap + GA4 (idempotent maintenance, runs every day)
+#   4. Commit content
+#   5. Welcome emails  (LAST — heartbeats lotus_lane:daimoku_daily)
+#   6. Regular emails  (LAST — heartbeats lotus_lane:daimoku_daily)
+#
+# The three scripts share NO data — each reads its own source (theme
+# rotation history for quote card, theme rotation for listicle, Supabase
+# subscribers + nichiren-chatbot/chunks.json for email). Quote/listicle
+# failure is non-fatal: subscribers still get their daily email.
+
+on:
+  schedule:
+    # 5:30 UTC = 11:00 AM IST
+    - cron: '30 5 * * *'
+  workflow_dispatch:
+    inputs:
+      theme:
+        description: 'Force a specific theme (passed to quote card and listicle)'
+        required: false
+        type: string
+      dry_run:
+        description: 'Dry run for email step (skip Resend sends)'
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+jobs:
+  daily:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout lotus-lane
+        uses: actions/checkout@v4
+
+      - name: Checkout nichiren-chatbot (knowledge base for emails)
+        uses: actions/checkout@v4
+        with:
+          repository: zombielabsv2/nichiren-chatbot
+          path: nichiren-chatbot
+          token: ${{ secrets.GH_PAT }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          pip install -r pipeline/requirements.txt
+          playwright install chromium --with-deps
+
+      # ----- Step 1: Quote card -----
+      - name: Generate quote card
+        id: quote_card
+        continue-on-error: true
+        run: |
+          if [ -n "${{ inputs.theme }}" ]; then
+            python pipeline/generate_quote_card.py --theme "${{ inputs.theme }}"
+          else
+            python pipeline/generate_quote_card.py
+          fi
+
+      # ----- Step 2: Listicle -----
+      - name: Generate listicle
+        id: listicle
+        continue-on-error: true
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          if [ -n "${{ inputs.theme }}" ]; then
+            python pipeline/generate_listicle.py --theme "${{ inputs.theme }}"
+          else
+            python pipeline/generate_listicle.py
+          fi
+
+      # ----- Step 3: Sitemap + GA4 (idempotent; safe to run every day) -----
+      - name: Regenerate sitemap
+        continue-on-error: true
+        run: python pipeline/generate_pages.py
+
+      - name: Inject GA4 tag into newly-generated pages
+        continue-on-error: true
+        run: python pipeline/patch_ga4.py
+
+      # ----- Step 4: Commit content -----
+      - name: Commit and push content
+        continue-on-error: true
+        run: |
+          git config user.name "lotus-lane-bot"
+          git config user.email "bot@thelotuslane.in"
+          git add cards/ listicles/ sitemap.xml feed.xml strips/*.html index.html subscribe.html 2>/dev/null || true
+          if git diff --staged --quiet; then
+            echo "No content changes to commit"
+          else
+            git commit -m "daily content: $(date -u +%Y-%m-%d)"
+            git pull --rebase --autostash origin main
+            git push
+          fi
+
+      # ----- Step 5+6: Emails (LAST — heartbeats lotus_lane:daimoku_daily) -----
+      # No continue-on-error: real failures must surface so the heartbeat
+      # watcher catches them. generate_email.py is idempotent (last_sent_at
+      # date check), so a same-day re-run is safe.
+      - name: Send welcome sequence emails
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+        run: |
+          if [ "${{ inputs.dry_run }}" = "true" ]; then
+            python -m pipeline.generate_email --welcome --dry-run
+          else
+            python -m pipeline.generate_email --welcome
+          fi
+
+      - name: Send regular Daimoku Daily emails
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          CHUNKS_PATH: nichiren-chatbot/data/processed/chunks.json
+        run: |
+          if [ "${{ inputs.dry_run }}" = "true" ]; then
+            python -m pipeline.generate_email --regular --dry-run
+          else
+            python -m pipeline.generate_email --regular
+          fi

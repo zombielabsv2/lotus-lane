@@ -1,9 +1,10 @@
 name: Generate Daily Quote Card
 
 on:
-  schedule:
-    # 0:00 AM UTC = 5:30 AM IST — before the morning WhatsApp rush
-    - cron: '0 0 * * *'
+  # Cron disabled 2026-04-27: consolidated into daily-content.yml.
+  # workflow_dispatch retained as a temporary rollback hook.
+  # schedule:
+  #   - cron: '0 0 * * *'
   workflow_dispatch:
     inputs:
       theme:

@@ -1,9 +1,10 @@
 name: Generate Daily Listicle
 
 on:
-  schedule:
-    # 1:00 AM UTC = 6:30 AM IST
-    - cron: '0 1 * * *'
+  # Cron disabled 2026-04-27: consolidated into daily-content.yml.
+  # workflow_dispatch retained as a temporary rollback hook.
+  # schedule:
+  #   - cron: '0 1 * * *'
   workflow_dispatch:
     inputs:
       theme:

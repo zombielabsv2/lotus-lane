@@ -1,9 +1,10 @@
 name: Daimoku Daily — Send Emails
 
 on:
-  schedule:
-    # 5:30 AM UTC = 11:00 AM IST
-    - cron: '30 5 * * *'
+  # Cron disabled 2026-04-27: consolidated into daily-content.yml.
+  # workflow_dispatch retained as a temporary rollback hook.
+  # schedule:
+  #   - cron: '30 5 * * *'
   workflow_dispatch:
     inputs:
       dry_run:
