@@ -232,7 +232,7 @@ jobs:
           NOTIFY_EMAIL: ${{ secrets.NOTIFY_EMAIL }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
-        run: python pipeline/notify.py
+        run: python -m pipeline.notify
 
       - name: Report failure summary
         if: ${{ github.event.inputs.dry_run != 'true' && always() }}
