@@ -62,3 +62,16 @@ jobs:
           else
             python pipeline/generate_email.py --welcome-single "${{ steps.target.outputs.email }}"
           fi
+
+      # Replaces the 6-hourly check-subscribers cron (~120 runs/mo of pure
+      # polling). The Supabase Database Webhook on insert fires this
+      # workflow, so the notification arrives in real time and only when
+      # there's an actual signup.
+      - name: Notify Rahul of the new signup
+        continue-on-error: true
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          NOTIFY_EMAIL: ${{ secrets.NOTIFY_EMAIL }}
+        run: python -m pipeline.check_subscribers --single "${{ steps.target.outputs.email }}"
