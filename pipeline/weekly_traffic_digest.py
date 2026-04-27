@@ -676,6 +676,17 @@ def main() -> None:
 
     send_email(to or "dry-run@local", subject, html, dry_run=args.dry_run)
 
+    # Empire heartbeat — only on a clean LIVE run.
+    if not args.dry_run:
+        try:
+            from pipeline.empire_heartbeat import beat
+            beat("lotus_lane:weekly_traffic_digest", {
+                "daimoku_subs": subs.get("daimoku_total", 0),
+                "yt_subs": (yt.get("channel") or {}).get("subscribers", 0),
+            })
+        except Exception as e:
+            print(f"  [heartbeat] non-fatal: {e}")
+
 
 if __name__ == "__main__":
     main()
