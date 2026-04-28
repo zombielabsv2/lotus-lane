@@ -678,5 +678,39 @@
         "explanation": "When you look back on your life, how you treated people and how honestly you lived will matter far more than any title or paycheck."
       }
     ]
+  },
+  {
+    "date": "2026-04-28",
+    "title": "Rethinking Everything You Were Taught: 5 Truths About What Education Is Really For",
+    "theme": "education",
+    "theme_name": "Education",
+    "image": "listicles/2026-04-28.png",
+    "items": [
+      {
+        "quote": "Education is not the filling of a pail, but the lighting of a fire. The purpose of education is to cultivate the wisdom and compassion to create value in any situation.",
+        "source": "Soka Education",
+        "explanation": "Real learning is not about cramming information - it is about building the inner strength to handle whatever life throws at you."
+      },
+      {
+        "quote": "A truly educated person is not someone who has memorized facts, but someone who can think critically, feel compassionately, and act courageously.",
+        "source": "Discussions on Youth",
+        "explanation": "Your grades and diplomas matter far less than whether you can show up with a clear mind, a caring heart, and the guts to do what is right."
+      },
+      {
+        "quote": "Education that does not teach people how to live, how to face suffering, and how to create meaning - such education is incomplete.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "If school never taught you how to deal with loss, failure, or pain, that gap is not your fault - and it is never too late to fill it."
+      },
+      {
+        "quote": "The teacher who truly cares about their students does not just impart knowledge - they ignite a lifelong passion for learning.",
+        "source": "Soka Education",
+        "explanation": "Think of the one teacher who believed in you - their impact on your life likely had nothing to do with the subject they taught."
+      },
+      {
+        "quote": "Books are the fuel for the engine of the mind. Reading is the foundation of all growth. Read, read, read.",
+        "source": "For Today and Tomorrow",
+        "explanation": "In a world of endless scrolling and short clips, picking up a book is one of the most quietly rebellious acts of self-investment you can make."
+      }
+    ]
   }
 ]
