@@ -1074,5 +1074,24 @@
     },
     "youtube_views": 0,
     "youtube_views_updated_at": "2026-04-29T05:32:01Z"
+  },
+  {
+    "date": "2026-04-29",
+    "title": "One Day at a Time Is Harder Than It Sounds",
+    "image": "https://zombielabsv2.github.io/lotus-lane-assets/2026-04-29.png",
+    "message": "Recovery doesn't start with a grand plan — it starts with one honest admission to one person. Telling the truth about what you're struggling with, even once, is already a step forward.",
+    "quote": "The most important thing is to never be defeated by your weaknesses. Each time you struggle and stand up again, you are winning.",
+    "source": "Daisaku Ikeda, Faith Into Action",
+    "tags": [
+      "health",
+      "addiction-recovery",
+      "mental-health"
+    ],
+    "category": "health",
+    "topic": "addiction recovery",
+    "characters": [
+      "vikram",
+      "sudha"
+    ]
   }
 ]
