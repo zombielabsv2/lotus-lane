@@ -746,5 +746,39 @@
         "explanation": "Caring for others works best when we also think clearly about what they truly need - not just what makes us feel like we helped."
       }
     ]
+  },
+  {
+    "date": "2026-04-30",
+    "title": "Can't See a Way Out? 5 Reminders That Hope Is Closer Than You Think",
+    "theme": "hope",
+    "theme_name": "Hope",
+    "image": "listicles/2026-04-30.png",
+    "items": [
+      {
+        "quote": "Winter always turns to spring. Never, from ancient times on, has anyone heard or seen of winter turning back to autumn.",
+        "source": "The Writings of Nichiren Daishonin (referenced in guidance)",
+        "explanation": "When your hardest season feels permanent, nature itself promises that forward is the only direction life moves."
+      },
+      {
+        "quote": "Hope is not a matter of ability; it is a matter of decision.",
+        "source": "Discussions on Youth",
+        "explanation": "Feeling hopeful is not reserved for lucky or gifted people - it is a choice available to you right now."
+      },
+      {
+        "quote": "No matter how hopeless or bleak things appear, the moment you resolve to never give up, every nerve and fiber in your being will orient itself toward your success.",
+        "source": "Faith Into Action",
+        "explanation": "A single decision to keep going can quietly rewire how your mind, body, and instincts respond to every obstacle ahead."
+      },
+      {
+        "quote": "No one can make you feel hopeless unless you allow them to. Hope resides in the heart. It is something you create.",
+        "source": "Discussions on Youth",
+        "explanation": "No difficult person, bad news, or painful circumstance has the final say over the hope you carry inside."
+      },
+      {
+        "quote": "Each morning we are born again. What we do today is what matters most.",
+        "source": "For Today and Tomorrow",
+        "explanation": "Yesterday's failures do not define you - every single morning hands you a clean opportunity to start again."
+      }
+    ]
   }
 ]
