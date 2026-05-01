@@ -24,8 +24,22 @@
     <itunes:category text="Religion &amp; Spirituality">
       <itunes:category text="Buddhism" />
     </itunes:category>
-    <pubDate>Fri, 01 May 2026 01:20:32 +0000</pubDate>
-    <lastBuildDate>Fri, 01 May 2026 01:20:32 +0000</lastBuildDate>
+    <pubDate>Fri, 01 May 2026 07:45:51 +0000</pubDate>
+    <lastBuildDate>Fri, 01 May 2026 07:45:51 +0000</lastBuildDate>
+    <item>
+      <title>The 3am Mind That Won't Stop</title>
+      <link>https://thelotuslane.in/wisdom/anxiety-insomnia.html</link>
+      <guid isPermaLink="false">https://storage.googleapis.com/lotus-lane-podcast/anxiety-insomnia.mp3</guid>
+      <pubDate>Fri, 01 May 2026 07:45:50 +0000</pubDate>
+      <description>Your body is tired but your mind won't let you sleep. What to do when anxiety runs a loop you can't escape.</description>
+      <itunes:summary>Your body is tired but your mind won't let you sleep. What to do when anxiety runs a loop you can't escape.</itunes:summary>
+      <itunes:author>The Lotus Lane</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:duration>10:00</itunes:duration>
+      <itunes:episode>3</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <enclosure url="https://storage.googleapis.com/lotus-lane-podcast/anxiety-insomnia.mp3" length="8305965" type="audio/mpeg" />
+    </item>
     <item>
       <title>When Anger Takes Over</title>
       <link>https://thelotuslane.in/wisdom/anger-you-cant-control.html</link>
