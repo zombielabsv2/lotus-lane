@@ -1103,5 +1103,26 @@
     },
     "youtube_views": 479,
     "youtube_views_updated_at": "2026-05-01T05:47:17Z"
+  },
+  {
+    "date": "2026-05-01",
+    "title": "Everyone Got There Before Me",
+    "image": "https://zombielabsv2.github.io/lotus-lane-assets/2026-05-01.png",
+    "message": "When everyone around you seems to be moving faster, the trap is waiting until you feel ready or worthy. The only move that actually counts is the one you make today, from exactly where you are.",
+    "quote": "It is not a question of your environment or the times, nor is it a question of whether you are talented or untalented. Those who are determined to win and are filled with appreciation can transform any situation.",
+    "source": "Daisaku Ikeda, Discussions on Youth",
+    "tags": [
+      "perseverance",
+      "comparison",
+      "perfectionism",
+      "academic pressure"
+    ],
+    "category": "perseverance",
+    "topic": "everyone else is succeeding",
+    "characters": [
+      "meera",
+      "sudha",
+      "vikram"
+    ]
   }
 ]
