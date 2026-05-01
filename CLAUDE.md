@@ -45,6 +45,11 @@ Mon/Wed/Fri 11:30 AM IST → generate-strip.yml
 | `ikeda/quotes.json` | 315 curated Ikeda quotes across 21 themes |
 | `ikeda/index.html` | Ikeda Guidance landing page (search + browse by theme) |
 | `ikeda/{theme}.html` | Individual theme pages (courage, hope, peace, etc.) |
+| `pipeline/generate_podcast.py` | Lotus Lane Daily — wisdom HTML → OpenAI tts-1-hd nova → GCS → Supabase. Chunked TTS (4096-char limit), idempotent retry, --live for prod |
+| `pipeline/generate_podcast_feed.py` | Builds Apple-compliant `podcast.xml` from `podcast_episodes` Supabase table (uses `quoteattr()` for attrs — unescaped `&` will break parsers) |
+| `pipeline/generate_podcast_cover.py` | 1500x1500 PNG cover art (cream + red, lotus mark) |
+| `podcast/index.html` | Listen page — fetches `podcast.xml` client-side, episode players, Copy-RSS button, native share, episode deep-links via `?ep=slug` |
+| `podcast.xml` | Public RSS feed at `https://thelotuslane.in/podcast.xml` (committed by cron after each new episode) |
 
 ## Cron Schedule
 
@@ -53,6 +58,7 @@ Mon/Wed/Fri 11:30 AM IST → generate-strip.yml
 | Mon/Wed/Fri 6:00 UTC | 11:30 AM | `generate-strip.yml` | Full pipeline: script → images → video → social → notify |
 | Daily 2:00 UTC | 7:30 AM | `retry-uploads.yml` | YouTube swap-old + pending uploads (max 5 each) |
 | Daily 5:30 UTC | 11:00 AM | `send-emails.yml` | Daimoku Daily to subscribers (needs nichiren-chatbot repo) |
+| Daily 5:30 UTC | 11:00 AM | `generate-podcast.yml` | Lotus Lane Daily — picks next unpublished wisdom slug, generates ~10-min episode, uploads to `gs://lotus-lane-podcast`, regenerates `podcast.xml`, commits |
 | Every 6h | — | `check-subscribers.yml` | New subscriber alert email |
 | On push/PR | — | `tests.yml` | pytest |
 
