@@ -11,3 +11,6 @@ reels/
 .instagram_token.json
 client_secret.json
 supabase/.temp/
+
+# Podcast — MP3 files go to GCS, not git
+podcast/audio/

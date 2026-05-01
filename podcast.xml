@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+     xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"
+     xmlns:content="http://purl.org/rss/1.0/modules/content/"
+     xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Lotus Lane Daily</title>
+    <link>https://thelotuslane.in</link>
+    <atom:link href="https://thelotuslane.in/podcast.xml" rel="self" type="application/rss+xml" />
+    <language>en-IN</language>
+    <copyright>© The Lotus Lane</copyright>
+    <description>Daily wisdom drawn from centuries of philosophical writing, applied to the things that actually keep us up at night — burnout, anxiety, loneliness, loss, comparison. Short, honest, listenable. New episode every weekday.</description>
+    <itunes:summary>Daily wisdom drawn from centuries of philosophical writing, applied to the things that actually keep us up at night — burnout, anxiety, loneliness, loss, comparison. Short, honest, listenable. New episode every weekday.</itunes:summary>
+    <itunes:subtitle>Wisdom for what you're going through</itunes:subtitle>
+    <itunes:author>The Lotus Lane</itunes:author>
+    <itunes:explicit>false</itunes:explicit>
+    <itunes:type>episodic</itunes:type>
+    <itunes:owner>
+      <itunes:name>The Lotus Lane</itunes:name>
+      <itunes:email>jindal.rahul@gmail.com</itunes:email>
+    </itunes:owner>
+    <itunes:image href="https://storage.googleapis.com/lotus-lane-podcast/cover.png" />
+    <image><url>https://storage.googleapis.com/lotus-lane-podcast/cover.png</url><title>Lotus Lane Daily</title><link>https://thelotuslane.in</link></image>
+    <itunes:category text="Religion & Spirituality">
+      <itunes:category text="Buddhism" />
+    </itunes:category>
+    <pubDate>Fri, 01 May 2026 00:56:05 +0000</pubDate>
+    <lastBuildDate>Fri, 01 May 2026 00:56:05 +0000</lastBuildDate>
+    <item>
+      <title>Burned Out and Running on Empty</title>
+      <link>https://thelotuslane.in/wisdom/burnout-recovery.html</link>
+      <guid isPermaLink="false">https://storage.googleapis.com/lotus-lane-podcast/burnout-recovery.mp3</guid>
+      <pubDate>Fri, 01 May 2026 00:55:37 +0000</pubDate>
+      <description>You've given everything and there's nothing left. What to do when hustle culture breaks you.</description>
+      <itunes:summary>You've given everything and there's nothing left. What to do when hustle culture breaks you.</itunes:summary>
+      <itunes:author>The Lotus Lane</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:duration>9:50</itunes:duration>
+      <itunes:episode>1</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <enclosure url="https://storage.googleapis.com/lotus-lane-podcast/burnout-recovery.mp3" length="8077869" type="audio/mpeg" />
+    </item>
+  </channel>
+</rss>
