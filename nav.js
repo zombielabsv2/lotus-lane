@@ -9,7 +9,8 @@
   const isIkeda = path.includes('/ikeda');
   const isListicle = path.includes('/listicles');
   const isWisdom = path.includes('/wisdom');
-  const isStrips = !isDecoder && !isSubscribe && !isIkeda && !isListicle && !isWisdom;
+  const isPodcast = path.includes('/podcast');
+  const isStrips = !isDecoder && !isSubscribe && !isIkeda && !isListicle && !isWisdom && !isPodcast;
   const isStripPage = path.includes('/strips/');
 
   // Determine base path for links
@@ -18,6 +19,7 @@
   if (isIkeda) base = '../';
   if (isListicle) base = '../';
   if (isWisdom) base = '../';
+  if (isPodcast) base = '../';
   if (isStripPage) base = '../';
 
   // --- TOP NAV (inline links below header) ---
@@ -27,6 +29,8 @@
     <a href="${base}index.html" class="${isStrips ? 'active' : ''}">Stories</a>
     <span class="sep">|</span>
     <a href="${base}wisdom/" class="${path.includes('/wisdom') ? 'active' : ''}">Life Challenges</a>
+    <span class="sep">|</span>
+    <a href="${base}podcast/" class="${isPodcast ? 'active' : ''}">Podcast</a>
     <span class="sep">|</span>
     <a href="${base}ikeda/index.html" class="${isIkeda ? 'active' : ''}">Wisdom Library</a>
     <span class="sep">|</span>
@@ -56,6 +60,10 @@
     <a href="${base}wisdom/" class="${path.includes('/wisdom') ? 'active' : ''}">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
       <span>Struggles</span>
+    </a>
+    <a href="${base}podcast/" class="${isPodcast ? 'active' : ''}">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+      <span>Podcast</span>
     </a>
     <a href="${base}ikeda/index.html" class="${isIkeda ? 'active' : ''}">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>

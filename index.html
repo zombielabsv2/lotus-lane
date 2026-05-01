@@ -55,6 +55,67 @@
       font-style: italic;
     }
 
+    /* Podcast banner — top-level IA on homepage */
+    .podcast-banner {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      padding: 0.8rem 1rem;
+      max-width: 800px;
+      margin: 0.8rem auto 0;
+      background: linear-gradient(90deg, #fdf6e3 0%, #f8ecd1 100%);
+      border-radius: 10px;
+      text-decoration: none;
+      color: inherit;
+      border: 1.5px solid #e8d9b3;
+      transition: all 0.2s;
+    }
+    .podcast-banner:hover {
+      border-color: #c0392b;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(192, 57, 43, 0.12);
+    }
+    .pb-cover {
+      width: 56px;
+      height: 56px;
+      border-radius: 6px;
+      flex-shrink: 0;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .pb-text { flex: 1; min-width: 0; }
+    .pb-eyebrow {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: #c0392b;
+      margin-bottom: 0.15rem;
+    }
+    .pb-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #4a3d20;
+      line-height: 1.3;
+      margin-bottom: 0.15rem;
+    }
+    .pb-meta { font-size: 0.75rem; color: #8a7d5f; }
+    .pb-cta {
+      flex-shrink: 0;
+      padding: 0.5rem 0.9rem;
+      background: #c0392b;
+      color: white;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+    @media (max-width: 600px) {
+      .podcast-banner { gap: 0.7rem; padding: 0.7rem 0.8rem; }
+      .pb-cover { width: 48px; height: 48px; }
+      .pb-title { font-size: 0.85rem; }
+      .pb-meta { font-size: 0.7rem; }
+      .pb-cta { padding: 0.4rem 0.7rem; font-size: 0.7rem; }
+    }
+
     /* Tag Filter Bar */
     .filter-bar {
       display: flex;
@@ -267,6 +328,16 @@
   <header>
     <h1>The <span>Lotus</span> Lane</h1>
   </header>
+
+  <a class="podcast-banner" href="podcast/">
+    <img class="pb-cover" src="https://storage.googleapis.com/lotus-lane-podcast/cover.png" alt="Lotus Lane Daily" width="56" height="56">
+    <div class="pb-text">
+      <div class="pb-eyebrow">NEW · PODCAST</div>
+      <div class="pb-title">Lotus Lane Daily — wisdom for what you're going through</div>
+      <div class="pb-meta">~10 min · daily · listenable on the commute</div>
+    </div>
+    <div class="pb-cta">Listen →</div>
+  </a>
 
   <div class="filter-bar" id="filterBar">
     <label>Filter:</label>
