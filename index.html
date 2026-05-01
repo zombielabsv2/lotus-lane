@@ -305,6 +305,37 @@
       .filter-bar::-webkit-scrollbar { display: none; }
       .filter-bar label { display: none; }
     }
+
+    .struggle-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0.5rem;
+    }
+    .struggle-link {
+      display: block;
+      padding: 0.7rem 0.9rem;
+      background: white;
+      border: 1px solid #e8e4de;
+      border-radius: 8px;
+      text-align: center;
+      text-decoration: none;
+      color: #4a4a4a;
+      font-size: 0.85rem;
+      transition: all 0.2s;
+    }
+    .struggle-link:hover {
+      border-color: #c0392b;
+      color: #c0392b;
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(192, 57, 43, 0.08);
+    }
+    .struggle-see-all {
+      font-size: 0.85rem;
+      color: #c0392b;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .struggle-see-all:hover { text-decoration: underline; }
   </style>
 
 <!-- ga4 -->
@@ -394,6 +425,33 @@
     <span class="nav-counter nav-counter-bottom"></span>
     <button class="nav-btn" onclick="navigate(-1)">Newer &#8594;</button>
   </div>
+
+  <!-- What you're going through — long-form wisdom on common struggles -->
+  <section style="max-width:900px; margin:2.5rem auto 0; padding:0 1rem;">
+    <h2 style="font-size:1.15rem; font-weight:600; color:#333; text-align:center; margin-bottom:0.3rem;">
+      What you're going through
+    </h2>
+    <p style="font-size:0.85rem; color:#888; text-align:center; margin-bottom:1.2rem;">
+      Long-form wisdom on the specific struggles people work through.
+    </p>
+    <div class="struggle-grid">
+      <a href="wisdom/burnout-recovery.html" class="struggle-link">Burnout recovery</a>
+      <a href="wisdom/anxiety-insomnia.html" class="struggle-link">Anxiety &amp; insomnia</a>
+      <a href="wisdom/loneliness-despite-everything.html" class="struggle-link">Loneliness</a>
+      <a href="wisdom/depression-fog.html" class="struggle-link">Depression fog</a>
+      <a href="wisdom/overcoming-imposter-syndrome.html" class="struggle-link">Imposter syndrome</a>
+      <a href="wisdom/toxic-workplace-survival.html" class="struggle-link">Toxic workplace</a>
+      <a href="wisdom/when-grief-wont-stop.html" class="struggle-link">Grief that won't stop</a>
+      <a href="wisdom/parenting-is-breaking-me.html" class="struggle-link">Parenting overwhelm</a>
+      <a href="wisdom/comparison-trap.html" class="struggle-link">Comparison trap</a>
+      <a href="wisdom/relationship-falling-apart.html" class="struggle-link">Relationship falling apart</a>
+      <a href="wisdom/financial-anxiety.html" class="struggle-link">Money stress</a>
+      <a href="wisdom/feeling-like-a-failure.html" class="struggle-link">Feeling like a failure</a>
+    </div>
+    <div style="text-align:center; margin-top:1rem;">
+      <a href="wisdom/" class="struggle-see-all">See all struggles &rarr;</a>
+    </div>
+  </section>
 
   <!-- Email signup for new content -->
   <div style="max-width:900px; margin:2rem auto 0; padding:0 1rem;">
