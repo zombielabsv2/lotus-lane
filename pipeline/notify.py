@@ -311,7 +311,138 @@ def notify_content_subscribers(strip):
     print(f"  [CONTENT] Sent {sent}/{len(subscribers)} emails")
 
 
+# ───────────────────────────────────────────────────────────
+# Podcast notifications
+# ───────────────────────────────────────────────────────────
+
+PODCAST_PAGE_URL = f"{SITE_URL}/podcast/"
+PODCAST_FEED_URL = f"{SITE_URL}/podcast.xml"
+
+
+def _episode_url(ep):
+    slug = ep.get("slug", "")
+    return f"{PODCAST_PAGE_URL}?ep={slug}" if slug else PODCAST_PAGE_URL
+
+
+def _format_duration(seconds):
+    seconds = int(seconds or 0)
+    return f"{seconds // 60}:{seconds % 60:02d}"
+
+
+def get_latest_podcast_episode():
+    """Pull the most recently published podcast episode from Supabase."""
+    supabase_url = os.environ.get("SUPABASE_URL", "")
+    supabase_key = os.environ.get("SUPABASE_SERVICE_KEY", "")
+    if not supabase_url or not supabase_key:
+        return None
+    r = httpx.get(
+        f"{supabase_url}/rest/v1/podcast_episodes",
+        headers={
+            "apikey": supabase_key,
+            "Authorization": f"Bearer {supabase_key}",
+        },
+        params={
+            "select": "episode_number,slug,title,description,audio_url,duration_seconds,published_at",
+            "order": "episode_number.desc",
+            "limit": "1",
+        },
+        timeout=15,
+    )
+    if r.status_code != 200:
+        return None
+    rows = r.json()
+    return rows[0] if rows else None
+
+
+def build_podcast_whatsapp_caption(ep):
+    """WhatsApp Channel caption for a new podcast episode."""
+    title = ep.get("title", "")
+    desc = ep.get("description", "")
+    ep_num = ep.get("episode_number", "")
+    duration = _format_duration(ep.get("duration_seconds"))
+    link = _episode_url(ep)
+
+    caption = f"*New on Lotus Lane Daily — Episode {ep_num}*\n\n"
+    caption += f"*{title}*\n\n"
+    if desc:
+        caption += f"{desc}\n\n"
+    caption += f"_~{duration} min. Read aloud, listen on your commute._\n\n"
+    caption += "Know someone who needs this? Forward it to them.\n\n"
+    caption += f"Listen: {link}"
+    return caption
+
+
+def build_podcast_status_caption(ep):
+    """Shorter caption for WhatsApp Status."""
+    title = ep.get("title", "")
+    duration = _format_duration(ep.get("duration_seconds"))
+    return f"*Lotus Lane Daily*\n\n_{title}_\n~{duration} min\n\n{_episode_url(ep)}"
+
+
+def send_podcast_notification(ep):
+    """Email Rahul the WhatsApp copy-paste blob for a new episode."""
+    if not RESEND_API_KEY or not NOTIFY_EMAIL:
+        print("  [PODCAST NOTIFY] Skipped — RESEND_API_KEY or NOTIFY_EMAIL not set")
+        return
+
+    channel_caption = build_podcast_whatsapp_caption(ep)
+    status_caption = build_podcast_status_caption(ep)
+
+    html = f"""
+    <div style="font-family: -apple-system, sans-serif; max-width: 600px; margin: 0 auto;">
+        <h2 style="color: #c0392b;">New Lotus Lane Daily Episode Live</h2>
+        <p style="color: #666;">
+            Episode {ep.get('episode_number', '')} — "{ep.get('title', '')}"
+            ({_format_duration(ep.get('duration_seconds'))})
+        </p>
+        <p style="color: #666;">
+            <a href="{ep.get('audio_url', '')}">Audio MP3</a> &middot;
+            <a href="{_episode_url(ep)}">Web player</a> &middot;
+            <a href="{PODCAST_FEED_URL}">RSS</a>
+        </p>
+
+        <div style="background: #f5f2ed; padding: 16px; border-radius: 8px; margin: 16px 0;">
+            <h3 style="margin: 0 0 8px; color: #333;">WhatsApp Channel (copy-paste):</h3>
+            <pre style="background: white; padding: 12px; border-radius: 6px; font-size: 14px;
+                        white-space: pre-wrap; border: 1px solid #e0e0e0;">{channel_caption}</pre>
+        </div>
+
+        <div style="background: #f5f2ed; padding: 16px; border-radius: 8px; margin: 16px 0;">
+            <h3 style="margin: 0 0 8px; color: #333;">WhatsApp Status (shorter):</h3>
+            <pre style="background: white; padding: 12px; border-radius: 6px; font-size: 14px;
+                        white-space: pre-wrap; border: 1px solid #e0e0e0;">{status_caption}</pre>
+        </div>
+    </div>
+    """
+
+    success = _send_via_resend(
+        NOTIFY_EMAIL,
+        f"Post to WhatsApp: Lotus Lane Daily Ep {ep.get('episode_number', '')} — {ep.get('title', '')}",
+        html,
+    )
+    if success:
+        print(f"  [PODCAST NOTIFY] Email sent to {NOTIFY_EMAIL}")
+
+
+def podcast_main():
+    ep = get_latest_podcast_episode()
+    if not ep:
+        print("No podcast episodes found")
+        return
+    print(f"Latest episode: #{ep.get('episode_number')} — {ep.get('title')}")
+    print(f"\n--- WhatsApp Channel Caption ---")
+    print(build_podcast_whatsapp_caption(ep))
+    print(f"\n--- WhatsApp Status Caption ---")
+    print(build_podcast_status_caption(ep))
+    send_podcast_notification(ep)
+
+
 def main():
+    import sys as _sys
+    if "--podcast" in _sys.argv:
+        podcast_main()
+        return
+
     strip = get_latest_strip()
     if not strip:
         print("No strips found")
