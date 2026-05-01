@@ -24,8 +24,22 @@
     <itunes:category text="Religion & Spirituality">
       <itunes:category text="Buddhism" />
     </itunes:category>
-    <pubDate>Fri, 01 May 2026 00:56:05 +0000</pubDate>
-    <lastBuildDate>Fri, 01 May 2026 00:56:05 +0000</lastBuildDate>
+    <pubDate>Fri, 01 May 2026 01:06:35 +0000</pubDate>
+    <lastBuildDate>Fri, 01 May 2026 01:06:35 +0000</lastBuildDate>
+    <item>
+      <title>When Anger Takes Over</title>
+      <link>https://thelotuslane.in/wisdom/anger-you-cant-control.html</link>
+      <guid isPermaLink="false">https://storage.googleapis.com/lotus-lane-podcast/anger-you-cant-control.mp3</guid>
+      <pubDate>Fri, 01 May 2026 01:06:33 +0000</pubDate>
+      <description>You snap at the people you love. The rage doesn't make sense. Here's what ancient philosophy says about it.</description>
+      <itunes:summary>You snap at the people you love. The rage doesn't make sense. Here's what ancient philosophy says about it.</itunes:summary>
+      <itunes:author>The Lotus Lane</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:duration>10:03</itunes:duration>
+      <itunes:episode>2</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <enclosure url="https://storage.googleapis.com/lotus-lane-podcast/anger-you-cant-control.mp3" length="8269869" type="audio/mpeg" />
+    </item>
     <item>
       <title>Burned Out and Running on Empty</title>
       <link>https://thelotuslane.in/wisdom/burnout-recovery.html</link>
