@@ -21,7 +21,7 @@ import sys
 from datetime import datetime, timezone
 from email.utils import format_datetime
 from pathlib import Path
-from xml.sax.saxutils import escape
+from xml.sax.saxutils import escape, quoteattr
 
 import httpx
 from dotenv import load_dotenv
@@ -74,6 +74,11 @@ def _fmt_duration(seconds: int) -> str:
     return f"{m}:{s:02d}"
 
 
+def _attr(value: str) -> str:
+    """XML attribute value with quotes — escapes & < > and the quote char."""
+    return quoteattr(value)
+
+
 def render_feed(episodes: list[dict]) -> str:
     now = datetime.now(timezone.utc)
     lines = [
@@ -85,7 +90,7 @@ def render_feed(episodes: list[dict]) -> str:
         "  <channel>",
         f"    <title>{escape(TITLE)}</title>",
         f"    <link>{SITE_URL}</link>",
-        f"    <atom:link href=\"{SITE_URL}/podcast.xml\" rel=\"self\" type=\"application/rss+xml\" />",
+        f"    <atom:link href={_attr(SITE_URL + '/podcast.xml')} rel=\"self\" type=\"application/rss+xml\" />",
         f"    <language>{LANGUAGE}</language>",
         f"    <copyright>{escape(COPYRIGHT)}</copyright>",
         f"    <description>{escape(DESCRIPTION)}</description>",
@@ -98,10 +103,10 @@ def render_feed(episodes: list[dict]) -> str:
         f"      <itunes:name>{escape(OWNER_NAME)}</itunes:name>",
         f"      <itunes:email>{escape(OWNER_EMAIL)}</itunes:email>",
         "    </itunes:owner>",
-        f"    <itunes:image href=\"{COVER_URL}\" />",
-        f"    <image><url>{COVER_URL}</url><title>{escape(TITLE)}</title><link>{SITE_URL}</link></image>",
-        f"    <itunes:category text=\"{CATEGORY}\">",
-        f"      <itunes:category text=\"{SUBCATEGORY}\" />",
+        f"    <itunes:image href={_attr(COVER_URL)} />",
+        f"    <image><url>{escape(COVER_URL)}</url><title>{escape(TITLE)}</title><link>{escape(SITE_URL)}</link></image>",
+        f"    <itunes:category text={_attr(CATEGORY)}>",
+        f"      <itunes:category text={_attr(SUBCATEGORY)} />",
         "    </itunes:category>",
         f"    <pubDate>{format_datetime(now)}</pubDate>",
         f"    <lastBuildDate>{format_datetime(now)}</lastBuildDate>",
@@ -114,8 +119,8 @@ def render_feed(episodes: list[dict]) -> str:
         lines += [
             "    <item>",
             f"      <title>{escape(ep['title'])}</title>",
-            f"      <link>{episode_page_url}</link>",
-            f"      <guid isPermaLink=\"false\">{guid}</guid>",
+            f"      <link>{escape(episode_page_url)}</link>",
+            f"      <guid isPermaLink=\"false\">{escape(guid)}</guid>",
             f"      <pubDate>{format_datetime(published)}</pubDate>",
             f"      <description>{escape(ep['description'])}</description>",
             f"      <itunes:summary>{escape(ep['description'])}</itunes:summary>",
@@ -124,7 +129,7 @@ def render_feed(episodes: list[dict]) -> str:
             f"      <itunes:duration>{_fmt_duration(ep['duration_seconds'])}</itunes:duration>",
             f"      <itunes:episode>{ep['episode_number']}</itunes:episode>",
             f"      <itunes:episodeType>full</itunes:episodeType>",
-            f"      <enclosure url=\"{ep['audio_url']}\" length=\"{ep['audio_size_bytes']}\" type=\"audio/mpeg\" />",
+            f"      <enclosure url={_attr(ep['audio_url'])} length=\"{ep['audio_size_bytes']}\" type=\"audio/mpeg\" />",
             "    </item>",
         ]
 
