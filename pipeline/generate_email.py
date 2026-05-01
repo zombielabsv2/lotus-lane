@@ -665,6 +665,9 @@ def _build_welcome_html(subject: str, body_sections: list[dict], subscriber_emai
           <p style="margin:0; font-size:12px; color:#999;">
             Sent with care from <a href="https://thelotuslane.in/" style="color:#c0392b; text-decoration:none;">The Lotus Lane</a>
           </p>
+          <p style="margin:10px 0 0; font-size:12px; color:#888;">
+            Prefer it on the commute? Listen to <a href="https://thelotuslane.in/podcast/" style="color:#c0392b; text-decoration:none; font-weight:600;">Lotus Lane Daily</a> — the new podcast, ~10 minutes.
+          </p>
           <p style="margin:8px 0 0; font-size:11px; color:#bbb;">
             You received this because you signed up for Daimoku Daily.
             <br>No longer want these? <a href="{_safe_unsubscribe_url(subscriber_email)}" style="color:#999; text-decoration:underline;">Unsubscribe</a>
@@ -1225,6 +1228,9 @@ def build_html_email(data: dict, name: str, subscriber_email: str = "") -> str:
         <tr><td style="background:#f5f2ed; padding:20px 30px; text-align:center;">
           <p style="margin:0; font-size:12px; color:#999;">
             Sent with care from <a href="https://thelotuslane.in/" style="color:#c0392b; text-decoration:none;">The Lotus Lane</a>
+          </p>
+          <p style="margin:10px 0 0; font-size:12px; color:#888;">
+            Prefer it on the commute? Listen to <a href="https://thelotuslane.in/podcast/" style="color:#c0392b; text-decoration:none; font-weight:600;">Lotus Lane Daily</a> — the new podcast, ~10 minutes.
           </p>
           <p style="margin:8px 0 0; font-size:11px; color:#bbb;">
             You received this because you signed up for Daimoku Daily.
