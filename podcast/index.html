@@ -101,8 +101,25 @@
       background: #c0392b;
       color: white;
       border-color: #c0392b;
+      cursor: pointer;
+      font-family: inherit;
     }
     .platform-btn.rss:hover { background: #a8311f; color: white; }
+    .platform-btn.rss.copied { background: #2c8a4f; border-color: #2c8a4f; }
+    .platform-btn .badge {
+      display: inline-block;
+      margin-left: 0.4rem;
+      padding: 0.1rem 0.5rem;
+      background: #e8e4de;
+      color: #888;
+      border-radius: 10px;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .platform-btn.pending { opacity: 0.85; }
+    .platform-btn.pending:hover .badge { background: #fce8e4; color: #c0392b; }
 
     .pending-note {
       background: #fdf6e3;
@@ -171,6 +188,24 @@
       margin-left: 3.3rem;
       height: 36px;
     }
+    .ep-share {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      margin: 0.6rem 0 0 3.3rem;
+      padding: 0.35rem 0.7rem;
+      background: transparent;
+      border: 1px solid #e8e4de;
+      border-radius: 16px;
+      font-size: 0.75rem;
+      color: #888;
+      font-weight: 500;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.15s;
+    }
+    .ep-share:hover { border-color: #c0392b; color: #c0392b; }
+    .ep-share.copied { background: #2c8a4f; border-color: #2c8a4f; color: white; }
 
     /* ── Loading + error states ───────────────────────── */
     .loading, .ep-error {
@@ -254,16 +289,31 @@
     </div>
 
     <div class="platforms">
-      <a class="platform-btn rss" href="../podcast.xml">⌁ RSS feed</a>
-      <a class="platform-btn" href="https://podcasts.apple.com/" target="_blank" rel="noopener">Apple Podcasts</a>
-      <a class="platform-btn" href="https://open.spotify.com/" target="_blank" rel="noopener">Spotify</a>
-      <a class="platform-btn" href="https://music.amazon.com/podcasts" target="_blank" rel="noopener">Amazon Music</a>
-      <a class="platform-btn" href="https://music.youtube.com/" target="_blank" rel="noopener">YouTube Music</a>
+      <button class="platform-btn rss" id="copyRssBtn" type="button" data-feed="https://thelotuslane.in/podcast.xml">
+        ⌁ Copy RSS feed
+      </button>
+      <a class="platform-btn pending" href="https://podcasts.apple.com/search?term=Lotus+Lane+Daily" target="_blank" rel="noopener">
+        Apple Podcasts
+        <span class="badge">soon</span>
+      </a>
+      <a class="platform-btn pending" href="https://open.spotify.com/search/Lotus%20Lane%20Daily/podcasts" target="_blank" rel="noopener">
+        Spotify
+        <span class="badge">soon</span>
+      </a>
+      <a class="platform-btn pending" href="https://music.amazon.com/search/Lotus+Lane+Daily?filter=IsPodcast" target="_blank" rel="noopener">
+        Amazon Music
+        <span class="badge">soon</span>
+      </a>
+      <a class="platform-btn pending" href="https://music.youtube.com/search?q=Lotus+Lane+Daily" target="_blank" rel="noopener">
+        YouTube Music
+        <span class="badge">soon</span>
+      </a>
     </div>
 
     <div class="pending-note">
-      <strong>Coming soon to your favorite podcast app.</strong> Until then, listen below or copy the RSS feed
-      URL into any podcast app to subscribe. New episodes appear automatically every weekday at 11:00 AM IST.
+      <strong>Want to subscribe now?</strong> Tap "Copy RSS feed" above, then paste it into Pocket Casts,
+      Overcast, Castro, or any podcast app — works on both iOS and Android.
+      Apple Podcasts, Spotify, Amazon, and YouTube Music links go live within 72 hours of platform approval.
     </div>
 
     <h3 class="section-title">Episodes</h3>
@@ -308,8 +358,10 @@
           const pubDate = new Date(item.querySelector('pubDate')?.textContent ?? '');
           const dateStr = pubDate.toLocaleDateString('en-IN', { month: 'short', day: 'numeric' });
           const sizeMB = (parseInt(item.querySelector('enclosure')?.getAttribute('length') ?? '0', 10) / (1024 * 1024)).toFixed(1);
+          const slug = (enclosure.split('/').pop() ?? '').replace(/\.mp3$/, '');
+          const shareUrl = `https://thelotuslane.in/podcast/?ep=${encodeURIComponent(slug)}`;
           return `
-            <div class="episode">
+            <div class="episode" id="ep-${escapeAttr(slug)}">
               <div class="ep-row1">
                 <span class="ep-num">EP ${escapeHtml(epNum)}</span>
                 <span class="ep-title">${escapeHtml(title)}</span>
@@ -317,9 +369,44 @@
               </div>
               <div class="ep-desc">${escapeHtml(desc)}</div>
               <audio controls preload="none" src="${escapeAttr(enclosure)}"></audio>
+              <button class="ep-share" type="button" data-share-url="${escapeAttr(shareUrl)}" data-share-title="${escapeAttr(title)} — Lotus Lane Daily">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="13.5" x2="15.4" y2="17.5"/><line x1="15.4" y1="6.5" x2="8.6" y2="10.5"/></svg>
+                Share
+              </button>
             </div>
           `;
         }).join('');
+
+        // Wire up per-episode share buttons
+        container.querySelectorAll('.ep-share').forEach(btn => {
+          btn.addEventListener('click', async (e) => {
+            const url = btn.dataset.shareUrl;
+            const title = btn.dataset.shareTitle;
+            // Prefer native share sheet on mobile; fall back to clipboard
+            if (navigator.share) {
+              try {
+                await navigator.share({ title, url });
+                return;
+              } catch { /* user cancelled or unsupported */ }
+            }
+            await copyToClipboard(url);
+            const original = btn.innerHTML;
+            btn.classList.add('copied');
+            btn.textContent = '✓ Link copied';
+            setTimeout(() => {
+              btn.classList.remove('copied');
+              btn.innerHTML = original;
+            }, 1800);
+          });
+        });
+
+        // Auto-scroll to ?ep=slug if present
+        const params = new URLSearchParams(window.location.search);
+        const targetEp = params.get('ep');
+        if (targetEp) {
+          const target = document.getElementById(`ep-${targetEp}`);
+          if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
       } catch (err) {
         container.innerHTML = '<div class="ep-error">Couldn\'t load episodes. Try refreshing in a moment.</div>';
         console.error(err);
@@ -332,6 +419,35 @@
     function escapeAttr(s) {
       return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
     }
+
+    async function copyToClipboard(text) {
+      try {
+        await navigator.clipboard.writeText(text);
+        return true;
+      } catch {
+        // Fallback for older browsers
+        const ta = document.createElement('textarea');
+        ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand('copy'); } catch {}
+        document.body.removeChild(ta);
+        return true;
+      }
+    }
+
+    // RSS feed copy button
+    document.getElementById('copyRssBtn')?.addEventListener('click', async (e) => {
+      const btn = e.currentTarget;
+      await copyToClipboard(btn.dataset.feed);
+      const original = btn.innerHTML;
+      btn.classList.add('copied');
+      btn.innerHTML = '✓ RSS URL copied — paste in your podcast app';
+      setTimeout(() => {
+        btn.classList.remove('copied');
+        btn.innerHTML = original;
+      }, 2400);
+    });
   </script>
 </body>
 </html>
