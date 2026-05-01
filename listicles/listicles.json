@@ -780,5 +780,39 @@
         "explanation": "Yesterday's failures do not define you - every single morning hands you a clean opportunity to start again."
       }
     ]
+  },
+  {
+    "date": "2026-05-01",
+    "title": "Feel the Fear and Do It Anyway: 5 Quotes That Give You Permission to Be Brave",
+    "theme": "courage",
+    "theme_name": "Courage",
+    "image": "listicles/2026-05-01.png",
+    "items": [
+      {
+        "quote": "Courage is not the absence of fear. Courage is feeling fear, recognizing fear, and still taking action.",
+        "source": "Discussions on Youth",
+        "explanation": "You don't have to stop being scared - you just have to move forward while the fear is still there."
+      },
+      {
+        "quote": "Be the kind of person who, when your feet hit the floor in the morning, makes the devil say, 'Oh no, they're up!'",
+        "source": "Youth and the Writings of Nichiren Daishonin",
+        "explanation": "Every morning is a chance to show up with so much energy and conviction that life's obstacles don't stand a chance."
+      },
+      {
+        "quote": "No matter what happens, I will not be defeated. I will not run away. I will not complain. I will not be negative. I will keep advancing.",
+        "source": "The New Human Revolution, Vol. 1",
+        "explanation": "When everything feels like it's falling apart, this declaration is a daily anchor you can return to again and again."
+      },
+      {
+        "quote": "The true hero is one who conquers his own anger and hatred.",
+        "source": "For Today and Tomorrow",
+        "explanation": "The hardest battles aren't fought in the world outside - they're fought inside your own mind, every single day."
+      },
+      {
+        "quote": "A great human revolution in just a single individual will help achieve a change in the destiny of a nation and, further, will enable a change in the destiny of all humankind.",
+        "source": "The Human Revolution",
+        "explanation": "When you feel too small to make a difference, remember that real change in the world always starts with one person deciding to be different."
+      }
+    ]
   }
 ]
