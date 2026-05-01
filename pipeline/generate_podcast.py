@@ -272,7 +272,11 @@ def _gsutil_cmd() -> str:
 
 
 def upload_to_gcs(local: Path, gcs_object: str) -> str:
-    """Upload via gsutil (already authenticated). Returns public URL."""
+    """Upload via gsutil (already authenticated). Returns public URL.
+
+    Bucket has uniform bucket-level access + public IAM grant, so no
+    per-object ACL needed.
+    """
     gsutil = _gsutil_cmd()
     dest = f"gs://{GCS_BUCKET}/{gcs_object}"
     subprocess.run(
@@ -280,12 +284,17 @@ def upload_to_gcs(local: Path, gcs_object: str) -> str:
         check=True,
         capture_output=True,
     )
-    subprocess.run(
-        [gsutil, "acl", "ch", "-u", "AllUsers:R", dest],
-        check=True,
-        capture_output=True,
-    )
     return f"https://storage.googleapis.com/{GCS_BUCKET}/{gcs_object}"
+
+
+def gcs_object_exists(gcs_object: str) -> bool:
+    """Check if an MP3 already lives in the bucket (idempotency)."""
+    url = f"https://storage.googleapis.com/{GCS_BUCKET}/{gcs_object}"
+    try:
+        r = httpx.head(url, timeout=10)
+        return r.status_code == 200
+    except Exception:
+        return False
 
 
 def estimate_duration_seconds(char_count: int) -> int:
@@ -336,15 +345,24 @@ def run(slug: str, live: bool) -> None:
     out_dir = REPO_ROOT / "podcast" / "audio"
     out_dir.mkdir(parents=True, exist_ok=True)
     mp3_path = out_dir / f"{slug}.mp3"
+    gcs_object = f"{slug}.mp3"
 
-    print("\n[1/3] Synthesizing audio via OpenAI tts-1-hd nova...")
-    synthesize_tts(script, mp3_path)
-    file_size = mp3_path.stat().st_size
-    print(f"      {file_size/1024:.1f} KB → {mp3_path}")
+    if gcs_object_exists(gcs_object):
+        print("\n[1/3] MP3 already in GCS — skipping TTS (idempotent retry)")
+        # Pull file size from HEAD so the row carries accurate bytes
+        head = httpx.head(f"https://storage.googleapis.com/{GCS_BUCKET}/{gcs_object}", timeout=10)
+        file_size = int(head.headers.get("Content-Length", "0"))
+        audio_url = f"https://storage.googleapis.com/{GCS_BUCKET}/{gcs_object}"
+        print(f"      {file_size/1024:.1f} KB at {audio_url}")
+    else:
+        print("\n[1/3] Synthesizing audio via OpenAI tts-1-hd nova...")
+        synthesize_tts(script, mp3_path)
+        file_size = mp3_path.stat().st_size
+        print(f"      {file_size/1024:.1f} KB -> {mp3_path}")
 
-    print("[2/3] Uploading to GCS...")
-    audio_url = upload_to_gcs(mp3_path, f"{slug}.mp3")
-    print(f"      {audio_url}")
+        print("[2/3] Uploading to GCS...")
+        audio_url = upload_to_gcs(mp3_path, gcs_object)
+        print(f"      {audio_url}")
 
     print("[3/3] Inserting Supabase row...")
     ep_num = next_episode_number()
