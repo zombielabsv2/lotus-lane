@@ -368,18 +368,30 @@
           `;
         }).join('');
 
-        // Auto-advance: when one episode ends, play the next one in the list
+        // Auto-advance: chain through episodes from any starting point.
+        // Feed is newest-first; from the latest we walk down (older), from
+        // the oldest we walk up (newer), and from the middle we walk down
+        // first then loop back up. Track played episodes so we never repeat.
         const audios = Array.from(container.querySelectorAll('audio'));
+        const played = new Set();
         audios.forEach((audio, idx) => {
+          audio.addEventListener('play', () => {
+            played.add(idx);
+            audios.forEach(a => { if (a !== audio && !a.paused) a.pause(); });
+          });
           audio.addEventListener('ended', () => {
-            const next = audios[idx + 1];
+            let next = null;
+            for (let i = idx + 1; i < audios.length; i++) {
+              if (!played.has(i)) { next = audios[i]; break; }
+            }
+            if (!next) {
+              for (let i = idx - 1; i >= 0; i--) {
+                if (!played.has(i)) { next = audios[i]; break; }
+              }
+            }
             if (!next) return;
             next.scrollIntoView({ behavior: 'smooth', block: 'center' });
             next.play().catch(() => { /* browser may block if no prior interaction */ });
-          });
-          // Pause others when one starts playing
-          audio.addEventListener('play', () => {
-            audios.forEach(a => { if (a !== audio && !a.paused) a.pause(); });
           });
         });
 
