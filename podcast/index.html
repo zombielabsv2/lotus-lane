@@ -368,6 +368,21 @@
           `;
         }).join('');
 
+        // Auto-advance: when one episode ends, play the next one in the list
+        const audios = Array.from(container.querySelectorAll('audio'));
+        audios.forEach((audio, idx) => {
+          audio.addEventListener('ended', () => {
+            const next = audios[idx + 1];
+            if (!next) return;
+            next.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            next.play().catch(() => { /* browser may block if no prior interaction */ });
+          });
+          // Pause others when one starts playing
+          audio.addEventListener('play', () => {
+            audios.forEach(a => { if (a !== audio && !a.paused) a.pause(); });
+          });
+        });
+
         // Wire up per-episode share buttons
         container.querySelectorAll('.ep-share').forEach(btn => {
           btn.addEventListener('click', async (e) => {
