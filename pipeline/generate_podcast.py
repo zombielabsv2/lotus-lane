@@ -152,6 +152,34 @@ def already_published(slug: str) -> bool:
     return len(r.json()) > 0
 
 
+def episode_published_today_utc() -> dict | None:
+    """Return today's (UTC) episode row if one exists, else None.
+
+    Daily-cadence guard: when the workflow is re-triggered after a crash in
+    a post-generation step (notify, commit, etc.), the episode itself has
+    already been written. Re-running --pick-next would silently produce a
+    second episode for the same day. (2026-05-02 incident: notify import
+    bug failed run 25246589340, manual re-trigger spawned a duplicate.)
+    """
+    if not SUPABASE_URL or not SUPABASE_SERVICE_KEY:
+        return None
+    today = datetime.now(timezone.utc).date().isoformat()
+    r = httpx.get(
+        f"{SUPABASE_URL}/rest/v1/podcast_episodes",
+        headers=_supabase_headers(),
+        params={
+            "published_at": f"gte.{today}T00:00:00Z",
+            "select": "slug,episode_number,published_at",
+            "order": "published_at.asc",
+            "limit": "1",
+        },
+        timeout=15,
+    )
+    r.raise_for_status()
+    rows = r.json()
+    return rows[0] if rows else None
+
+
 def next_episode_number() -> int:
     r = httpx.get(
         f"{SUPABASE_URL}/rest/v1/podcast_episodes",
@@ -395,6 +423,17 @@ def main() -> None:
     if args.pick_next:
         if not (SUPABASE_URL and SUPABASE_SERVICE_KEY):
             sys.exit("--pick-next requires SUPABASE_URL / SUPABASE_SERVICE_KEY")
+        if args.live:
+            existing = episode_published_today_utc()
+            if existing:
+                print(
+                    f"Today's episode already published "
+                    f"(#{existing['episode_number']} {existing['slug']} "
+                    f"at {existing['published_at']}) — skipping to preserve "
+                    f"daily cadence. Pass --slug <name> to force a specific "
+                    f"slug if this was intentional."
+                )
+                return
         slug = pick_next_unpublished_slug()
         if not slug:
             sys.exit("No unpublished wisdom slugs remaining")
