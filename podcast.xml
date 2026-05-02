@@ -24,8 +24,22 @@
     <itunes:category text="Religion &amp; Spirituality">
       <itunes:category text="Buddhism" />
     </itunes:category>
-    <pubDate>Fri, 01 May 2026 07:45:51 +0000</pubDate>
-    <lastBuildDate>Fri, 01 May 2026 07:45:51 +0000</lastBuildDate>
+    <pubDate>Sat, 02 May 2026 07:16:56 +0000</pubDate>
+    <lastBuildDate>Sat, 02 May 2026 07:16:56 +0000</lastBuildDate>
+    <item>
+      <title>Caring for Someone Who Can't Care for Themselves</title>
+      <link>https://thelotuslane.in/wisdom/caregiver-burden.html</link>
+      <guid isPermaLink="false">https://storage.googleapis.com/lotus-lane-podcast/caregiver-burden.mp3</guid>
+      <pubDate>Sat, 02 May 2026 07:16:55 +0000</pubDate>
+      <description>Aging parents, a disabled child, a sick partner — the quiet exhaustion of being the one who holds it together. You are not invisible.</description>
+      <itunes:summary>Aging parents, a disabled child, a sick partner — the quiet exhaustion of being the one who holds it together. You are not invisible.</itunes:summary>
+      <itunes:author>The Lotus Lane</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:duration>9:55</itunes:duration>
+      <itunes:episode>4</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <enclosure url="https://storage.googleapis.com/lotus-lane-podcast/caregiver-burden.mp3" length="8165421" type="audio/mpeg" />
+    </item>
     <item>
       <title>The 3am Mind That Won't Stop</title>
       <link>https://thelotuslane.in/wisdom/anxiety-insomnia.html</link>
