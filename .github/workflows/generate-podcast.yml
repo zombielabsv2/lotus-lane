@@ -98,4 +98,4 @@ jobs:
           NOTIFY_EMAIL: ${{ secrets.NOTIFY_EMAIL }}
           PYTHONIOENCODING: utf-8
         run: |
-          python pipeline/notify.py --podcast
+          python -m pipeline.notify --podcast
