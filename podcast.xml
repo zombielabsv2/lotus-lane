@@ -24,8 +24,22 @@
     <itunes:category text="Religion &amp; Spirituality">
       <itunes:category text="Buddhism" />
     </itunes:category>
-    <pubDate>Sat, 02 May 2026 07:16:56 +0000</pubDate>
-    <lastBuildDate>Sat, 02 May 2026 07:16:56 +0000</lastBuildDate>
+    <pubDate>Sat, 02 May 2026 08:02:56 +0000</pubDate>
+    <lastBuildDate>Sat, 02 May 2026 08:02:56 +0000</lastBuildDate>
+    <item>
+      <title>When Your Body Is Failing You</title>
+      <link>https://thelotuslane.in/wisdom/chronic-illness.html</link>
+      <guid isPermaLink="false">https://storage.googleapis.com/lotus-lane-podcast/chronic-illness.mp3</guid>
+      <pubDate>Sat, 02 May 2026 08:02:55 +0000</pubDate>
+      <description>A diagnosis, a flare-up, a body that won't cooperate. Wisdom for living alongside illness without losing yourself.</description>
+      <itunes:summary>A diagnosis, a flare-up, a body that won't cooperate. Wisdom for living alongside illness without losing yourself.</itunes:summary>
+      <itunes:author>The Lotus Lane</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:duration>10:05</itunes:duration>
+      <itunes:episode>5</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <enclosure url="https://storage.googleapis.com/lotus-lane-podcast/chronic-illness.mp3" length="8412717" type="audio/mpeg" />
+    </item>
     <item>
       <title>Caring for Someone Who Can't Care for Themselves</title>
       <link>https://thelotuslane.in/wisdom/caregiver-burden.html</link>
