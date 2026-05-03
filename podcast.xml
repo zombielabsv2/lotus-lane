@@ -24,8 +24,22 @@
     <itunes:category text="Religion &amp; Spirituality">
       <itunes:category text="Buddhism" />
     </itunes:category>
-    <pubDate>Sat, 02 May 2026 09:00:43 +0000</pubDate>
-    <lastBuildDate>Sat, 02 May 2026 09:00:43 +0000</lastBuildDate>
+    <pubDate>Sun, 03 May 2026 07:33:51 +0000</pubDate>
+    <lastBuildDate>Sun, 03 May 2026 07:33:51 +0000</lastBuildDate>
+    <item>
+      <title>Everyone Is Doing Better Than Me</title>
+      <link>https://thelotuslane.in/wisdom/comparison-trap.html</link>
+      <guid isPermaLink="false">https://storage.googleapis.com/lotus-lane-podcast/comparison-trap.mp3</guid>
+      <pubDate>Sun, 03 May 2026 07:33:50 +0000</pubDate>
+      <description>Instagram says everyone is thriving. You're barely surviving. Here's the truth about comparison.</description>
+      <itunes:summary>Instagram says everyone is thriving. You're barely surviving. Here's the truth about comparison.</itunes:summary>
+      <itunes:author>The Lotus Lane</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:duration>10:09</itunes:duration>
+      <itunes:episode>6</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <enclosure url="https://storage.googleapis.com/lotus-lane-podcast/comparison-trap.mp3" length="8335533" type="audio/mpeg" />
+    </item>
     <item>
       <title>When Your Body Is Failing You</title>
       <link>https://thelotuslane.in/wisdom/chronic-illness.html</link>
