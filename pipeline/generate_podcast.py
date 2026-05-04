@@ -5,8 +5,9 @@ Pipeline:
     2. Strip HTML to spoken-text body
     3. Wrap with intro + outro template
     4. Call OpenAI tts-1-hd (voice=nova) → MP3
-    5. Upload MP3 to gs://lotus-lane-content/podcast/{slug}.mp3
-    6. Insert row in public.podcast_episodes (Supabase)
+    5. Append warm 7s outro sting (pipeline/assets/outro_sting.mp3)
+    6. Upload MP3 to gs://lotus-lane-content/podcast/{slug}.mp3
+    7. Insert row in public.podcast_episodes (Supabase)
 
 Default mode is DRY-RUN — generates the script + estimates cost without
 calling TTS, uploading, or writing to Supabase. Pass --live to run for real.
@@ -46,6 +47,9 @@ PUBLIC_BASE_URL = f"https://storage.googleapis.com/{GCS_BUCKET}"
 
 VOICE_MODEL = "openai:tts-1-hd:nova"
 OPENAI_TTS_PRICE_PER_CHAR = 30 / 1_000_000  # $30/M chars
+
+OUTRO_MUSIC_PATH = REPO_ROOT / "pipeline" / "assets" / "outro_sting.mp3"
+OUTRO_MUSIC_GAP_SECONDS = 0.5  # silence between voice end and music start
 
 INTRO_TEMPLATE = (
     "Welcome to Lotus Lane Daily. I'm glad you're here.\n\n"
@@ -284,6 +288,34 @@ def synthesize_tts(text: str, out_path: Path) -> None:
     parts_dir.rmdir()
 
 
+def append_outro_music(voice_mp3: Path) -> None:
+    """Append the warm outro sting to a freshly-rendered TTS file, in place.
+
+    Voice → 0.5s silence → 7s music. Re-encodes via libmp3lame so the seam
+    is clean and the whole file has uniform bitrate (no clicks at the join).
+    """
+    if not OUTRO_MUSIC_PATH.exists():
+        raise FileNotFoundError(f"Outro sting missing: {OUTRO_MUSIC_PATH}")
+    tmp = voice_mp3.with_suffix(".with_outro.mp3")
+    filter_chain = (
+        f"[0:a]apad=pad_dur={OUTRO_MUSIC_GAP_SECONDS}[v];"
+        f"[v][1:a]concat=n=2:v=0:a=1[out]"
+    )
+    subprocess.run(
+        [
+            "ffmpeg", "-y", "-loglevel", "error",
+            "-i", str(voice_mp3),
+            "-i", str(OUTRO_MUSIC_PATH),
+            "-filter_complex", filter_chain,
+            "-map", "[out]",
+            "-c:a", "libmp3lame", "-b:a", "128k",
+            str(tmp),
+        ],
+        check=True,
+    )
+    tmp.replace(voice_mp3)
+
+
 def _gsutil_cmd() -> str:
     """Locate gsutil — Windows uses .cmd wrapper, Linux/Mac uses bare binary."""
     if os.name == "nt":
@@ -326,8 +358,10 @@ def gcs_object_exists(gcs_object: str) -> bool:
 
 
 def estimate_duration_seconds(char_count: int) -> int:
-    # OpenAI tts-1-hd nova averages ~14 chars/second when read
-    return max(60, int(char_count / 14))
+    # OpenAI tts-1-hd nova averages ~14 chars/second when read.
+    # Add ~7.5s for the 0.5s gap + 7s outro music sting.
+    voice = max(60, int(char_count / 14))
+    return voice + 8
 
 
 def insert_episode_row(payload: dict) -> dict:
@@ -383,16 +417,20 @@ def run(slug: str, live: bool) -> None:
         audio_url = f"https://storage.googleapis.com/{GCS_BUCKET}/{gcs_object}"
         print(f"      {file_size/1024:.1f} KB at {audio_url}")
     else:
-        print("\n[1/3] Synthesizing audio via OpenAI tts-1-hd nova...")
+        print("\n[1/4] Synthesizing audio via OpenAI tts-1-hd nova...")
         synthesize_tts(script, mp3_path)
-        file_size = mp3_path.stat().st_size
-        print(f"      {file_size/1024:.1f} KB -> {mp3_path}")
+        print(f"      voice {mp3_path.stat().st_size/1024:.1f} KB")
 
-        print("[2/3] Uploading to GCS...")
+        print("[2/4] Appending outro music sting...")
+        append_outro_music(mp3_path)
+        file_size = mp3_path.stat().st_size
+        print(f"      final {file_size/1024:.1f} KB -> {mp3_path}")
+
+        print("[3/4] Uploading to GCS...")
         audio_url = upload_to_gcs(mp3_path, gcs_object)
         print(f"      {audio_url}")
 
-    print("[3/3] Inserting Supabase row...")
+    print("[4/4] Inserting Supabase row...")
     ep_num = next_episode_number()
     row = insert_episode_row({
         "slug": slug,
