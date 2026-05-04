@@ -24,8 +24,22 @@
     <itunes:category text="Religion &amp; Spirituality">
       <itunes:category text="Buddhism" />
     </itunes:category>
-    <pubDate>Sun, 03 May 2026 07:33:51 +0000</pubDate>
-    <lastBuildDate>Sun, 03 May 2026 07:33:51 +0000</lastBuildDate>
+    <pubDate>Mon, 04 May 2026 08:10:16 +0000</pubDate>
+    <lastBuildDate>Mon, 04 May 2026 08:10:16 +0000</lastBuildDate>
+    <item>
+      <title>How to Deal with Jealousy</title>
+      <link>https://thelotuslane.in/wisdom/dealing-with-jealousy.html</link>
+      <guid isPermaLink="false">https://storage.googleapis.com/lotus-lane-podcast/dealing-with-jealousy.mp3</guid>
+      <pubDate>Mon, 04 May 2026 08:10:14 +0000</pubDate>
+      <description>Jealousy is eating you alive. Ancient wisdom and modern stories on letting go of envy and finding your own path.</description>
+      <itunes:summary>Jealousy is eating you alive. Ancient wisdom and modern stories on letting go of envy and finding your own path.</itunes:summary>
+      <itunes:author>The Lotus Lane</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:duration>10:11</itunes:duration>
+      <itunes:episode>7</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <enclosure url="https://storage.googleapis.com/lotus-lane-podcast/dealing-with-jealousy.mp3" length="8408109" type="audio/mpeg" />
+    </item>
     <item>
       <title>Everyone Is Doing Better Than Me</title>
       <link>https://thelotuslane.in/wisdom/comparison-trap.html</link>
