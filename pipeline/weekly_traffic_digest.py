@@ -679,6 +679,8 @@ def main() -> None:
     # Empire heartbeat — only on a clean LIVE run.
     if not args.dry_run:
         try:
+            if str(ROOT) not in sys.path:
+                sys.path.insert(0, str(ROOT))
             from pipeline.empire_heartbeat import beat
             beat("lotus_lane:weekly_traffic_digest", {
                 "daimoku_subs": subs.get("daimoku_total", 0),
