@@ -24,8 +24,22 @@
     <itunes:category text="Religion &amp; Spirituality">
       <itunes:category text="Buddhism" />
     </itunes:category>
-    <pubDate>Mon, 04 May 2026 12:16:13 +0000</pubDate>
-    <lastBuildDate>Mon, 04 May 2026 12:16:13 +0000</lastBuildDate>
+    <pubDate>Tue, 05 May 2026 07:36:11 +0000</pubDate>
+    <lastBuildDate>Tue, 05 May 2026 07:36:11 +0000</lastBuildDate>
+    <item>
+      <title>When You Can't Get Out of Bed</title>
+      <link>https://thelotuslane.in/wisdom/depression-fog.html</link>
+      <guid isPermaLink="false">https://storage.googleapis.com/lotus-lane-podcast/depression-fog.mp3</guid>
+      <pubDate>Tue, 05 May 2026 07:36:10 +0000</pubDate>
+      <description>The fog is real. You're not lazy. Stories and ancient wisdom for the days everything feels heavy.</description>
+      <itunes:summary>The fog is real. You're not lazy. Stories and ancient wisdom for the days everything feels heavy.</itunes:summary>
+      <itunes:author>The Lotus Lane</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:duration>10:28</itunes:duration>
+      <itunes:episode>8</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <enclosure url="https://storage.googleapis.com/lotus-lane-podcast/depression-fog.mp3" length="8662317" type="audio/mpeg" />
+    </item>
     <item>
       <title>How to Deal with Jealousy</title>
       <link>https://thelotuslane.in/wisdom/dealing-with-jealousy.html</link>
