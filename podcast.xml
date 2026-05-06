@@ -24,8 +24,22 @@
     <itunes:category text="Religion &amp; Spirituality">
       <itunes:category text="Buddhism" />
     </itunes:category>
-    <pubDate>Tue, 05 May 2026 07:36:11 +0000</pubDate>
-    <lastBuildDate>Tue, 05 May 2026 07:36:11 +0000</lastBuildDate>
+    <pubDate>Wed, 06 May 2026 07:59:35 +0000</pubDate>
+    <lastBuildDate>Wed, 06 May 2026 07:59:35 +0000</lastBuildDate>
+    <item>
+      <title>When a Marriage Ends</title>
+      <link>https://thelotuslane.in/wisdom/divorce.html</link>
+      <guid isPermaLink="false">https://storage.googleapis.com/lotus-lane-podcast/divorce.mp3</guid>
+      <pubDate>Wed, 06 May 2026 07:59:34 +0000</pubDate>
+      <description>The life you built is ending. Grief, shame, and starting over all at once. Wisdom for the hardest unraveling.</description>
+      <itunes:summary>The life you built is ending. Grief, shame, and starting over all at once. Wisdom for the hardest unraveling.</itunes:summary>
+      <itunes:author>The Lotus Lane</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:duration>10:09</itunes:duration>
+      <itunes:episode>9</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <enclosure url="https://storage.googleapis.com/lotus-lane-podcast/divorce.mp3" length="8363565" type="audio/mpeg" />
+    </item>
     <item>
       <title>When You Can't Get Out of Bed</title>
       <link>https://thelotuslane.in/wisdom/depression-fog.html</link>
