@@ -7,14 +7,16 @@ panels and scripts. Audio narration is generated FIRST, then video frames
 are rendered to match audio timing exactly.
 
 Pipeline:
-    1. Generate TTS audio for all dialogue (edge-tts, Indian English voices)
+    1. Generate TTS audio for all dialogue
+       - ElevenLabs multilingual_v2 (Rhea + Aaditya, native Indian English narrators)
+       - Falls back to edge-tts if ELEVENLABS_API_KEY is unset (local dev only)
     2. Measure audio durations -> calculate panel timings
     3. Render video frames synchronized to audio
     4. Merge audio + video with ffmpeg
 
 Requirements:
     - ffmpeg (found via WinGet paths or PATH)
-    - edge-tts, pydub, Pillow
+    - httpx, edge-tts (fallback), pydub, Pillow
 
 Usage:
     python pipeline/video_generator.py --date 2026-03-31
@@ -31,7 +33,11 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import time
 from pathlib import Path
+
+from dotenv import load_dotenv
+load_dotenv(Path(__file__).parent.parent / ".env")
 
 from PIL import Image, ImageDraw, ImageFont
 
@@ -86,9 +92,24 @@ END_CARD_DURATION = 4.0            # end card always 4 seconds
 FADE_DURATION = 0.5                # cross-fade between panels
 
 # TTS voices
-VOICES = {
+# ElevenLabs (multilingual_v2) — primary. Native Indian English narrator voices.
+VOICES_ELEVENLABS = {
+    "female": "eUdJpUEN3EslrgE24PKx",  # Rhea — Soft, Polished, Calm (narrator, middle-aged)
+    "male":   "xMagNCpMgZ83QOEsHNre",  # Aaditya — Calm, Soft, Soothing (narrator, middle-aged)
+}
+# edge-tts — fallback when ELEVENLABS_API_KEY is not set (local dev).
+VOICES_EDGE = {
     "female": "en-IN-NeerjaExpressiveNeural",
     "male": "en-IN-PrabhatNeural",
+}
+USE_ELEVENLABS = bool(os.environ.get("ELEVENLABS_API_KEY"))
+VOICES = VOICES_ELEVENLABS if USE_ELEVENLABS else VOICES_EDGE
+ELEVENLABS_MODEL = "eleven_multilingual_v2"
+ELEVENLABS_VOICE_SETTINGS = {
+    "stability": 0.45,
+    "similarity_boost": 0.85,
+    "style": 0.35,
+    "use_speaker_boost": True,
 }
 
 CHAR_GENDER = {
@@ -226,8 +247,47 @@ def _parse_dialogue_line(line):
 # Step 1: Generate TTS audio
 # ---------------------------------------------------------------------------
 
+def _generate_elevenlabs_segment(text, voice_id, output_path, max_retries=3):
+    """Generate a single TTS audio file via ElevenLabs. Returns True on success."""
+    import httpx
+    api_key = os.environ.get("ELEVENLABS_API_KEY")
+    if not api_key:
+        return False
+    url = f"https://api.elevenlabs.io/v1/text-to-speech/{voice_id}"
+    payload = {
+        "text": text,
+        "model_id": ELEVENLABS_MODEL,
+        "voice_settings": ELEVENLABS_VOICE_SETTINGS,
+    }
+    headers = {"xi-api-key": api_key, "Content-Type": "application/json"}
+    backoff = 2
+    for attempt in range(max_retries):
+        try:
+            r = httpx.post(url, json=payload, headers=headers, timeout=120)
+            if r.status_code == 200:
+                Path(output_path).write_bytes(r.content)
+                return True
+            if r.status_code in (429, 500, 502, 503, 504):
+                print(f"    ElevenLabs {r.status_code}, retry {attempt+1}/{max_retries}")
+                time.sleep(backoff)
+                backoff *= 2
+                continue
+            print(f"    ElevenLabs error {r.status_code}: {r.text[:200]}")
+            return False
+        except Exception as e:
+            print(f"    ElevenLabs request error (attempt {attempt+1}): {e}")
+            time.sleep(backoff)
+            backoff *= 2
+    return False
+
+
 async def _generate_tts_segment(text, voice, output_path, rate="-5%"):
-    """Generate a single TTS audio file. Returns True on success."""
+    """Generate a single TTS audio file. Returns True on success.
+
+    Dispatches to ElevenLabs when ELEVENLABS_API_KEY is set, else edge-tts.
+    """
+    if USE_ELEVENLABS:
+        return _generate_elevenlabs_segment(text, voice, output_path)
     try:
         import edge_tts
         communicate = edge_tts.Communicate(text, voice, rate=rate)

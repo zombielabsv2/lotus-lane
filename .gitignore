@@ -14,3 +14,6 @@ supabase/.temp/
 
 # Podcast — MP3 files go to GCS, not git
 podcast/audio/
+
+# Voice sample comparison files — analysis output, not source
+voice_samples/

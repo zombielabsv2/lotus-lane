@@ -29,7 +29,7 @@ Mon/Wed/Fri 11:30 AM IST → generate-strip.yml
 | `strips.json` | Single source of truth — all strip metadata, YouTube IDs, social IDs |
 | `pipeline/generate_strip.py` | Script + image generation + assembly |
 | `pipeline/playwright_renderer.py` | Chromium-based text rendering (dialogue bands, video frames) |
-| `pipeline/video_generator.py` | edge-tts audio + Ken Burns + ffmpeg → MP4 Shorts |
+| `pipeline/video_generator.py` | ElevenLabs TTS (Rhea + Aaditya, multilingual_v2) + Ken Burns + ffmpeg → MP4 Shorts. Falls back to edge-tts if `ELEVENLABS_API_KEY` is unset |
 | `pipeline/youtube_upload.py` | Upload, swap-old, retry. Max 5/run, quota-aware |
 | `pipeline/generate_email.py` | Daimoku Daily — Claude + nichiren-chatbot knowledge base |
 | `pipeline/generate_pages.py` | SEO HTML pages per strip |
@@ -71,7 +71,7 @@ Mon/Wed/Fri 11:30 AM IST → generate-strip.yml
 
 ## GitHub Secrets Required
 
-**Active:** ANTHROPIC_API_KEY, OPENAI_API_KEY, YOUTUBE_CLIENT_ID, YOUTUBE_CLIENT_SECRET, YOUTUBE_REFRESH_TOKEN, SUPABASE_URL, SUPABASE_SERVICE_KEY, RESEND_API_KEY, NOTIFY_EMAIL, GH_PAT (for nichiren-chatbot checkout)
+**Active:** ANTHROPIC_API_KEY, OPENAI_API_KEY, ELEVENLABS_API_KEY, YOUTUBE_CLIENT_ID, YOUTUBE_CLIENT_SECRET, YOUTUBE_REFRESH_TOKEN, SUPABASE_URL, SUPABASE_SERVICE_KEY, RESEND_API_KEY, NOTIFY_EMAIL, GH_PAT (for nichiren-chatbot checkout)
 
 **Not yet configured:** PINTEREST_ACCESS_TOKEN, PINTEREST_REFRESH_TOKEN, PINTEREST_APP_ID, PINTEREST_APP_SECRET, PINTEREST_BOARD_ID, TUMBLR_ACCESS_TOKEN, TUMBLR_CONSUMER_KEY, TUMBLR_CONSUMER_SECRET, TUMBLR_BLOG_NAME, INSTAGRAM_ACCESS_TOKEN, INSTAGRAM_USER_ID
 

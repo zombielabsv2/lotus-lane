@@ -121,6 +121,8 @@ jobs:
         if: ${{ github.event.inputs.dry_run != 'true' }}
         continue-on-error: true
         id: video
+        env:
+          ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
         run: python pipeline/video_generator.py --date $(date +%Y-%m-%d)
 
       - name: Generate 15-second hook reel
