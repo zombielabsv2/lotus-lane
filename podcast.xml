@@ -24,8 +24,22 @@
     <itunes:category text="Religion &amp; Spirituality">
       <itunes:category text="Buddhism" />
     </itunes:category>
-    <pubDate>Wed, 06 May 2026 07:59:35 +0000</pubDate>
-    <lastBuildDate>Wed, 06 May 2026 07:59:35 +0000</lastBuildDate>
+    <pubDate>Thu, 07 May 2026 08:19:06 +0000</pubDate>
+    <lastBuildDate>Thu, 07 May 2026 08:19:06 +0000</lastBuildDate>
+    <item>
+      <title>Feeling Like a Failure After 30</title>
+      <link>https://thelotuslane.in/wisdom/feeling-like-a-failure.html</link>
+      <guid isPermaLink="false">https://storage.googleapis.com/lotus-lane-podcast/feeling-like-a-failure.mp3</guid>
+      <pubDate>Thu, 07 May 2026 08:19:04 +0000</pubDate>
+      <description>Everyone else has it figured out. You don't. Here's what an 800-year-old letter says about that.</description>
+      <itunes:summary>Everyone else has it figured out. You don't. Here's what an 800-year-old letter says about that.</itunes:summary>
+      <itunes:author>The Lotus Lane</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:duration>11:15</itunes:duration>
+      <itunes:episode>10</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <enclosure url="https://storage.googleapis.com/lotus-lane-podcast/feeling-like-a-failure.mp3" length="9306285" type="audio/mpeg" />
+    </item>
     <item>
       <title>When a Marriage Ends</title>
       <link>https://thelotuslane.in/wisdom/divorce.html</link>
