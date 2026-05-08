@@ -1,0 +1,54 @@
+{
+  "script": {
+    "title": "My Father Said I Have No Daughter Anymore",
+    "panels": [
+      {
+        "panel_number": 1,
+        "scene_description": "A Hyderabad apartment, late evening. Lata, a 30-year-old Indian woman with long black hair and red bangles on her wrists (recently married), wears a deep maroon cotton sari. She stands frozen in her own living room holding her phone, the call just ended. Behind her, her husband Faisal, 33, with kind eyes and a navy kurta, watches from the doorway, hands at his sides, not knowing what to do. The room is full of small Tamil household details - a brass lamp, a framed picture of Murugan.",
+        "dialogue": [
+          "Lata (whispering): He said the words. 'I have no daughter anymore.'"
+        ],
+        "mood": "shock"
+      },
+      {
+        "panel_number": 2,
+        "scene_description": "Lata is now sitting on the floor of the living room with her back against the sofa, knees pulled up. The maroon sari is rumpled. She is looking at an old photograph in her hands - her with her father at her tenth birthday, both of them smiling, his hand on her shoulder. Faisal sits next to her on the floor, not touching her, just present. His hand rests on the floor close to hers.",
+        "dialogue": [
+          "Lata: He used to call me Lata-papa.",
+          "Faisal: He still does, in his head. He just won't let his mouth say it."
+        ],
+        "mood": "broken"
+      },
+      {
+        "panel_number": 3,
+        "scene_description": "Several days later. Lata sits at a small home altar in the corner of the apartment - a humble wooden shelf with a Gohonzon scroll, a small offering of fruit, and a candle. She is in a simple cream kurta, eyes closed, hands joined in prayer. Her face is no longer destroyed. There are tear tracks but also stillness. The morning light through the window is soft.",
+        "dialogue": [
+          "Lata (thinking): Suffer what there is to suffer. Enjoy what there is to enjoy.",
+          "Lata (thinking): I will not stop being his daughter just because he stopped saying it."
+        ],
+        "mood": "still"
+      },
+      {
+        "panel_number": 4,
+        "scene_description": "Three months later, the same apartment, but more lived-in now - a few new framed photographs on the wall (Lata and Faisal's wedding, and one of Lata's mother holding a phone, smiling secretly). Lata stands at the kitchen counter on a video call, her face warm and a little teary. On the laptop screen we see her mother in the family kitchen back home, looking around guiltily as she whispers.",
+        "dialogue": [
+          "Mother (on screen, whispering): He fell asleep. Show me the new ironing board, kanna.",
+          "Lata (smiling, eyes wet): Amma. Look at me. We are all still a family. He just hasn't caught up yet."
+        ],
+        "mood": "tender"
+      }
+    ],
+    "nichiren_quote": "Suffer what there is to suffer, enjoy what there is to enjoy. Regard both suffering and joy as facts of life.",
+    "source": "Nichiren Daishonin, 'Happiness in This World,' WND-1, p. 681",
+    "message": "When family rejects you, the grief is sacred and the wound is real. But you do not stop being a daughter, a son, a sibling - you become the one who keeps the door open while the other person learns to walk back through it.",
+    "tags": [
+      "rejection",
+      "family",
+      "letting-go",
+      "perseverance"
+    ]
+  },
+  "category": "rejection",
+  "topic": "family rejection / disowned",
+  "characters": []
+}

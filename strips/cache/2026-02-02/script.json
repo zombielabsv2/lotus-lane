@@ -1,0 +1,55 @@
+{
+  "script": {
+    "title": "Seven Rounds and a Voicemail",
+    "panels": [
+      {
+        "panel_number": 1,
+        "scene_description": "A small but tidy Mumbai apartment kitchen at 9pm. Riya, a 28-year-old Indian woman with shoulder-length straight black hair and round-frame glasses, wears a faded grey sweatshirt over jeans. She stands frozen by the kitchen counter, holding her phone to her ear, a bowl of half-eaten poha forgotten beside her. Her expression is stunned, eyes wide, mouth slightly open. Behind her, the open laptop on the dining table shows the company's careers page.",
+        "dialogue": [
+          "Voicemail: We've decided to move forward with another candidate. Best wishes.",
+          "Riya: That's it? After seven rounds?"
+        ],
+        "mood": "stunned"
+      },
+      {
+        "panel_number": 2,
+        "scene_description": "Riya is now slumped on a beige sofa in the living room, knees pulled up to her chest. The same grey sweatshirt is now darker around the shoulder where she has wiped her face. The room is dim, lit only by a single warm yellow lamp and the laptop screen on the coffee table showing the rejection email. A printed copy of her resume lies on the floor.",
+        "dialogue": [
+          "Riya: I rebuilt my entire life around getting this job.",
+          "Riya: I told everyone. I told Amma."
+        ],
+        "mood": "devastated"
+      },
+      {
+        "panel_number": 3,
+        "scene_description": "Close-up of Riya at the same coffee table, but now she has opened a worn leather notebook and is writing in it with a black pen. Her face is calmer, though tear tracks are still visible on her cheeks. Beside her on the table is a small framed photo of her at her engineering graduation with her mother. The lamp light catches the edge of her glasses. Behind her, the window shows the lights of Mumbai at night.",
+        "dialogue": [
+          "Riya (writing): What I learned in seven rounds...",
+          "Riya (writing): System design. The C-suite's questions. How I behave under pressure."
+        ],
+        "mood": "thoughtful"
+      },
+      {
+        "panel_number": 4,
+        "scene_description": "Morning light now floods the same living room. Riya, in a fresh white kurta, sits at the dining table with the laptop open, typing a message. Her expression is calm and steady, no longer puffy from crying. A fresh cup of chai steams beside her. The notebook from the previous panel sits open with a list of names.",
+        "dialogue": [
+          "Riya: Hi Vikram, this is Riya. I made it to your final round last month and didn't get the offer.",
+          "Riya: I'd love to be considered if anything else opens up. Here's what I learned about myself in your process..."
+        ],
+        "mood": "resolute"
+      }
+    ],
+    "nichiren_quote": "Iron, when heated in fire and pounded, becomes a fine sword.",
+    "source": "Nichiren Daishonin, 'The True Aspect of All Phenomena,' WND-1, p. 384",
+    "message": "A rejection after seven rounds is not a verdict on your worth - it is data. The interviews changed you whether or not the offer came. Use what was forged.",
+    "tags": [
+      "rejection",
+      "work-stress",
+      "self-worth",
+      "perseverance"
+    ]
+  },
+  "category": "rejection",
+  "topic": "job rejection after multiple interview rounds",
+  "characters": []
+}

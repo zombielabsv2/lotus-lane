@@ -1,0 +1,54 @@
+{
+  "script": {
+    "title": "The Group Chat Got a New Group Chat",
+    "panels": [
+      {
+        "panel_number": 1,
+        "scene_description": "A bright South Delhi cafe at lunchtime. Priya, a 35-year-old Indian woman with wavy chin-length hair, wears a pale blue cotton kurta and silver jhumkas. She sits alone at a small table holding her phone and looking at it with confusion. On her phone screen, an Instagram story is visible: four of her oldest friends are at a beach in Goa, captioned 'GIRLS TRIP! Year four!' Priya's untouched cappuccino is in front of her.",
+        "dialogue": [
+          "Priya: Year four? I wasn't there for any of them."
+        ],
+        "mood": "confused"
+      },
+      {
+        "panel_number": 2,
+        "scene_description": "Priya is back at her shared workspace cubicle, staring at her laptop without typing. Her face is now hurt and quietly humiliated. On her desk are small touches that show how much she had invested in those friendships: a printed group photo from college framed beside the keyboard, a friendship-bracelet bowl, and a thank-you card from one of those same friends.",
+        "dialogue": [
+          "Priya (thinking): Three years of being the one who organizes everything.",
+          "Priya (thinking): And they made a different chat."
+        ],
+        "mood": "hurt"
+      },
+      {
+        "panel_number": 3,
+        "scene_description": "Evening. Priya is on the rooftop terrace of her apartment building, leaning on the railing with a glass of water. The Delhi sky is amber with sunset. Beside her stands her downstairs neighbour, Reema, 41, a woman with short grey hair and a kind, weathered face. Reema is smoking a single cigarette and listening intently. Priya looks at Reema, eyes wet but voice steady.",
+        "dialogue": [
+          "Priya: I'm not even angry. I just feel like I was the one who didn't get the memo.",
+          "Reema: Beta, sometimes the memo never comes. The friendship just quietly grew up without you in it."
+        ],
+        "mood": "vulnerable"
+      },
+      {
+        "panel_number": 4,
+        "scene_description": "Priya is now at her dining table, the laptop closed beside her. She is opening a small handwritten address book and dialing a number on her phone. Her expression is tender, no longer hurt - resolute. The framed college photo is still on her desk in the background, but now beside it she has placed two new photos: one of Reema laughing on the terrace, and one of a younger cousin she has not called in months.",
+        "dialogue": [
+          "Priya (on phone): Hi Naina. It's Priya didi. I'm sorry I haven't called in so long.",
+          "Priya (thinking): The right people are already in my life. I have just been calling the wrong ones."
+        ],
+        "mood": "warm"
+      }
+    ],
+    "nichiren_quote": "A single warm word can give someone the courage to go on living. Never underestimate the power of a kind heart.",
+    "source": "Daisaku Ikeda, For Today and Tomorrow",
+    "message": "Some friendships quietly grow up without you. The grief is real. So is the empty space they leave - which is exactly the room you needed to invite the right people in.",
+    "tags": [
+      "rejection",
+      "friendship",
+      "loneliness",
+      "letting-go"
+    ]
+  },
+  "category": "rejection",
+  "topic": "social rejection / left out of friend group",
+  "characters": []
+}

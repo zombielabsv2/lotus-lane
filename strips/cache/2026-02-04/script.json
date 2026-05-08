@@ -1,0 +1,54 @@
+{
+  "script": {
+    "title": "She Just Stopped Replying",
+    "panels": [
+      {
+        "panel_number": 1,
+        "scene_description": "A Bangalore studio apartment at midnight. Karthik, a 32-year-old Indian man with a short trimmed beard and tired eyes, wears a wrinkled blue t-shirt. He sits on the edge of an unmade bed, holding his phone with both hands, staring at the screen. The phone shows a WhatsApp chat where his last three messages are marked with single grey ticks. The room is lit by the blue glow of the screen and a desk lamp. An untouched Swiggy bag sits on the floor.",
+        "dialogue": [
+          "Karthik: Six months. And now nothing. Not even an explanation."
+        ],
+        "mood": "anguished"
+      },
+      {
+        "panel_number": 2,
+        "scene_description": "Karthik now stands at his small kitchen counter at 2am, microwaving leftover dal. The kitchen light is harsh and fluorescent. He stares blankly at the rotating plate inside. His phone sits face-down on the counter beside him. His expression is hollow, exhausted but unable to sleep.",
+        "dialogue": [
+          "Karthik: Was it me? Did I say something? Did I not say something?",
+          "Karthik: I keep replaying every word."
+        ],
+        "mood": "spiraling"
+      },
+      {
+        "panel_number": 3,
+        "scene_description": "Morning. Karthik sits across from his older sister Divya, 38, a woman with hair tied back in a low bun, wearing a green cotton kurta. They are at a sunlit corner cafe in Indiranagar with two cups of filter coffee between them. Karthik's eyes are red but he is sitting upright. Divya is mid-sentence, her hand resting on his.",
+        "dialogue": [
+          "Divya: Anna, listen to me. Her silence is information about her. Not about you.",
+          "Divya: A person who can disappear without a word is not a person who could have stayed."
+        ],
+        "mood": "tender"
+      },
+      {
+        "panel_number": 4,
+        "scene_description": "Karthik is now jogging through Cubbon Park in the late afternoon, wearing running shorts and a grey tee, earphones in. The afternoon light filters through the trees. His face is flushed from exertion but no longer hollow - there is a quiet steadiness in his expression. In his hand he holds his phone, and we can see the chat with the woman has been archived.",
+        "dialogue": [
+          "Karthik (thinking): The pain is real. The story I was telling about it was not.",
+          "Karthik (thinking): One foot. Then the next."
+        ],
+        "mood": "grounded"
+      }
+    ],
+    "nichiren_quote": "True happiness is not the absence of suffering. It is the ability to find meaning and joy even in the midst of suffering.",
+    "source": "Daisaku Ikeda, Discussions on Youth",
+    "message": "Ghosting tells you more about the person who left than the person who was left. The pain is real. The verdict you keep writing about yourself is not.",
+    "tags": [
+      "rejection",
+      "heartbreak",
+      "loneliness",
+      "letting-go"
+    ]
+  },
+  "category": "rejection",
+  "topic": "romantic ghosting / sudden silence",
+  "characters": []
+}

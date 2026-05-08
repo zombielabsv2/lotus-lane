@@ -10,6 +10,10 @@ on:
         description: 'Force a specific topic (optional)'
         required: false
         type: string
+      date:
+        description: 'Backdate to a specific YYYY-MM-DD (optional, defaults to today). Used for backfilling missing days. Cached script.json must exist at strips/cache/<date>/script.json or Claude will be called to generate one.'
+        required: false
+        type: string
       dry_run:
         description: 'Dry run (script only, no images)'
         required: false
@@ -42,6 +46,19 @@ jobs:
           playwright install chromium --with-deps
           sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
 
+      - name: Resolve target date
+        id: target
+        run: |
+          INPUT_DATE="${{ github.event.inputs.date }}"
+          if [ -n "$INPUT_DATE" ]; then
+            echo "date=$INPUT_DATE" >> $GITHUB_OUTPUT
+            echo "Using overridden date: $INPUT_DATE"
+          else
+            TODAY=$(date +%Y-%m-%d)
+            echo "date=$TODAY" >> $GITHUB_OUTPUT
+            echo "Using today: $TODAY"
+          fi
+
       - name: Generate strip
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
@@ -49,7 +66,7 @@ jobs:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
         run: |
-          ARGS=()
+          ARGS=(--date "${{ steps.target.outputs.date }}")
           TOPIC="${{ github.event.inputs.topic }}"
           if [ -n "$TOPIC" ]; then
             ARGS+=(--topic "$TOPIC")
@@ -65,7 +82,7 @@ jobs:
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
         run: |
-          DATE=$(date +%Y-%m-%d)
+          DATE="${{ steps.target.outputs.date }}"
           PNG_FILE="strips/${DATE}.png"
           if [ ! -f "$PNG_FILE" ]; then
             echo "No PNG generated for $DATE, skipping assets push"
@@ -108,7 +125,7 @@ jobs:
           if git diff --staged --quiet; then
             echo "No new changes to commit"
           else
-            git commit -m "Add strip for $(date +%Y-%m-%d)"
+            git commit -m "Add strip for ${{ steps.target.outputs.date }}"
             # Rebase onto latest main, --autostash handles any stray unstaged tracked files
             # without destroying them. Do NOT use `git checkout -- .` or `git clean -fd` here —
             # they throw away the outputs that later pipeline steps produce (see Apr 11 incident).
@@ -123,13 +140,13 @@ jobs:
         id: video
         env:
           ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
-        run: python pipeline/video_generator.py --date $(date +%Y-%m-%d)
+        run: python pipeline/video_generator.py --date ${{ steps.target.outputs.date }}
 
       - name: Generate 15-second hook reel
         if: ${{ github.event.inputs.dry_run != 'true' }}
         continue-on-error: true
         id: hook_reel
-        run: python pipeline/hook_reel_generator.py --date $(date +%Y-%m-%d)
+        run: python pipeline/hook_reel_generator.py --date ${{ steps.target.outputs.date }}
 
       - name: Upload to YouTube
         if: ${{ github.event.inputs.dry_run != 'true' }}
@@ -139,7 +156,7 @@ jobs:
           YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
           YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
           YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
-        run: python pipeline/youtube_upload.py --latest
+        run: python pipeline/youtube_upload.py --date ${{ steps.target.outputs.date }}
 
       # --- Pinterest, Tumblr, Instagram DISABLED (no credentials configured, generates noise) ---
       # Re-enable when credentials are set up. workflow_dispatch still works for manual testing.
@@ -191,7 +208,7 @@ jobs:
           if git diff --staged --quiet; then
             echo "No video/social updates"
           else
-            git commit -m "Update video + social media IDs for $(date +%Y-%m-%d)"
+            git commit -m "Update video + social media IDs for ${{ steps.target.outputs.date }}"
             git pull --rebase --autostash origin main
             git push
           fi

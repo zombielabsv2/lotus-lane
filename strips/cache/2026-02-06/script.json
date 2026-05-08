@@ -1,0 +1,55 @@
+{
+  "script": {
+    "title": "Forty-Seven Pass Letters",
+    "panels": [
+      {
+        "panel_number": 1,
+        "scene_description": "A small home study in Pune, late afternoon. Anjali, a 39-year-old Indian woman with greying hair pulled into a loose plait, wearing a maroon shawl over a kurta, sits at a wooden desk surrounded by stacks of paper and a printer. Her face is tired and slightly defeated. She is reading the latest email on her laptop screen. Behind her, on a corkboard, are pinned forty-six small printed rejection emails, all marked 'Pass.' She is reading the forty-seventh.",
+        "dialogue": [
+          "Anjali: 'We loved the voice but it doesn't fit our list right now.'",
+          "Anjali: Forty-seven. They all loved the voice."
+        ],
+        "mood": "deflated"
+      },
+      {
+        "panel_number": 2,
+        "scene_description": "Anjali is now crouching on the floor of the study, gathering printed pages of her novel manuscript that have spilled from a fallen folder. Her shawl has slipped off one shoulder. The manuscript pages are titled 'The Saltwater Daughter.' Her expression is somewhere between grief and grim determination, eyes shining but not crying.",
+        "dialogue": [
+          "Anjali: Nobody is going to publish this book. Not one of them.",
+          "Anjali: I gave it five years."
+        ],
+        "mood": "grief"
+      },
+      {
+        "panel_number": 3,
+        "scene_description": "Same room, evening. Anjali sits on the floor with her back against the desk, the manuscript pages now stacked neatly in her lap. She has a cup of chai in one hand. On the wall, beside the rejection corkboard, hangs a framed photograph of her late grandmother, who clearly inspired the book. Anjali is looking at the photograph with a small, sad smile.",
+        "dialogue": [
+          "Anjali (thinking): Naani told me writers in our family have always been read by no one.",
+          "Anjali (thinking): That didn't stop them writing."
+        ],
+        "mood": "reflective"
+      },
+      {
+        "panel_number": 4,
+        "scene_description": "Morning. Anjali at the same desk, now wearing a clean cream kurta. Her laptop is open to a new document titled 'Chapter One.' Her hands are on the keys, posture upright. The forty-seven rejection emails are still on the corkboard - she has not taken them down - but next to them is now pinned a single sheet that reads 'Book 2: Notes.' Through the window, morning sun catches the dust in the air.",
+        "dialogue": [
+          "Anjali (typing): Chapter One.",
+          "Anjali (thinking): The first book taught me how to write. The second one is the one they'll buy."
+        ],
+        "mood": "resolute"
+      }
+    ],
+    "nichiren_quote": "The most important thing is to never be defeated by your weaknesses. Each time you struggle and stand back up, you become stronger.",
+    "source": "Daisaku Ikeda, Faith Into Action",
+    "message": "Forty-seven no's is not a verdict. It is a tuition fee paid to learn the craft. The book that finally lands will be the one written by the person who paid it.",
+    "tags": [
+      "rejection",
+      "perseverance",
+      "self-doubt",
+      "starting-over"
+    ]
+  },
+  "category": "rejection",
+  "topic": "creative rejection / repeated no's",
+  "characters": []
+}
