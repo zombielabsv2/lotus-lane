@@ -24,8 +24,22 @@
     <itunes:category text="Religion &amp; Spirituality">
       <itunes:category text="Buddhism" />
     </itunes:category>
-    <pubDate>Thu, 07 May 2026 08:19:06 +0000</pubDate>
-    <lastBuildDate>Thu, 07 May 2026 08:19:06 +0000</lastBuildDate>
+    <pubDate>Fri, 08 May 2026 07:11:38 +0000</pubDate>
+    <lastBuildDate>Fri, 08 May 2026 07:11:38 +0000</lastBuildDate>
+    <item>
+      <title>Drowning in Financial Anxiety</title>
+      <link>https://thelotuslane.in/wisdom/financial-anxiety.html</link>
+      <guid isPermaLink="false">https://storage.googleapis.com/lotus-lane-podcast/financial-anxiety.mp3</guid>
+      <pubDate>Fri, 08 May 2026 07:11:36 +0000</pubDate>
+      <description>Debt, EMIs, and the fear of not providing. Stories about finding peace when money is tight.</description>
+      <itunes:summary>Debt, EMIs, and the fear of not providing. Stories about finding peace when money is tight.</itunes:summary>
+      <itunes:author>The Lotus Lane</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:duration>10:52</itunes:duration>
+      <itunes:episode>11</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <enclosure url="https://storage.googleapis.com/lotus-lane-podcast/financial-anxiety.mp3" length="8992557" type="audio/mpeg" />
+    </item>
     <item>
       <title>Feeling Like a Failure After 30</title>
       <link>https://thelotuslane.in/wisdom/feeling-like-a-failure.html</link>
