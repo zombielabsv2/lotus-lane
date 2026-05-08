@@ -254,8 +254,14 @@ jobs:
             gcloud storage rsync --recursive strips/cache gs://lotus-lane-content/strips_cache
           fi
 
+      # Skip notify when a `date` input is provided — that means we're
+      # backfilling old dates, not generating today's strip. notify.py
+      # naively picks the LATEST strip from strips.json and would re-blast
+      # the same email to every content_subscriber on each backfill run.
+      # (Discovered the hard way 2026-05-09 after 2 duplicate blasts went
+      # out for the 2026-05-08 strip during a 5-strip rejection backfill.)
       - name: Send notifications (WhatsApp reminder + content subscribers)
-        if: ${{ github.event.inputs.dry_run != 'true' }}
+        if: ${{ github.event.inputs.dry_run != 'true' && github.event.inputs.date == '' }}
         continue-on-error: true
         id: notify
         env:
