@@ -26,6 +26,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://thelotuslane.in/strips/2026-02-02.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://thelotuslane.in/strips/2026-02-09.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -592,6 +597,41 @@
   </url>
   <url>
     <loc>https://thelotuslane.in/ikeda/youth.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://thelotuslane.in/listicles/2026-04-01.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://thelotuslane.in/listicles/2026-04-02.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://thelotuslane.in/listicles/2026-04-03.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://thelotuslane.in/listicles/2026-04-04.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://thelotuslane.in/listicles/2026-04-05.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://thelotuslane.in/listicles/2026-04-06.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://thelotuslane.in/listicles/2026-04-07.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
