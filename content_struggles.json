@@ -257,8 +257,9 @@
       "sidelined-at-work"
     ],
     "job-loss": [
-      "sidelined-at-work",
       "financial-anxiety",
+      "rejection",
+      "sidelined-at-work",
       "starting-over"
     ],
     "mentorship": [
@@ -314,9 +315,9 @@
       "loneliness-despite-everything"
     ],
     "heartbreak": [
+      "divorce",
       "rejection",
-      "relationship-falling-apart",
-      "divorce"
+      "relationship-falling-apart"
     ],
     "being-overlooked": [
       "sidelined-at-work",
@@ -368,8 +369,9 @@
       "how-to-forgive"
     ],
     "breakup-recovery": [
-      "relationship-falling-apart",
-      "divorce"
+      "divorce",
+      "rejection",
+      "relationship-falling-apart"
     ],
     "guilt": [
       "how-to-forgive"
@@ -632,6 +634,31 @@
     "2026-05-06": [
       "relationship-falling-apart",
       "how-to-forgive"
+    ],
+    "2026-04-01": [
+      "chronic-illness"
+    ],
+    "2026-04-02": [
+      "dealing-with-jealousy",
+      "comparison-trap"
+    ],
+    "2026-04-03": [
+      "financial-anxiety"
+    ],
+    "2026-04-04": [
+      "parenting-is-breaking-me",
+      "caregiver-burden"
+    ],
+    "2026-04-05": [
+      "rejection",
+      "feeling-like-a-failure"
+    ],
+    "2026-04-06": [
+      "toxic-workplace-survival",
+      "sidelined-at-work"
+    ],
+    "2026-04-07": [
+      "when-grief-wont-stop"
     ]
   },
   "listicle_titles": {
@@ -663,6 +690,13 @@
     "2026-05-03": "Your Prayers Feel Empty? 5 Truths About Real Faith",
     "2026-05-04": "Never Had a Mentor? 5 Truths About the Bond",
     "2026-05-05": "Best Years Slipping Away? 5 Truths About What Matters",
-    "2026-05-06": "That Argument You Keep Avoiding? 5 Truths About Conversation"
+    "2026-05-06": "That Argument You Keep Avoiding? 5 Truths About Conversation",
+    "2026-04-01": "Body Failing You? 5 Truths to Hold Onto When Healing Feels Impossible",
+    "2026-04-02": "Can't Stop Comparing Yourself? 5 Truths About the Envy That's Eating You",
+    "2026-04-03": "Money Suffocating You? 5 Truths That Aren't About Frugality Tips",
+    "2026-04-04": "Parenting Breaking You? 5 Truths When You've Lost Yourself in the Caretaking",
+    "2026-04-05": "They Said No? 5 Truths About What Rejection Actually Means About You",
+    "2026-04-06": "Boss Making You Miserable? 5 Truths About Surviving What You Can't Yet Quit",
+    "2026-04-07": "Grief Won't Let Go? 5 Truths When Time Hasn't Healed Anything"
   }
 }
