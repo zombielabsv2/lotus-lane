@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Option B — Story-first | The Lotus Lane</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #faf9f6;
+      color: #2d2d2d;
+      line-height: 1.5;
+    }
+    .mock-banner {
+      background: #2d2d2d; color: #faf9f6; text-align: center;
+      padding: 0.4rem 1rem; font-size: 0.72rem; letter-spacing: 0.05em;
+    }
+    .mock-banner a { color: #f4c97a; text-decoration: none; margin: 0 0.6rem; }
+
+    header {
+      text-align: center;
+      padding: 1.2rem 1rem 0.8rem;
+    }
+    header h1 {
+      font-size: 1.4rem;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      color: #4a4a4a;
+    }
+    header h1 span { font-weight: 600; color: #c0392b; }
+
+    /* Story hero — quiet full-bleed */
+    .story-hero {
+      max-width: 1080px;
+      margin: 1rem auto 0;
+      padding: 0 1rem;
+    }
+    .story-card {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 6px 32px rgba(0,0,0,0.08);
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      align-items: stretch;
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.2s;
+    }
+    .story-card:hover {
+      box-shadow: 0 10px 40px rgba(0,0,0,0.12);
+      transform: translateY(-2px);
+    }
+    @media (max-width: 800px) {
+      .story-card { grid-template-columns: 1fr; }
+    }
+    .story-image {
+      width: 100%;
+      height: 100%;
+      min-height: 280px;
+      object-fit: cover;
+      background: #f0ede8;
+      display: block;
+    }
+    .story-text {
+      padding: 2rem 2rem 1.8rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    @media (max-width: 800px) { .story-text { padding: 1.4rem 1.2rem 1.4rem; } }
+    .story-eyebrow {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: #c0392b;
+      margin-bottom: 0.6rem;
+    }
+    .story-title {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: #2d2d2d;
+      line-height: 1.3;
+      margin-bottom: 0.7rem;
+      letter-spacing: -0.01em;
+    }
+    .story-quote {
+      padding: 0.7rem 1rem;
+      background: #fdf8f0;
+      border-left: 3px solid #c0392b;
+      font-style: italic;
+      font-size: 0.88rem;
+      color: #555;
+      line-height: 1.5;
+      margin: 0.4rem 0 0.9rem;
+    }
+    .story-cta {
+      display: inline-block;
+      align-self: flex-start;
+      color: #c0392b;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-top: auto;
+    }
+    .story-cta::after { content: " →"; }
+
+    /* "Or what's heaviest" emotion section */
+    .emotion-section {
+      max-width: 920px;
+      margin: 3rem auto 0;
+      padding: 0 1rem;
+    }
+    .emotion-section h3 {
+      font-size: 1.15rem;
+      font-weight: 500;
+      color: #2d2d2d;
+      text-align: center;
+      margin-bottom: 0.3rem;
+    }
+    .emotion-section h3 em { font-style: normal; color: #c0392b; }
+    .emotion-section .sub {
+      font-size: 0.85rem;
+      color: #888;
+      text-align: center;
+      margin-bottom: 1.4rem;
+    }
+    .emotion-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.6rem;
+    }
+    @media (max-width: 900px) { .emotion-grid { grid-template-columns: repeat(2, 1fr); } }
+    .emotion-card {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 0.9rem 0.8rem;
+      background: white;
+      border: 1px solid #e8e4de;
+      border-radius: 10px;
+      text-decoration: none;
+      color: #555;
+      font-size: 0.85rem;
+      line-height: 1.4;
+      min-height: 70px;
+      transition: all 0.18s;
+    }
+    .emotion-card:hover {
+      border-color: #c0392b;
+      color: #c0392b;
+      transform: translateY(-1px);
+      box-shadow: 0 3px 12px rgba(192, 57, 43, 0.08);
+    }
+
+    /* Recent strips */
+    .recent {
+      max-width: 1080px;
+      margin: 3rem auto 0;
+      padding: 0 1rem;
+    }
+    .recent h3 {
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: #2d2d2d;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    .recent-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+    @media (max-width: 800px) { .recent-grid { grid-template-columns: 1fr; } }
+    .recent-card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.2s;
+    }
+    .recent-card:hover { box-shadow: 0 6px 20px rgba(0,0,0,0.1); transform: translateY(-2px); }
+    .recent-image { width: 100%; aspect-ratio: 16/10; object-fit: cover; background: #f0ede8; }
+    .recent-text { padding: 0.9rem 1rem 1.1rem; }
+    .recent-date { font-size: 0.7rem; color: #aaa; letter-spacing: 0.05em; }
+    .recent-title { font-size: 0.95rem; font-weight: 600; color: #2d2d2d; margin-top: 0.3rem; line-height: 1.35; }
+
+    /* Podcast */
+    .podcast-strip {
+      max-width: 720px; margin: 2.5rem auto 0; padding: 0 1rem;
+    }
+    .podcast-banner {
+      display: flex; align-items: center; gap: 0.9rem;
+      padding: 0.8rem 1rem;
+      background: linear-gradient(90deg, #fdf6e3 0%, #f8ecd1 100%);
+      border-radius: 12px;
+      text-decoration: none; color: inherit;
+      border: 1.5px solid #e8d9b3; transition: all 0.2s;
+    }
+    .podcast-banner:hover { border-color: #c0392b; transform: translateY(-1px); }
+    .pb-cover { width: 48px; height: 48px; border-radius: 6px; }
+    .pb-text { flex: 1; }
+    .pb-eyebrow { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.1em; color: #c0392b; }
+    .pb-title { font-size: 0.92rem; font-weight: 600; color: #4a3d20; margin-top: 0.1rem; }
+    .pb-meta { font-size: 0.72rem; color: #8a7d5f; margin-top: 0.1rem; }
+    .pb-cta {
+      padding: 0.45rem 0.85rem; background: #c0392b; color: white;
+      border-radius: 20px; font-size: 0.75rem; font-weight: 600;
+    }
+
+    footer {
+      text-align: center; padding: 2.5rem 1rem 1.5rem;
+      font-size: 0.75rem; color: #bbb;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="mock-banner">
+    Mock B · Story-first &nbsp;|&nbsp;
+    <a href="../landing-mocks/">All mocks</a> ·
+    <a href="option-a.html">Option A</a> ·
+    <a href="option-c.html">Option C</a> ·
+    <a href="../">Current live</a>
+  </div>
+
+  <header>
+    <h1>The <span>Lotus</span> Lane</h1>
+  </header>
+
+  <section class="story-hero">
+    <a class="story-card" id="storyCard" href="#">
+      <img class="story-image" id="storyImage" src="" alt="">
+      <div class="story-text">
+        <div class="story-eyebrow" id="storyEyebrow">TODAY'S STORY</div>
+        <div class="story-title" id="storyTitle">Loading&hellip;</div>
+        <div class="story-quote" id="storyQuote" style="display:none;">
+          <span id="quoteText"></span>
+        </div>
+        <span class="story-cta">Read</span>
+      </div>
+    </a>
+  </section>
+
+  <section class="emotion-section">
+    <h3>Or — pick what's <em>heaviest</em> tonight</h3>
+    <p class="sub">A long-form letter for the specific thing you're working through.</p>
+    <div class="emotion-grid">
+      <a class="emotion-card" href="../wisdom/burnout-recovery.html">Burnout</a>
+      <a class="emotion-card" href="../wisdom/loneliness-despite-everything.html">Loneliness</a>
+      <a class="emotion-card" href="../wisdom/comparison-trap.html">Comparison trap</a>
+      <a class="emotion-card" href="../wisdom/when-grief-wont-stop.html">Grief</a>
+      <a class="emotion-card" href="../wisdom/overcoming-imposter-syndrome.html">Imposter syndrome</a>
+      <a class="emotion-card" href="../wisdom/anxiety-insomnia.html">Anxiety &amp; insomnia</a>
+      <a class="emotion-card" href="../wisdom/parenting-is-breaking-me.html">Parenting overwhelm</a>
+      <a class="emotion-card" href="../wisdom/feeling-like-a-failure.html">Feeling like a failure</a>
+    </div>
+    <div style="text-align:center; margin-top:1.1rem;">
+      <a href="../wisdom/" style="font-size:0.85rem; color:#888; text-decoration:none; border-bottom:1px dashed #c0c0b8;">See all 21 struggles &rarr;</a>
+    </div>
+  </section>
+
+  <section class="recent">
+    <h3>Recent stories</h3>
+    <div class="recent-grid" id="recentGrid"></div>
+  </section>
+
+  <section class="podcast-strip">
+    <a class="podcast-banner" href="../podcast/">
+      <img class="pb-cover" src="https://storage.googleapis.com/lotus-lane-podcast/cover.png" alt="">
+      <div class="pb-text">
+        <div class="pb-eyebrow">PODCAST · DAILY</div>
+        <div class="pb-title">Lotus Lane Daily</div>
+        <div class="pb-meta">~10 min · listenable on the commute</div>
+      </div>
+      <div class="pb-cta">Listen &rarr;</div>
+    </a>
+  </section>
+
+  <footer>
+    <p>Wisdom for what you're going through</p>
+  </footer>
+
+  <script>
+    (async function () {
+      try {
+        const resp = await fetch('../strips.json');
+        const strips = await resp.json();
+        strips.sort((a, b) => new Date(b.date) - new Date(a.date));
+        const s = strips[0];
+        if (!s) return;
+
+        const card = document.getElementById('storyCard');
+        card.href = `../strips/${s.date}.html`;
+        document.getElementById('storyImage').src = s.image;
+        document.getElementById('storyImage').alt = s.title || '';
+        document.getElementById('storyTitle').textContent = s.title || '';
+
+        const d = new Date(s.date + 'T00:00:00');
+        const dateStr = d.toLocaleDateString('en-IN', { weekday: 'long', month: 'short', day: 'numeric' }).toUpperCase();
+        document.getElementById('storyEyebrow').textContent = `TODAY'S STORY · ${dateStr}`;
+
+        if (s.quote) {
+          const q = document.getElementById('storyQuote');
+          q.style.display = 'block';
+          document.getElementById('quoteText').textContent = '"' + s.quote.slice(0, 140) + (s.quote.length > 140 ? '…' : '') + '"';
+        }
+
+        const grid = document.getElementById('recentGrid');
+        strips.slice(1, 4).forEach(rs => {
+          const a = document.createElement('a');
+          a.className = 'recent-card';
+          a.href = `../strips/${rs.date}.html`;
+          const rd = new Date(rs.date + 'T00:00:00');
+          a.innerHTML = `
+            <img class="recent-image" src="${rs.image}" alt="">
+            <div class="recent-text">
+              <div class="recent-date">${rd.toLocaleDateString('en-IN', { month: 'short', day: 'numeric', year: 'numeric' })}</div>
+              <div class="recent-title">${(rs.title || '').replace(/[<>&]/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;'}[c]))}</div>
+            </div>`;
+          grid.appendChild(a);
+        });
+      } catch (e) { console.warn('strips.json fetch failed', e); }
+    })();
+  </script>
+</body>
+</html>

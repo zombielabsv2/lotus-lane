@@ -28,7 +28,7 @@
     "@type": "Organization",
     "name": "The Lotus Lane"
   },
-  "dateModified": "2026-05-08"
+  "dateModified": "2026-05-09"
 }
   </script>
 
@@ -75,6 +75,55 @@
     .article-content blockquote { border-left: 3px solid #c0392b; padding: 0.8rem 1.2rem; margin: 1.2rem 0; background: #f5f3ee; border-radius: 0 6px 6px 0; font-style: italic; color: #504638; }
 
     .empty { color: #999; font-style: italic; padding: 1rem 0; }
+
+    /* Hub — cross-format cross-link block */
+    .hub { margin: 2.5rem 0 1.2rem; padding: 1.6rem 1.4rem 1.2rem; background: linear-gradient(160deg, #fdf8f0 0%, #faf9f6 100%); border: 1px solid #e8e4de; border-radius: 16px; }
+    .hub-eyebrow { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; color: #c0392b; text-transform: uppercase; margin-bottom: 0.3rem; }
+    .hub-headline { font-size: 1.2rem; font-weight: 500; color: #2d2d2d; margin-bottom: 0.4rem; }
+    .hub-headline em { font-style: italic; color: #c0392b; font-weight: 500; }
+    .hub-sub { font-size: 0.86rem; color: #888; margin-bottom: 1.2rem; }
+    .hub-row { display: flex; align-items: center; gap: 1rem; padding: 0.95rem 1rem; background: white; border: 1px solid #e8e4de; border-radius: 12px; text-decoration: none; color: inherit; margin-bottom: 0.55rem; transition: all 0.18s; }
+    .hub-row:hover { border-color: #c0392b; transform: translateY(-1px); box-shadow: 0 4px 16px rgba(192,57,43,0.08); }
+    .hub-row .icon { width: 42px; height: 42px; background: #fdf8f0; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.15rem; flex-shrink: 0; }
+    .hub-row .icon.podcast { background: linear-gradient(135deg, #fdf6e3 0%, #f8ecd1 100%); }
+    .hub-row .text { flex: 1; min-width: 0; }
+    .hub-row .row-eyebrow { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; color: #c0392b; text-transform: uppercase; }
+    .hub-row .row-title { font-size: 0.96rem; font-weight: 600; color: #2d2d2d; margin-top: 0.15rem; line-height: 1.35; }
+    .hub-row .row-meta { font-size: 0.76rem; color: #888; margin-top: 0.15rem; }
+    .hub-row .arrow { color: #c0392b; font-weight: 600; flex-shrink: 0; }
+    .hub-divider { font-size: 0.68rem; color: #aaa; letter-spacing: 0.1em; text-transform: uppercase; margin: 1rem 0 0.4rem; padding-left: 0.2rem; }
+    .strip-card-mini { display: flex; gap: 0.9rem; padding: 0.75rem; background: white; border-radius: 10px; box-shadow: 0 1px 4px rgba(0,0,0,0.04); margin-bottom: 0.55rem; text-decoration: none; color: inherit; transition: all 0.2s; border: 1px solid transparent; }
+    .strip-card-mini:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.08); border-color: #e8e4de; }
+    .strip-card-mini img { width: 80px; height: 80px; object-fit: cover; border-radius: 6px; flex-shrink: 0; }
+    .strip-card-mini .strip-card-info { flex: 1; min-width: 0; }
+    .strip-card-mini .strip-card-topic { font-size: 0.65rem; color: #c0392b; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.2rem; font-weight: 700; }
+    .strip-card-mini .strip-card-title { font-size: 0.92rem; font-weight: 600; color: #2d2d2d; margin-bottom: 0.2rem; line-height: 1.3; }
+    .strip-card-mini .strip-card-message { font-size: 0.78rem; color: #777; line-height: 1.45; }
+    .listicle-card { display: flex; align-items: center; gap: 1rem; padding: 0.85rem 1rem; background: white; border: 1px solid #e8e4de; border-radius: 10px; text-decoration: none; color: inherit; margin-bottom: 0.55rem; transition: all 0.18s; }
+    .listicle-card:hover { border-color: #c0392b; }
+    .listicle-card .num { width: 36px; height: 36px; background: #fdf8f0; color: #c0392b; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.85rem; flex-shrink: 0; }
+    .listicle-card .text { flex: 1; min-width: 0; }
+    .listicle-card .row-eyebrow { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; color: #c0392b; text-transform: uppercase; }
+    .listicle-card .row-title { font-size: 0.9rem; font-weight: 600; color: #2d2d2d; margin-top: 0.15rem; line-height: 1.35; }
+    .daily-band { display: flex; align-items: center; gap: 1rem; padding: 1rem 1.2rem; background: #fdf8f0; border: 1.5px solid #e8d9b3; border-radius: 12px; text-decoration: none; color: inherit; margin: 1.5rem 0 0; transition: all 0.2s; }
+    .daily-band:hover { border-color: #c0392b; transform: translateY(-1px); }
+    .daily-band .icon { font-size: 1.3rem; flex-shrink: 0; line-height: 1; }
+    .daily-band .text { flex: 1; }
+    .daily-band .row-eyebrow { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; color: #c0392b; text-transform: uppercase; }
+    .daily-band .row-title { font-size: 0.9rem; font-weight: 600; color: #4a3d20; margin-top: 0.2rem; }
+    .daily-band .row-meta { font-size: 0.74rem; color: #8a7d5f; margin-top: 0.15rem; }
+    .daily-band .cta { flex-shrink: 0; padding: 0.5rem 0.9rem; background: #c0392b; color: white; border-radius: 20px; font-size: 0.76rem; font-weight: 600; white-space: nowrap; }
+
+    /* Closely related struggles — tight, hand-curated, 4 not 20 */
+    .related-struggles { margin-top: 2rem; }
+    .related-struggles h3 { font-size: 0.95rem; font-weight: 600; color: #555; margin-bottom: 0.7rem; }
+    .related-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem; }
+    .related-grid a { padding: 0.7rem 0.9rem; background: white; border: 1px solid #e8e4de; border-radius: 8px; font-size: 0.85rem; color: #555; text-decoration: none; transition: all 0.18s; }
+    .related-grid a:hover { border-color: #c0392b; color: #c0392b; }
+    .browse-all-row { text-align: center; margin-top: 1rem; font-size: 0.85rem; }
+    .browse-all-row a { color: #888; text-decoration: none; border-bottom: 1px dashed #c0c0b8; padding-bottom: 1px; }
+    .browse-all-row a:hover { color: #c0392b; border-color: #c0392b; }
+
     footer { text-align: center; padding: 1.5rem 0; color: #aaa; font-size: 0.8rem; border-top: 1px solid #e8e4de; margin-top: 2rem; }
 
     @media (max-width: 600px) {
@@ -85,22 +134,6 @@
   </style>
 
   <script data-goatcounter="https://zombielabs.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
-
-<!-- ga4 -->
-<script>
-  (function() {
-    var mid = 'G-4DM9P70KJ6';
-    if (mid.indexOf('PLACEHOLDER') !== -1) return;
-    var s = document.createElement('script');
-    s.async = true;
-    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + mid;
-    document.head.appendChild(s);
-    window.dataLayer = window.dataLayer || [];
-    window.gtag = function(){window.dataLayer.push(arguments);};
-    window.gtag('js', new Date());
-    window.gtag('config', mid);
-  })();
-</script>
 </head>
 <body>
   <div class="container">
@@ -115,70 +148,19 @@
 
     
 
-    <h3 class="section-title">Stories about this</h3>
-    
-    <a href="../strips/2026-04-27.html" class="strip-card">
-      <img src="https://zombielabsv2.github.io/lotus-lane-assets/2026-04-27.png" alt="They Changed the Rules After I Won" loading="lazy" width="200">
-      <div class="strip-card-info">
-        <div class="strip-card-title">They Changed the Rules After I Won</div>
-        <div class="strip-card-topic">anger at injustice</div>
-        <div class="strip-card-message">When a system is unfair, your anger makes complete sense — but living inside only that anger hands the people who wronge...</div>
-      </div>
-    </a>
-    <a href="../strips/2026-04-17.html" class="strip-card">
-      <img src="https://zombielabsv2.github.io/lotus-lane-assets/2026-04-17.png" alt="I Still Type His Name Into My Phone" loading="lazy" width="200">
-      <div class="strip-card-info">
-        <div class="strip-card-title">I Still Type His Name Into My Phone</div>
-        <div class="strip-card-topic">mourning a relationship</div>
-        <div class="strip-card-message">Losing a relationship doesn't only mean losing a person — it means losing a version of yourself, and that grief is real ...</div>
-      </div>
-    </a>
-    <a href="../strips/2026-04-15.html" class="strip-card">
-      <img src="https://zombielabsv2.github.io/lotus-lane-assets/2026-04-15.png" alt="Sorry Feels Stuck in My Throat" loading="lazy" width="200">
-      <div class="strip-card-info">
-        <div class="strip-card-title">Sorry Feels Stuck in My Throat</div>
-        <div class="strip-card-topic">argument with partner</div>
-        <div class="strip-card-message">After a bad fight, the instinct to explain yourself is real — but the person you hurt usually needs to feel heard before...</div>
-      </div>
-    </a>
-    <a href="../strips/2026-04-05.html" class="strip-card">
-      <img src="https://zombielabsv2.github.io/lotus-lane-assets/2026-04-05.png" alt="The Mirror Effect" loading="lazy" width="200">
-      <div class="strip-card-info">
-        <div class="strip-card-title">The Mirror Effect</div>
-        <div class="strip-card-topic">difficult coworker</div>
-        <div class="strip-card-message">Sometimes difficult people reflect our own inner state back to us - changing our response can transform the entire dynam...</div>
-      </div>
-    </a>
-    <a href="../strips/2026-04-01.html" class="strip-card">
-      <img src="https://zombielabsv2.github.io/lotus-lane-assets/2026-04-01.png" alt="Night Shift Connections" loading="lazy" width="200">
-      <div class="strip-card-info">
-        <div class="strip-card-title">Night Shift Connections</div>
-        <div class="strip-card-topic">loneliness</div>
-        <div class="strip-card-message">True connection often comes not from seeking companionship for ourselves, but from genuinely caring for others' wellbein...</div>
-      </div>
-    </a>
-    <a href="../strips/2026-03-28.html" class="strip-card">
-      <img src="https://zombielabsv2.github.io/lotus-lane-assets/2026-03-28.png" alt="The Weight of Missing" loading="lazy" width="200">
-      <div class="strip-card-info">
-        <div class="strip-card-title">The Weight of Missing</div>
-        <div class="strip-card-topic">loss of a loved one</div>
-        <div class="strip-card-message">The love we shared with those who have passed continues to flow through our lives, nourishing us and those around us eve...</div>
-      </div>
-    </a>
-
     <h3 class="section-title">Words that help</h3>
     
     <div class="wisdom-quote">
-      <p>&ldquo;Dialogue is the most fundamental and effective means for building peace. It is the very foundation of civilization.&rdquo;</p>
-      <cite>- For Today and Tomorrow</cite>
-    </div>
-    <div class="wisdom-quote">
-      <p>&ldquo;When we engage in dialogue with sincerity and respect, the walls of misunderstanding crumble. Even the most hardened hearts can be opened.&rdquo;</p>
-      <cite>- The New Human Revolution, Vol. 7</cite>
-    </div>
-    <div class="wisdom-quote">
-      <p>&ldquo;Dialogue starts with listening. Truly listening - not just waiting for your turn to speak - but genuinely trying to understand another person's heart.&rdquo;</p>
+      <p>&ldquo;Courage is not the absence of fear. Courage is feeling fear, recognizing fear, and still taking action.&rdquo;</p>
       <cite>- Discussions on Youth</cite>
+    </div>
+    <div class="wisdom-quote">
+      <p>&ldquo;A great human revolution in just a single individual will help achieve a change in the destiny of a nation and, further, will enable a change in the destiny of all humankind.&rdquo;</p>
+      <cite>- The Human Revolution</cite>
+    </div>
+    <div class="wisdom-quote">
+      <p>&ldquo;Buddhism is about winning. It is about the courage to overcome obstacles, to triumph over anything that stands in the way of our happiness.&rdquo;</p>
+      <cite>- Faith Into Action</cite>
     </div>
     <div class="wisdom-quote">
       <p>&ldquo;Winter always turns to spring. Never, from ancient times on, has anyone heard or seen of winter turning back to autumn.&rdquo;</p>
@@ -188,51 +170,83 @@
       <p>&ldquo;As long as we have hope, we have direction, the energy to move, and the map to move by.&rdquo;</p>
       <cite>- For Today and Tomorrow</cite>
     </div>
-    <div class="wisdom-quote">
-      <p>&ldquo;Hope is not a matter of ability; it is a matter of decision.&rdquo;</p>
-      <cite>- Discussions on Youth</cite>
-    </div>
-    <div class="wisdom-quote">
-      <p>&ldquo;Compassion is not about feeling pity for others. It is about sharing their suffering and working together to overcome it.&rdquo;</p>
-      <cite>- The Wisdom for Creating Happiness and Peace</cite>
-    </div>
-    <div class="wisdom-quote">
-      <p>&ldquo;A single warm word can give someone the courage to go on living. Never underestimate the power of your compassion.&rdquo;</p>
-      <cite>- For Today and Tomorrow</cite>
-    </div>
-    <div class="wisdom-quote">
-      <p>&ldquo;True compassion is not soft or weak. It takes great strength to truly care about others, to shoulder their pain.&rdquo;</p>
-      <cite>- Discussions on Youth</cite>
-    </div>
 
-    <div class="subscribe-cta">
-      <h3>Going through this right now?</h3>
-      <p>Tell us what you're struggling with. We'll send wisdom that actually helps.</p>
-      <a href="../subscribe.html">Get personalized wisdom</a>
-    </div>
+    <div class="hub">
+<div class="hub-eyebrow">More on this struggle</div>
+<div class="hub-headline">However you want to <em>keep going</em>.</div>
+<div class="hub-sub">A few different doors into the same room.</div>
+<div class="hub-divider">Stories on this</div>
 
-    <h3 class="section-title">More life challenges</h3>
-    <div class="related-links" id="relatedLinks"></div>
+        <a href="../strips/2026-04-15.html" class="strip-card-mini">
+          <img src="https://zombielabsv2.github.io/lotus-lane-assets/2026-04-15.png" alt="" loading="lazy">
+          <div class="strip-card-info">
+            <div class="strip-card-topic">Relationships</div>
+            <div class="strip-card-title">Sorry Feels Stuck in My Throat</div>
+            <div class="strip-card-message">After a bad fight, the instinct to explain yourself is real — but the person you hurt usually needs to feel heard before&hellip;</div>
+          </div>
+        </a>
+
+        <a href="../strips/2026-04-01.html" class="strip-card-mini">
+          <img src="https://zombielabsv2.github.io/lotus-lane-assets/2026-04-01.png" alt="" loading="lazy">
+          <div class="strip-card-info">
+            <div class="strip-card-topic">Relationships</div>
+            <div class="strip-card-title">Night Shift Connections</div>
+            <div class="strip-card-message">True connection often comes not from seeking companionship for ourselves, but from genuinely caring for others' wellbein&hellip;</div>
+          </div>
+        </a>
+
+        <a href="../strips/2026-03-13.html" class="strip-card-mini">
+          <img src="https://zombielabsv2.github.io/lotus-lane-assets/2026-03-13.png" alt="" loading="lazy">
+          <div class="strip-card-info">
+            <div class="strip-card-topic">Relationships</div>
+            <div class="strip-card-title">Delete and Repeat</div>
+            <div class="strip-card-message">True healing from heartbreak comes not from crafting the perfect message to an ex, but from honestly experiencing our em&hellip;</div>
+          </div>
+        </a>
+<div class="hub-divider">Listicles &middot; quick reads</div>
+
+        <a class="listicle-card" href="../listicles/2026-05-06.html">
+          <div class="num">5</div>
+          <div class="text">
+            <div class="row-eyebrow">Listicle &middot; 4 min read</div>
+            <div class="row-title">That Argument You Keep Avoiding? 5 Truths About Conversation</div>
+          </div>
+        </a>
+
+        <a class="listicle-card" href="../listicles/2026-04-29.html">
+          <div class="num">5</div>
+          <div class="text">
+            <div class="row-eyebrow">Listicle &middot; 4 min read</div>
+            <div class="row-title">Caring for Others Makes You Weak? 5 Truths About Strength</div>
+          </div>
+        </a>
+</div>
+
+    
+    <a class="daily-band" href="../subscribe.html">
+      <div class="icon">&#x2709;&#xFE0F;</div>
+      <div class="text">
+        <div class="row-eyebrow">Daily Wisdom &middot; tailored email</div>
+        <div class="row-title">Get a wisdom note in your inbox every morning</div>
+        <div class="row-meta">Tell us your challenges. We'll match each note.</div>
+      </div>
+      <div class="cta">Subscribe &rarr;</div>
+    </a>
+
+    
+    <div class="related-struggles">
+      <h3>Closely related struggles</h3>
+      <div class="related-grid"><a href="anger-you-cant-control.html">When Anger Takes Over</a><a href="relationship-falling-apart.html">When Your Relationship Is Falling Apart</a><a href="divorce.html">When a Marriage Ends</a><a href="rejection.html">After Being Rejected</a></div>
+      <div class="browse-all-row">
+        <a href="./">See all 21 struggles &rarr;</a>
+      </div>
+    </div>
 
     <footer>
-      <p>The Lotus Lane &middot; Ancient wisdom for modern struggles</p>
+      <p>The Lotus Lane &middot; Wisdom for what you're going through</p>
     </footer>
   </div>
 
   <script src="../nav.js" defer></script>
-  <script>
-    // Populate related affliction links (all except current)
-    const pages = {"dealing-with-jealousy": "How to Deal with Jealousy", "overcoming-imposter-syndrome": "Overcoming Imposter Syndrome", "when-grief-wont-stop": "When Grief Won't Stop", "feeling-like-a-failure": "Feeling Like a Failure After 30", "loneliness-despite-everything": "Lonely Even When You're Not Alone", "toxic-workplace-survival": "Surviving a Toxic Workplace", "anger-you-cant-control": "When Anger Takes Over", "starting-over": "Starting Over at Any Age", "parenting-is-breaking-me": "When Parenting Feels Impossible", "financial-anxiety": "Drowning in Financial Anxiety", "how-to-forgive": "How to Forgive Someone Who Hurt You", "comparison-trap": "Everyone Is Doing Better Than Me", "depression-fog": "When You Can't Get Out of Bed", "relationship-falling-apart": "When Your Relationship Is Falling Apart", "burnout-recovery": "Burned Out and Running on Empty", "chronic-illness": "When Your Body Is Failing You", "caregiver-burden": "Caring for Someone Who Can't Care for Themselves", "anxiety-insomnia": "The 3am Mind That Won't Stop", "divorce": "When a Marriage Ends", "sidelined-at-work": "Invisible at Work", "rejection": "After Being Rejected"};
-    const current = 'how-to-forgive';
-    const container = document.getElementById('relatedLinks');
-    Object.entries(pages).forEach(([s, t]) => {
-      if (s !== current) {
-        const a = document.createElement('a');
-        a.href = s + '.html';
-        a.textContent = t;
-        container.appendChild(a);
-      }
-    });
-  </script>
 </body>
 </html>

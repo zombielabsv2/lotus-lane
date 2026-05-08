@@ -10,8 +10,12 @@
   const isListicle = path.includes('/listicles');
   const isWisdom = path.includes('/wisdom');
   const isPodcast = path.includes('/podcast');
-  const isStrips = !isDecoder && !isSubscribe && !isIkeda && !isListicle && !isWisdom && !isPodcast;
+  const isStoriesArchive = path.includes('/stories/');
   const isStripPage = path.includes('/strips/');
+  // Home = root index, not any subpage
+  const isHome = !isDecoder && !isSubscribe && !isIkeda && !isListicle && !isWisdom && !isPodcast && !isStoriesArchive && !isStripPage;
+  // "Stories" tab is active on the archive itself or any individual strip page
+  const isStoriesActive = isStoriesArchive || isStripPage;
 
   // Determine base path for links
   let base = '';
@@ -20,15 +24,18 @@
   if (isListicle) base = '../';
   if (isWisdom) base = '../';
   if (isPodcast) base = '../';
+  if (isStoriesArchive) base = '../';
   if (isStripPage) base = '../';
 
   // --- TOP NAV (inline links below header) ---
   const topNav = document.createElement('div');
   topNav.id = 'lotus-top-nav';
   topNav.innerHTML = `
-    <a href="${base}index.html" class="${isStrips ? 'active' : ''}">Stories</a>
+    <a href="${base}" class="${isHome ? 'active' : ''}">Home</a>
     <span class="sep">|</span>
-    <a href="${base}wisdom/" class="${path.includes('/wisdom') ? 'active' : ''}">Life Challenges</a>
+    <a href="${base}stories/" class="${isStoriesActive ? 'active' : ''}">Stories</a>
+    <span class="sep">|</span>
+    <a href="${base}wisdom/" class="${isWisdom ? 'active' : ''}">Life Challenges</a>
     <span class="sep">|</span>
     <a href="${base}podcast/" class="${isPodcast ? 'active' : ''}">Podcast</a>
     <span class="sep">|</span>
@@ -53,7 +60,7 @@
   const bottomNav = document.createElement('nav');
   bottomNav.id = 'lotus-bottom-nav';
   bottomNav.innerHTML = `
-    <a href="${base}index.html" class="${isStrips ? 'active' : ''}">
+    <a href="${base}stories/" class="${isStoriesActive ? 'active' : ''}">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
       <span>Stories</span>
     </a>

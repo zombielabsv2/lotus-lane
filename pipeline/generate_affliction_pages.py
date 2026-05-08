@@ -40,7 +40,167 @@ STRIPS_JSON = PROJECT_ROOT / "strips.json"
 IKEDA_QUOTES = PROJECT_ROOT / "ikeda" / "quotes.json"
 WISDOM_DIR = PROJECT_ROOT / "wisdom"
 CONTENT_CACHE = WISDOM_DIR / "cache"
+CONTENT_STRUGGLES_JSON = PROJECT_ROOT / "content_struggles.json"
+PODCAST_XML = PROJECT_ROOT / "podcast.xml"
+LISTICLES_DIR = PROJECT_ROOT / "listicles"
 SITE_URL = "https://thelotuslane.in"
+
+
+def load_content_struggles():
+    """Load the canonical content mapping. Returns None if missing (graceful fallback)."""
+    if not CONTENT_STRUGGLES_JSON.exists():
+        return None
+    with open(CONTENT_STRUGGLES_JSON, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+
+def load_podcast_episodes():
+    """Parse podcast.xml and return {slug: title} for each episode. Slug derived from <link>."""
+    if not PODCAST_XML.exists():
+        return {}
+    import re
+    with open(PODCAST_XML, "r", encoding="utf-8") as f:
+        xml = f.read()
+    episodes = {}
+    for item in re.findall(r"<item>(.*?)</item>", xml, re.DOTALL):
+        title_m = re.search(r"<title>(?:<!\[CDATA\[)?(.*?)(?:\]\]>)?</title>", item, re.DOTALL)
+        link_m = re.search(r"<link>([^<]+)</link>", item)
+        if title_m and link_m:
+            link = link_m.group(1).strip()
+            # Episode slug is the wisdom slug (e.g. /wisdom/burnout-recovery.html → burnout-recovery)
+            m = re.search(r"/wisdom/([^/.]+)\.html", link)
+            if m:
+                episodes[m.group(1)] = title_m.group(1).strip()
+    return episodes
+
+
+def find_strips_for_struggle(slug, strips, content_struggles):
+    """Find strips mapped to a struggle via the tag→struggle map. Sorted newest first."""
+    if not content_struggles:
+        return []
+    tag_map = content_struggles.get("strip_tag_to_struggles", {})
+    matched = []
+    for s in strips:
+        for tag in (s.get("tags") or []):
+            if slug in tag_map.get(tag, []):
+                matched.append(s)
+                break
+    matched.sort(key=lambda s: s["date"], reverse=True)
+    return matched
+
+
+def find_listicles_for_struggle(slug, content_struggles):
+    """Returns [(date, title), ...] for listicles mapped to this struggle. Newest first."""
+    if not content_struggles:
+        return []
+    listicle_map = content_struggles.get("listicle_struggles", {})
+    titles = content_struggles.get("listicle_titles", {})
+    matched = []
+    for date, slugs in listicle_map.items():
+        if slug in slugs:
+            matched.append((date, titles.get(date, f"Listicle from {date}")))
+    matched.sort(key=lambda t: t[0], reverse=True)
+    return matched
+
+
+def build_hub_html(slug, strips, content_struggles, podcast_episodes):
+    """Render the cross-format hub block (podcast / strips / listicles / Daily Wisdom)."""
+    if not content_struggles:
+        return ""
+
+    related_strips = find_strips_for_struggle(slug, strips, content_struggles)[:3]
+    related_listicles = find_listicles_for_struggle(slug, content_struggles)[:2]
+    has_podcast = slug in podcast_episodes
+    podcast_title = podcast_episodes.get(slug, "")
+
+    # If no cross-format content, skip the hub block entirely (Daily Wisdom band renders separately)
+    if not (has_podcast or related_strips or related_listicles):
+        return ""
+
+    parts = ['<div class="hub">']
+    parts.append('<div class="hub-eyebrow">More on this struggle</div>')
+    parts.append('<div class="hub-headline">However you want to <em>keep going</em>.</div>')
+    parts.append('<div class="hub-sub">A few different doors into the same room.</div>')
+
+    if has_podcast:
+        parts.append(f'''
+        <a class="hub-row" href="../podcast/?ep={slug}">
+          <div class="icon podcast">&#x1F3A7;</div>
+          <div class="text">
+            <div class="row-eyebrow">Listen &middot; ~10 min</div>
+            <div class="row-title">"{podcast_title}"</div>
+            <div class="row-meta">Lotus Lane Daily &middot; the audio companion to this letter</div>
+          </div>
+          <div class="arrow">&rarr;</div>
+        </a>''')
+
+    if related_strips:
+        parts.append('<div class="hub-divider">Stories on this</div>')
+        for s in related_strips:
+            topic = s.get("category", "").replace("-", " ").title() or (s.get("tags") or [""])[0].replace("-", " ").title()
+            title_safe = (s.get("title") or "").replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+            msg = (s.get("message") or "")[:120].replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+            parts.append(f'''
+        <a href="../strips/{s["date"]}.html" class="strip-card-mini">
+          <img src="{ASSETS_BASE_URL}/{s["date"]}.png" alt="" loading="lazy">
+          <div class="strip-card-info">
+            <div class="strip-card-topic">{topic}</div>
+            <div class="strip-card-title">{title_safe}</div>
+            <div class="strip-card-message">{msg}&hellip;</div>
+          </div>
+        </a>''')
+
+    if related_listicles:
+        parts.append('<div class="hub-divider">Listicles &middot; quick reads</div>')
+        for date, title in related_listicles:
+            title_safe = title.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+            parts.append(f'''
+        <a class="listicle-card" href="../listicles/{date}.html">
+          <div class="num">5</div>
+          <div class="text">
+            <div class="row-eyebrow">Listicle &middot; 4 min read</div>
+            <div class="row-title">{title_safe}</div>
+          </div>
+        </a>''')
+
+    parts.append('</div>')
+    return "\n".join(parts)
+
+
+def build_daily_band_html():
+    """Daily Wisdom band — always rendered, regardless of hub state."""
+    return '''
+    <a class="daily-band" href="../subscribe.html">
+      <div class="icon">&#x2709;&#xFE0F;</div>
+      <div class="text">
+        <div class="row-eyebrow">Daily Wisdom &middot; tailored email</div>
+        <div class="row-title">Get a wisdom note in your inbox every morning</div>
+        <div class="row-meta">Tell us your challenges. We'll match each note.</div>
+      </div>
+      <div class="cta">Subscribe &rarr;</div>
+    </a>'''
+
+
+def build_closely_related_html(slug, content_struggles):
+    """4 hand-curated closely-related struggles, not the full 20-chip cloud."""
+    if not content_struggles:
+        return ""
+    related = content_struggles.get("closely_related", {}).get(slug, [])
+    titles = content_struggles.get("struggle_titles", {})
+    if not related:
+        return ""
+    cards = "".join(
+        f'<a href="{r}.html">{titles.get(r, r.replace("-", " ").title())}</a>'
+        for r in related[:4]
+    )
+    return f'''
+    <div class="related-struggles">
+      <h3>Closely related struggles</h3>
+      <div class="related-grid">{cards}</div>
+      <div class="browse-all-row">
+        <a href="./">See all 21 struggles &rarr;</a>
+      </div>
+    </div>'''
 
 
 def generate_article_content(slug, title, meta_desc, categories, relevant_quotes):
@@ -207,7 +367,8 @@ def find_relevant_quotes(ikeda_themes, categories):
     return quotes[:9]  # Max 9 quotes per page
 
 
-def generate_affliction_page(slug, title, meta_desc, categories, strips, ikeda_themes, generate_articles=False):
+def generate_affliction_page(slug, title, meta_desc, categories, strips, ikeda_themes,
+                             content_struggles=None, podcast_episodes=None, generate_articles=False):
     """Generate a single affliction landing page."""
     relevant_strips = find_relevant_strips(strips, categories)
     relevant_quotes = find_relevant_quotes(ikeda_themes, categories)
@@ -216,6 +377,12 @@ def generate_affliction_page(slug, title, meta_desc, categories, strips, ikeda_t
     article_html = ""
     if generate_articles:
         article_html = generate_article_content(slug, title, meta_desc, categories, relevant_quotes)
+
+    # Build hub + Daily Wisdom band + closely-related from content_struggles.json
+    hub_html = build_hub_html(slug, strips, content_struggles or {}, podcast_episodes or {})
+    daily_band_html = build_daily_band_html()
+    closely_related_html = build_closely_related_html(slug, content_struggles or {})
+
     page_url = f"{SITE_URL}/wisdom/{slug}.html"
     now = datetime.now().strftime("%Y-%m-%d")
 
@@ -230,26 +397,9 @@ def generate_affliction_page(slug, title, meta_desc, categories, strips, ikeda_t
         "dateModified": now,
     }
 
-    # Build strip cards HTML
-    strips_html = ""
-    for s in relevant_strips[:6]:  # Show top 6
-        topic = s.get("topic", s.get("category", "").replace("-", " "))
-        strips_html += f"""
-    <a href="../strips/{s['date']}.html" class="strip-card">
-      <img src="{ASSETS_BASE_URL}/{s['date']}.png" alt="{s.get('title', '')}" loading="lazy" width="200">
-      <div class="strip-card-info">
-        <div class="strip-card-title">{s.get('title', '')}</div>
-        <div class="strip-card-topic">{topic}</div>
-        <div class="strip-card-message">{s.get('message', '')[:120]}...</div>
-      </div>
-    </a>"""
-
-    if not strips_html:
-        strips_html = '<p class="empty">More stories coming soon.</p>'
-
-    # Build quotes HTML
+    # Build quotes HTML — trim to 5 (was 9 — felt like padding)
     quotes_html = ""
-    for q in relevant_quotes:
+    for q in relevant_quotes[:5]:
         quotes_html += f"""
     <div class="wisdom-quote">
       <p>&ldquo;{q['text']}&rdquo;</p>
@@ -322,6 +472,55 @@ def generate_affliction_page(slug, title, meta_desc, categories, strips, ikeda_t
     .article-content blockquote {{ border-left: 3px solid #c0392b; padding: 0.8rem 1.2rem; margin: 1.2rem 0; background: #f5f3ee; border-radius: 0 6px 6px 0; font-style: italic; color: #504638; }}
 
     .empty {{ color: #999; font-style: italic; padding: 1rem 0; }}
+
+    /* Hub — cross-format cross-link block */
+    .hub {{ margin: 2.5rem 0 1.2rem; padding: 1.6rem 1.4rem 1.2rem; background: linear-gradient(160deg, #fdf8f0 0%, #faf9f6 100%); border: 1px solid #e8e4de; border-radius: 16px; }}
+    .hub-eyebrow {{ font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; color: #c0392b; text-transform: uppercase; margin-bottom: 0.3rem; }}
+    .hub-headline {{ font-size: 1.2rem; font-weight: 500; color: #2d2d2d; margin-bottom: 0.4rem; }}
+    .hub-headline em {{ font-style: italic; color: #c0392b; font-weight: 500; }}
+    .hub-sub {{ font-size: 0.86rem; color: #888; margin-bottom: 1.2rem; }}
+    .hub-row {{ display: flex; align-items: center; gap: 1rem; padding: 0.95rem 1rem; background: white; border: 1px solid #e8e4de; border-radius: 12px; text-decoration: none; color: inherit; margin-bottom: 0.55rem; transition: all 0.18s; }}
+    .hub-row:hover {{ border-color: #c0392b; transform: translateY(-1px); box-shadow: 0 4px 16px rgba(192,57,43,0.08); }}
+    .hub-row .icon {{ width: 42px; height: 42px; background: #fdf8f0; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.15rem; flex-shrink: 0; }}
+    .hub-row .icon.podcast {{ background: linear-gradient(135deg, #fdf6e3 0%, #f8ecd1 100%); }}
+    .hub-row .text {{ flex: 1; min-width: 0; }}
+    .hub-row .row-eyebrow {{ font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; color: #c0392b; text-transform: uppercase; }}
+    .hub-row .row-title {{ font-size: 0.96rem; font-weight: 600; color: #2d2d2d; margin-top: 0.15rem; line-height: 1.35; }}
+    .hub-row .row-meta {{ font-size: 0.76rem; color: #888; margin-top: 0.15rem; }}
+    .hub-row .arrow {{ color: #c0392b; font-weight: 600; flex-shrink: 0; }}
+    .hub-divider {{ font-size: 0.68rem; color: #aaa; letter-spacing: 0.1em; text-transform: uppercase; margin: 1rem 0 0.4rem; padding-left: 0.2rem; }}
+    .strip-card-mini {{ display: flex; gap: 0.9rem; padding: 0.75rem; background: white; border-radius: 10px; box-shadow: 0 1px 4px rgba(0,0,0,0.04); margin-bottom: 0.55rem; text-decoration: none; color: inherit; transition: all 0.2s; border: 1px solid transparent; }}
+    .strip-card-mini:hover {{ box-shadow: 0 3px 12px rgba(0,0,0,0.08); border-color: #e8e4de; }}
+    .strip-card-mini img {{ width: 80px; height: 80px; object-fit: cover; border-radius: 6px; flex-shrink: 0; }}
+    .strip-card-mini .strip-card-info {{ flex: 1; min-width: 0; }}
+    .strip-card-mini .strip-card-topic {{ font-size: 0.65rem; color: #c0392b; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.2rem; font-weight: 700; }}
+    .strip-card-mini .strip-card-title {{ font-size: 0.92rem; font-weight: 600; color: #2d2d2d; margin-bottom: 0.2rem; line-height: 1.3; }}
+    .strip-card-mini .strip-card-message {{ font-size: 0.78rem; color: #777; line-height: 1.45; }}
+    .listicle-card {{ display: flex; align-items: center; gap: 1rem; padding: 0.85rem 1rem; background: white; border: 1px solid #e8e4de; border-radius: 10px; text-decoration: none; color: inherit; margin-bottom: 0.55rem; transition: all 0.18s; }}
+    .listicle-card:hover {{ border-color: #c0392b; }}
+    .listicle-card .num {{ width: 36px; height: 36px; background: #fdf8f0; color: #c0392b; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.85rem; flex-shrink: 0; }}
+    .listicle-card .text {{ flex: 1; min-width: 0; }}
+    .listicle-card .row-eyebrow {{ font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; color: #c0392b; text-transform: uppercase; }}
+    .listicle-card .row-title {{ font-size: 0.9rem; font-weight: 600; color: #2d2d2d; margin-top: 0.15rem; line-height: 1.35; }}
+    .daily-band {{ display: flex; align-items: center; gap: 1rem; padding: 1rem 1.2rem; background: #fdf8f0; border: 1.5px solid #e8d9b3; border-radius: 12px; text-decoration: none; color: inherit; margin: 1.5rem 0 0; transition: all 0.2s; }}
+    .daily-band:hover {{ border-color: #c0392b; transform: translateY(-1px); }}
+    .daily-band .icon {{ font-size: 1.3rem; flex-shrink: 0; line-height: 1; }}
+    .daily-band .text {{ flex: 1; }}
+    .daily-band .row-eyebrow {{ font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; color: #c0392b; text-transform: uppercase; }}
+    .daily-band .row-title {{ font-size: 0.9rem; font-weight: 600; color: #4a3d20; margin-top: 0.2rem; }}
+    .daily-band .row-meta {{ font-size: 0.74rem; color: #8a7d5f; margin-top: 0.15rem; }}
+    .daily-band .cta {{ flex-shrink: 0; padding: 0.5rem 0.9rem; background: #c0392b; color: white; border-radius: 20px; font-size: 0.76rem; font-weight: 600; white-space: nowrap; }}
+
+    /* Closely related struggles — tight, hand-curated, 4 not 20 */
+    .related-struggles {{ margin-top: 2rem; }}
+    .related-struggles h3 {{ font-size: 0.95rem; font-weight: 600; color: #555; margin-bottom: 0.7rem; }}
+    .related-grid {{ display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem; }}
+    .related-grid a {{ padding: 0.7rem 0.9rem; background: white; border: 1px solid #e8e4de; border-radius: 8px; font-size: 0.85rem; color: #555; text-decoration: none; transition: all 0.18s; }}
+    .related-grid a:hover {{ border-color: #c0392b; color: #c0392b; }}
+    .browse-all-row {{ text-align: center; margin-top: 1rem; font-size: 0.85rem; }}
+    .browse-all-row a {{ color: #888; text-decoration: none; border-bottom: 1px dashed #c0c0b8; padding-bottom: 1px; }}
+    .browse-all-row a:hover {{ color: #c0392b; border-color: #c0392b; }}
+
     footer {{ text-align: center; padding: 1.5rem 0; color: #aaa; font-size: 0.8rem; border-top: 1px solid #e8e4de; margin-top: 2rem; }}
 
     @media (max-width: 600px) {{
@@ -346,41 +545,21 @@ def generate_affliction_page(slug, title, meta_desc, categories, strips, ikeda_t
 
     {"<article class=\"article-content\">" + article_html + "</article>" if article_html else ""}
 
-    <h3 class="section-title">Stories about this</h3>
-    {strips_html}
-
     <h3 class="section-title">Words that help</h3>
     {quotes_html}
 
-    <div class="subscribe-cta">
-      <h3>Going through this right now?</h3>
-      <p>Tell us what you're struggling with. We'll send wisdom that actually helps.</p>
-      <a href="../subscribe.html">Get personalized wisdom</a>
-    </div>
+    {hub_html}
 
-    <h3 class="section-title">More life challenges</h3>
-    <div class="related-links" id="relatedLinks"></div>
+    {daily_band_html}
+
+    {closely_related_html}
 
     <footer>
-      <p>The Lotus Lane &middot; Ancient wisdom for modern struggles</p>
+      <p>The Lotus Lane &middot; Wisdom for what you're going through</p>
     </footer>
   </div>
 
   <script src="../nav.js" defer></script>
-  <script>
-    // Populate related affliction links (all except current)
-    const pages = {json.dumps({slug: title for slug, (title, _, _) in AFFLICTION_PAGES.items()})};
-    const current = '{slug}';
-    const container = document.getElementById('relatedLinks');
-    Object.entries(pages).forEach(([s, t]) => {{
-      if (s !== current) {{
-        const a = document.createElement('a');
-        a.href = s + '.html';
-        a.textContent = t;
-        container.appendChild(a);
-      }}
-    }});
-  </script>
 </body>
 </html>"""
     return html
@@ -486,6 +665,12 @@ def main():
 
     strips = load_strips()
     ikeda_themes = load_ikeda_quotes()
+    content_struggles = load_content_struggles()
+    podcast_episodes = load_podcast_episodes()
+    if content_struggles:
+        print(f"  Loaded content_struggles.json — {len(content_struggles.get('struggles', []))} struggles, {len(content_struggles.get('strip_tag_to_struggles', {}))} tag aliases")
+    if podcast_episodes:
+        print(f"  Loaded {len(podcast_episodes)} podcast episodes from podcast.xml")
 
     if args.slug:
         if args.slug not in AFFLICTION_PAGES:
@@ -495,6 +680,8 @@ def main():
 
         title, meta_desc, categories = AFFLICTION_PAGES[args.slug]
         html = generate_affliction_page(args.slug, title, meta_desc, categories, strips, ikeda_themes,
+                                         content_struggles=content_struggles,
+                                         podcast_episodes=podcast_episodes,
                                          generate_articles=args.with_articles)
         out_path = WISDOM_DIR / f"{args.slug}.html"
         with open(out_path, "w", encoding="utf-8") as f:
@@ -505,6 +692,8 @@ def main():
         count = 0
         for slug, (title, meta_desc, categories) in AFFLICTION_PAGES.items():
             html = generate_affliction_page(slug, title, meta_desc, categories, strips, ikeda_themes,
+                                             content_struggles=content_struggles,
+                                             podcast_episodes=podcast_episodes,
                                              generate_articles=args.with_articles)
             out_path = WISDOM_DIR / f"{slug}.html"
             with open(out_path, "w", encoding="utf-8") as f:

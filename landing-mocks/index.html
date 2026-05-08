@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Landing Mocks — The Lotus Lane</title>
+  <meta name="robots" content="noindex">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #faf9f6;
+      color: #2d2d2d;
+      padding: 2rem 1rem;
+    }
+    .wrap { max-width: 920px; margin: 0 auto; }
+    h1 {
+      font-size: 1.4rem; font-weight: 300; letter-spacing: 0.15em;
+      color: #4a4a4a; text-align: center;
+    }
+    h1 span { font-weight: 600; color: #c0392b; }
+    .lede { text-align: center; color: #777; font-size: 0.9rem; margin: 0.6rem auto 2rem; max-width: 520px; }
+
+    .mocks {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+    @media (max-width: 700px) { .mocks { grid-template-columns: 1fr; } }
+
+    .mock {
+      display: block;
+      padding: 1.4rem;
+      background: white;
+      border: 1px solid #e8e4de;
+      border-radius: 12px;
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.2s;
+    }
+    .mock:hover {
+      border-color: #c0392b;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    }
+    .mock-tag {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em;
+      color: #c0392b; text-transform: uppercase;
+    }
+    .mock-title {
+      font-size: 1.1rem; font-weight: 600; color: #2d2d2d;
+      margin-top: 0.4rem;
+    }
+    .mock-desc { font-size: 0.88rem; color: #777; margin-top: 0.5rem; line-height: 1.55; }
+    .mock-pros { font-size: 0.78rem; color: #888; margin-top: 0.7rem; }
+    .mock-pros b { color: #2d2d2d; }
+
+    .current {
+      grid-column: 1 / -1;
+      background: #f4f1ec; border-style: dashed;
+    }
+    .current .mock-tag { color: #888; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>The <span>Lotus</span> Lane &mdash; landing mocks</h1>
+    <p class="lede">Three directions for the front door. Same content in each, different framing. Pull up on phone for the real read.</p>
+
+    <div class="mocks">
+      <a class="mock" href="option-a.html">
+        <div class="mock-tag">Option A</div>
+        <div class="mock-title">Emotion-first</div>
+        <div class="mock-desc">"What are you going through?" + 8 human-phrased emotion cards as the hero. Today's strip is below the fold.</div>
+        <div class="mock-pros"><b>Best when</b> the user is hurting and needs to feel met. Highest emotional pull, lowest decision friction.</div>
+      </a>
+
+      <a class="mock" href="option-b.html">
+        <div class="mock-tag">Option B</div>
+        <div class="mock-title">Story-first</div>
+        <div class="mock-desc">Today's strip as a quiet hero with pull-quote, then "or pick what's heaviest" emotion grid below.</div>
+        <div class="mock-pros"><b>Best when</b> the brand identity is "the place with the daily story." Repeat visitors feel rewarded immediately.</div>
+      </a>
+
+      <a class="mock" href="option-c.html">
+        <div class="mock-tag">Option C</div>
+        <div class="mock-title">Two doors</div>
+        <div class="mock-desc">Big quiet question, two side-by-side doors: "I'm going through something" vs "Show me today's story." Honest about the two intents.</div>
+        <div class="mock-pros"><b>Best when</b> you want zero ambiguity. Higher friction (one extra click) but extremely clear positioning.</div>
+      </a>
+
+      <a class="mock" href="option-c2.html" style="border-color:#c0392b;">
+        <div class="mock-tag" style="color:#c0392b;">Option C2 · revised</div>
+        <div class="mock-title">Three doors</div>
+        <div class="mock-desc">Time-neutral question. Three peer doors: emotion picker, latest strip (with honest "X days ago"), today's podcast episode. Browse links for stories and struggles below.</div>
+        <div class="mock-pros"><b>Fixes</b> "tonight" + "today's story" inaccuracy from C, and elevates the podcast — the only daily ritual — to a peer entry point.</div>
+      </a>
+
+      <a class="mock" href="wisdom-burnout-with-hub.html" style="border-color:#27ae60;">
+        <div class="mock-tag" style="color:#27ae60;">Wisdom-page hub</div>
+        <div class="mock-title">Burnout page reorganized</div>
+        <div class="mock-desc">Each wisdom page becomes a hub for one struggle. Cross-links to the matching podcast episode (1:1 here), 2 strips, 2 listicles, Daily Wisdom band. Closely related struggles trimmed to 4, not 20.</div>
+        <div class="mock-pros"><b>Why this matters</b> — the podcast episode "Burned Out and Running on Empty" is invisible on the current wisdom page. This makes the page a destination, not a dead-end.</div>
+      </a>
+
+      <a class="mock current" href="../">
+        <div class="mock-tag">Current</div>
+        <div class="mock-title">Live homepage &mdash; for comparison</div>
+        <div class="mock-desc">Logo &rarr; podcast strip &rarr; 60-tag filter wall &rarr; strip viewer &rarr; struggle grid (buried) &rarr; subscribes.</div>
+      </a>
+    </div>
+  </div>
+</body>
+</html>

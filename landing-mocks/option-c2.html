@@ -2,23 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="robots" content="noindex,nofollow">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="robots" content="max-image-preview:large">
-  <link rel="alternate" type="application/rss+xml" title="The Lotus Lane" href="feed.xml">
-  <title>The Lotus Lane — Wisdom for what you're going through</title>
-  <meta name="description" content="Comic strips, a daily podcast, and long-form wisdom for burnout, grief, comparison, loneliness, and everything else that makes life hard. Pick what's heaviest. We'll meet you there.">
-  <link rel="canonical" href="https://thelotuslane.in/">
-
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="The Lotus Lane — Wisdom for what you're going through">
-  <meta property="og:description" content="Comic strips, a daily podcast, and long-form wisdom for burnout, grief, comparison, loneliness, and everything else that makes life hard.">
-  <meta property="og:image" content="https://zombielabsv2.github.io/lotus-lane-assets/2026-05-08.png">
-  <meta property="og:url" content="https://thelotuslane.in/">
-
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="The Lotus Lane — Wisdom for what you're going through">
-  <meta name="twitter:description" content="Comic strips, a daily podcast, and long-form wisdom for burnout, grief, comparison, loneliness, and everything else that makes life hard.">
-  <meta name="twitter:image" content="https://zombielabsv2.github.io/lotus-lane-assets/2026-05-08.png">
+  <title>Option C2 — Three doors | The Lotus Lane</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -30,6 +16,11 @@
       display: flex;
       flex-direction: column;
     }
+    .mock-banner {
+      background: #2d2d2d; color: #faf9f6; text-align: center;
+      padding: 0.4rem 1rem; font-size: 0.72rem; letter-spacing: 0.05em;
+    }
+    .mock-banner a { color: #f4c97a; text-decoration: none; margin: 0 0.6rem; }
 
     header {
       text-align: center;
@@ -61,6 +52,7 @@
       font-size: 0.9rem; color: #888; margin-top: 0.6rem;
     }
 
+    /* Three doors */
     .doors {
       max-width: 1080px;
       margin: 1.2rem auto 0;
@@ -120,6 +112,7 @@
     }
     .door-cta::after { content: " →"; }
 
+    /* Door 3 — podcast styling */
     .door.podcast {
       background: linear-gradient(160deg, #fdf6e3 0%, #f8ecd1 100%);
       border-color: #e8d9b3;
@@ -134,6 +127,7 @@
       flex-shrink: 0;
     }
 
+    /* Emotion expand panel */
     .emotion-panel {
       max-width: 1080px;
       margin: 1rem auto 0;
@@ -189,38 +183,6 @@
       background: white;
       transform: translateY(-1px);
     }
-
-    /* Daily Wisdom band */
-    .daily-band-wrap { max-width: 1080px; margin: 1.4rem auto 0; padding: 0 1rem; }
-    .daily-band {
-      display: flex; align-items: center; gap: 1.2rem;
-      padding: 1.1rem 1.5rem;
-      background: #fdf8f0;
-      border: 1.5px solid #e8d9b3;
-      border-radius: 14px;
-      text-decoration: none; color: inherit;
-      transition: all 0.2s;
-    }
-    .daily-band:hover { border-color: #c0392b; transform: translateY(-1px); }
-    .daily-band .icon { font-size: 1.6rem; flex-shrink: 0; line-height: 1; }
-    .daily-band .text { flex: 1; min-width: 0; }
-    .daily-band .row-eyebrow {
-      font-size: 0.66rem; font-weight: 700; letter-spacing: 0.12em;
-      color: #c0392b; text-transform: uppercase;
-    }
-    .daily-band .row-title {
-      font-size: 1rem; font-weight: 600; color: #4a3d20; margin-top: 0.2rem;
-    }
-    .daily-band .row-meta {
-      font-size: 0.78rem; color: #8a7d5f; margin-top: 0.2rem;
-    }
-    .daily-band .cta {
-      flex-shrink: 0; padding: 0.55rem 1rem;
-      background: #c0392b; color: white;
-      border-radius: 20px; font-size: 0.8rem; font-weight: 600;
-      white-space: nowrap;
-    }
-
     .browse-row {
       max-width: 1080px;
       margin: 1.6rem auto 0;
@@ -244,35 +206,25 @@
       font-size: 0.75rem; color: #bbb;
       margin-top: auto;
     }
-    footer a { color: #c0392b; text-decoration: none; }
 
     @media (max-width: 720px) {
       .question { padding: 1.6rem 1rem 0.8rem; }
       .question h2 { font-size: 1.5rem; }
       .door { padding: 1.3rem 1.2rem 1.1rem; min-height: 170px; }
       .door-title { font-size: 1.05rem; }
-      .daily-band { flex-wrap: wrap; padding: 1rem; }
-      .daily-band .cta { margin-top: 0.4rem; }
-      .browse-row { gap: 0.9rem 1.2rem; }
     }
   </style>
-
-  <script>
-    (function() {
-      var mid = 'G-4DM9P70KJ6';
-      if (mid.indexOf('PLACEHOLDER') !== -1) return;
-      var s = document.createElement('script');
-      s.async = true;
-      s.src = 'https://www.googletagmanager.com/gtag/js?id=' + mid;
-      document.head.appendChild(s);
-      window.dataLayer = window.dataLayer || [];
-      window.gtag = function(){window.dataLayer.push(arguments);};
-      window.gtag('js', new Date());
-      window.gtag('config', mid);
-    })();
-  </script>
 </head>
 <body>
+
+  <div class="mock-banner">
+    Mock C2 · Three doors &nbsp;|&nbsp;
+    <a href="../landing-mocks/">All mocks</a> ·
+    <a href="option-a.html">A</a> ·
+    <a href="option-b.html">B</a> ·
+    <a href="option-c.html">C</a> ·
+    <a href="../">Live</a>
+  </div>
 
   <header>
     <h1>The <span>Lotus</span> Lane</h1>
@@ -284,24 +236,24 @@
   </section>
 
   <div class="doors">
-    <a class="door" id="doorEmotion" href="wisdom/" onclick="toggleEmotion(event)">
+    <a class="door" id="doorEmotion" onclick="toggleEmotion(event)">
       <div class="door-eyebrow">For the heaviness</div>
       <div class="door-title">I'm going through something</div>
       <div class="door-sub">Pick what's heaviest. We'll send you to a long-form letter on exactly that — burnout, grief, comparison, 18 more.</div>
       <div class="door-cta">Pick what's heavy</div>
     </a>
 
-    <a class="door" id="doorStory" href="stories/">
+    <a class="door" id="doorStory" href="#">
       <div class="door-eyebrow" id="storyEyebrow">LATEST STORY</div>
       <div class="door-title" id="storyTitle">Loading the latest&hellip;</div>
       <div class="door-sub" id="storySub">A 4-panel comic + a quote that earned it. New Mon, Wed, Fri.</div>
       <div class="door-cta">Read</div>
     </a>
 
-    <a class="door podcast" href="podcast/">
+    <a class="door podcast" href="../podcast/">
       <div class="pb-cover-wrap">
-        <img class="pb-cover" src="https://storage.googleapis.com/lotus-lane-podcast/cover.png" alt="" loading="lazy">
-        <div class="door-eyebrow">Today's episode &middot; ~10 min</div>
+        <img class="pb-cover" src="https://storage.googleapis.com/lotus-lane-podcast/cover.png" alt="">
+        <div class="door-eyebrow">Today's episode · ~10 min</div>
       </div>
       <div class="door-title" id="podcastTitle">Lotus Lane Daily</div>
       <div class="door-sub" id="podcastSub">A new wisdom episode every morning. Built for the commute, the walk, or doing the dishes.</div>
@@ -309,52 +261,70 @@
     </a>
   </div>
 
+  <!-- Daily Wisdom band — different action class (commit, not consume) -->
+  <section style="max-width:1080px; margin:1.4rem auto 0; padding:0 1rem;">
+    <a href="../subscribe.html" style="
+      display:flex; align-items:center; gap:1.2rem;
+      padding:1.1rem 1.5rem;
+      background:#fdf8f0;
+      border:1.5px solid #e8d9b3;
+      border-radius:14px;
+      text-decoration:none; color:inherit;
+      transition:all 0.2s;
+    " onmouseover="this.style.borderColor='#c0392b'; this.style.transform='translateY(-1px)'"
+       onmouseout="this.style.borderColor='#e8d9b3'; this.style.transform='translateY(0)'">
+      <div style="font-size:1.6rem; line-height:1; flex-shrink:0;">&#x2709;&#xFE0F;</div>
+      <div style="flex:1; min-width:0;">
+        <div style="font-size:0.66rem; font-weight:700; letter-spacing:0.12em; color:#c0392b; text-transform:uppercase;">Daily Wisdom &middot; tailored email</div>
+        <div style="font-size:1rem; font-weight:600; color:#4a3d20; margin-top:0.2rem;">A wisdom note in your inbox every morning &mdash; matched to what you're working through.</div>
+        <div style="font-size:0.78rem; color:#8a7d5f; margin-top:0.2rem;">Tell us your challenges (job, relationship, grief, parenting, money&hellip;). We tailor each note. Unsubscribe anytime.</div>
+      </div>
+      <div style="
+        flex-shrink:0; padding:0.55rem 1rem;
+        background:#c0392b; color:white;
+        border-radius:20px; font-size:0.8rem; font-weight:600;
+        white-space:nowrap;
+      ">Get Daily Wisdom &rarr;</div>
+    </a>
+  </section>
+
   <section class="emotion-panel" id="emotionPanel">
     <div class="emotion-panel-inner">
       <div class="emotion-panel-head">
         <h4>What's heaviest right now?</h4>
         <button class="emotion-panel-close" onclick="toggleEmotion(event)" aria-label="Close">&times;</button>
       </div>
-      <div class="emotion-grid" id="emotionGrid"></div>
+      <div class="emotion-grid">
+        <a class="emotion-card" href="../wisdom/burnout-recovery.html">I'm exhausted, even on my days off</a>
+        <a class="emotion-card" href="../wisdom/loneliness-despite-everything.html">I feel alone, even when I'm not</a>
+        <a class="emotion-card" href="../wisdom/comparison-trap.html">Everyone else seems ahead</a>
+        <a class="emotion-card" href="../wisdom/when-grief-wont-stop.html">Someone I love is gone</a>
+        <a class="emotion-card" href="../wisdom/overcoming-imposter-syndrome.html">I'm waiting to feel ready</a>
+        <a class="emotion-card" href="../wisdom/anxiety-insomnia.html">I can't sleep with this anxiety</a>
+        <a class="emotion-card" href="../wisdom/parenting-is-breaking-me.html">Parenting is breaking me</a>
+        <a class="emotion-card" href="../wisdom/feeling-like-a-failure.html">I feel like a failure</a>
+        <a class="emotion-card" href="../wisdom/relationship-falling-apart.html">We're falling apart</a>
+        <a class="emotion-card" href="../wisdom/financial-anxiety.html">Money is suffocating me</a>
+        <a class="emotion-card" href="../wisdom/how-to-forgive.html">I can't forgive them</a>
+        <a class="emotion-card" href="../wisdom/starting-over.html">I have to start over</a>
+      </div>
     </div>
   </section>
 
-  <div class="daily-band-wrap">
-    <a class="daily-band" href="subscribe.html">
-      <div class="icon">&#x2709;&#xFE0F;</div>
-      <div class="text">
-        <div class="row-eyebrow">Daily Wisdom &middot; tailored email</div>
-        <div class="row-title">A wisdom note in your inbox every morning &mdash; matched to what you're working through.</div>
-        <div class="row-meta">Pick your challenges. We tailor each note. Unsubscribe anytime.</div>
-      </div>
-      <div class="cta">Get Daily Wisdom &rarr;</div>
-    </a>
-  </div>
-
   <div class="browse-row">
-    <a href="wisdom/">All 21 struggles &rarr;</a>
-    <a href="stories/" id="browseStories">All stories &rarr;</a>
-    <a href="listicles/">Listicles &rarr;</a>
-    <a href="podcast/">All podcast episodes &rarr;</a>
-    <a href="decoder/">Letters on Life &rarr;</a>
-    <a href="ikeda/">Wisdom Library &rarr;</a>
+    <a href="../wisdom/">Browse all 21 struggles &rarr;</a>
+    <a href="../" id="browseStories">Browse all stories &rarr;</a>
+    <a href="../listicles/">Listicles &rarr;</a>
+    <a href="../podcast/">All podcast episodes &rarr;</a>
+    <a href="../decoder/">Letters on Life &rarr;</a>
   </div>
 
   <footer>
     <p>Wisdom for what you're going through</p>
-    <p style="margin-top:0.5rem;">
-      <img src="https://visitor-badge.laobi.icu/badge?page_id=thelotuslane&left_text=Total%20Visitors&left_color=%23c0392b&right_color=%23333333"
-           alt="visitors" style="height:22px; vertical-align:middle;">
-    </p>
   </footer>
-
-  <script data-goatcounter="https://zombielabs.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
-  <script src="nav.js"></script>
 
   <script>
     function toggleEmotion(e) {
-      // Allow opening in new tab via cmd/ctrl-click
-      if (e.metaKey || e.ctrlKey || e.shiftKey) return;
       e.preventDefault();
       e.stopPropagation();
       const panel = document.getElementById('emotionPanel');
@@ -364,59 +334,36 @@
       }
     }
 
-    // Build emotion cards from content_struggles.json
-    (async function () {
-      try {
-        const resp = await fetch('content_struggles.json');
-        const cs = await resp.json();
-        const grid = document.getElementById('emotionGrid');
-        // Pick the 12 most universal struggles for the panel
-        const featured = [
-          'burnout-recovery', 'loneliness-despite-everything', 'comparison-trap',
-          'when-grief-wont-stop', 'overcoming-imposter-syndrome', 'anxiety-insomnia',
-          'parenting-is-breaking-me', 'feeling-like-a-failure', 'relationship-falling-apart',
-          'financial-anxiety', 'how-to-forgive', 'starting-over'
-        ];
-        featured.forEach(slug => {
-          const a = document.createElement('a');
-          a.className = 'emotion-card';
-          a.href = `wisdom/${slug}.html`;
-          a.textContent = cs.struggle_short_labels[slug] || slug;
-          grid.appendChild(a);
-        });
-      } catch (e) { console.warn('content_struggles.json fetch failed', e); }
-    })();
-
     // Latest strip
     (async function () {
       try {
-        const resp = await fetch('strips.json');
+        const resp = await fetch('../strips.json');
         const strips = await resp.json();
         strips.sort((a, b) => new Date(b.date) - new Date(a.date));
         const s = strips[0];
         if (!s) return;
-        document.getElementById('doorStory').href = `strips/${s.date}.html`;
+        document.getElementById('doorStory').href = `../strips/${s.date}.html`;
         document.getElementById('storyTitle').textContent =
           (s.title || '').slice(0, 80) + (s.title && s.title.length > 80 ? '…' : '');
         const d = new Date(s.date + 'T00:00:00');
         const today = new Date(); today.setHours(0,0,0,0);
         const days = Math.floor((today - d) / 86400000);
         let dateLabel;
-        if (days <= 0) dateLabel = 'Today';
+        if (days === 0) dateLabel = 'Today';
         else if (days === 1) dateLabel = 'Yesterday';
         else if (days < 7) dateLabel = `${days} days ago`;
         else dateLabel = d.toLocaleDateString('en-IN', { month: 'short', day: 'numeric' });
         document.getElementById('storyEyebrow').textContent =
           `LATEST STORY · ${dateLabel.toUpperCase()}`;
         document.getElementById('browseStories').textContent =
-          `All ${strips.length} stories →`;
+          `Browse all ${strips.length} stories →`;
       } catch (e) { console.warn('strips.json fetch failed', e); }
     })();
 
     // Latest podcast episode
     (async function () {
       try {
-        const resp = await fetch('podcast.xml');
+        const resp = await fetch('../podcast.xml');
         const xml = await resp.text();
         const m = xml.match(/<item>[\s\S]*?<title>(?:<!\[CDATA\[)?(.*?)(?:\]\]>)?<\/title>/);
         if (m && m[1]) {

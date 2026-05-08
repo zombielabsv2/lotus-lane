@@ -1,0 +1,668 @@
+{
+  "version": 1,
+  "updated": "2026-05-09",
+  "_schema": "Hub mapping. struggles=canonical 21 slugs. strip_tag_to_struggles=auto-routes strips into hubs via existing tags. listicle_struggles=hand-curated. podcast: episode slug == wisdom slug (no mapping needed).",
+  "struggles": [
+    "anger-you-cant-control",
+    "anxiety-insomnia",
+    "burnout-recovery",
+    "caregiver-burden",
+    "chronic-illness",
+    "comparison-trap",
+    "dealing-with-jealousy",
+    "depression-fog",
+    "divorce",
+    "feeling-like-a-failure",
+    "financial-anxiety",
+    "how-to-forgive",
+    "loneliness-despite-everything",
+    "overcoming-imposter-syndrome",
+    "parenting-is-breaking-me",
+    "rejection",
+    "relationship-falling-apart",
+    "sidelined-at-work",
+    "starting-over",
+    "toxic-workplace-survival",
+    "when-grief-wont-stop"
+  ],
+  "struggle_titles": {
+    "anger-you-cant-control": "When Anger Takes Over",
+    "anxiety-insomnia": "The 3am Mind That Won't Stop",
+    "burnout-recovery": "Burned Out and Running on Empty",
+    "caregiver-burden": "Caring for Someone Who Can't Care for Themselves",
+    "chronic-illness": "When Your Body Is Failing You",
+    "comparison-trap": "Everyone Is Doing Better Than Me",
+    "dealing-with-jealousy": "How to Deal with Jealousy",
+    "depression-fog": "When You Can't Get Out of Bed",
+    "divorce": "When a Marriage Ends",
+    "feeling-like-a-failure": "Feeling Like a Failure After 30",
+    "financial-anxiety": "Drowning in Financial Anxiety",
+    "how-to-forgive": "How to Forgive Someone Who Hurt You",
+    "loneliness-despite-everything": "Lonely Even When You're Not Alone",
+    "overcoming-imposter-syndrome": "Overcoming Imposter Syndrome",
+    "parenting-is-breaking-me": "When Parenting Feels Impossible",
+    "rejection": "After Being Rejected",
+    "relationship-falling-apart": "When Your Relationship Is Falling Apart",
+    "sidelined-at-work": "Invisible at Work",
+    "starting-over": "Starting Over at Any Age",
+    "toxic-workplace-survival": "Surviving a Toxic Workplace",
+    "when-grief-wont-stop": "When Grief Won't Stop"
+  },
+  "struggle_short_labels": {
+    "anger-you-cant-control": "Anger I can't control",
+    "anxiety-insomnia": "I can't sleep with this anxiety",
+    "burnout-recovery": "I'm exhausted, even on my days off",
+    "caregiver-burden": "Caring for them is breaking me",
+    "chronic-illness": "My body is failing me",
+    "comparison-trap": "Everyone else seems ahead",
+    "dealing-with-jealousy": "I can't stop being jealous",
+    "depression-fog": "I can't get out of bed",
+    "divorce": "Our marriage is over",
+    "feeling-like-a-failure": "I feel like a failure",
+    "financial-anxiety": "Money is suffocating me",
+    "how-to-forgive": "I can't forgive them",
+    "loneliness-despite-everything": "I feel alone, even when I'm not",
+    "overcoming-imposter-syndrome": "I'm waiting to feel ready",
+    "parenting-is-breaking-me": "Parenting is breaking me",
+    "rejection": "They didn't choose me",
+    "relationship-falling-apart": "We're falling apart",
+    "sidelined-at-work": "I'm being sidelined",
+    "starting-over": "I have to start over",
+    "toxic-workplace-survival": "My workplace is breaking me",
+    "when-grief-wont-stop": "Someone I love is gone"
+  },
+  "closely_related": {
+    "anger-you-cant-control": [
+      "how-to-forgive",
+      "relationship-falling-apart",
+      "anxiety-insomnia",
+      "feeling-like-a-failure"
+    ],
+    "anxiety-insomnia": [
+      "depression-fog",
+      "burnout-recovery",
+      "anger-you-cant-control",
+      "feeling-like-a-failure"
+    ],
+    "burnout-recovery": [
+      "anxiety-insomnia",
+      "depression-fog",
+      "feeling-like-a-failure",
+      "toxic-workplace-survival"
+    ],
+    "caregiver-burden": [
+      "chronic-illness",
+      "burnout-recovery",
+      "loneliness-despite-everything",
+      "parenting-is-breaking-me"
+    ],
+    "chronic-illness": [
+      "caregiver-burden",
+      "depression-fog",
+      "anxiety-insomnia",
+      "starting-over"
+    ],
+    "comparison-trap": [
+      "dealing-with-jealousy",
+      "feeling-like-a-failure",
+      "overcoming-imposter-syndrome",
+      "sidelined-at-work"
+    ],
+    "dealing-with-jealousy": [
+      "comparison-trap",
+      "feeling-like-a-failure",
+      "rejection",
+      "how-to-forgive"
+    ],
+    "depression-fog": [
+      "anxiety-insomnia",
+      "burnout-recovery",
+      "feeling-like-a-failure",
+      "loneliness-despite-everything"
+    ],
+    "divorce": [
+      "relationship-falling-apart",
+      "starting-over",
+      "loneliness-despite-everything",
+      "how-to-forgive"
+    ],
+    "feeling-like-a-failure": [
+      "overcoming-imposter-syndrome",
+      "comparison-trap",
+      "depression-fog",
+      "starting-over"
+    ],
+    "financial-anxiety": [
+      "sidelined-at-work",
+      "anxiety-insomnia",
+      "feeling-like-a-failure",
+      "starting-over"
+    ],
+    "how-to-forgive": [
+      "anger-you-cant-control",
+      "relationship-falling-apart",
+      "divorce",
+      "rejection"
+    ],
+    "loneliness-despite-everything": [
+      "depression-fog",
+      "rejection",
+      "divorce",
+      "starting-over"
+    ],
+    "overcoming-imposter-syndrome": [
+      "feeling-like-a-failure",
+      "comparison-trap",
+      "sidelined-at-work",
+      "anxiety-insomnia"
+    ],
+    "parenting-is-breaking-me": [
+      "burnout-recovery",
+      "anxiety-insomnia",
+      "caregiver-burden",
+      "loneliness-despite-everything"
+    ],
+    "rejection": [
+      "loneliness-despite-everything",
+      "feeling-like-a-failure",
+      "starting-over",
+      "how-to-forgive"
+    ],
+    "relationship-falling-apart": [
+      "divorce",
+      "how-to-forgive",
+      "anger-you-cant-control",
+      "loneliness-despite-everything"
+    ],
+    "sidelined-at-work": [
+      "toxic-workplace-survival",
+      "comparison-trap",
+      "feeling-like-a-failure",
+      "financial-anxiety"
+    ],
+    "starting-over": [
+      "feeling-like-a-failure",
+      "divorce",
+      "rejection",
+      "loneliness-despite-everything"
+    ],
+    "toxic-workplace-survival": [
+      "burnout-recovery",
+      "sidelined-at-work",
+      "anger-you-cant-control",
+      "financial-anxiety"
+    ],
+    "when-grief-wont-stop": [
+      "depression-fog",
+      "loneliness-despite-everything",
+      "starting-over",
+      "how-to-forgive"
+    ]
+  },
+  "strip_tag_to_struggles": {
+    "anger": [
+      "anger-you-cant-control"
+    ],
+    "injustice": [
+      "anger-you-cant-control"
+    ],
+    "patience": [
+      "anger-you-cant-control"
+    ],
+    "ego": [
+      "anger-you-cant-control",
+      "comparison-trap"
+    ],
+    "anxiety": [
+      "anxiety-insomnia"
+    ],
+    "uncertainty": [
+      "anxiety-insomnia",
+      "depression-fog"
+    ],
+    "presence": [
+      "anxiety-insomnia",
+      "burnout-recovery"
+    ],
+    "doubt": [
+      "anxiety-insomnia",
+      "overcoming-imposter-syndrome"
+    ],
+    "burnout": [
+      "burnout-recovery"
+    ],
+    "work-stress": [
+      "burnout-recovery",
+      "toxic-workplace-survival"
+    ],
+    "self-care": [
+      "burnout-recovery",
+      "anxiety-insomnia"
+    ],
+    "perfectionism": [
+      "burnout-recovery",
+      "overcoming-imposter-syndrome",
+      "comparison-trap"
+    ],
+    "career-growth": [
+      "sidelined-at-work",
+      "comparison-trap"
+    ],
+    "career-change": [
+      "starting-over",
+      "sidelined-at-work"
+    ],
+    "workplace": [
+      "toxic-workplace-survival",
+      "sidelined-at-work"
+    ],
+    "job-loss": [
+      "sidelined-at-work",
+      "financial-anxiety",
+      "starting-over"
+    ],
+    "mentorship": [
+      "sidelined-at-work"
+    ],
+    "comparison": [
+      "comparison-trap"
+    ],
+    "envy": [
+      "comparison-trap",
+      "dealing-with-jealousy"
+    ],
+    "self-worth": [
+      "feeling-like-a-failure",
+      "comparison-trap"
+    ],
+    "self-doubt": [
+      "overcoming-imposter-syndrome",
+      "feeling-like-a-failure"
+    ],
+    "self-acceptance": [
+      "feeling-like-a-failure",
+      "comparison-trap"
+    ],
+    "self-compassion": [
+      "feeling-like-a-failure",
+      "how-to-forgive"
+    ],
+    "self-identity": [
+      "starting-over",
+      "overcoming-imposter-syndrome"
+    ],
+    "academic-pressure": [
+      "comparison-trap",
+      "anxiety-insomnia"
+    ],
+    "academic pressure": [
+      "comparison-trap",
+      "anxiety-insomnia"
+    ],
+    "academic-life": [
+      "comparison-trap"
+    ],
+    "divorce": [
+      "divorce",
+      "relationship-falling-apart"
+    ],
+    "sibling rivalry": [
+      "comparison-trap"
+    ],
+    "rejection": [
+      "rejection",
+      "loneliness-despite-everything"
+    ],
+    "heartbreak": [
+      "rejection",
+      "relationship-falling-apart",
+      "divorce"
+    ],
+    "being-overlooked": [
+      "sidelined-at-work",
+      "rejection"
+    ],
+    "depression": [
+      "depression-fog"
+    ],
+    "mental-health": [
+      "depression-fog",
+      "anxiety-insomnia"
+    ],
+    "addiction-recovery": [
+      "starting-over",
+      "depression-fog"
+    ],
+    "hope": [
+      "depression-fog",
+      "anxiety-insomnia"
+    ],
+    "faith": [
+      "depression-fog"
+    ],
+    "spiritual": [
+      "depression-fog"
+    ],
+    "relationships": [
+      "relationship-falling-apart"
+    ],
+    "couples": [
+      "relationship-falling-apart",
+      "divorce"
+    ],
+    "commitment": [
+      "relationship-falling-apart"
+    ],
+    "communication": [
+      "relationship-falling-apart"
+    ],
+    "conflict-and-repair": [
+      "relationship-falling-apart",
+      "how-to-forgive"
+    ],
+    "long-distance": [
+      "relationship-falling-apart"
+    ],
+    "trust": [
+      "relationship-falling-apart",
+      "how-to-forgive"
+    ],
+    "breakup-recovery": [
+      "relationship-falling-apart",
+      "divorce"
+    ],
+    "guilt": [
+      "how-to-forgive"
+    ],
+    "compassion": [
+      "how-to-forgive",
+      "caregiver-burden"
+    ],
+    "letting-go": [
+      "how-to-forgive",
+      "when-grief-wont-stop",
+      "divorce"
+    ],
+    "grief-loss": [
+      "when-grief-wont-stop"
+    ],
+    "honoring-memory": [
+      "when-grief-wont-stop"
+    ],
+    "continuity-of-love": [
+      "when-grief-wont-stop"
+    ],
+    "pet-loss": [
+      "when-grief-wont-stop"
+    ],
+    "pet-love": [
+      "when-grief-wont-stop"
+    ],
+    "loneliness": [
+      "loneliness-despite-everything"
+    ],
+    "friendship": [
+      "loneliness-despite-everything"
+    ],
+    "making-friends": [
+      "loneliness-despite-everything"
+    ],
+    "community": [
+      "loneliness-despite-everything"
+    ],
+    "support": [
+      "loneliness-despite-everything"
+    ],
+    "vulnerability": [
+      "loneliness-despite-everything"
+    ],
+    "family": [
+      "parenting-is-breaking-me",
+      "caregiver-burden"
+    ],
+    "family-bonds": [
+      "parenting-is-breaking-me"
+    ],
+    "family-support": [
+      "parenting-is-breaking-me"
+    ],
+    "family-dynamics": [
+      "parenting-is-breaking-me",
+      "caregiver-burden"
+    ],
+    "family-legacy": [
+      "caregiver-burden"
+    ],
+    "parenting": [
+      "parenting-is-breaking-me"
+    ],
+    "fatherhood": [
+      "parenting-is-breaking-me"
+    ],
+    "motherhood": [
+      "parenting-is-breaking-me"
+    ],
+    "single-parenting": [
+      "parenting-is-breaking-me",
+      "financial-anxiety"
+    ],
+    "expectations": [
+      "parenting-is-breaking-me",
+      "comparison-trap"
+    ],
+    "sibling-rivalry": [
+      "comparison-trap"
+    ],
+    "health": [
+      "chronic-illness",
+      "anxiety-insomnia"
+    ],
+    "finances": [
+      "financial-anxiety"
+    ],
+    "starting-over": [
+      "starting-over"
+    ],
+    "new-beginnings": [
+      "starting-over",
+      "divorce"
+    ],
+    "transformation": [
+      "starting-over"
+    ],
+    "midlife": [
+      "starting-over"
+    ],
+    "learning": [
+      "starting-over"
+    ],
+    "dreams": [
+      "starting-over",
+      "overcoming-imposter-syndrome"
+    ],
+    "courage": [
+      "overcoming-imposter-syndrome",
+      "starting-over"
+    ],
+    "authenticity": [
+      "overcoming-imposter-syndrome",
+      "sidelined-at-work"
+    ],
+    "perseverance": [
+      "feeling-like-a-failure",
+      "starting-over"
+    ],
+    "resilience": [
+      "starting-over",
+      "feeling-like-a-failure"
+    ],
+    "acceptance": [
+      "starting-over",
+      "how-to-forgive"
+    ],
+    "self-reflection": [
+      "starting-over"
+    ],
+    "inner-strength": [
+      "feeling-like-a-failure",
+      "anger-you-cant-control"
+    ],
+    "career change": [
+      "starting-over",
+      "sidelined-at-work"
+    ],
+    "starting over": [
+      "starting-over"
+    ]
+  },
+  "listicle_struggles": {
+    "2026-04-08": [
+      "depression-fog",
+      "feeling-like-a-failure"
+    ],
+    "2026-04-09": [
+      "burnout-recovery",
+      "depression-fog",
+      "feeling-like-a-failure"
+    ],
+    "2026-04-10": [
+      "starting-over",
+      "comparison-trap"
+    ],
+    "2026-04-11": [
+      "depression-fog",
+      "anxiety-insomnia"
+    ],
+    "2026-04-12": [
+      "loneliness-despite-everything",
+      "relationship-falling-apart"
+    ],
+    "2026-04-13": [
+      "feeling-like-a-failure",
+      "overcoming-imposter-syndrome",
+      "depression-fog"
+    ],
+    "2026-04-14": [
+      "relationship-falling-apart",
+      "how-to-forgive"
+    ],
+    "2026-04-15": [
+      "anger-you-cant-control",
+      "anxiety-insomnia"
+    ],
+    "2026-04-16": [
+      "starting-over"
+    ],
+    "2026-04-17": [
+      "feeling-like-a-failure",
+      "anger-you-cant-control",
+      "depression-fog"
+    ],
+    "2026-04-18": [
+      "caregiver-burden",
+      "how-to-forgive"
+    ],
+    "2026-04-19": [
+      "depression-fog",
+      "anxiety-insomnia"
+    ],
+    "2026-04-20": [
+      "overcoming-imposter-syndrome",
+      "starting-over"
+    ],
+    "2026-04-21": [
+      "starting-over",
+      "comparison-trap"
+    ],
+    "2026-04-22": [
+      "anxiety-insomnia",
+      "depression-fog"
+    ],
+    "2026-04-23": [
+      "sidelined-at-work",
+      "loneliness-despite-everything"
+    ],
+    "2026-04-24": [
+      "comparison-trap",
+      "feeling-like-a-failure"
+    ],
+    "2026-04-25": [
+      "relationship-falling-apart",
+      "divorce"
+    ],
+    "2026-04-26": [
+      "anger-you-cant-control",
+      "feeling-like-a-failure"
+    ],
+    "2026-04-27": [
+      "feeling-like-a-failure",
+      "overcoming-imposter-syndrome"
+    ],
+    "2026-04-28": [
+      "starting-over"
+    ],
+    "2026-04-29": [
+      "caregiver-burden",
+      "how-to-forgive"
+    ],
+    "2026-04-30": [
+      "depression-fog",
+      "burnout-recovery",
+      "feeling-like-a-failure"
+    ],
+    "2026-05-01": [
+      "overcoming-imposter-syndrome",
+      "starting-over"
+    ],
+    "2026-05-02": [
+      "starting-over"
+    ],
+    "2026-05-03": [
+      "depression-fog",
+      "anxiety-insomnia"
+    ],
+    "2026-05-04": [
+      "loneliness-despite-everything",
+      "sidelined-at-work"
+    ],
+    "2026-05-05": [
+      "starting-over",
+      "feeling-like-a-failure"
+    ],
+    "2026-05-06": [
+      "relationship-falling-apart",
+      "how-to-forgive"
+    ]
+  },
+  "listicle_titles": {
+    "2026-04-08": "Drowning in Despair? 5 Truths About Hope",
+    "2026-04-09": "Feel Like Giving Up? 5 Reminders to Keep Fighting",
+    "2026-04-10": "Tired of Waiting? 5 Truths That Start With You",
+    "2026-04-11": "Your Prayers Aren't Working? 5 Honest Truths About Faith",
+    "2026-04-12": "No One Succeeds Alone: 5 Truths About Real Relationships",
+    "2026-04-13": "5 Things Every Young Person Needs to Hear",
+    "2026-04-14": "Can't Stop Fighting With Someone You Love? 5 Truths",
+    "2026-04-15": "The World Feels Broken? 5 Truths About Where Peace Begins",
+    "2026-04-16": "5 Truths About What Real Education Means",
+    "2026-04-17": "Losing the Battle With Yourself? 5 Truths About Real Victory",
+    "2026-04-18": "Feeling Helpless? 5 Truths About Real Compassion",
+    "2026-04-19": "When Life Feels Dark: 5 Reminders That Light Is Coming",
+    "2026-04-20": "Scared to Take the Next Step? 5 Truths About Courage",
+    "2026-04-21": "Stuck in the Same Patterns? 5 Truths About Real Change",
+    "2026-04-22": "Life Feels Out of Control? 5 Truths About Prayer",
+    "2026-04-23": "Had a Mentor Who Changed Your Life? 5 Truths",
+    "2026-04-24": "Wasting Your 20s? 5 Truths About What Youth Means",
+    "2026-04-25": "Can't Fix a Broken Relationship? 5 Truths",
+    "2026-04-26": "Tired of Feeling Powerless? 5 Truths About Change",
+    "2026-04-27": "Hard on Yourself for Falling Short? 5 Truths About Winning",
+    "2026-04-28": "5 Truths About What Education Is Really For",
+    "2026-04-29": "Caring for Others Makes You Weak? 5 Truths About Strength",
+    "2026-04-30": "Can't See a Way Out? 5 Reminders That Hope Is Closer",
+    "2026-05-01": "Feel the Fear and Do It Anyway: 5 Quotes for Courage",
+    "2026-05-02": "Want to Change the World? 5 Truths About Why It Starts With You",
+    "2026-05-03": "Your Prayers Feel Empty? 5 Truths About Real Faith",
+    "2026-05-04": "Never Had a Mentor? 5 Truths About the Bond",
+    "2026-05-05": "Best Years Slipping Away? 5 Truths About What Matters",
+    "2026-05-06": "That Argument You Keep Avoiding? 5 Truths About Conversation"
+  }
+}

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Option C — Two doors | The Lotus Lane</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #faf9f6;
+      color: #2d2d2d;
+      line-height: 1.5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .mock-banner {
+      background: #2d2d2d; color: #faf9f6; text-align: center;
+      padding: 0.4rem 1rem; font-size: 0.72rem; letter-spacing: 0.05em;
+    }
+    .mock-banner a { color: #f4c97a; text-decoration: none; margin: 0 0.6rem; }
+
+    header {
+      text-align: center;
+      padding: 1.4rem 1rem 0.6rem;
+    }
+    header h1 {
+      font-size: 1.4rem;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      color: #4a4a4a;
+    }
+    header h1 span { font-weight: 600; color: #c0392b; }
+
+    /* Big quiet question */
+    .question {
+      text-align: center;
+      padding: 3rem 1rem 1.4rem;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .question h2 {
+      font-size: 2.2rem;
+      font-weight: 300;
+      color: #2d2d2d;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+    .question h2 em { font-style: italic; color: #c0392b; font-weight: 400; }
+    .question p {
+      font-size: 0.95rem; color: #888; margin-top: 0.7rem;
+    }
+
+    /* Two doors */
+    .doors {
+      max-width: 920px;
+      margin: 1rem auto 0;
+      padding: 0 1rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+    }
+    @media (max-width: 720px) { .doors { grid-template-columns: 1fr; } }
+
+    .door {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 2.2rem 1.8rem 1.8rem;
+      background: white;
+      border-radius: 16px;
+      border: 1.5px solid #e8e4de;
+      text-decoration: none;
+      color: inherit;
+      min-height: 280px;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+    .door:hover {
+      border-color: #c0392b;
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(192, 57, 43, 0.1);
+    }
+    .door-eyebrow {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: #c0392b;
+      text-transform: uppercase;
+    }
+    .door-title {
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: #2d2d2d;
+      line-height: 1.3;
+      margin-top: 0.6rem;
+    }
+    .door-sub {
+      font-size: 0.9rem;
+      color: #777;
+      line-height: 1.5;
+      margin-top: 0.6rem;
+    }
+    .door-cta {
+      margin-top: 1.6rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #c0392b;
+    }
+    .door-cta::after { content: " →"; }
+
+    /* Door 1 — emotion expand panel */
+    .emotion-panel {
+      max-width: 920px;
+      margin: 1.2rem auto 0;
+      padding: 0 1rem;
+      display: none;
+    }
+    .emotion-panel.open { display: block; animation: fade 0.3s ease; }
+    @keyframes fade { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
+    .emotion-panel-inner {
+      background: white;
+      border: 1px solid #e8e4de;
+      border-radius: 14px;
+      padding: 1.6rem;
+    }
+    .emotion-panel h4 {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: #888;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .emotion-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.55rem;
+    }
+    @media (max-width: 720px) { .emotion-grid { grid-template-columns: repeat(2, 1fr); } }
+    .emotion-card {
+      display: flex; align-items: center; justify-content: center; text-align: center;
+      padding: 0.85rem 0.7rem;
+      background: #faf9f6;
+      border: 1px solid #e8e4de;
+      border-radius: 10px;
+      text-decoration: none;
+      color: #2d2d2d;
+      font-size: 0.84rem;
+      line-height: 1.4;
+      min-height: 68px;
+      transition: all 0.18s;
+    }
+    .emotion-card:hover {
+      border-color: #c0392b;
+      color: #c0392b;
+      background: white;
+      transform: translateY(-1px);
+    }
+    .browse-all {
+      text-align: center; margin-top: 1rem; font-size: 0.85rem;
+    }
+    .browse-all a {
+      color: #888; text-decoration: none;
+      border-bottom: 1px dashed #c0c0b8; padding-bottom: 1px;
+    }
+    .browse-all a:hover { color: #c0392b; border-color: #c0392b; }
+
+    /* Podcast tucked under */
+    .podcast-strip {
+      max-width: 720px; margin: 2.2rem auto 0; padding: 0 1rem;
+    }
+    .podcast-banner {
+      display: flex; align-items: center; gap: 0.9rem;
+      padding: 0.7rem 1rem;
+      background: #fdf6e3;
+      border-radius: 12px; text-decoration: none; color: inherit;
+      border: 1px solid #e8d9b3; transition: all 0.2s;
+    }
+    .podcast-banner:hover { border-color: #c0392b; }
+    .pb-cover { width: 42px; height: 42px; border-radius: 6px; }
+    .pb-text { flex: 1; }
+    .pb-eyebrow { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em; color: #c0392b; }
+    .pb-title { font-size: 0.88rem; font-weight: 600; color: #4a3d20; margin-top: 0.1rem; }
+    .pb-meta { font-size: 0.7rem; color: #8a7d5f; margin-top: 0.05rem; }
+
+    footer {
+      text-align: center; padding: 2rem 1rem 1.5rem;
+      font-size: 0.75rem; color: #bbb;
+      margin-top: auto;
+    }
+
+    @media (max-width: 720px) {
+      .question { padding: 2rem 1rem 1.2rem; }
+      .question h2 { font-size: 1.7rem; }
+      .door { padding: 1.6rem 1.3rem 1.3rem; min-height: 200px; }
+      .door-title { font-size: 1.15rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="mock-banner">
+    Mock C · Two doors &nbsp;|&nbsp;
+    <a href="../landing-mocks/">All mocks</a> ·
+    <a href="option-a.html">Option A</a> ·
+    <a href="option-b.html">Option B</a> ·
+    <a href="../">Current live</a>
+  </div>
+
+  <header>
+    <h1>The <span>Lotus</span> Lane</h1>
+  </header>
+
+  <section class="question">
+    <h2>Where are you <em>tonight?</em></h2>
+    <p>Two ways in. Pick whichever feels right.</p>
+  </section>
+
+  <div class="doors">
+    <a class="door" id="doorEmotion" onclick="toggleEmotion(event)">
+      <div>
+        <div class="door-eyebrow">For the heaviness</div>
+        <div class="door-title">I'm going through something</div>
+        <div class="door-sub">Pick what's heaviest. We'll send you to a long-form letter on exactly that.</div>
+      </div>
+      <div class="door-cta">Pick what's heavy</div>
+    </a>
+
+    <a class="door" id="doorStory" href="#">
+      <div>
+        <div class="door-eyebrow">For a quiet read</div>
+        <div class="door-title">Show me today's story</div>
+        <div class="door-sub" id="storySub">Loading today's story&hellip;</div>
+      </div>
+      <div class="door-cta">Read today</div>
+    </a>
+  </div>
+
+  <section class="emotion-panel" id="emotionPanel">
+    <div class="emotion-panel-inner">
+      <h4>What's heaviest right now?</h4>
+      <div class="emotion-grid">
+        <a class="emotion-card" href="../wisdom/burnout-recovery.html">I'm exhausted, even on my days off</a>
+        <a class="emotion-card" href="../wisdom/loneliness-despite-everything.html">I feel alone, even when I'm not</a>
+        <a class="emotion-card" href="../wisdom/comparison-trap.html">Everyone else seems ahead</a>
+        <a class="emotion-card" href="../wisdom/when-grief-wont-stop.html">Someone I love is gone</a>
+        <a class="emotion-card" href="../wisdom/overcoming-imposter-syndrome.html">I'm waiting to feel ready</a>
+        <a class="emotion-card" href="../wisdom/anxiety-insomnia.html">I can't sleep with this anxiety</a>
+        <a class="emotion-card" href="../wisdom/parenting-is-breaking-me.html">Parenting is breaking me</a>
+        <a class="emotion-card" href="../wisdom/feeling-like-a-failure.html">I feel like a failure</a>
+        <a class="emotion-card" href="../wisdom/relationship-falling-apart.html">We're falling apart</a>
+        <a class="emotion-card" href="../wisdom/financial-anxiety.html">Money is suffocating me</a>
+        <a class="emotion-card" href="../wisdom/how-to-forgive.html">I can't forgive them</a>
+        <a class="emotion-card" href="../wisdom/starting-over.html">I have to start over</a>
+      </div>
+      <div class="browse-all">
+        <a href="../wisdom/">See all 21 struggles &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="podcast-strip">
+    <a class="podcast-banner" href="../podcast/">
+      <img class="pb-cover" src="https://storage.googleapis.com/lotus-lane-podcast/cover.png" alt="">
+      <div class="pb-text">
+        <div class="pb-eyebrow">OR · LISTEN</div>
+        <div class="pb-title">Lotus Lane Daily — ~10 min</div>
+        <div class="pb-meta">A new episode every morning</div>
+      </div>
+    </a>
+  </section>
+
+  <footer>
+    <p>Wisdom for what you're going through</p>
+  </footer>
+
+  <script>
+    function toggleEmotion(e) {
+      e.preventDefault();
+      const panel = document.getElementById('emotionPanel');
+      panel.classList.toggle('open');
+      if (panel.classList.contains('open')) {
+        panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    }
+
+    (async function () {
+      try {
+        const resp = await fetch('../strips.json');
+        const strips = await resp.json();
+        strips.sort((a, b) => new Date(b.date) - new Date(a.date));
+        const s = strips[0];
+        if (!s) return;
+        document.getElementById('doorStory').href = `../strips/${s.date}.html`;
+        document.getElementById('storySub').textContent =
+          (s.title || '').slice(0, 90) + (s.title && s.title.length > 90 ? '…' : '');
+      } catch (e) { console.warn('strips.json fetch failed', e); }
+    })();
+  </script>
+</body>
+</html>

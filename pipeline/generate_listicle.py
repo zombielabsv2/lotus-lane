@@ -143,6 +143,17 @@ def generate_listicle_content(theme: dict, existing_listicles: list) -> dict:
     recent_titles = [l.get("title", "") for l in existing_listicles[-15:]]
     recent_titles_block = "\n".join(f'- "{t}"' for t in recent_titles) or "(none yet)"
 
+    # Load canonical struggle slugs so Claude can tag this listicle
+    struggle_slugs = []
+    cs_path = PROJECT_ROOT / "content_struggles.json"
+    if cs_path.exists():
+        try:
+            cs = json.loads(cs_path.read_text(encoding="utf-8"))
+            struggle_slugs = cs.get("struggles", [])
+        except Exception:
+            pass
+    struggles_list_block = "\n".join(f"- {s}" for s in struggle_slugs) if struggle_slugs else "(none — skip struggles field)"
+
     prompt = f"""You are creating a listicle infographic for "The Lotus Lane" - a wisdom
 brand that shares ancient guidance for modern life struggles.
 
@@ -174,6 +185,9 @@ TITLE STYLE - The title must be:
 AVOID titles similar to these recently used ones:
 {recent_titles_block}
 
+CANONICAL STRUGGLE TAGS — pick 1-3 from this list that this listicle most addresses:
+{struggles_list_block}
+
 Return ONLY valid JSON:
 {{
     "title": "The catchy listicle title",
@@ -183,7 +197,8 @@ Return ONLY valid JSON:
             "source": "The source book/work",
             "explanation": "One sentence making this quote feel relevant to everyday life"
         }}
-    ]
+    ],
+    "struggles": ["slug-1", "slug-2"]
 }}
 
 WRITING RULES:
@@ -243,6 +258,13 @@ Return exactly 5 items. Return ONLY the JSON, no other text."""
     assert "title" in result, "Missing 'title' in Claude response"
     assert "items" in result, "Missing 'items' in Claude response"
     assert len(result["items"]) == 5, f"Expected 5 items, got {len(result['items'])}"
+
+    # Validate struggles[] — only keep slugs that exist in canonical list
+    raw_struggles = result.get("struggles") or []
+    if struggle_slugs:
+        result["struggles"] = [s for s in raw_struggles if s in set(struggle_slugs)]
+    else:
+        result["struggles"] = []
 
     # Add theme info
     result["theme"] = theme["id"]
@@ -840,6 +862,28 @@ def generate_seo_page(listicle: dict, target_date: str, all_listicles: list) -> 
 # Save everything
 # ---------------------------------------------------------------------------
 
+def update_content_struggles(target_date: str, title: str, struggles: list) -> None:
+    """Upsert this listicle into content_struggles.json so the wisdom-page hub picks it up."""
+    cs_path = PROJECT_ROOT / "content_struggles.json"
+    if not cs_path.exists():
+        return
+    try:
+        cs = json.loads(cs_path.read_text(encoding="utf-8"))
+    except Exception as e:
+        print(f"  Skipping content_struggles update — failed to read: {e}")
+        return
+    canonical = set(cs.get("struggles", []))
+    valid_struggles = [s for s in struggles if s in canonical]
+    if not valid_struggles:
+        print(f"  No canonical struggles for listicle {target_date} — skipping content_struggles update")
+        return
+    cs.setdefault("listicle_struggles", {})[target_date] = valid_struggles
+    cs.setdefault("listicle_titles", {})[target_date] = title
+    cs["updated"] = date.today().isoformat()
+    cs_path.write_text(json.dumps(cs, indent=2, ensure_ascii=False), encoding="utf-8")
+    print(f"  Tagged listicle in content_struggles.json: {target_date} -> {valid_struggles}")
+
+
 def save_listicle(listicle: dict, target_date: str, infographic: Image.Image | None,
                   carousel_cover: Image.Image | None, carousel_slides: list | None,
                   hero: Image.Image | None = None) -> dict:
@@ -883,6 +927,7 @@ def save_listicle(listicle: dict, target_date: str, infographic: Image.Image | N
         "theme_name": listicle.get("theme_name", ""),
         "image": f"listicles/{target_date}.png",
         "items": listicle["items"],
+        "struggles": listicle.get("struggles", []),
     }
 
     # Replace existing entry for same date if any
@@ -891,6 +936,9 @@ def save_listicle(listicle: dict, target_date: str, infographic: Image.Image | N
     existing.sort(key=lambda l: l.get("date", ""))
     save_listicles(existing)
     print(f"  Updated listicles.json ({len(existing)} total listicles)")
+
+    # Append/update content_struggles.json so the wisdom-page hub picks up this listicle
+    update_content_struggles(target_date, listicle["title"], listicle.get("struggles", []))
 
     # Generate SEO page
     html = generate_seo_page(listicle, target_date, existing)

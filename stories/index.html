@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="max-image-preview:large">
+  <link rel="alternate" type="application/rss+xml" title="The Lotus Lane" href="../feed.xml">
+  <title>All Stories | The Lotus Lane</title>
+  <meta name="description" content="Browse all Lotus Lane stories. Comic strips about jealousy, grief, burnout, loneliness, and the ancient wisdom that helps. Filter by tag.">
+  <link rel="canonical" href="https://thelotuslane.in/stories/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="All Stories | The Lotus Lane">
+  <meta property="og:description" content="Browse every story. Filter by tag.">
+  <meta property="og:image" content="https://zombielabsv2.github.io/lotus-lane-assets/2026-05-06.png">
+  <meta property="og:url" content="https://thelotuslane.in/stories/">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="All Stories | The Lotus Lane">
+  <meta name="twitter:description" content="Browse every story. Filter by tag.">
+  <meta name="twitter:image" content="https://zombielabsv2.github.io/lotus-lane-assets/2026-05-06.png">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #faf9f6;
+      color: #2d2d2d;
+      min-height: 100vh;
+    }
+
+    header {
+      text-align: center;
+      padding: 1.5rem 1rem 0.8rem;
+      border-bottom: 2px solid #e8e4de;
+    }
+
+    header h1 {
+      font-size: 1.8rem;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      color: #4a4a4a;
+    }
+
+    header h1 span {
+      font-weight: 600;
+      color: #c0392b;
+    }
+
+    header p.tagline {
+      font-size: 0.85rem;
+      color: #999;
+      margin-top: 0.2rem;
+      font-style: italic;
+    }
+
+    /* Podcast banner — top-level IA on homepage */
+    .podcast-banner {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      padding: 0.8rem 1rem;
+      max-width: 800px;
+      margin: 0.8rem auto 0;
+      background: linear-gradient(90deg, #fdf6e3 0%, #f8ecd1 100%);
+      border-radius: 10px;
+      text-decoration: none;
+      color: inherit;
+      border: 1.5px solid #e8d9b3;
+      transition: all 0.2s;
+    }
+    .podcast-banner:hover {
+      border-color: #c0392b;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(192, 57, 43, 0.12);
+    }
+    .pb-cover {
+      width: 56px;
+      height: 56px;
+      border-radius: 6px;
+      flex-shrink: 0;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .pb-text { flex: 1; min-width: 0; }
+    .pb-eyebrow {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: #c0392b;
+      margin-bottom: 0.15rem;
+    }
+    .pb-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #4a3d20;
+      line-height: 1.3;
+      margin-bottom: 0.15rem;
+    }
+    .pb-meta { font-size: 0.75rem; color: #8a7d5f; }
+    .pb-cta {
+      flex-shrink: 0;
+      padding: 0.5rem 0.9rem;
+      background: #c0392b;
+      color: white;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+    @media (max-width: 600px) {
+      .podcast-banner { gap: 0.7rem; padding: 0.7rem 0.8rem; }
+      .pb-cover { width: 48px; height: 48px; }
+      .pb-title { font-size: 0.85rem; }
+      .pb-meta { font-size: 0.7rem; }
+      .pb-cta { padding: 0.4rem 0.7rem; font-size: 0.7rem; }
+    }
+
+    /* Tag Filter Bar */
+    .filter-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+      padding: 0.8rem 1rem 0.4rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .filter-bar label {
+      font-size: 0.8rem;
+      color: #999;
+      font-weight: 500;
+    }
+
+    .tag-btn {
+      padding: 0.25rem 0.7rem;
+      border: 1px solid #d4cfc7;
+      border-radius: 999px;
+      background: white;
+      font-size: 0.75rem;
+      color: #666;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .tag-btn:hover { border-color: #c0392b; color: #c0392b; }
+    .tag-btn.active { background: #c0392b; color: white; border-color: #c0392b; }
+
+    /* Navigation */
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 900px;
+      margin: 0.6rem auto;
+      padding: 0 1rem;
+    }
+
+    .nav-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.5rem 1rem;
+      border: 1px solid #d4cfc7;
+      border-radius: 8px;
+      background: white;
+      font-size: 0.85rem;
+      color: #555;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .nav-btn:hover:not(:disabled) { border-color: #c0392b; color: #c0392b; }
+    .nav-btn:disabled { opacity: 0.3; cursor: default; }
+
+    .nav-counter {
+      font-size: 0.8rem;
+      color: #aaa;
+    }
+
+    /* Strip Title + Date bar */
+    .strip-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      max-width: 900px;
+      margin: 0.8rem auto 0.4rem;
+      padding: 0 1rem;
+    }
+
+    .strip-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #333;
+    }
+
+    .strip-date {
+      font-size: 0.78rem;
+      color: #999;
+      letter-spacing: 0.03em;
+      white-space: nowrap;
+    }
+
+    /* Main Strip Viewer */
+    .viewer {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    .strip-container {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+      overflow: hidden;
+    }
+
+    .strip-image {
+      width: 100%;
+      display: block;
+      min-height: 200px;
+      background: #f0ede8;
+    }
+
+    /* Info below strip */
+    .strip-info {
+      padding: 1.2rem 1.2rem 1rem;
+      border-top: 1px solid #eee;
+    }
+
+    .strip-message {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: #333;
+    }
+
+    .strip-quote {
+      margin-top: 0.8rem;
+      padding: 0.7rem 1rem;
+      background: #fdf8f0;
+      border-left: 3px solid #c0392b;
+      font-style: italic;
+      font-size: 0.88rem;
+      color: #444;
+      line-height: 1.5;
+    }
+
+    .strip-source {
+      font-size: 0.72rem;
+      color: #999;
+      margin-top: 0.3rem;
+      font-style: normal;
+    }
+
+    .strip-tags {
+      margin-top: 0.8rem;
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+
+    .strip-tag {
+      font-size: 0.72rem;
+      padding: 0.2rem 0.6rem;
+      background: #f0ede8;
+      border-radius: 999px;
+      color: #777;
+    }
+
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: #aaa;
+    }
+
+    .empty-state h2 { font-weight: 400; margin-bottom: 0.5rem; }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 1.5rem 1rem;
+      font-size: 0.75rem;
+      color: #bbb;
+    }
+
+    footer a { color: #c0392b; text-decoration: none; }
+
+    /* Mobile */
+    @media (max-width: 600px) {
+      header h1 { font-size: 1.4rem; }
+      .strip-header { flex-direction: column; gap: 0.1rem; }
+      .strip-info { padding: 0.8rem; }
+      .nav-btn { padding: 0.4rem 0.7rem; font-size: 0.8rem; }
+
+      .filter-bar {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        justify-content: flex-start;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+      .filter-bar::-webkit-scrollbar { display: none; }
+      .filter-bar label { display: none; }
+    }
+
+    .struggle-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0.5rem;
+    }
+    .struggle-link {
+      display: block;
+      padding: 0.7rem 0.9rem;
+      background: white;
+      border: 1px solid #e8e4de;
+      border-radius: 8px;
+      text-align: center;
+      text-decoration: none;
+      color: #4a4a4a;
+      font-size: 0.85rem;
+      transition: all 0.2s;
+    }
+    .struggle-link:hover {
+      border-color: #c0392b;
+      color: #c0392b;
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(192, 57, 43, 0.08);
+    }
+    .struggle-see-all {
+      font-size: 0.85rem;
+      color: #c0392b;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .struggle-see-all:hover { text-decoration: underline; }
+  </style>
+
+<!-- ga4 -->
+<script>
+  (function() {
+    var mid = 'G-4DM9P70KJ6';
+    if (mid.indexOf('PLACEHOLDER') !== -1) return;
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + mid;
+    document.head.appendChild(s);
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function(){window.dataLayer.push(arguments);};
+    window.gtag('js', new Date());
+    window.gtag('config', mid);
+  })();
+</script>
+</head>
+<body>
+
+  <header>
+    <h1>The <span>Lotus</span> Lane</h1>
+  </header>
+
+  <a class="podcast-banner" href="../podcast/">
+    <img class="pb-cover" src="https://storage.googleapis.com/lotus-lane-podcast/cover.png" alt="Lotus Lane Daily" width="56" height="56">
+    <div class="pb-text">
+      <div class="pb-eyebrow">NEW · PODCAST</div>
+      <div class="pb-title">Lotus Lane Daily — wisdom for what you're going through</div>
+      <div class="pb-meta">~10 min · daily · listenable on the commute</div>
+    </div>
+    <div class="pb-cta">Listen →</div>
+  </a>
+
+  <div class="filter-bar" id="filterBar">
+    <label>Filter:</label>
+  </div>
+
+  <!-- Top navigation -->
+  <div class="nav" id="navBarTop" style="display:none;">
+    <button class="nav-btn" onclick="navigate(1)">&#8592; Older</button>
+    <span class="nav-counter nav-counter-top"></span>
+    <button class="nav-btn" onclick="navigate(-1)">Newer &#8594;</button>
+  </div>
+
+  <!-- Strip title + date -->
+  <div class="strip-header" id="stripHeader" style="display:none;">
+    <div class="strip-title" id="stripTitle"></div>
+    <div class="strip-date" id="stripDate"></div>
+  </div>
+
+  <div class="viewer" id="viewer">
+    <div class="empty-state" id="emptyState">
+      <h2>No strips yet</h2>
+      <p>The first strip is on its way.</p>
+    </div>
+    <div class="strip-container" id="stripContainer" style="display:none;">
+      <img class="strip-image" id="stripImage" src="" alt="Comic strip">
+      <div class="strip-info">
+        <div class="strip-message" id="stripMessage"></div>
+        <div class="strip-quote" id="stripQuote" style="display:none;">
+          <div id="quoteText"></div>
+          <div class="strip-source" id="quoteSource"></div>
+        </div>
+        <div class="strip-tags" id="stripTags"></div>
+        <div style="margin-top:1rem; display:flex; gap:0.5rem; flex-wrap:wrap;">
+          <button id="shareBtn" onclick="shareStrip()" style="
+            display:inline-flex; align-items:center; gap:0.4rem;
+            padding:0.5rem 1rem; border:none; border-radius:8px;
+            background:#25D366; color:white; font-size:0.85rem;
+            cursor:pointer; font-weight:500;
+          ">Share on WhatsApp</button>
+          <a id="ytShortsLink" href="#" target="_blank" rel="noopener" style="
+            display:none; align-items:center; gap:0.4rem;
+            padding:0.5rem 1rem; border:none; border-radius:8px;
+            background:#FF0000; color:white; font-size:0.85rem;
+            text-decoration:none; font-weight:500;
+          ">Watch on YouTube</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom navigation -->
+  <div class="nav" id="navBarBottom" style="display:none;">
+    <button class="nav-btn" onclick="navigate(1)">&#8592; Older</button>
+    <span class="nav-counter nav-counter-bottom"></span>
+    <button class="nav-btn" onclick="navigate(-1)">Newer &#8594;</button>
+  </div>
+
+  <div style="max-width:900px; margin:2rem auto 0; padding:0 1rem; text-align:center;">
+    <a href="../" style="font-size:0.85rem; color:#888; text-decoration:none; border-bottom:1px dashed #c0c0b8; padding-bottom:1px;">&larr; Back to home</a>
+  </div>
+
+  <footer>
+    <p>Ancient wisdom for modern struggles</p>
+    <p style="margin-top:0.5rem;">
+      <img src="https://visitor-badge.laobi.icu/badge?page_id=thelotuslane&left_text=Total%20Visitors&left_color=%23c0392b&right_color=%23333333"
+           alt="visitors" style="height:22px; vertical-align:middle;">
+    </p>
+  </footer>
+
+  <script data-goatcounter="https://zombielabs.goatcounter.com/count"
+          async src="//gc.zgo.at/count.js"></script>
+  <script src="../nav.js"></script>
+
+  <script>
+    let strips = [];
+    let filtered = [];
+    let currentIndex = 0;
+    let activeTag = null;
+
+    async function init() {
+      const resp = await fetch('../strips.json');
+      strips = await resp.json();
+      strips.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+      if (strips.length === 0) return;
+
+      buildTagFilter();
+      filtered = [...strips];
+      currentIndex = 0;
+      render();
+    }
+
+    function buildTagFilter() {
+      const tagCounts = {};
+      strips.forEach(s => (s.tags || []).forEach(t => {
+        tagCounts[t] = (tagCounts[t] || 0) + 1;
+      }));
+
+      const bar = document.getElementById('filterBar');
+      const allBtn = document.createElement('button');
+      allBtn.className = 'tag-btn active';
+      allBtn.textContent = 'All';
+      allBtn.onclick = () => filterByTag(null);
+      bar.appendChild(allBtn);
+
+      // Sort by frequency (most used first), then alphabetical for ties
+      Object.keys(tagCounts).sort((a, b) =>
+        tagCounts[b] - tagCounts[a] || a.localeCompare(b)
+      ).forEach(tag => {
+        const btn = document.createElement('button');
+        btn.className = 'tag-btn';
+        btn.textContent = tag;
+        btn.dataset.tag = tag;
+        btn.onclick = () => filterByTag(tag);
+        bar.appendChild(btn);
+      });
+    }
+
+    function filterByTag(tag) {
+      activeTag = tag;
+      document.querySelectorAll('.tag-btn').forEach(btn => {
+        btn.classList.toggle('active',
+          tag === null ? btn.textContent === 'All' : btn.dataset.tag === tag);
+      });
+
+      filtered = tag ? strips.filter(s => (s.tags || []).includes(tag)) : [...strips];
+      currentIndex = 0;
+      render();
+    }
+
+    function navigate(dir) {
+      const newIndex = currentIndex + dir;
+      if (newIndex < 0 || newIndex >= filtered.length) return;
+      currentIndex = newIndex;
+      render();
+    }
+
+    function render() {
+      const empty = document.getElementById('emptyState');
+      const container = document.getElementById('stripContainer');
+      const navTop = document.getElementById('navBarTop');
+      const navBottom = document.getElementById('navBarBottom');
+      const header = document.getElementById('stripHeader');
+
+      if (filtered.length === 0) {
+        empty.style.display = 'block';
+        container.style.display = 'none';
+        navTop.style.display = 'none';
+        navBottom.style.display = 'none';
+        header.style.display = 'none';
+        return;
+      }
+
+      empty.style.display = 'none';
+      container.style.display = 'block';
+      navTop.style.display = 'flex';
+      navBottom.style.display = 'flex';
+      header.style.display = 'flex';
+
+      const strip = filtered[currentIndex];
+
+      document.getElementById('stripImage').src = strip.image;
+      document.getElementById('stripImage').alt = strip.title || 'Comic strip';
+      document.getElementById('stripTitle').textContent = strip.title || '';
+      document.getElementById('stripDate').textContent = formatDate(strip.date);
+      document.getElementById('stripMessage').textContent = strip.message || '';
+
+      const quoteEl = document.getElementById('stripQuote');
+      if (strip.quote) {
+        quoteEl.style.display = 'block';
+        document.getElementById('quoteText').textContent = strip.quote;
+        document.getElementById('quoteSource').textContent = strip.source || '';
+      } else {
+        quoteEl.style.display = 'none';
+      }
+
+      const tagsEl = document.getElementById('stripTags');
+      tagsEl.innerHTML = '';
+      (strip.tags || []).forEach(tag => {
+        const span = document.createElement('span');
+        span.className = 'strip-tag';
+        span.textContent = tag;
+        tagsEl.appendChild(span);
+      });
+
+      // Show YouTube Shorts link if available
+      const ytLink = document.getElementById('ytShortsLink');
+      if (strip.youtube_id) {
+        ytLink.href = 'https://youtube.com/shorts/' + strip.youtube_id;
+        ytLink.style.display = 'inline-flex';
+      } else {
+        ytLink.style.display = 'none';
+      }
+
+      // Update all nav buttons
+      const isFirst = currentIndex <= 0;
+      const isLast = currentIndex >= filtered.length - 1;
+      const counterText = `${currentIndex + 1} of ${filtered.length}`;
+
+      document.querySelectorAll('.nav').forEach(nav => {
+        const btns = nav.querySelectorAll('.nav-btn');
+        btns[0].disabled = isLast;   // Older
+        btns[1].disabled = isFirst;  // Newer
+      });
+      document.querySelectorAll('.nav-counter').forEach(el => {
+        el.textContent = counterText;
+      });
+    }
+
+    function formatDate(dateStr) {
+      const d = new Date(dateStr + 'T00:00:00');
+      return d.toLocaleDateString('en-IN', {
+        weekday: 'short', year: 'numeric', month: 'short', day: 'numeric'
+      });
+    }
+
+    function shareStrip() {
+      const strip = filtered[currentIndex];
+      const stripUrl = `https://thelotuslane.in/strips/${strip.date}.html`;
+      const text = `*${strip.title}* - The Lotus Lane\n\n` +
+        `${strip.message}\n\n` +
+        `_"${strip.quote}"_\n- ${strip.source}\n\n` +
+        `Read the full strip: ${stripUrl}`;
+      const url = `https://wa.me/?text=${encodeURIComponent(text)}`;
+      window.open(url, '_blank');
+    }
+
+    // Content email signup
+    async function handleContentSignup(e) {
+      e.preventDefault();
+      const email = document.getElementById('contentEmail').value.trim();
+      const btn = document.getElementById('contentBtn');
+      const msg = document.getElementById('contentMsg');
+      if (!email) return;
+
+      btn.disabled = true;
+      btn.textContent = 'Subscribing...';
+
+      try {
+        const resp = await fetch('https://ejvavmpieilvigjktugh.supabase.co/rest/v1/content_subscribers', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': 'sb_publishable_mRBRRhLpQCK2_GOO_XUwsg_vcCNt51K',
+            'Authorization': 'Bearer sb_publishable_mRBRRhLpQCK2_GOO_XUwsg_vcCNt51K',
+            'Prefer': 'return=minimal'
+          },
+          body: JSON.stringify({ email: email })
+        });
+
+        if (resp.ok || resp.status === 201) {
+          document.getElementById('contentSignup').style.display = 'none';
+          msg.style.display = 'block';
+          msg.style.color = '#27ae60';
+          msg.textContent = "You're in! You'll get new strips every Mon, Wed, Fri.";
+          if (window.goatcounter && window.goatcounter.count) {
+            window.goatcounter.count({ path: '/content-signup/success', event: true });
+          }
+        } else {
+          const errText = await resp.text();
+          if (errText.includes('duplicate') || errText.includes('unique') || resp.status === 409) {
+            msg.style.display = 'block';
+            msg.style.color = '#888';
+            msg.textContent = "You're already subscribed!";
+          } else {
+            throw new Error(errText);
+          }
+          btn.disabled = false;
+          btn.textContent = 'Subscribe';
+        }
+      } catch (err) {
+        msg.style.display = 'block';
+        msg.style.color = '#c0392b';
+        msg.textContent = 'Something went wrong. Try again.';
+        btn.disabled = false;
+        btn.textContent = 'Subscribe';
+      }
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', e => {
+      if (e.key === 'ArrowLeft') navigate(1);
+      if (e.key === 'ArrowRight') navigate(-1);
+    });
+
+    init();
+  </script>
+</body>
+</html>
