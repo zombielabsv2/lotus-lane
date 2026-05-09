@@ -1315,5 +1315,44 @@
         "explanation": "When the pressure to succeed makes you harsh or hollow, this is a reminder that how you treat people is the scoreboard that actually matters."
       }
     ]
+  },
+  {
+    "date": "2026-05-09",
+    "title": "Spent Years in School and Still Feel Lost? 5 Truths About What Education Was Supposed to Give You",
+    "theme": "education",
+    "theme_name": "Education",
+    "image": "listicles/2026-05-09.png",
+    "items": [
+      {
+        "quote": "Education is not the filling of a pail, but the lighting of a fire. The purpose of education is to cultivate the wisdom and compassion to create value in any situation.",
+        "source": "Soka Education",
+        "explanation": "If school left you feeling stuffed with facts but empty of purpose, real education was always meant to light something inside you, not just fill you up."
+      },
+      {
+        "quote": "A truly educated person is not someone who has memorized facts, but someone who can think critically, feel compassionately, and act courageously.",
+        "source": "Discussions on Youth",
+        "explanation": "Your grades and degrees only tell part of the story - the person you are in a hard moment tells the rest."
+      },
+      {
+        "quote": "Education that does not teach people how to live, how to face suffering, and how to create meaning - such education is incomplete.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "No classroom prepared you for grief, failure, or uncertainty, which is why so many of us hit real life and feel completely unprepared."
+      },
+      {
+        "quote": "The goal of education should be the happiness of the learner. Any system of education that does not lead to happiness has failed.",
+        "source": "Soka Education",
+        "explanation": "If chasing credentials has left you anxious and hollow, it may be time to ask what you were actually studying all those years for."
+      },
+      {
+        "quote": "A person who has learned to think for themselves - that is the greatest product of education.",
+        "source": "Discussions on Youth",
+        "explanation": "In a world that constantly tells you what to think and who to be, learning to trust your own mind is one of the most radical things you can do."
+      }
+    ],
+    "struggles": [
+      "feeling-like-a-failure",
+      "overcoming-imposter-syndrome",
+      "starting-over"
+    ]
   }
 ]
