@@ -24,8 +24,22 @@
     <itunes:category text="Religion &amp; Spirituality">
       <itunes:category text="Buddhism" />
     </itunes:category>
-    <pubDate>Fri, 08 May 2026 07:11:38 +0000</pubDate>
-    <lastBuildDate>Fri, 08 May 2026 07:11:38 +0000</lastBuildDate>
+    <pubDate>Sat, 09 May 2026 07:32:37 +0000</pubDate>
+    <lastBuildDate>Sat, 09 May 2026 07:32:37 +0000</lastBuildDate>
+    <item>
+      <title>How to Forgive Someone Who Hurt You</title>
+      <link>https://thelotuslane.in/wisdom/how-to-forgive.html</link>
+      <guid isPermaLink="false">https://storage.googleapis.com/lotus-lane-podcast/how-to-forgive.mp3</guid>
+      <pubDate>Sat, 09 May 2026 07:32:35 +0000</pubDate>
+      <description>You know you should let go but you can't. What a 13th-century philosopher said about forgiveness.</description>
+      <itunes:summary>You know you should let go but you can't. What a 13th-century philosopher said about forgiveness.</itunes:summary>
+      <itunes:author>The Lotus Lane</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:duration>9:44</itunes:duration>
+      <itunes:episode>12</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <enclosure url="https://storage.googleapis.com/lotus-lane-podcast/how-to-forgive.mp3" length="8001453" type="audio/mpeg" />
+    </item>
     <item>
       <title>Drowning in Financial Anxiety</title>
       <link>https://thelotuslane.in/wisdom/financial-anxiety.html</link>
