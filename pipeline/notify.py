@@ -22,6 +22,80 @@ STRIPS_DIR = Path(__file__).parent.parent / "strips"
 STRIPS_JSON = Path(__file__).parent.parent / "strips.json"
 SITE_URL = "https://thelotuslane.in"
 
+# Idempotency table — see migration `create_content_strip_notifications`.
+# Tracks which strips have already had their content_subscriber blast and
+# WhatsApp reminder fired. notify.py reads BEFORE sending, writes AFTER.
+NOTIF_TABLE = "lotus_strip_notifications"
+
+
+def _supabase_creds():
+    url = os.environ.get("SUPABASE_URL", "").rstrip("/")
+    key = os.environ.get("SUPABASE_SERVICE_KEY", "")
+    return (url, key) if url and key else (None, None)
+
+
+def _already_notified(strip_date, kind):
+    """kind in {'subscribers', 'whatsapp'}. Returns True if that channel
+    has already fired for this strip-date. Fail-CLOSED on any error
+    (treat as already-notified) so we never accidentally re-blast — the
+    cost of a missed notification is far smaller than a duplicate one."""
+    url, key = _supabase_creds()
+    if not url:
+        # No Supabase configured — fail-closed to avoid blasts in dev/test
+        # environments. Set the env vars to actually fire emails.
+        print(f"  [DEDUP] SUPABASE_URL/SERVICE_KEY not set — assuming '{kind}' already-notified for {strip_date}")
+        return True
+    column = "subscribers_notified_at" if kind == "subscribers" else "whatsapp_reminder_at"
+    try:
+        resp = httpx.get(
+            f"{url}/rest/v1/{NOTIF_TABLE}",
+            headers={"apikey": key, "Authorization": f"Bearer {key}"},
+            params={"strip_date": f"eq.{strip_date}", "select": column},
+            timeout=15,
+        )
+        if resp.status_code != 200:
+            print(f"  [DEDUP] Supabase read failed {resp.status_code}: {resp.text[:200]} — fail-closed")
+            return True
+        rows = resp.json()
+        if not rows:
+            return False
+        return rows[0].get(column) is not None
+    except Exception as exc:
+        print(f"  [DEDUP] Supabase read exception ({exc}) — fail-closed")
+        return True
+
+
+def _mark_notified(strip_date, kind, recipient_count=None):
+    """Upsert the notification log. Idempotent."""
+    url, key = _supabase_creds()
+    if not url:
+        return
+    column = "subscribers_notified_at" if kind == "subscribers" else "whatsapp_reminder_at"
+    payload = {
+        "strip_date": strip_date,
+        column: "now()",
+        "source": os.environ.get("GITHUB_RUN_URL", "manual"),
+    }
+    if kind == "subscribers" and recipient_count is not None:
+        payload["subscribers_recipient_count"] = recipient_count
+    try:
+        # Upsert via PostgREST: POST with Prefer: resolution=merge-duplicates
+        resp = httpx.post(
+            f"{url}/rest/v1/{NOTIF_TABLE}",
+            headers={
+                "apikey": key,
+                "Authorization": f"Bearer {key}",
+                "Content-Type": "application/json",
+                "Prefer": "resolution=merge-duplicates,return=minimal",
+            },
+            json=payload,
+            timeout=15,
+        )
+        if resp.status_code not in (200, 201, 204):
+            print(f"  [DEDUP] Mark failed {resp.status_code}: {resp.text[:200]}")
+    except Exception as exc:
+        print(f"  [DEDUP] Mark exception: {exc}")
+
 
 def get_latest_strip():
     """Get the most recent strip from strips.json."""
@@ -140,6 +214,10 @@ def send_notification(strip):
     if not RESEND_API_KEY or not NOTIFY_EMAIL:
         print("  [NOTIFY] Skipped — RESEND_API_KEY or NOTIFY_EMAIL not set")
         return
+    strip_date = strip.get("date", "")
+    if _already_notified(strip_date, "whatsapp"):
+        print(f"  [NOTIFY] WhatsApp reminder already sent for {strip_date} — skipping")
+        return
 
     whatsapp_caption = build_whatsapp_caption(strip)
     status_caption = build_status_caption(strip)
@@ -186,6 +264,7 @@ def send_notification(strip):
     )
     if success:
         print(f"  [NOTIFY] Email sent to {NOTIFY_EMAIL}")
+        _mark_notified(strip_date, "whatsapp")
 
 
 def get_content_subscribers():
@@ -289,6 +368,11 @@ def send_content_email(subscriber_email, strip):
 
 def notify_content_subscribers(strip):
     """Send new strip notification to all content subscribers."""
+    strip_date = strip.get("date", "")
+    if _already_notified(strip_date, "subscribers"):
+        print(f"  [CONTENT] Already notified subscribers for {strip_date} — skipping")
+        return
+
     subscribers = get_content_subscribers()
     if not subscribers:
         print("  [CONTENT] No content subscribers to notify")
@@ -309,6 +393,10 @@ def notify_content_subscribers(strip):
             print(f"  [CONTENT] Failed to send to {email}: {e}")
 
     print(f"  [CONTENT] Sent {sent}/{len(subscribers)} emails")
+    # Mark as notified even on partial success — re-running won't help
+    # the failed addresses (Resend doesn't queue retries here), and we'd
+    # rather skip a stuck address than re-blast everyone who succeeded.
+    _mark_notified(strip_date, "subscribers", recipient_count=sent)
 
 
 # ───────────────────────────────────────────────────────────
