@@ -27,6 +27,10 @@ SITE_URL = "https://thelotuslane.in"
 # WhatsApp reminder fired. notify.py reads BEFORE sending, writes AFTER.
 NOTIF_TABLE = "lotus_strip_notifications"
 
+# Idempotency table for podcast-episode notifications (NOTIFY_EMAIL to Rahul).
+# See migration `create_lotus_podcast_notifications`. One row per episode_slug.
+PODCAST_NOTIF_TABLE = "lotus_podcast_notifications"
+
 
 def _supabase_creds():
     url = os.environ.get("SUPABASE_URL", "").rstrip("/")
@@ -95,6 +99,65 @@ def _mark_notified(strip_date, kind, recipient_count=None):
             print(f"  [DEDUP] Mark failed {resp.status_code}: {resp.text[:200]}")
     except Exception as exc:
         print(f"  [DEDUP] Mark exception: {exc}")
+
+
+def _already_notified_podcast(slug):
+    """Returns True if `send_podcast_notification` already fired for this episode.
+    Mirrors `_already_notified` for strips: fail-CLOSED on any error so a
+    Supabase outage cannot trigger a duplicate notification."""
+    if not slug:
+        return True
+    url, key = _supabase_creds()
+    if not url:
+        print(f"  [PODCAST DEDUP] SUPABASE_URL/SERVICE_KEY not set — assuming '{slug}' already-notified")
+        return True
+    try:
+        resp = httpx.get(
+            f"{url}/rest/v1/{PODCAST_NOTIF_TABLE}",
+            headers={"apikey": key, "Authorization": f"Bearer {key}"},
+            params={"episode_slug": f"eq.{slug}", "select": "notified_at"},
+            timeout=15,
+        )
+        if resp.status_code != 200:
+            print(f"  [PODCAST DEDUP] Supabase read failed {resp.status_code}: {resp.text[:200]} — fail-closed")
+            return True
+        rows = resp.json()
+        if not rows:
+            return False
+        return rows[0].get("notified_at") is not None
+    except Exception as exc:
+        print(f"  [PODCAST DEDUP] Supabase read exception ({exc}) — fail-closed")
+        return True
+
+
+def _mark_podcast_notified(slug):
+    """Upsert the podcast-notification log. Idempotent."""
+    if not slug:
+        return
+    url, key = _supabase_creds()
+    if not url:
+        return
+    payload = {
+        "episode_slug": slug,
+        "notified_at": "now()",
+        "source": os.environ.get("GITHUB_RUN_URL", "manual"),
+    }
+    try:
+        resp = httpx.post(
+            f"{url}/rest/v1/{PODCAST_NOTIF_TABLE}",
+            headers={
+                "apikey": key,
+                "Authorization": f"Bearer {key}",
+                "Content-Type": "application/json",
+                "Prefer": "resolution=merge-duplicates,return=minimal",
+            },
+            json=payload,
+            timeout=15,
+        )
+        if resp.status_code not in (200, 201, 204):
+            print(f"  [PODCAST DEDUP] Mark failed {resp.status_code}: {resp.text[:200]}")
+    except Exception as exc:
+        print(f"  [PODCAST DEDUP] Mark exception: {exc}")
 
 
 def get_latest_strip():
@@ -473,6 +536,11 @@ def send_podcast_notification(ep):
         print("  [PODCAST NOTIFY] Skipped — RESEND_API_KEY or NOTIFY_EMAIL not set")
         return
 
+    slug = ep.get("slug", "")
+    if _already_notified_podcast(slug):
+        print(f"  [PODCAST NOTIFY] Skipped — '{slug}' already notified (dedup)")
+        return
+
     channel_caption = build_podcast_whatsapp_caption(ep)
     status_caption = build_podcast_status_caption(ep)
 
@@ -509,6 +577,7 @@ def send_podcast_notification(ep):
         html,
     )
     if success:
+        _mark_podcast_notified(slug)
         print(f"  [PODCAST NOTIFY] Email sent to {NOTIFY_EMAIL}")
 
 
