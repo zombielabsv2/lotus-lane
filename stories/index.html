@@ -469,28 +469,53 @@
       const bar = document.getElementById('filterBar');
       const allBtn = document.createElement('button');
       allBtn.className = 'tag-btn active';
-      allBtn.textContent = 'All';
+      allBtn.textContent = `All (${strips.length})`;
       allBtn.onclick = () => filterByTag(null);
       bar.appendChild(allBtn);
 
       // Sort by frequency (most used first), then alphabetical for ties
-      Object.keys(tagCounts).sort((a, b) =>
+      const TOP_N = 12;
+      const sortedTags = Object.keys(tagCounts).sort((a, b) =>
         tagCounts[b] - tagCounts[a] || a.localeCompare(b)
-      ).forEach(tag => {
+      );
+      const primary = sortedTags.slice(0, TOP_N);
+      const overflow = sortedTags.slice(TOP_N);
+
+      primary.forEach(tag => {
         const btn = document.createElement('button');
         btn.className = 'tag-btn';
-        btn.textContent = tag;
+        btn.innerHTML = `${tag} <span style="opacity:0.6;font-size:0.78em;">${tagCounts[tag]}</span>`;
         btn.dataset.tag = tag;
         btn.onclick = () => filterByTag(tag);
         bar.appendChild(btn);
       });
+
+      if (overflow.length) {
+        const moreBtn = document.createElement('button');
+        moreBtn.className = 'tag-btn';
+        moreBtn.textContent = `+ ${overflow.length} more`;
+        moreBtn.style.borderStyle = 'dashed';
+        moreBtn.onclick = (e) => {
+          e.preventDefault();
+          moreBtn.remove();
+          overflow.forEach(tag => {
+            const btn = document.createElement('button');
+            btn.className = 'tag-btn';
+            btn.innerHTML = `${tag} <span style="opacity:0.6;font-size:0.78em;">${tagCounts[tag]}</span>`;
+            btn.dataset.tag = tag;
+            btn.onclick = () => filterByTag(tag);
+            bar.appendChild(btn);
+          });
+        };
+        bar.appendChild(moreBtn);
+      }
     }
 
     function filterByTag(tag) {
       activeTag = tag;
       document.querySelectorAll('.tag-btn').forEach(btn => {
         btn.classList.toggle('active',
-          tag === null ? btn.textContent === 'All' : btn.dataset.tag === tag);
+          tag === null ? !btn.dataset.tag : btn.dataset.tag === tag);
       });
 
       filtered = tag ? strips.filter(s => (s.tags || []).includes(tag)) : [...strips];
