@@ -280,7 +280,21 @@ No <html>, <head>, <body> tags. Just the content."""
             timeout=90,
         )
         response.raise_for_status()
-        article_html = response.json()["content"][0]["text"].strip()
+        resp_data = response.json()
+        article_html = resp_data["content"][0]["text"].strip()
+
+        # Log to Supabase api_usage_log (non-fatal; logger prints to stderr on its own failures)
+        try:
+            sys.path.insert(0, str(Path(__file__).parent.parent))
+            from usage_logger import log_usage as _log_usage
+            usage = resp_data.get("usage", {})
+            _log_usage(
+                app="lotus_lane", action="affliction_page", model="claude-sonnet-4-6",
+                input_tokens=usage.get("input_tokens", 0),
+                output_tokens=usage.get("output_tokens", 0),
+            )
+        except Exception as _e:
+            print(f"[lotus_lane] usage_logger import failed: {type(_e).__name__}: {_e}", file=sys.stderr)
 
         # Strip markdown code blocks if present
         if article_html.startswith("```"):

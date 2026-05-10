@@ -262,6 +262,17 @@ def call_claude(prompt: str) -> tuple:
     input_tokens = data["usage"]["input_tokens"]
     output_tokens = data["usage"]["output_tokens"]
 
+    # Log to Supabase api_usage_log (non-fatal; logger prints to stderr on its own failures)
+    try:
+        sys.path.insert(0, str(Path(__file__).parent.parent))
+        from usage_logger import log_usage as _log_usage
+        _log_usage(
+            app="lotus_lane", action="decoder", model=MODEL,
+            input_tokens=input_tokens, output_tokens=output_tokens,
+        )
+    except Exception as _e:
+        print(f"[lotus_lane] usage_logger import failed: {type(_e).__name__}: {_e}", file=sys.stderr)
+
     # Parse JSON from response (handle potential markdown fencing and trailing text)
     text = text.strip()
     if text.startswith("```"):

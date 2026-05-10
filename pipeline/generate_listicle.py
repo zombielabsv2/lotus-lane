@@ -225,7 +225,7 @@ Return exactly 5 items. Return ONLY the JSON, no other text."""
     resp_data = response.json()
     content = resp_data["content"][0]["text"]
 
-    # Log to Supabase api_usage_log
+    # Log to Supabase api_usage_log (non-fatal; logger prints to stderr on its own failures)
     try:
         import sys as _sys
         _sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -236,8 +236,9 @@ Return exactly 5 items. Return ONLY the JSON, no other text."""
             input_tokens=usage.get("input_tokens", 0),
             output_tokens=usage.get("output_tokens", 0),
         )
-    except Exception:
-        pass  # Don't break listicle generation if usage logging fails
+    except Exception as _e:
+        import sys as _sys
+        print(f"[lotus_lane] usage_logger import failed: {type(_e).__name__}: {_e}", file=_sys.stderr)
 
     # Parse JSON from response (handle potential markdown wrapping)
     content = content.strip()
