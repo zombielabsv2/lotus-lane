@@ -24,8 +24,22 @@
     <itunes:category text="Religion &amp; Spirituality">
       <itunes:category text="Buddhism" />
     </itunes:category>
-    <pubDate>Sun, 10 May 2026 07:43:34 +0000</pubDate>
-    <lastBuildDate>Sun, 10 May 2026 07:43:34 +0000</lastBuildDate>
+    <pubDate>Mon, 11 May 2026 08:47:04 +0000</pubDate>
+    <lastBuildDate>Mon, 11 May 2026 08:47:04 +0000</lastBuildDate>
+    <item>
+      <title>Overcoming Imposter Syndrome</title>
+      <link>https://thelotuslane.in/wisdom/overcoming-imposter-syndrome.html</link>
+      <guid isPermaLink="false">https://storage.googleapis.com/lotus-lane-podcast/overcoming-imposter-syndrome.mp3</guid>
+      <pubDate>Mon, 11 May 2026 08:47:03 +0000</pubDate>
+      <description>You feel like a fraud at work. You're not alone. Stories and wisdom for anyone who thinks they don't belong.</description>
+      <itunes:summary>You feel like a fraud at work. You're not alone. Stories and wisdom for anyone who thinks they don't belong.</itunes:summary>
+      <itunes:author>The Lotus Lane</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:duration>10:35</itunes:duration>
+      <itunes:episode>14</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <enclosure url="https://storage.googleapis.com/lotus-lane-podcast/overcoming-imposter-syndrome.mp3" length="8792877" type="audio/mpeg" />
+    </item>
     <item>
       <title>Lonely Even When You're Not Alone</title>
       <link>https://thelotuslane.in/wisdom/loneliness-despite-everything.html</link>
