@@ -1393,5 +1393,44 @@
       "loneliness-despite-everything",
       "how-to-forgive"
     ]
+  },
+  {
+    "date": "2026-05-11",
+    "title": "In the Darkest Moment of Your Life: 5 Reminders That Morning Is Still Coming",
+    "theme": "hope",
+    "theme_name": "Hope",
+    "image": "listicles/2026-05-11.png",
+    "items": [
+      {
+        "quote": "Winter always turns to spring. Never, from ancient times on, has anyone heard or seen of winter turning back to autumn.",
+        "source": "The Writings of Nichiren Daishonin (referenced in guidance)",
+        "explanation": "When everything in your life feels frozen and stuck, this is the reminder that your hard season has a direction - and that direction is forward."
+      },
+      {
+        "quote": "No matter how hopeless or bleak things appear, the moment you resolve to never give up, every nerve and fiber in your being will orient itself toward your success.",
+        "source": "Faith Into Action",
+        "explanation": "The simple decision to keep going - even when you have no plan and no energy - quietly rewires everything inside you toward finding a way out."
+      },
+      {
+        "quote": "Hope is not a matter of ability; it is a matter of decision.",
+        "source": "Discussions on Youth",
+        "explanation": "You do not have to feel ready, healed, or strong - hope is not something that happens to you, it is something you choose to pick up today."
+      },
+      {
+        "quote": "No one can make you feel hopeless unless you allow them to. Hope resides in the heart. It is something you create.",
+        "source": "Discussions on Youth",
+        "explanation": "The bad news, the difficult person, or the situation that crushed your confidence cannot take your hope unless you hand it over."
+      },
+      {
+        "quote": "Each morning we are born again. What we do today is what matters most.",
+        "source": "For Today and Tomorrow",
+        "explanation": "Yesterday's failures, regrets, and losses do not get to define what is possible in the hours you still have left today."
+      }
+    ],
+    "struggles": [
+      "depression-fog",
+      "starting-over",
+      "feeling-like-a-failure"
+    ]
   }
 ]
