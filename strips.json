@@ -1358,5 +1358,27 @@
     },
     "youtube_views": 24,
     "youtube_views_updated_at": "2026-05-11T06:04:16Z"
+  },
+  {
+    "date": "2026-05-11",
+    "title": "We Used to Talk Every Day. Now I Don't Know What to Say.",
+    "image": "https://zombielabsv2.github.io/lotus-lane-assets/2026-05-11.png",
+    "message": "Growing apart from someone you loved doesn't erase what was real between you. People change direction, and that can be grief and growth at the same time.",
+    "quote": "A river that never changes course eventually dries up. We must flow forward with the times, while remaining true to our original commitment.",
+    "source": "Daisaku Ikeda, The New Human Revolution, Vol. 2",
+    "tags": [
+      "relationships",
+      "friendship",
+      "loneliness",
+      "change",
+      "growing apart"
+    ],
+    "category": "relationships",
+    "topic": "growing apart",
+    "characters": [
+      "arjun",
+      "meera",
+      "vikram"
+    ]
   }
 ]
