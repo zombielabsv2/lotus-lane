@@ -24,8 +24,22 @@
     <itunes:category text="Religion &amp; Spirituality">
       <itunes:category text="Buddhism" />
     </itunes:category>
-    <pubDate>Mon, 11 May 2026 08:47:04 +0000</pubDate>
-    <lastBuildDate>Mon, 11 May 2026 08:47:04 +0000</lastBuildDate>
+    <pubDate>Tue, 12 May 2026 08:14:31 +0000</pubDate>
+    <lastBuildDate>Tue, 12 May 2026 08:14:31 +0000</lastBuildDate>
+    <item>
+      <title>When Parenting Feels Impossible</title>
+      <link>https://thelotuslane.in/wisdom/parenting-is-breaking-me.html</link>
+      <guid isPermaLink="false">https://storage.googleapis.com/lotus-lane-podcast/parenting-is-breaking-me.mp3</guid>
+      <pubDate>Tue, 12 May 2026 08:14:30 +0000</pubDate>
+      <description>You love your kids but parenting is crushing you. Wisdom for the days when you have nothing left.</description>
+      <itunes:summary>You love your kids but parenting is crushing you. Wisdom for the days when you have nothing left.</itunes:summary>
+      <itunes:author>The Lotus Lane</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:duration>10:36</itunes:duration>
+      <itunes:episode>15</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <enclosure url="https://storage.googleapis.com/lotus-lane-podcast/parenting-is-breaking-me.mp3" length="8701101" type="audio/mpeg" />
+    </item>
     <item>
       <title>Overcoming Imposter Syndrome</title>
       <link>https://thelotuslane.in/wisdom/overcoming-imposter-syndrome.html</link>
