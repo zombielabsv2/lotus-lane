@@ -1471,5 +1471,44 @@
       "feeling-like-a-failure",
       "burnout-recovery"
     ]
+  },
+  {
+    "date": "2026-05-13",
+    "title": "Tried Everything to Fix Your Life and Still Stuck? 5 Truths About Where Change Actually Begins",
+    "theme": "human-revolution",
+    "theme_name": "Human Revolution",
+    "image": "listicles/2026-05-13.png",
+    "items": [
+      {
+        "quote": "Changing ourselves is the most difficult revolution of all. But it is the most important revolution.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "When nothing outside of you seems to shift, this is the reminder that the hardest work - changing from within - is also the only work that lasts."
+      },
+      {
+        "quote": "Human revolution is not something special or out of the ordinary. It is the process of transforming our lives, one challenge at a time.",
+        "source": "Discussions on Youth",
+        "explanation": "You don't need a dramatic breakthrough moment - every small struggle you face and push through is already part of becoming a different person."
+      },
+      {
+        "quote": "When you change, the world around you will change. Everything begins with your own human revolution.",
+        "source": "Discussions on Youth",
+        "explanation": "The relationships, the job, the daily tension that feel impossible to fix often start shifting the moment you decide to work on yourself first."
+      },
+      {
+        "quote": "Our lives are like gardens. We can grow flowers or we can grow weeds. It all depends on what we plant and how we tend our garden.",
+        "source": "For Today and Tomorrow",
+        "explanation": "The habits, thoughts, and people you give your attention to every single day are quietly shaping the life you will be living a year from now."
+      },
+      {
+        "quote": "A great human revolution in just a single individual will help achieve a change in the destiny of a nation and, further, will enable a change in the destiny of all humankind.",
+        "source": "The Human Revolution",
+        "explanation": "If you have ever felt too small to matter, this is the truth that your personal growth sends ripples outward into the lives of everyone you touch."
+      }
+    ],
+    "struggles": [
+      "feeling-like-a-failure",
+      "starting-over",
+      "burnout-recovery"
+    ]
   }
 ]
