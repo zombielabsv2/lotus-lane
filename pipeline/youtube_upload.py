@@ -17,9 +17,72 @@ import argparse
 import json
 import os
 import sys
+import time
 from pathlib import Path
 
 import httpx
+
+
+def _resumable_upload(video_path, metadata, access_token):
+    """POST init + PUT bytes. Retries init+PUT on 5xx/429 with backoff.
+
+    Returns the parsed JSON response on success. Raises on non-retryable
+    errors or after attempts are exhausted. Re-initiating from scratch on
+    transient server errors avoids partial-byte resume complications;
+    duplicate-prevention happens at the workflow level (youtube_id check).
+    """
+    with open(video_path, "rb") as f:
+        video_data = f.read()
+    content_length = str(len(video_data))
+
+    attempts = 3
+    backoff_seconds = (4, 16)
+    last_status = None
+    for attempt in range(1, attempts + 1):
+        init_response = httpx.post(
+            f"{UPLOAD_URL}?uploadType=resumable&part=snippet,status",
+            headers={
+                "Authorization": f"Bearer {access_token}",
+                "Content-Type": "application/json; charset=UTF-8",
+                "X-Upload-Content-Type": "video/mp4",
+                "X-Upload-Content-Length": content_length,
+            },
+            json=metadata,
+            timeout=30,
+        )
+        if init_response.status_code >= 500 or init_response.status_code == 429:
+            last_status = init_response.status_code
+            print(f"  YouTube init {last_status} (attempt {attempt}/{attempts}): {init_response.text[:200]}")
+        elif init_response.status_code >= 400:
+            print(f"  YouTube API error {init_response.status_code}: {init_response.text[:500]}")
+            init_response.raise_for_status()
+        else:
+            upload_url = init_response.headers["Location"]
+            upload_response = httpx.put(
+                upload_url,
+                headers={
+                    "Authorization": f"Bearer {access_token}",
+                    "Content-Type": "video/mp4",
+                    "Content-Length": content_length,
+                },
+                content=video_data,
+                timeout=300,
+            )
+            if upload_response.status_code >= 500 or upload_response.status_code == 429:
+                last_status = upload_response.status_code
+                print(f"  YouTube PUT {last_status} (attempt {attempt}/{attempts}): {upload_response.text[:200]}")
+            else:
+                upload_response.raise_for_status()
+                return upload_response.json()
+
+        if attempt < attempts:
+            time.sleep(backoff_seconds[attempt - 1])
+
+    raise httpx.HTTPStatusError(
+        f"YouTube upload failed after {attempts} attempts (last status {last_status})",
+        request=httpx.Request("PUT", UPLOAD_URL),
+        response=httpx.Response(last_status or 503),
+    )
 
 # Add project root to path so `from pipeline.utils import ...` works
 sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -462,39 +525,7 @@ def upload_video(date_str, force=False):
     access_token = get_access_token()
     metadata = build_video_metadata(strip)
 
-    # Resumable upload — Step 1: Initiate
-    init_response = httpx.post(
-        f"{UPLOAD_URL}?uploadType=resumable&part=snippet,status",
-        headers={
-            "Authorization": f"Bearer {access_token}",
-            "Content-Type": "application/json; charset=UTF-8",
-            "X-Upload-Content-Type": "video/mp4",
-            "X-Upload-Content-Length": str(video_path.stat().st_size),
-        },
-        json=metadata,
-        timeout=30,
-    )
-    if init_response.status_code >= 400:
-        print(f"  YouTube API error {init_response.status_code}: {init_response.text[:500]}")
-        init_response.raise_for_status()
-    upload_url = init_response.headers["Location"]
-
-    # Step 2: Upload the video file
-    with open(video_path, "rb") as f:
-        video_data = f.read()
-
-    upload_response = httpx.put(
-        upload_url,
-        headers={
-            "Authorization": f"Bearer {access_token}",
-            "Content-Type": "video/mp4",
-            "Content-Length": str(len(video_data)),
-        },
-        content=video_data,
-        timeout=300,
-    )
-    upload_response.raise_for_status()
-    result = upload_response.json()
+    result = _resumable_upload(video_path, metadata, access_token)
 
     video_id = result.get("id", "unknown")
     print(f"  [{date_str}] Uploaded! https://youtube.com/shorts/{video_id}")
@@ -527,38 +558,7 @@ def upload_hook_reel(date_str, force=False):
     access_token = get_access_token()
     metadata = build_video_metadata(strip)
 
-    # Resumable upload
-    init_response = httpx.post(
-        f"{UPLOAD_URL}?uploadType=resumable&part=snippet,status",
-        headers={
-            "Authorization": f"Bearer {access_token}",
-            "Content-Type": "application/json; charset=UTF-8",
-            "X-Upload-Content-Type": "video/mp4",
-            "X-Upload-Content-Length": str(video_path.stat().st_size),
-        },
-        json=metadata,
-        timeout=30,
-    )
-    if init_response.status_code >= 400:
-        print(f"  YouTube API error {init_response.status_code}: {init_response.text[:500]}")
-        init_response.raise_for_status()
-    upload_url = init_response.headers["Location"]
-
-    with open(video_path, "rb") as f:
-        video_data = f.read()
-
-    upload_response = httpx.put(
-        upload_url,
-        headers={
-            "Authorization": f"Bearer {access_token}",
-            "Content-Type": "video/mp4",
-            "Content-Length": str(len(video_data)),
-        },
-        content=video_data,
-        timeout=300,
-    )
-    upload_response.raise_for_status()
-    result = upload_response.json()
+    result = _resumable_upload(video_path, metadata, access_token)
 
     video_id = result.get("id", "unknown")
     print(f"  [{date_str}] Uploaded! https://youtube.com/shorts/{video_id}")
