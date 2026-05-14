@@ -1510,5 +1510,44 @@
       "starting-over",
       "burnout-recovery"
     ]
+  },
+  {
+    "date": "2026-05-14",
+    "title": "Still Doubting Whether Your Prayers Actually Work? 5 Truths That Will Change How You Pray",
+    "theme": "prayer-faith",
+    "theme_name": "Prayer & Faith",
+    "image": "listicles/2026-05-14.png",
+    "items": [
+      {
+        "quote": "Prayer is the courage to persevere. It is the struggle to overcome our own weakness and lack of confidence in ourselves.",
+        "source": "For Today and Tomorrow",
+        "explanation": "When you feel too small to face your problems, prayer is not surrender - it is the act of pushing back against your own self-doubt."
+      },
+      {
+        "quote": "A powerful prayer - one that is the roar of a lion - can change anything, any situation, no matter how difficult or seemingly impossible.",
+        "source": "The New Human Revolution, Vol. 3",
+        "explanation": "That situation at work, in your home, or inside your own mind that feels permanent and hopeless is not beyond the reach of a fierce, determined prayer."
+      },
+      {
+        "quote": "Buddhism teaches that prayer without action is just wishful thinking, and action without prayer lacks the power to break through fundamental darkness.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "Real change happens when you pair your daily efforts with a prayer that fires up your deepest resolve - neither alone is enough."
+      },
+      {
+        "quote": "Do not let your prayer become a mere formality. Infuse it with your deepest desires and your sincerest determination.",
+        "source": "For Today and Tomorrow",
+        "explanation": "If prayer has started to feel like a checkbox in your routine, this is a reminder to bring your real life - your fears, your wants, your honest self - into it."
+      },
+      {
+        "quote": "The purpose of faith is to become happy - not to become a slave to rigid rules or formalities.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "If your practice has started to feel like a burden rather than a source of strength, it may be time to return to the one reason it exists - your happiness."
+      }
+    ],
+    "struggles": [
+      "feeling-like-a-failure",
+      "anxiety-insomnia",
+      "depression-fog"
+    ]
   }
 ]
