@@ -30,6 +30,27 @@ STRIPS_JSON = PROJECT_ROOT / "strips.json"
 STRIPS_DIR = PROJECT_ROOT / "strips"
 SITE_URL = "https://thelotuslane.in"
 
+SUBSCRIBE_ENDPOINT = "https://ejvavmpieilvigjktugh.supabase.co/functions/v1/subscribe-daimoku"
+TURNSTILE_SITEKEY = "0x4AAAAAAC_83pyMUMU6aGiw"
+
+# Strip categories → subscribe-daimoku challenge buckets.
+# Categories that don't have a clean 1:1 fall back to the closest universal bucket.
+CATEGORY_TO_CHALLENGE = {
+    "anger": "relationship-conflict",
+    "envy": "starting-over",
+    "family": "parenting",
+    "finances": "money",
+    "grief-loss": "grief",
+    "health": "chronic-illness",
+    "loneliness": "loneliness",
+    "perseverance": "starting-over",
+    "rejection": "relationship-conflict",
+    "relationships": "relationship-conflict",
+    "self-doubt": "imposter",
+    "work-stress": "burnout",
+}
+DEFAULT_CHALLENGE = "loneliness"
+
 
 def load_strips():
     with open(STRIPS_JSON, "r", encoding="utf-8") as f:
@@ -44,6 +65,7 @@ def generate_strip_page(strip, all_strips):
     quote = strip.get("quote", "")
     source = strip.get("source", "")
     category = strip.get("category", "")
+    mapped_challenge = CATEGORY_TO_CHALLENGE.get(category, DEFAULT_CHALLENGE)
     tags = strip.get("tags", [])
     image_url = f"{ASSETS_BASE_URL}/{date}.png"
     page_url = f"{SITE_URL}/strips/{date}.html"
@@ -171,8 +193,20 @@ def generate_strip_page(strip, all_strips):
     .nav-link:hover {{ text-decoration: underline; }}
     .video-section {{ text-align: center; margin: 1.5rem 0; }}
     .video-section h3 {{ font-size: 1rem; color: #666; margin-bottom: 0.8rem; font-weight: 400; }}
-    .subscribe {{ text-align: center; padding: 1.5rem; background: #f0ece4; border-radius: 8px; margin: 1.5rem 0; }}
-    .subscribe a {{ color: #c0392b; font-weight: 600; }}
+    .subscribe {{ padding: 1.5rem; background: #f0ece4; border-radius: 8px; margin: 1.5rem 0; }}
+    .subscribe-headline {{ font-size: 1rem; color: #3a3a3a; margin-bottom: 0.2rem; font-weight: 600; }}
+    .subscribe-sub {{ font-size: 0.85rem; color: #777; margin-bottom: 0.9rem; }}
+    .subscribe-form {{ display: flex; gap: 0.5rem; flex-wrap: wrap; }}
+    .subscribe-form input {{ flex: 1 1 200px; min-width: 0; padding: 0.7rem 0.9rem; font: inherit; font-size: 0.95rem; border: 1px solid #d8d2c4; border-radius: 6px; background: #fff; }}
+    .subscribe-form input:focus {{ outline: none; border-color: #c0392b; box-shadow: 0 0 0 3px rgba(192,57,43,0.12); }}
+    .subscribe-form button {{ padding: 0.7rem 1.1rem; font: inherit; font-size: 0.92rem; font-weight: 600; color: #fff; background: #c0392b; border: 0; border-radius: 6px; cursor: pointer; transition: background 0.15s; }}
+    .subscribe-form button:hover {{ background: #a93020; }}
+    .subscribe-form button:disabled {{ background: #c8a39a; cursor: not-allowed; }}
+    .subscribe-msg {{ font-size: 0.85rem; margin-top: 0.6rem; min-height: 1.1em; }}
+    .subscribe-msg.error {{ color: #c0392b; }}
+    .subscribe-msg.success {{ color: #2d7a3d; }}
+    .subscribe-fine {{ font-size: 0.72rem; color: #999; margin-top: 0.6rem; line-height: 1.4; }}
+    .subscribe-fine a {{ color: #999; }}
     footer {{ text-align: center; padding: 1rem 0; color: #aaa; font-size: 0.8rem; border-top: 1px solid #e8e4de; margin-top: 1rem; }}
   </style>
 
@@ -201,8 +235,14 @@ def generate_strip_page(strip, all_strips):
     {youtube_html}
 
     <div class="subscribe">
-      <p>Get wisdom for your struggles, delivered to your inbox</p>
-      <p><a href="../subscribe.html">Subscribe to The Daily Lotus &rarr;</a></p>
+      <div class="subscribe-headline">Get wisdom for what you're going through, in your inbox.</div>
+      <div class="subscribe-sub">A short note three mornings a week. No filler, unsubscribe in one tap.</div>
+      <form class="subscribe-form" id="strip-subscribe-form" novalidate>
+        <input type="email" name="email" id="strip-subscribe-email" placeholder="your@email.com" required autocomplete="email" />
+        <button type="submit" id="strip-subscribe-btn">Subscribe</button>
+      </form>
+      <div class="subscribe-msg" id="strip-subscribe-msg" role="status" aria-live="polite"></div>
+      <div class="subscribe-fine">Free, double-opt-in, protected by Cloudflare. Or <a href="../subscribe.html">tell us more about your situation &rarr;</a></div>
     </div>
 
     <nav class="nav">{nav_html}</nav>
@@ -213,6 +253,120 @@ def generate_strip_page(strip, all_strips):
     </footer>
   </div>
   <script src="../nav.js" defer></script>
+  <script>
+  (function() {{
+    var ENDPOINT = "{SUBSCRIBE_ENDPOINT}";
+    var SITEKEY = "{TURNSTILE_SITEKEY}";
+    var CHALLENGE = "{mapped_challenge}";
+    var SOURCE_SLUG = "strip:{date}";
+
+    var form = document.getElementById("strip-subscribe-form");
+    var emailEl = document.getElementById("strip-subscribe-email");
+    var btn = document.getElementById("strip-subscribe-btn");
+    var msg = document.getElementById("strip-subscribe-msg");
+    if (!form || !emailEl) return;
+
+    var turnstileLoaded = false;
+    var turnstileToken = null;
+    var turnstileWidgetId = null;
+
+    function loadTurnstile() {{
+      if (turnstileLoaded) return;
+      turnstileLoaded = true;
+      var s = document.createElement("script");
+      s.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?onload=__lotusTurnstileReady";
+      s.async = true; s.defer = true;
+      document.head.appendChild(s);
+      var holder = document.createElement("div");
+      holder.id = "strip-turnstile-holder";
+      holder.style.display = "none";
+      form.appendChild(holder);
+      window.__lotusTurnstileReady = function() {{
+        if (!window.turnstile) return;
+        turnstileWidgetId = window.turnstile.render("#strip-turnstile-holder", {{
+          sitekey: SITEKEY,
+          size: "invisible",
+          callback: function(t) {{ turnstileToken = t; }},
+          "error-callback": function() {{ turnstileToken = null; }},
+          "expired-callback": function() {{ turnstileToken = null; }},
+        }});
+      }};
+    }}
+
+    emailEl.addEventListener("focus", loadTurnstile, {{ once: true }});
+
+    function setMsg(text, cls) {{ msg.textContent = text; msg.className = "subscribe-msg" + (cls ? " " + cls : ""); }}
+
+    async function executeTurnstile() {{
+      if (!window.turnstile || turnstileWidgetId === null) return null;
+      try {{
+        var t = window.turnstile.execute(turnstileWidgetId, {{ async: true }});
+        if (t && typeof t.then === "function") return await t;
+      }} catch (_) {{}}
+      // Wait briefly for callback to land
+      var waited = 0;
+      while (!turnstileToken && waited < 3000) {{
+        await new Promise(function(r) {{ setTimeout(r, 100); }});
+        waited += 100;
+      }}
+      return turnstileToken;
+    }}
+
+    form.addEventListener("submit", async function(e) {{
+      e.preventDefault();
+      var email = (emailEl.value || "").trim();
+      if (!email || email.indexOf("@") === -1) {{
+        setMsg("That email doesn't look right. Mind double-checking?", "error");
+        emailEl.focus();
+        return;
+      }}
+      btn.disabled = true; btn.textContent = "Sending...";
+      setMsg("");
+
+      // Cold path: Turnstile may not have loaded yet (instant submit). Trigger now.
+      if (!turnstileLoaded) loadTurnstile();
+      var token = turnstileToken || await executeTurnstile();
+      if (!token) {{
+        setMsg("Couldn't verify the request. Please try once more.", "error");
+        btn.disabled = false; btn.textContent = "Subscribe";
+        return;
+      }}
+
+      try {{
+        var resp = await fetch(ENDPOINT, {{
+          method: "POST",
+          headers: {{ "Content-Type": "application/json" }},
+          body: JSON.stringify({{
+            turnstileToken: token,
+            email: email,
+            name: "Friend",
+            challenges: [CHALLENGE],
+            frequency: "thrice_weekly",
+            source: SOURCE_SLUG,
+          }}),
+        }});
+        var data = await resp.json().catch(function() {{ return {{}}; }});
+        if (resp.ok) {{
+          form.style.display = "none";
+          setMsg("Almost there - we just sent you a confirmation email. Click the link inside to start.", "success");
+          if (window.gtag) {{ window.gtag("event", "subscribe", {{ source: SOURCE_SLUG }}); }}
+          return;
+        }}
+        var errMap = {{
+          already_subscribed: "You're already on the list. Check your inbox for past notes.",
+          turnstile_required: "Bot check failed - refresh and try again.",
+          bot_check_failed: "Bot check failed - refresh and try again.",
+          invalid_email: "That email doesn't look right.",
+          rate_limited: "Too many tries from this network. Try again in a few minutes.",
+        }};
+        setMsg(errMap[data.error] || "Something went wrong. Please try again.", "error");
+      }} catch (_) {{
+        setMsg("Network problem. Please try again.", "error");
+      }}
+      btn.disabled = false; btn.textContent = "Subscribe";
+    }});
+  }})();
+  </script>
 </body>
 </html>"""
     return html
