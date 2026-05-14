@@ -67,7 +67,16 @@ Mon/Wed/Fri 11:30 AM IST → generate-strip.yml
 - **daimoku_subscribers**: name, email, challenges[], frequency (daily/thrice_weekly/weekly), active, subscribed_at, last_sent_at
 - **daimoku_email_log**: subscriber_id, challenge_category, sent_at
 - **content_subscribers**: email, active (for new-strip notifications)
+- **email_events** *(empire-wide, app column = lotus_lane / astromedha_v3 / kari_growth / mykuber / moonpath)*: Resend webhook sink — sent/delivered/opened/clicked/bounced/complained. `email_events_summary` view rolls up per message_id.
+- **pipeline_secrets** *(key, value)*: holds `lotus_lane_unsubscribe_hmac` and `resend_webhook_secret` (Resend `whsec_…`).
 - Frontend `subscribe.html` uses anon key; backend uses service key
+
+## Edge Functions
+
+- **confirm-subscription** — double opt-in confirm link
+- **subscribe-daimoku** — public form → daimoku_subscribers
+- **unsubscribe-handler** — HMAC-signed one-click unsubscribe (RFC 8058 + Gmail one-click)
+- **resend-webhook** — Resend → `email_events` sink. Verifies Svix sig with `resend_webhook_secret` from `pipeline_secrets`. JWT disabled (Resend can't carry one). Shared across the empire — `app` derived from From-address domain via `DOMAIN_TO_APP` map. URL: `https://ejvavmpieilvigjktugh.supabase.co/functions/v1/resend-webhook`
 
 ## GitHub Secrets Required
 
