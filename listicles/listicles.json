@@ -1549,5 +1549,44 @@
       "anxiety-insomnia",
       "depression-fog"
     ]
+  },
+  {
+    "date": "2026-05-15",
+    "title": "No One Taught You How to Lead? 5 Truths About the Mentor You Never Knew You Needed",
+    "theme": "mentor-disciple",
+    "theme_name": "Mentor & Disciple",
+    "image": "listicles/2026-05-15.png",
+    "items": [
+      {
+        "quote": "A mentor does not exist to create followers. A mentor exists to create leaders.",
+        "source": "Discussions on Youth",
+        "explanation": "The best guidance you will ever receive pushes you to stand on your own, not to stay dependent on someone else."
+      },
+      {
+        "quote": "A disciple's mission is not to follow the mentor blindly, but to realize the mentor's vision - even surpassing the mentor.",
+        "source": "Discussions on Youth",
+        "explanation": "Honoring someone who believed in you means going further than they could - not staying small out of loyalty."
+      },
+      {
+        "quote": "The path of mentor and disciple is the path of shared struggle. It is not about hierarchy - it is about sharing the same commitment, the same vision, the same heart.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "The most powerful connections in your life are built on fighting for the same things, not on one person having all the answers."
+      },
+      {
+        "quote": "The true disciple is one who carries on the mentor's spirit. Not as a copy, but as a creative continuation.",
+        "source": "The New Human Revolution, Vol. 6",
+        "explanation": "When someone great has shaped your life, the way to honor them is to bring your own original strength to what they started."
+      },
+      {
+        "quote": "When the disciple truly stands up with the same spirit as the mentor, the power to change the world emerges.",
+        "source": "The New Human Revolution, Vol. 18",
+        "explanation": "The moment you stop waiting for permission and commit fully to a shared purpose, your capacity to make real change becomes unstoppable."
+      }
+    ],
+    "struggles": [
+      "overcoming-imposter-syndrome",
+      "feeling-like-a-failure",
+      "sidelined-at-work"
+    ]
   }
 ]
