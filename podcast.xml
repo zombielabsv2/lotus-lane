@@ -24,8 +24,22 @@
     <itunes:category text="Religion &amp; Spirituality">
       <itunes:category text="Buddhism" />
     </itunes:category>
-    <pubDate>Thu, 14 May 2026 08:14:07 +0000</pubDate>
-    <lastBuildDate>Thu, 14 May 2026 08:14:07 +0000</lastBuildDate>
+    <pubDate>Fri, 15 May 2026 08:26:59 +0000</pubDate>
+    <lastBuildDate>Fri, 15 May 2026 08:26:59 +0000</lastBuildDate>
+    <item>
+      <title>Invisible at Work</title>
+      <link>https://thelotuslane.in/wisdom/sidelined-at-work.html</link>
+      <guid isPermaLink="false">https://storage.googleapis.com/lotus-lane-podcast/sidelined-at-work.mp3</guid>
+      <pubDate>Fri, 15 May 2026 08:26:57 +0000</pubDate>
+      <description>You're still on the team but no longer in the room. The quiet pain of being talked around. How to find your footing again.</description>
+      <itunes:summary>You're still on the team but no longer in the room. The quiet pain of being talked around. How to find your footing again.</itunes:summary>
+      <itunes:author>The Lotus Lane</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:duration>10:42</itunes:duration>
+      <itunes:episode>18</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <enclosure url="https://storage.googleapis.com/lotus-lane-podcast/sidelined-at-work.mp3" length="8831277" type="audio/mpeg" />
+    </item>
     <item>
       <title>When Your Relationship Is Falling Apart</title>
       <link>https://thelotuslane.in/wisdom/relationship-falling-apart.html</link>
