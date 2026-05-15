@@ -7,6 +7,14 @@
     <language>en</language>
     <atom:link href="https://thelotuslane.in/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>My Idea. His Applause. My Silence.</title>
+      <link>https://thelotuslane.in/strips/2026-05-15.html</link>
+      <description>When someone takes credit for your work, the anger is valid — but the real question is whether you keep showing up for yourself anyway. Visibility isn't just about being seen by others; it starts with refusing to make yourself small.</description>
+      <pubDate>Fri, 15 May 2026 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-05-15.html</guid>
+      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-05-15.png" type="image/png" />
+    </item>
+    <item>
       <title>Amma, I Am Not a Software Product You Can Ship By Q4</title>
       <link>https://thelotuslane.in/strips/2026-05-13.html</link>
       <description>When family pressure makes you feel like a checklist item, it helps to remember that your life has value outside of what you accomplish or fulfill for others. Giving yourself the same respect you'd give a person you love is not selfishness — it's the ground you stand on when you finally speak up.</description>
@@ -397,14 +405,6 @@
       <pubDate>Fri, 09 Jan 2026 00:00:00 +0000</pubDate>
       <guid isPermaLink="true">https://thelotuslane.in/strips/2026-01-09.html</guid>
       <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-01-09.png" type="image/png" />
-    </item>
-    <item>
-      <title>The Evening Shift</title>
-      <link>https://thelotuslane.in/strips/2026-01-07.html</link>
-      <description>Sometimes the greatest care we can offer our aging parents isn't grand gestures, but the simple presence of our voice and attention in their daily lives.</description>
-      <pubDate>Wed, 07 Jan 2026 00:00:00 +0000</pubDate>
-      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-01-07.html</guid>
-      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-01-07.png" type="image/png" />
     </item>
   </channel>
 </rss>

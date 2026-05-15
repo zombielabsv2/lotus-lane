@@ -1419,5 +1419,24 @@
     },
     "youtube_views": 7,
     "youtube_views_updated_at": "2026-05-15T06:00:03Z"
+  },
+  {
+    "date": "2026-05-15",
+    "title": "My Idea. His Applause. My Silence.",
+    "image": "https://zombielabsv2.github.io/lotus-lane-assets/2026-05-15.png",
+    "message": "When someone takes credit for your work, the anger is valid — but the real question is whether you keep showing up for yourself anyway. Visibility isn't just about being seen by others; it starts with refusing to make yourself small.",
+    "quote": "The true measure of a person is not how they appear in moments of comfort and convenience, but how they stand at times of challenge and controversy.",
+    "source": "Daisaku Ikeda, The New Human Revolution, Vol. 2",
+    "tags": [
+      "work-stress",
+      "office-politics",
+      "imposter-syndrome"
+    ],
+    "category": "work-stress",
+    "topic": "office politics",
+    "characters": [
+      "vikram",
+      "arjun"
+    ]
   }
 ]
