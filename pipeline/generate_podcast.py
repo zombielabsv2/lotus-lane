@@ -28,6 +28,7 @@ import os
 import re
 import subprocess
 import sys
+import time
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -240,24 +241,41 @@ def _chunk_text(text: str, limit: int = TTS_CHUNK_LIMIT) -> list[str]:
     return chunks
 
 
-def _tts_one(text: str, out_path: Path) -> None:
-    r = httpx.post(
-        "https://api.openai.com/v1/audio/speech",
-        headers={
-            "Authorization": f"Bearer {OPENAI_API_KEY}",
-            "Content-Type": "application/json",
-        },
-        json={
-            "model": "tts-1-hd",
-            "voice": "nova",
-            "input": text,
-            "response_format": "mp3",
-        },
-        timeout=300,
-    )
-    if r.status_code >= 400:
-        raise RuntimeError(f"OpenAI TTS {r.status_code}: {r.text[:300]}")
-    out_path.write_bytes(r.content)
+def _tts_one(text: str, out_path: Path, *, attempts: int = 3) -> None:
+    """Synthesize one chunk. Retries transient timeouts / 5xx — a single
+    OpenAI read timeout should not kill a whole multi-chunk episode."""
+    last_err: Exception | None = None
+    for attempt in range(1, attempts + 1):
+        try:
+            r = httpx.post(
+                "https://api.openai.com/v1/audio/speech",
+                headers={
+                    "Authorization": f"Bearer {OPENAI_API_KEY}",
+                    "Content-Type": "application/json",
+                },
+                json={
+                    "model": "tts-1-hd",
+                    "voice": "nova",
+                    "input": text,
+                    "response_format": "mp3",
+                },
+                timeout=300,
+            )
+        except httpx.TransportError as e:  # ReadTimeout, ConnectError, etc.
+            last_err = e
+        else:
+            if r.status_code < 400:
+                out_path.write_bytes(r.content)
+                return
+            if r.status_code < 500:  # 4xx is a hard error — don't retry
+                raise RuntimeError(f"OpenAI TTS {r.status_code}: {r.text[:300]}")
+            last_err = RuntimeError(f"OpenAI TTS {r.status_code}: {r.text[:300]}")
+        if attempt < attempts:
+            wait = 5 * attempt
+            print(f"      TTS attempt {attempt}/{attempts} failed ({last_err}); "
+                  f"retrying in {wait}s...")
+            time.sleep(wait)
+    raise RuntimeError(f"OpenAI TTS failed after {attempts} attempts: {last_err}")
 
 
 def synthesize_tts(text: str, out_path: Path) -> None:
