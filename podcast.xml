@@ -24,8 +24,22 @@
     <itunes:category text="Religion &amp; Spirituality">
       <itunes:category text="Buddhism" />
     </itunes:category>
-    <pubDate>Fri, 15 May 2026 08:26:59 +0000</pubDate>
-    <lastBuildDate>Fri, 15 May 2026 08:26:59 +0000</lastBuildDate>
+    <pubDate>Sat, 16 May 2026 08:32:13 +0000</pubDate>
+    <lastBuildDate>Sat, 16 May 2026 08:32:13 +0000</lastBuildDate>
+    <item>
+      <title>Starting Over at Any Age</title>
+      <link>https://thelotuslane.in/wisdom/starting-over.html</link>
+      <guid isPermaLink="false">https://storage.googleapis.com/lotus-lane-podcast/starting-over.mp3</guid>
+      <pubDate>Sat, 16 May 2026 08:32:11 +0000</pubDate>
+      <description>Divorce, job loss, or just the feeling that you need to begin again. Courage for the reset.</description>
+      <itunes:summary>Divorce, job loss, or just the feeling that you need to begin again. Courage for the reset.</itunes:summary>
+      <itunes:author>The Lotus Lane</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:duration>10:35</itunes:duration>
+      <itunes:episode>19</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <enclosure url="https://storage.googleapis.com/lotus-lane-podcast/starting-over.mp3" length="8714541" type="audio/mpeg" />
+    </item>
     <item>
       <title>Invisible at Work</title>
       <link>https://thelotuslane.in/wisdom/sidelined-at-work.html</link>
