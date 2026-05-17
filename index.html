@@ -191,7 +191,7 @@
     }
 
     /* Daily Wisdom band */
-    .daily-band-wrap { max-width: 1080px; margin: 1.4rem auto 0; padding: 0 1rem; }
+    .daily-band-wrap { width: 100%; max-width: 1080px; margin: 1.4rem auto 0; padding: 0 1rem; }
     .daily-band {
       display: flex; align-items: center; gap: 1.2rem;
       padding: 1.1rem 1.5rem;
@@ -221,13 +221,13 @@
       white-space: nowrap;
     }
 
-    /* Two Lamps band */
-    .lamps-band-wrap { max-width: 1080px; margin: 1.4rem auto 0; padding: 0 1rem; }
+    /* Two Lamps band — a visual twin of the Daily Wisdom band */
+    .lamps-band-wrap { width: 100%; max-width: 1080px; margin: 1.4rem auto 0; padding: 0 1rem; }
     .lamps-band {
       display: flex; align-items: center; gap: 1.2rem;
       padding: 1.1rem 1.5rem;
-      background: #fbf6f0;
-      border: 1.5px solid #e6ddd0;
+      background: #fdf8f0;
+      border: 1.5px solid #e8d9b3;
       border-radius: 14px;
       text-decoration: none; color: inherit;
       transition: all 0.2s;
@@ -240,10 +240,10 @@
       color: #c0392b; text-transform: uppercase;
     }
     .lamps-band .row-title {
-      font-size: 1rem; font-weight: 600; color: #2d2d2d; margin-top: 0.2rem;
+      font-size: 1rem; font-weight: 600; color: #4a3d20; margin-top: 0.2rem;
     }
     .lamps-band .row-meta {
-      font-size: 0.78rem; color: #888; margin-top: 0.2rem;
+      font-size: 0.78rem; color: #8a7d5f; margin-top: 0.2rem;
     }
     .lamps-band .cta {
       flex-shrink: 0; padding: 0.55rem 1rem;
@@ -370,6 +370,18 @@
     </div>
   </section>
 
+  <div class="daily-band-wrap">
+    <a class="daily-band" href="subscribe.html">
+      <div class="icon">&#x2709;&#xFE0F;</div>
+      <div class="text">
+        <div class="row-eyebrow">Daily Wisdom &middot; tailored email</div>
+        <div class="row-title">A wisdom note in your inbox every morning &mdash; matched to what you're working through.</div>
+        <div class="row-meta">Pick your challenges. We tailor each note. Unsubscribe anytime.</div>
+      </div>
+      <div class="cta">Get Daily Wisdom &rarr;</div>
+    </a>
+  </div>
+
   <!-- Two Lamps — this week's dialogue; the cron updates this band weekly -->
   <div class="lamps-band-wrap">
     <a class="lamps-band" href="two-lamps/">
@@ -380,18 +392,6 @@
         <div class="row-meta">One event from the week's news, read by two old sources of steadiness &mdash; a short dialogue, not a verdict.</div>
       </div>
       <div class="cta">Read the dialogue &rarr;</div>
-    </a>
-  </div>
-
-  <div class="daily-band-wrap">
-    <a class="daily-band" href="subscribe.html">
-      <div class="icon">&#x2709;&#xFE0F;</div>
-      <div class="text">
-        <div class="row-eyebrow">Daily Wisdom &middot; tailored email</div>
-        <div class="row-title">A wisdom note in your inbox every morning &mdash; matched to what you're working through.</div>
-        <div class="row-meta">Pick your challenges. We tailor each note. Unsubscribe anytime.</div>
-      </div>
-      <div class="cta">Get Daily Wisdom &rarr;</div>
     </a>
   </div>
 
