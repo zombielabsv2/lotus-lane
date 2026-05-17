@@ -1627,5 +1627,44 @@
       "comparison-trap",
       "starting-over"
     ]
+  },
+  {
+    "date": "2026-05-17",
+    "title": "Can't Stop Fighting With Someone You Love? 5 Truths About the Power of Actually Talking",
+    "theme": "dialogue",
+    "theme_name": "Dialogue",
+    "image": "listicles/2026-05-17.png",
+    "items": [
+      {
+        "quote": "Dialogue starts with listening. Truly listening - not just waiting for your turn to speak - but genuinely trying to understand another person's heart.",
+        "source": "Discussions on Youth",
+        "explanation": "Most arguments stay stuck because both people are rehearsing their next line instead of actually hearing what the other person is trying to say."
+      },
+      {
+        "quote": "When we engage in dialogue with sincerity and respect, the walls of misunderstanding crumble. Even the most hardened hearts can be opened.",
+        "source": "The New Human Revolution, Vol. 7",
+        "explanation": "That person who seems impossible to reach - whether a parent, partner, or coworker - is not a closed door, just one that needs the right kind of knock."
+      },
+      {
+        "quote": "One sincere conversation can accomplish more than a hundred speeches or a thousand emails.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "All the texts, voice memos, and long emails you've been sending cannot replace ten minutes of sitting down and talking face to face."
+      },
+      {
+        "quote": "We must not fear those who are different from us. Difference is not a reason for conflict - it is an invitation for dialogue.",
+        "source": "For Today and Tomorrow",
+        "explanation": "The person whose views frustrate you most might be the exact conversation that breaks you out of your own blind spots."
+      },
+      {
+        "quote": "The greatest tool for peace is not weapons or technology. It is the simple act of two human beings sitting down and talking to each other.",
+        "source": "A New Era of Dialogue (Peace Proposal)",
+        "explanation": "Whatever rift is growing in your relationship right now, no strategy or silent treatment will fix what one honest, human conversation still can."
+      }
+    ],
+    "struggles": [
+      "relationship-falling-apart",
+      "anger-you-cant-control",
+      "how-to-forgive"
+    ]
   }
 ]
