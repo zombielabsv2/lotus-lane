@@ -148,26 +148,25 @@ TOOL = {
             "framing": {"type": "string",
                         "description": "2-4 sentences: the event stated "
                         "neutrally, then the human question underneath"},
-            "turns": {
-                "type": "array",
-                "description": "exactly 4 turns, alternating Iqbal, Ikeda, "
-                "Iqbal, Ikeda",
-                "items": {
-                    "type": "object",
-                    "properties": {
-                        "speaker": {"type": "string",
-                                    "enum": ["Iqbal", "Ikeda"]},
-                        "text": {"type": "string"},
-                    },
-                    "required": ["speaker", "text"],
-                },
-            },
+            "iqbal_first": {"type": "string",
+                            "description": "Iqbal's opening turn — one "
+                            "paragraph, 70-110 words"},
+            "ikeda_first": {"type": "string",
+                            "description": "Ikeda's reply — one paragraph, "
+                            "70-110 words"},
+            "iqbal_second": {"type": "string",
+                             "description": "Iqbal's second turn — one "
+                             "paragraph, 70-110 words"},
+            "ikeda_second": {"type": "string",
+                             "description": "Ikeda's closing turn — one "
+                             "paragraph, 70-110 words"},
             "closing": {"type": "string",
                         "description": "one closing line, 'Two lamps, one "
                         "week. ...'"},
         },
         "required": ["slugStub", "headline", "kicker", "summary", "framing",
-                     "turns", "closing"],
+                     "iqbal_first", "ikeda_first", "iqbal_second",
+                     "ikeda_second", "closing"],
     },
 }
 
@@ -206,19 +205,22 @@ def generate_dialogue(headlines: list[str]) -> dict:
         raise RuntimeError("no submit_dialogue tool_use block in response")
 
     # Validate — fail loudly rather than publish garbage.
-    for key in ("slugStub", "headline", "kicker", "summary", "framing",
-                "turns", "closing"):
-        if not data.get(key):
-            raise RuntimeError(f"Claude response missing '{key}'")
-    turns = data["turns"]
-    if len(turns) != 4:
-        raise RuntimeError(f"expected 4 turns, got {len(turns)}")
-    expected = ["Iqbal", "Ikeda", "Iqbal", "Ikeda"]
-    if [t.get("speaker") for t in turns] != expected:
-        raise RuntimeError(f"turns must alternate {expected}")
-    for t in turns:
-        if not t.get("text"):
-            raise RuntimeError("a turn has empty text")
+    fields = ("slugStub", "headline", "kicker", "summary", "framing",
+              "iqbal_first", "ikeda_first", "iqbal_second", "ikeda_second",
+              "closing")
+    for key in fields:
+        val = data.get(key)
+        if not val or not isinstance(val, str):
+            raise RuntimeError(f"Claude response missing/invalid '{key}'")
+
+    # Assemble the 4 turns in fixed order — the schema is flat strings so the
+    # model can't stringify a nested array.
+    data["turns"] = [
+        {"speaker": "Iqbal", "text": data["iqbal_first"].strip()},
+        {"speaker": "Ikeda", "text": data["ikeda_first"].strip()},
+        {"speaker": "Iqbal", "text": data["iqbal_second"].strip()},
+        {"speaker": "Ikeda", "text": data["ikeda_second"].strip()},
+    ]
     return data
 
 
