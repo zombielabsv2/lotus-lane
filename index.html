@@ -221,6 +221,41 @@
       white-space: nowrap;
     }
 
+    /* Two Lamps band */
+    .lamps-band-wrap { max-width: 1080px; margin: 1.4rem auto 0; padding: 0 1rem; }
+    .lamps-band {
+      display: flex; align-items: center; gap: 1.2rem;
+      padding: 1.1rem 1.5rem;
+      background: #fbf6f0;
+      border: 1.5px solid #e6ddd0;
+      border-radius: 14px;
+      text-decoration: none; color: inherit;
+      transition: all 0.2s;
+    }
+    .lamps-band:hover { border-color: #c0392b; transform: translateY(-1px); }
+    .lamps-band .icon { font-size: 1.6rem; flex-shrink: 0; line-height: 1; }
+    .lamps-band .text { flex: 1; min-width: 0; }
+    .lamps-band .row-eyebrow {
+      font-size: 0.66rem; font-weight: 700; letter-spacing: 0.12em;
+      color: #c0392b; text-transform: uppercase;
+    }
+    .lamps-band .row-title {
+      font-size: 1rem; font-weight: 600; color: #2d2d2d; margin-top: 0.2rem;
+    }
+    .lamps-band .row-meta {
+      font-size: 0.78rem; color: #888; margin-top: 0.2rem;
+    }
+    .lamps-band .cta {
+      flex-shrink: 0; padding: 0.55rem 1rem;
+      background: #c0392b; color: white;
+      border-radius: 20px; font-size: 0.8rem; font-weight: 600;
+      white-space: nowrap;
+    }
+    @media (max-width: 720px) {
+      .lamps-band { flex-wrap: wrap; padding: 1rem; }
+      .lamps-band .cta { margin-top: 0.4rem; }
+    }
+
     .browse-row {
       max-width: 1080px;
       margin: 1.6rem auto 0;
@@ -334,6 +369,19 @@
       <div class="emotion-grid" id="emotionGrid"></div>
     </div>
   </section>
+
+  <!-- Two Lamps — this week's dialogue; the cron updates this band weekly -->
+  <div class="lamps-band-wrap">
+    <a class="lamps-band" href="two-lamps/">
+      <div class="icon">&#x1FA94;</div>
+      <div class="text">
+        <div class="row-eyebrow">New this week &middot; Two Lamps</div>
+        <div class="row-title">A narrow strait, and the world holds its breath</div>
+        <div class="row-meta">One event from the week's news, read by two old sources of steadiness &mdash; a short dialogue, not a verdict.</div>
+      </div>
+      <div class="cta">Read the dialogue &rarr;</div>
+    </a>
+  </div>
 
   <div class="daily-band-wrap">
     <a class="daily-band" href="subscribe.html">

@@ -12,8 +12,9 @@
   const isPodcast = path.includes('/podcast');
   const isStoriesArchive = path.includes('/stories/');
   const isStripPage = path.includes('/strips/');
+  const isTwoLamps = path.includes('/two-lamps');
   // Home = root index, not any subpage
-  const isHome = !isDecoder && !isSubscribe && !isIkeda && !isListicle && !isWisdom && !isPodcast && !isStoriesArchive && !isStripPage;
+  const isHome = !isDecoder && !isSubscribe && !isIkeda && !isListicle && !isWisdom && !isPodcast && !isStoriesArchive && !isStripPage && !isTwoLamps;
   // "Stories" tab is active on the archive itself or any individual strip page
   const isStoriesActive = isStoriesArchive || isStripPage;
 
@@ -26,6 +27,7 @@
   if (isPodcast) base = '../';
   if (isStoriesArchive) base = '../';
   if (isStripPage) base = '../';
+  if (isTwoLamps) base = '../';
 
   // --- TOP NAV (inline links below header) ---
   const topNav = document.createElement('div');
@@ -38,6 +40,8 @@
     <a href="${base}wisdom/" class="${isWisdom ? 'active' : ''}">Life Challenges</a>
     <span class="sep">|</span>
     <a href="${base}podcast/" class="${isPodcast ? 'active' : ''}">Podcast</a>
+    <span class="sep">|</span>
+    <a href="${base}two-lamps/" class="${isTwoLamps ? 'active' : ''}">Two Lamps</a>
     <span class="sep">|</span>
     <a href="${base}ikeda/index.html" class="${isIkeda ? 'active' : ''}">Wisdom Library</a>
     <span class="sep">|</span>
