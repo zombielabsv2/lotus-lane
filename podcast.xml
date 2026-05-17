@@ -24,8 +24,22 @@
     <itunes:category text="Religion &amp; Spirituality">
       <itunes:category text="Buddhism" />
     </itunes:category>
-    <pubDate>Sat, 16 May 2026 08:32:13 +0000</pubDate>
-    <lastBuildDate>Sat, 16 May 2026 08:32:13 +0000</lastBuildDate>
+    <pubDate>Sun, 17 May 2026 08:01:10 +0000</pubDate>
+    <lastBuildDate>Sun, 17 May 2026 08:01:10 +0000</lastBuildDate>
+    <item>
+      <title>Surviving a Toxic Workplace</title>
+      <link>https://thelotuslane.in/wisdom/toxic-workplace-survival.html</link>
+      <guid isPermaLink="false">https://storage.googleapis.com/lotus-lane-podcast/toxic-workplace-survival.mp3</guid>
+      <pubDate>Sun, 17 May 2026 08:01:09 +0000</pubDate>
+      <description>Your boss is terrible, your coworkers are worse, and you can't quit yet. Wisdom for staying sane.</description>
+      <itunes:summary>Your boss is terrible, your coworkers are worse, and you can't quit yet. Wisdom for staying sane.</itunes:summary>
+      <itunes:author>The Lotus Lane</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:duration>11:03</itunes:duration>
+      <itunes:episode>20</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <enclosure url="https://storage.googleapis.com/lotus-lane-podcast/toxic-workplace-survival.mp3" length="9111597" type="audio/mpeg" />
+    </item>
     <item>
       <title>Starting Over at Any Age</title>
       <link>https://thelotuslane.in/wisdom/starting-over.html</link>
