@@ -217,7 +217,13 @@ jobs:
           # touching the working tree. Do NOT run `git checkout -- .` or
           # `git clean -fd` here — they wipe the untracked MP4 and revert the
           # strips.json edit that save_youtube_id() just made.
-          git add strips.json shorts/
+          #
+          # Re-render the strip page: the page was generated earlier in the run,
+          # BEFORE the video existed, so its "Watch the animated version" embed
+          # was empty. save_youtube_id() has now written youtube_id into
+          # strips.json — regenerate so the live page actually shows the video.
+          python pipeline/generate_pages.py --date ${{ steps.target.outputs.date }}
+          git add strips.json shorts/ strips/
           if git diff --staged --quiet; then
             echo "No video/social updates"
           else

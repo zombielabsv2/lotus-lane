@@ -78,6 +78,17 @@
     .nav-link:hover { text-decoration: underline; }
     .video-section { text-align: center; margin: 1.5rem 0; }
     .video-section h3 { font-size: 1rem; color: #666; margin-bottom: 0.8rem; font-weight: 400; }
+    .video-link { margin-top: 0.6rem; font-size: 0.85rem; }
+    .video-link a { color: #c0392b; text-decoration: none; }
+    .video-link a:hover { text-decoration: underline; }
+    .share-section { text-align: center; margin: 1.5rem 0; padding: 1.2rem; background: #f5f3ee; border-radius: 8px; }
+    .share-label { font-size: 0.92rem; color: #555; margin-bottom: 0.8rem; }
+    .share-buttons { display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; }
+    .share-btn { display: inline-flex; align-items: center; padding: 0.6rem 1.1rem; font: inherit; font-size: 0.88rem; font-weight: 600; border-radius: 6px; border: 0; cursor: pointer; text-decoration: none; transition: opacity 0.15s; }
+    .share-btn:hover { opacity: 0.88; }
+    .share-btn.wa { background: #25D366; color: #fff; }
+    .share-btn.native { background: #c0392b; color: #fff; }
+    .share-btn.copy { background: #e8e4de; color: #555; }
     .subscribe { padding: 1.5rem; background: #f0ece4; border-radius: 8px; margin: 1.5rem 0; }
     .subscribe-headline { font-size: 1rem; color: #3a3a3a; margin-bottom: 0.2rem; font-weight: 600; }
     .subscribe-sub { font-size: 0.85rem; color: #777; margin-bottom: 0.9rem; }
@@ -96,22 +107,6 @@
   </style>
 
   <script data-goatcounter="https://zombielabs.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
-
-<!-- ga4 -->
-<script>
-  (function() {
-    var mid = 'G-4DM9P70KJ6';
-    if (mid.indexOf('PLACEHOLDER') !== -1) return;
-    var s = document.createElement('script');
-    s.async = true;
-    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + mid;
-    document.head.appendChild(s);
-    window.dataLayer = window.dataLayer || [];
-    window.gtag = function(){window.dataLayer.push(arguments);};
-    window.gtag('js', new Date());
-    window.gtag('config', mid);
-  })();
-</script>
 </head>
 <body>
   <div class="container">
@@ -138,6 +133,15 @@
     <div class="tags"><span class="tag">relationships</span><span class="tag">conflict-and-repair</span><span class="tag">couples</span></div>
 
     
+    
+    <div class="share-section">
+      <p class="share-label">Send this to someone who needs it today</p>
+      <div class="share-buttons">
+        <a class="share-btn wa" href="https://wa.me/?text=Sorry%20Feels%20Stuck%20in%20My%20Throat%20%E2%80%94%20https%3A//thelotuslane.in/strips/2026-04-15.html" target="_blank" rel="noopener">WhatsApp</a>
+        <button class="share-btn native" type="button" id="strip-share-btn" hidden>Share</button>
+        <button class="share-btn copy" type="button" id="strip-copy-btn">Copy link</button>
+      </div>
+    </div>
 
     <div class="subscribe">
       <div class="subscribe-headline">Get wisdom for what you're going through, in your inbox.</div>
@@ -270,6 +274,30 @@
       }
       btn.disabled = false; btn.textContent = "Subscribe";
     });
+  })();
+  </script>
+  <script>
+  (function() {
+    var url = "https://thelotuslane.in/strips/2026-04-15.html";
+    var title = "Sorry Feels Stuck in My Throat";
+    var nativeBtn = document.getElementById("strip-share-btn");
+    var copyBtn = document.getElementById("strip-copy-btn");
+    if (nativeBtn && navigator.share) {
+      nativeBtn.hidden = false;
+      nativeBtn.addEventListener("click", function() {
+        navigator.share({ title: title, text: title, url: url }).catch(function() {});
+      });
+    }
+    if (copyBtn) {
+      copyBtn.addEventListener("click", function() {
+        var done = function() {
+          var orig = copyBtn.textContent;
+          copyBtn.textContent = "Copied!";
+          setTimeout(function() { copyBtn.textContent = orig; }, 1800);
+        };
+        if (navigator.clipboard) { navigator.clipboard.writeText(url).then(done).catch(function() {}); }
+      });
+    }
   })();
   </script>
 </body>

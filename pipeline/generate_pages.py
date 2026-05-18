@@ -21,6 +21,7 @@ import json
 import sys
 from datetime import datetime
 from pathlib import Path
+from urllib.parse import quote as urlquote
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 from pipeline.config import ASSETS_BASE_URL
@@ -133,6 +134,21 @@ def generate_strip_page(strip, all_strips):
               width="315" height="560" frameborder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope"
               allowfullscreen loading="lazy"></iframe>
+      <p class="video-link"><a href="https://www.youtube.com/watch?v={youtube_id}" target="_blank" rel="noopener">Open on YouTube &rarr;</a></p>
+    </div>"""
+
+    # Share section — WhatsApp + native share + copy link
+    wa_text = urlquote(f"{title} — {page_url}")
+    page_url_js = json.dumps(page_url)
+    title_js = json.dumps(title)
+    share_html = f"""
+    <div class="share-section">
+      <p class="share-label">Send this to someone who needs it today</p>
+      <div class="share-buttons">
+        <a class="share-btn wa" href="https://wa.me/?text={wa_text}" target="_blank" rel="noopener">WhatsApp</a>
+        <button class="share-btn native" type="button" id="strip-share-btn" hidden>Share</button>
+        <button class="share-btn copy" type="button" id="strip-copy-btn">Copy link</button>
+      </div>
     </div>"""
 
     tags_html = "".join(f'<span class="tag">{t}</span>' for t in tags)
@@ -193,6 +209,17 @@ def generate_strip_page(strip, all_strips):
     .nav-link:hover {{ text-decoration: underline; }}
     .video-section {{ text-align: center; margin: 1.5rem 0; }}
     .video-section h3 {{ font-size: 1rem; color: #666; margin-bottom: 0.8rem; font-weight: 400; }}
+    .video-link {{ margin-top: 0.6rem; font-size: 0.85rem; }}
+    .video-link a {{ color: #c0392b; text-decoration: none; }}
+    .video-link a:hover {{ text-decoration: underline; }}
+    .share-section {{ text-align: center; margin: 1.5rem 0; padding: 1.2rem; background: #f5f3ee; border-radius: 8px; }}
+    .share-label {{ font-size: 0.92rem; color: #555; margin-bottom: 0.8rem; }}
+    .share-buttons {{ display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; }}
+    .share-btn {{ display: inline-flex; align-items: center; padding: 0.6rem 1.1rem; font: inherit; font-size: 0.88rem; font-weight: 600; border-radius: 6px; border: 0; cursor: pointer; text-decoration: none; transition: opacity 0.15s; }}
+    .share-btn:hover {{ opacity: 0.88; }}
+    .share-btn.wa {{ background: #25D366; color: #fff; }}
+    .share-btn.native {{ background: #c0392b; color: #fff; }}
+    .share-btn.copy {{ background: #e8e4de; color: #555; }}
     .subscribe {{ padding: 1.5rem; background: #f0ece4; border-radius: 8px; margin: 1.5rem 0; }}
     .subscribe-headline {{ font-size: 1rem; color: #3a3a3a; margin-bottom: 0.2rem; font-weight: 600; }}
     .subscribe-sub {{ font-size: 0.85rem; color: #777; margin-bottom: 0.9rem; }}
@@ -233,6 +260,7 @@ def generate_strip_page(strip, all_strips):
     <div class="tags">{tags_html}</div>
 
     {youtube_html}
+    {share_html}
 
     <div class="subscribe">
       <div class="subscribe-headline">Get wisdom for what you're going through, in your inbox.</div>
@@ -365,6 +393,30 @@ def generate_strip_page(strip, all_strips):
       }}
       btn.disabled = false; btn.textContent = "Subscribe";
     }});
+  }})();
+  </script>
+  <script>
+  (function() {{
+    var url = {page_url_js};
+    var title = {title_js};
+    var nativeBtn = document.getElementById("strip-share-btn");
+    var copyBtn = document.getElementById("strip-copy-btn");
+    if (nativeBtn && navigator.share) {{
+      nativeBtn.hidden = false;
+      nativeBtn.addEventListener("click", function() {{
+        navigator.share({{ title: title, text: title, url: url }}).catch(function() {{}});
+      }});
+    }}
+    if (copyBtn) {{
+      copyBtn.addEventListener("click", function() {{
+        var done = function() {{
+          var orig = copyBtn.textContent;
+          copyBtn.textContent = "Copied!";
+          setTimeout(function() {{ copyBtn.textContent = orig; }}, 1800);
+        }};
+        if (navigator.clipboard) {{ navigator.clipboard.writeText(url).then(done).catch(function() {{}}); }}
+      }});
+    }}
   }})();
   </script>
 </body>
