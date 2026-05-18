@@ -24,8 +24,22 @@
     <itunes:category text="Religion &amp; Spirituality">
       <itunes:category text="Buddhism" />
     </itunes:category>
-    <pubDate>Sun, 17 May 2026 08:01:10 +0000</pubDate>
-    <lastBuildDate>Sun, 17 May 2026 08:01:10 +0000</lastBuildDate>
+    <pubDate>Mon, 18 May 2026 09:00:51 +0000</pubDate>
+    <lastBuildDate>Mon, 18 May 2026 09:00:51 +0000</lastBuildDate>
+    <item>
+      <title>When Grief Won't Stop</title>
+      <link>https://thelotuslane.in/wisdom/when-grief-wont-stop.html</link>
+      <guid isPermaLink="false">https://storage.googleapis.com/lotus-lane-podcast/when-grief-wont-stop.mp3</guid>
+      <pubDate>Mon, 18 May 2026 09:00:49 +0000</pubDate>
+      <description>Grief doesn't follow a timeline. Wisdom for the 3am moments when loss hits all over again.</description>
+      <itunes:summary>Grief doesn't follow a timeline. Wisdom for the 3am moments when loss hits all over again.</itunes:summary>
+      <itunes:author>The Lotus Lane</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:duration>9:40</itunes:duration>
+      <itunes:episode>21</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <enclosure url="https://storage.googleapis.com/lotus-lane-podcast/when-grief-wont-stop.mp3" length="7958061" type="audio/mpeg" />
+    </item>
     <item>
       <title>Surviving a Toxic Workplace</title>
       <link>https://thelotuslane.in/wisdom/toxic-workplace-survival.html</link>
