@@ -9,6 +9,7 @@ import os
 import base64
 import time
 from pathlib import Path
+from urllib.parse import quote as urlquote
 
 import httpx
 
@@ -362,6 +363,10 @@ def send_content_email(subscriber_email, strip):
     else:
         yt_link = "https://www.youtube.com/@thelotuslane_ND"
     site_link = "https://thelotuslane.in/"
+    strip_page = f"{SITE_URL}/strips/{strip.get('date', '')}.html"
+    wa_share = "https://wa.me/?text=" + urlquote(
+        f"{strip.get('title', '')} — {strip_page}"
+    )
 
     try:
         from pipeline.subscribe_api import build_unsubscribe_url
@@ -388,10 +393,14 @@ def send_content_email(subscriber_email, strip):
             </div>
 
             <div style="text-align:center; margin:1.5rem 0;">
-                <a href="{site_link}" style="
-                    display:inline-block; padding:0.6rem 1.5rem; background:#c0392b; color:white;
+                <a href="{strip_page}" style="
+                    display:inline-block; padding:0.6rem 1.4rem; margin:0.25rem; background:#c0392b; color:white;
                     text-decoration:none; border-radius:8px; font-size:0.9rem; font-weight:500;
                 ">Read the full strip</a>
+                <a href="{wa_share}" style="
+                    display:inline-block; padding:0.6rem 1.4rem; margin:0.25rem; background:#25D366; color:white;
+                    text-decoration:none; border-radius:8px; font-size:0.9rem; font-weight:500;
+                ">Share on WhatsApp</a>
             </div>
 
             <p style="color:#999; font-size:0.8rem; text-align:center;">
