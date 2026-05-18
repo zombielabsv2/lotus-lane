@@ -1666,5 +1666,44 @@
       "anger-you-cant-control",
       "how-to-forgive"
     ]
+  },
+  {
+    "date": "2026-05-18",
+    "title": "Tired of a World That Feels Hateful? 5 Truths About How Peace Actually Gets Built",
+    "theme": "peace",
+    "theme_name": "Peace",
+    "image": "listicles/2026-05-18.png",
+    "items": [
+      {
+        "quote": "A person who can build peace within their own heart can contribute to building peace in the world.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "The frustration you feel scrolling the news can be channeled inward first - your inner calm is a real contribution to the world."
+      },
+      {
+        "quote": "The most powerful force for peace is not a government, not an army, not a treaty. It is the awakened awareness of individual human beings.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "You don't need a title or a platform to matter - your own shift in awareness carries more weight than you realize."
+      },
+      {
+        "quote": "There is no enemy in Buddhism. There is only delusion to be overcome. When we see others as enemies, we have already lost the battle for peace.",
+        "source": "The New Human Revolution, Vol. 6",
+        "explanation": "The person who drives you absolutely crazy is not the obstacle to your peace - your own fixed story about them is."
+      },
+      {
+        "quote": "As long as we continue to demonize others, peace will remain a dream. Peace begins the moment we recognize the humanity in every person.",
+        "source": "For Today and Tomorrow",
+        "explanation": "Whether it is a coworker, a stranger online, or someone who hurt you - seeing them as fully human is the first act of real peace."
+      },
+      {
+        "quote": "The people - the ordinary citizens of the world - are the true protagonists of peace. Not politicians, not leaders, but everyday people with the courage to connect.",
+        "source": "For Today and Tomorrow",
+        "explanation": "Every time you choose a real conversation over a cold silence, you are doing the work that no politician can do for you."
+      }
+    ],
+    "struggles": [
+      "anger-you-cant-control",
+      "how-to-forgive",
+      "loneliness-despite-everything"
+    ]
   }
 ]
