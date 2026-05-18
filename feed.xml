@@ -7,6 +7,14 @@
     <language>en</language>
     <atom:link href="https://thelotuslane.in/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>We Share a Bed and I've Never Been More Alone</title>
+      <link>https://thelotuslane.in/strips/2026-05-18.html</link>
+      <description>When a marriage goes quiet and distant, it's easy to wait for the other person to change first. Sometimes the shift starts inside you — when you decide to raise your own life condition just one degree, the room around you gets a little warmer too.</description>
+      <pubDate>Mon, 18 May 2026 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-05-18.html</guid>
+      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-05-18.png" type="image/png" />
+    </item>
+    <item>
       <title>My Idea. His Applause. My Silence.</title>
       <link>https://thelotuslane.in/strips/2026-05-15.html</link>
       <description>When someone takes credit for your work, the anger is valid — but the real question is whether you keep showing up for yourself anyway. Visibility isn't just about being seen by others; it starts with refusing to make yourself small.</description>
@@ -397,14 +405,6 @@
       <pubDate>Mon, 02 Feb 2026 00:00:00 +0000</pubDate>
       <guid isPermaLink="true">https://thelotuslane.in/strips/2026-02-02.html</guid>
       <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-02-02.png" type="image/png" />
-    </item>
-    <item>
-      <title>The Last Recipe</title>
-      <link>https://thelotuslane.in/strips/2026-01-09.html</link>
-      <description>The love and wisdom our departed loved ones shared with us continues to live on when we honor their memory through action and remembrance.</description>
-      <pubDate>Fri, 09 Jan 2026 00:00:00 +0000</pubDate>
-      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-01-09.html</guid>
-      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-01-09.png" type="image/png" />
     </item>
   </channel>
 </rss>
