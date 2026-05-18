@@ -21,6 +21,7 @@ import os
 import sys
 from datetime import datetime
 from pathlib import Path
+from urllib.parse import quote
 
 import httpx
 
@@ -400,6 +401,20 @@ def generate_affliction_page(slug, title, meta_desc, categories, strips, ikeda_t
     page_url = f"{SITE_URL}/wisdom/{slug}.html"
     now = datetime.now().strftime("%Y-%m-%d")
 
+    # Share section — WhatsApp + native share + copy link
+    wa_text = quote(f"{title} — {page_url}")
+    page_url_js = json.dumps(page_url)
+    title_js = json.dumps(title)
+    share_html = f"""
+    <div class="share-section">
+      <p class="share-label">Send this to someone who needs it today</p>
+      <div class="share-buttons">
+        <a class="share-btn wa" href="https://wa.me/?text={wa_text}" target="_blank" rel="noopener">WhatsApp</a>
+        <button class="share-btn native" type="button" id="page-share-btn" hidden>Share</button>
+        <button class="share-btn copy" type="button" id="page-copy-btn">Copy link</button>
+      </div>
+    </div>"""
+
     # Schema.org
     schema = {
         "@context": "https://schema.org",
@@ -535,6 +550,15 @@ def generate_affliction_page(slug, title, meta_desc, categories, strips, ikeda_t
     .browse-all-row a {{ color: #888; text-decoration: none; border-bottom: 1px dashed #c0c0b8; padding-bottom: 1px; }}
     .browse-all-row a:hover {{ color: #c0392b; border-color: #c0392b; }}
 
+    .share-section {{ text-align: center; margin: 2rem 0; padding: 1.2rem; background: #f5f3ee; border-radius: 10px; }}
+    .share-label {{ font-size: 0.92rem; color: #555; margin-bottom: 0.8rem; }}
+    .share-buttons {{ display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; }}
+    .share-btn {{ display: inline-flex; align-items: center; padding: 0.6rem 1.1rem; font: inherit; font-size: 0.88rem; font-weight: 600; border-radius: 6px; border: 0; cursor: pointer; text-decoration: none; transition: opacity 0.15s; }}
+    .share-btn:hover {{ opacity: 0.88; }}
+    .share-btn.wa {{ background: #25D366; color: #fff; }}
+    .share-btn.native {{ background: #c0392b; color: #fff; }}
+    .share-btn.copy {{ background: #e8e4de; color: #555; }}
+
     footer {{ text-align: center; padding: 1.5rem 0; color: #aaa; font-size: 0.8rem; border-top: 1px solid #e8e4de; margin-top: 2rem; }}
 
     @media (max-width: 600px) {{
@@ -568,12 +592,38 @@ def generate_affliction_page(slug, title, meta_desc, categories, strips, ikeda_t
 
     {closely_related_html}
 
+    {share_html}
+
     <footer>
       <p>The Lotus Lane &middot; Wisdom for what you're going through</p>
     </footer>
   </div>
 
   <script src="../nav.js" defer></script>
+  <script>
+  (function() {{
+    var url = {page_url_js};
+    var title = {title_js};
+    var nativeBtn = document.getElementById("page-share-btn");
+    var copyBtn = document.getElementById("page-copy-btn");
+    if (nativeBtn && navigator.share) {{
+      nativeBtn.hidden = false;
+      nativeBtn.addEventListener("click", function() {{
+        navigator.share({{ title: title, text: title, url: url }}).catch(function() {{}});
+      }});
+    }}
+    if (copyBtn) {{
+      copyBtn.addEventListener("click", function() {{
+        var done = function() {{
+          var orig = copyBtn.textContent;
+          copyBtn.textContent = "Copied!";
+          setTimeout(function() {{ copyBtn.textContent = orig; }}, 1800);
+        }};
+        if (navigator.clipboard) {{ navigator.clipboard.writeText(url).then(done).catch(function() {{}}); }}
+      }});
+    }}
+  }})();
+  </script>
 </body>
 </html>"""
     return html

@@ -21,6 +21,7 @@ import sys
 import time
 from collections import Counter
 from pathlib import Path
+from urllib.parse import quote as urlquote
 
 import httpx
 from dotenv import load_dotenv
@@ -346,6 +347,21 @@ def generate_writing_html(writing, analysis, related_writings):
     url = writing["url"]
     collection_name = "WND Volume 1" if writing["collection"] == "wnd-1" else "WND Volume 2"
 
+    # Share section — WhatsApp + native share + copy link
+    page_url = f"https://thelotuslane.in/decoder/{slug}.html"
+    wa_text = urlquote(f"{title} — {page_url}")
+    page_url_js = json.dumps(page_url)
+    title_js = json.dumps(title)
+    share_html = f"""
+    <div class="share-section">
+      <p class="share-label">Send this to someone who needs it today</p>
+      <div class="share-buttons">
+        <a class="share-btn wa" href="https://wa.me/?text={wa_text}" target="_blank" rel="noopener">WhatsApp</a>
+        <button class="share-btn native" type="button" id="page-share-btn" hidden>Share</button>
+        <button class="share-btn copy" type="button" id="page-copy-btn">Copy link</button>
+      </div>
+    </div>"""
+
     bg = analysis["background"]
     key_passages = analysis["key_passages"]
     core_message = analysis["core_message"]
@@ -625,6 +641,15 @@ def generate_writing_html(writing, analysis, related_writings):
       text-decoration: underline;
     }}
 
+    .share-section {{ text-align: center; margin: 2rem 0; padding: 1.2rem; background: #f5f3ee; border-radius: 10px; }}
+    .share-label {{ font-size: 0.92rem; color: #555; margin-bottom: 0.8rem; }}
+    .share-buttons {{ display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; }}
+    .share-btn {{ display: inline-flex; align-items: center; padding: 0.6rem 1.1rem; font: inherit; font-size: 0.88rem; font-weight: 600; border-radius: 6px; border: 0; cursor: pointer; text-decoration: none; transition: opacity 0.15s; }}
+    .share-btn:hover {{ opacity: 0.88; }}
+    .share-btn.wa {{ background: #25D366; color: #fff; }}
+    .share-btn.native {{ background: #c0392b; color: #fff; }}
+    .share-btn.copy {{ background: #e8e4de; color: #555; }}
+
     footer {{
       text-align: center;
       padding: 1.5rem 1rem;
@@ -644,6 +669,22 @@ def generate_writing_html(writing, analysis, related_writings):
       .background-grid {{ grid-template-columns: 1fr; }}
     }}
   </style>
+
+  <!-- ga4 -->
+  <script>
+    (function() {{
+      var mid = 'G-4DM9P70KJ6';
+      if (mid.indexOf('PLACEHOLDER') !== -1) return;
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=' + mid;
+      document.head.appendChild(s);
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function(){{window.dataLayer.push(arguments);}};
+      window.gtag('js', new Date());
+      window.gtag('config', mid);
+    }})();
+  </script>
 </head>
 <body>
   <header>
@@ -709,6 +750,8 @@ def generate_writing_html(writing, analysis, related_writings):
 
     {related_html}
 
+    {share_html}
+
     <a href="index.html" class="back-link">&larr; Back to all decoded writings</a>
   </main>
 
@@ -719,6 +762,30 @@ def generate_writing_html(writing, analysis, related_writings):
 
   <script data-goatcounter="https://zombielabs.goatcounter.com/count"
           async src="//gc.zgo.at/count.js"></script>
+  <script>
+  (function() {{
+    var url = {page_url_js};
+    var title = {title_js};
+    var nativeBtn = document.getElementById("page-share-btn");
+    var copyBtn = document.getElementById("page-copy-btn");
+    if (nativeBtn && navigator.share) {{
+      nativeBtn.hidden = false;
+      nativeBtn.addEventListener("click", function() {{
+        navigator.share({{ title: title, text: title, url: url }}).catch(function() {{}});
+      }});
+    }}
+    if (copyBtn) {{
+      copyBtn.addEventListener("click", function() {{
+        var done = function() {{
+          var orig = copyBtn.textContent;
+          copyBtn.textContent = "Copied!";
+          setTimeout(function() {{ copyBtn.textContent = orig; }}, 1800);
+        }};
+        if (navigator.clipboard) {{ navigator.clipboard.writeText(url).then(done).catch(function() {{}}); }}
+      }});
+    }}
+  }})();
+  </script>
 </body>
 </html>"""
     return html
@@ -971,6 +1038,22 @@ def generate_index_html(writings_data):
       .writings-grid {{ grid-template-columns: 1fr; }}
     }}
   </style>
+
+  <!-- ga4 -->
+  <script>
+    (function() {{
+      var mid = 'G-4DM9P70KJ6';
+      if (mid.indexOf('PLACEHOLDER') !== -1) return;
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=' + mid;
+      document.head.appendChild(s);
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function(){{window.dataLayer.push(arguments);}};
+      window.gtag('js', new Date());
+      window.gtag('config', mid);
+    }})();
+  </script>
 </head>
 <body>
   <header>
