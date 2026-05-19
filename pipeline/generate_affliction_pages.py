@@ -18,6 +18,7 @@ Usage:
 import argparse
 import json
 import os
+import re
 import sys
 from datetime import datetime
 from pathlib import Path
@@ -803,12 +804,50 @@ def _category_for(slug, cats):
     return "self"
 
 
+# Muted accent colour per life area — used for section markers, count
+# pills, nav-pill hover, and card hover borders.
+_CAT_COLOR = {
+    "work":   "#5a7d9a",
+    "money":  "#4f7a52",
+    "love":   "#b5485b",
+    "family": "#bf7d3a",
+    "health": "#3f8f8a",
+    "mind":   "#7a6a9c",
+    "grief":  "#6e7681",
+    "self":   "#c2783c",
+}
+
+# Throat-clearing openers stripped from SEO meta descriptions so card
+# teasers read as vivid, varied lines instead of 211 identical "You know
+# that feeling when…" cards.
+_BLURB_PREFIX_WHEN = re.compile(r"^you know (?:that|how)\b.*?\bwhen\s+", re.I)
+_BLURB_PREFIX = re.compile(r"^you know (?:that|how)\s+", re.I)
+_BLURB_PROMO = re.compile(
+    r"^(stories|wisdom|ancient|here.s|courage|what an?\b|what to do|the kind of)", re.I)
+
+
+def _card_blurb(meta_desc):
+    """Turn an SEO meta description into a clean, varied card teaser."""
+    text = " ".join(meta_desc.split())
+    m = _BLURB_PREFIX_WHEN.match(text) or _BLURB_PREFIX.match(text)
+    if m:
+        text = text[m.end():].strip()
+    parts = re.split(r"(?<=[.?!])\s+", text)
+    kept = [p for p in parts if not _BLURB_PROMO.match(p)]
+    if kept:
+        text = " ".join(kept)
+    text = text.strip()
+    if text:
+        text = text[0].upper() + text[1:]
+    return text
+
+
 def generate_index_page():
     """Generate the wisdom/ index page — topics grouped into life-area sections."""
     # Bucket every affliction into one life area.
     grouped = {key: [] for key in WISDOM_CATEGORIES}
     for slug, (title, meta_desc, cats) in AFFLICTION_PAGES.items():
-        grouped[_category_for(slug, cats)].append((slug, title, meta_desc))
+        grouped[_category_for(slug, cats)].append((slug, title, meta_desc, cats))
 
     nav_html = ""
     sections_html = ""
@@ -816,24 +855,30 @@ def generate_index_page():
         items = sorted(grouped[key], key=lambda x: x[1].lower())
         if not items:
             continue
-        nav_html += f'\n      <a href="#cat-{key}">{name}</a>'
+        color = _CAT_COLOR[key]
+        nav_html += f'\n        <a href="#cat-{key}" style="--cat:{color}">{name}</a>'
         cards = ""
-        for slug, title, meta_desc in items:
+        for slug, title, meta_desc, cats in items:
+            # Hidden keyword string so search also matches slug words and
+            # topic tags (e.g. "burnout" -> burnout-recovery, "anxiety" tag).
+            kw = " ".join([slug.replace("-", " ")] + list(cats)).replace("-", " ").lower()
             cards += f"""
-        <a href="{slug}.html" class="topic-card">
-          <div class="topic-title">{title}</div>
-          <div class="topic-desc">{meta_desc[:100]}...</div>
-        </a>"""
+          <a href="{slug}.html" class="topic-card" data-kw="{kw}">
+            <div class="topic-title">{title}</div>
+            <div class="topic-desc">{_card_blurb(meta_desc)}</div>
+          </a>"""
         sections_html += f"""
-      <section class="cat-section" id="cat-{key}">
-        <div class="cat-head">
-          <h3>{name}</h3>
-          <span class="cat-count">{len(items)}</span>
-        </div>
-        <p class="cat-blurb">{blurb}</p>
-        <div class="topics-grid">{cards}
-        </div>
-      </section>"""
+        <section class="cat-section" id="cat-{key}" style="--cat:{color}">
+          <div class="cat-head">
+            <span class="cat-dot"></span>
+            <h3>{name}</h3>
+            <span class="cat-count">{len(items)}</span>
+          </div>
+          <div class="cat-rule"></div>
+          <p class="cat-blurb">{blurb}</p>
+          <div class="topics-grid">{cards}
+          </div>
+        </section>"""
 
     total = len(AFFLICTION_PAGES)
 
@@ -865,47 +910,71 @@ def generate_index_page():
 
   <style>
     * {{ margin: 0; padding: 0; box-sizing: border-box; }}
-    body {{ font-family: 'Segoe UI', system-ui, sans-serif; background: #faf9f6; color: #2d2d2d; }}
-    .container {{ max-width: 740px; margin: 0 auto; padding: 1rem; }}
+    body {{ font-family: 'Segoe UI', system-ui, sans-serif; background: #faf9f6; color: #2d2d2d;
+      -webkit-font-smoothing: antialiased; }}
+    .container {{ max-width: 1040px; margin: 0 auto; padding: 1rem 1.1rem; }}
+
     header {{ text-align: center; padding: 1.2rem 0; border-bottom: 2px solid #e8e4de; }}
     header a {{ text-decoration: none; color: inherit; }}
     header h1 {{ font-size: 1.5rem; font-weight: 300; letter-spacing: 0.15em; color: #4a4a4a; }}
     header h1 span {{ font-weight: 600; color: #c0392b; }}
 
-    .hero {{ text-align: center; padding: 2.5rem 0 1.5rem; }}
-    .hero h2 {{ font-size: 1.8rem; font-weight: 400; color: #333; margin-bottom: 0.5rem; }}
-    .hero p {{ font-size: 1rem; color: #777; max-width: 520px; margin: 0 auto; line-height: 1.6; }}
+    .hero {{ text-align: center; padding: 3rem 0 1.4rem; }}
+    .hero .mark {{ color: #c0392b; font-size: 1.1rem; letter-spacing: 0.4em; margin-bottom: 0.9rem; }}
+    .hero h2 {{ font-family: Georgia, 'Times New Roman', serif; font-size: 2.3rem; font-weight: 400;
+      color: #2d2d2d; margin-bottom: 0.7rem; line-height: 1.2; }}
+    .hero p {{ font-size: 1.05rem; color: #7a756e; max-width: 540px; margin: 0 auto; line-height: 1.65; }}
 
-    .search-wrap {{ margin: 0.5rem 0 0.25rem; }}
-    #search {{ width: 100%; padding: 0.85rem 1.1rem; font-size: 1rem; font-family: inherit;
-      border: 1.5px solid #e8e4de; border-radius: 10px; background: #fff; color: #2d2d2d; outline: none; }}
-    #search:focus {{ border-color: #c0392b; box-shadow: 0 2px 10px rgba(192,57,43,0.08); }}
+    .search-box {{ position: relative; margin: 0.6rem 0 0.4rem; }}
+    #search {{ width: 100%; padding: 0.95rem 1.1rem 0.95rem 2.95rem; font-size: 1rem; font-family: inherit;
+      border: 1.5px solid #e3ded6; border-radius: 12px; color: #2d2d2d; outline: none;
+      background: #fff url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%23a39e97' stroke-width='2' stroke-linecap='round'><circle cx='11' cy='11' r='7'/><path d='M21 21l-4.6-4.6'/></svg>") no-repeat 1.05rem center;
+      transition: border-color 0.15s, box-shadow 0.15s; }}
+    #search:focus {{ border-color: #c0392b; box-shadow: 0 3px 14px rgba(192,57,43,0.1); }}
+    .result-count {{ font-size: 0.8rem; color: #a8a299; margin: 0 0.2rem; min-height: 1.1rem; }}
 
     .cat-nav {{ position: sticky; top: 0; z-index: 20; display: flex; flex-wrap: wrap; gap: 0.4rem;
-      padding: 0.7rem 0; margin-bottom: 0.5rem; background: #faf9f6; border-bottom: 1px solid #e8e4de; }}
-    .cat-nav a {{ font-size: 0.78rem; padding: 0.35rem 0.8rem; border-radius: 999px; background: #fff;
-      border: 1px solid #e8e4de; color: #555; text-decoration: none; white-space: nowrap; transition: all 0.15s; }}
-    .cat-nav a:hover {{ border-color: #c0392b; color: #c0392b; }}
+      padding: 0.65rem 0; margin-bottom: 0.4rem; background: #faf9f6; border-bottom: 1px solid #e8e4de; }}
+    .cat-nav a {{ font-size: 0.78rem; padding: 0.36rem 0.82rem; border-radius: 999px; background: #fff;
+      border: 1px solid #e3ded6; color: #6a655f; text-decoration: none; white-space: nowrap;
+      transition: border-color 0.15s, color 0.15s; }}
+    .cat-nav a:hover {{ border-color: var(--cat); color: var(--cat); }}
 
-    .cat-section {{ scroll-margin-top: 3.4rem; margin: 1.9rem 0; }}
-    .cat-head {{ display: flex; align-items: baseline; gap: 0.55rem; border-bottom: 2px solid #e8e4de; padding-bottom: 0.4rem; }}
-    .cat-head h3 {{ font-size: 1.15rem; font-weight: 600; color: #c0392b; letter-spacing: 0.02em; }}
-    .cat-count {{ font-size: 0.72rem; color: #b3b3b3; }}
-    .cat-blurb {{ font-size: 0.85rem; color: #999; margin-top: 0.35rem; line-height: 1.5; }}
+    .cat-section {{ scroll-margin-top: 4rem; margin: 2.5rem 0; }}
+    .cat-head {{ display: flex; align-items: center; gap: 0.55rem; }}
+    .cat-dot {{ width: 11px; height: 11px; border-radius: 3px; background: var(--cat); flex: none; }}
+    .cat-head h3 {{ font-family: Georgia, 'Times New Roman', serif; font-size: 1.42rem; font-weight: 400; color: #2d2d2d; }}
+    .cat-count {{ font-size: 0.72rem; font-weight: 600; color: var(--cat); background: #f1ede5;
+      padding: 0.16rem 0.55rem; border-radius: 999px; }}
+    .cat-rule {{ height: 1px; background: #e8e4de; margin-top: 0.55rem; }}
+    .cat-blurb {{ font-size: 0.9rem; color: #9a948c; margin-top: 0.55rem; line-height: 1.55; }}
 
-    .topics-grid {{ display: grid; grid-template-columns: 1fr; gap: 0.7rem; margin: 0.9rem 0 0; }}
-    .topic-card {{ display: block; padding: 1.2rem 1.5rem; background: white; border-radius: 10px; box-shadow: 0 1px 6px rgba(0,0,0,0.05); text-decoration: none; color: inherit; transition: all 0.2s; border: 1.5px solid transparent; }}
-    .topic-card:hover {{ border-color: #c0392b; box-shadow: 0 3px 12px rgba(0,0,0,0.08); }}
-    .topic-title {{ font-size: 1.05rem; font-weight: 600; color: #333; margin-bottom: 0.3rem; }}
-    .topic-desc {{ font-size: 0.85rem; color: #777; line-height: 1.5; }}
+    .topics-grid {{ display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.8rem; margin-top: 1rem; }}
+    .topic-card {{ position: relative; display: flex; flex-direction: column; gap: 0.34rem;
+      padding: 1.15rem 1.35rem; background: #fff; border-radius: 12px; box-shadow: 0 1px 5px rgba(40,30,20,0.05);
+      text-decoration: none; color: inherit; border: 1.5px solid transparent;
+      transition: transform 0.16s, box-shadow 0.16s, border-color 0.16s; }}
+    .topic-card:hover {{ transform: translateY(-2px); border-color: var(--cat);
+      box-shadow: 0 7px 20px rgba(40,30,20,0.1); }}
+    .topic-card::after {{ content: "→"; position: absolute; top: 1.1rem; right: 1.15rem; color: var(--cat);
+      font-size: 1rem; opacity: 0; transform: translateX(-4px); transition: opacity 0.16s, transform 0.16s; }}
+    .topic-card:hover::after {{ opacity: 0.9; transform: translateX(0); }}
+    .topic-title {{ font-family: Georgia, 'Times New Roman', serif; font-size: 1.06rem; font-weight: 400;
+      color: #2d2d2d; line-height: 1.35; padding-right: 1.2rem; }}
+    .topic-desc {{ font-size: 0.85rem; color: #857f78; line-height: 1.55;
+      display: -webkit-box; -webkit-line-clamp: 3; line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }}
     .topic-card[hidden], .cat-section[hidden] {{ display: none; }}
 
-    .no-results {{ text-align: center; color: #999; font-size: 0.95rem; padding: 2.5rem 0; }}
+    .no-results {{ text-align: center; color: #9a948c; font-size: 0.98rem; padding: 3rem 1rem; }}
 
-    footer {{ text-align: center; padding: 1.5rem 0 5rem; color: #aaa; font-size: 0.8rem; border-top: 1px solid #e8e4de; margin-top: 2rem; }}
+    footer {{ text-align: center; padding: 2rem 0 5.5rem; color: #b5b0a8; font-size: 0.8rem;
+      border-top: 1px solid #e8e4de; margin-top: 2.5rem; }}
 
-    @media (max-width: 600px) {{
-      .hero h2 {{ font-size: 1.4rem; }}
+    @media (max-width: 680px) {{
+      .hero {{ padding: 2rem 0 1rem; }}
+      .hero h2 {{ font-size: 1.7rem; }}
+      .topics-grid {{ grid-template-columns: 1fr; }}
+      .cat-section {{ scroll-margin-top: 7.5rem; }}
     }}
   </style>
 
@@ -918,13 +987,15 @@ def generate_index_page():
     </header>
 
     <div class="hero">
+      <div class="mark">&#10047;</div>
       <h2>What are you going through?</h2>
-      <p>Pick your struggle &mdash; or search for it. We'll show you stories and wisdom from people who've been there.</p>
+      <p>Whatever it is, someone has walked it before &mdash; and ancient wisdom has something to say about it. Search for your struggle, or browse by the part of life it touches.</p>
     </div>
 
-    <div class="search-wrap">
-      <input type="search" id="search" placeholder="Search {total} struggles &mdash; e.g. burnout, debt, loneliness" autocomplete="off">
+    <div class="search-box">
+      <input type="search" id="search" placeholder="Search {total} struggles &mdash; try burnout, debt, loneliness" autocomplete="off" aria-label="Search struggles">
     </div>
+    <p class="result-count" id="resultCount">{total} struggles, gathered by the part of life they touch</p>
 
     <nav class="cat-nav" id="catNav">{nav_html}
     </nav>
@@ -941,23 +1012,34 @@ def generate_index_page():
 
   <script>
     (function () {{
+      var TOTAL = {total};
       var search = document.getElementById('search');
       var noResults = document.getElementById('noResults');
+      var resultCount = document.getElementById('resultCount');
       var cards = Array.prototype.slice.call(document.querySelectorAll('.topic-card'));
       var sections = Array.prototype.slice.call(document.querySelectorAll('.cat-section'));
-      search.addEventListener('input', function () {{
+
+      function applyFilter() {{
         var q = search.value.trim().toLowerCase();
+        var shown = 0;
         cards.forEach(function (card) {{
-          card.hidden = q !== '' && card.textContent.toLowerCase().indexOf(q) === -1;
+          var hay = (card.getAttribute('data-kw') + ' ' + card.textContent).toLowerCase();
+          var match = q === '' || hay.indexOf(q) !== -1;
+          card.hidden = !match;
+          if (match) shown++;
         }});
-        var anyVisible = false;
         sections.forEach(function (section) {{
-          var visible = section.querySelectorAll('.topic-card:not([hidden])').length;
-          section.hidden = visible === 0;
-          if (visible) anyVisible = true;
+          section.hidden = section.querySelectorAll('.topic-card:not([hidden])').length === 0;
         }});
-        noResults.hidden = anyVisible;
-      }});
+        noResults.hidden = shown !== 0;
+        if (q === '') {{
+          resultCount.textContent = TOTAL + ' struggles, gathered by the part of life they touch';
+        }} else {{
+          resultCount.textContent = shown + (shown === 1 ? ' struggle matches' : ' struggles match') + ' \\u201c' + search.value.trim() + '\\u201d';
+        }}
+      }}
+
+      search.addEventListener('input', applyFilter);
     }})();
   </script>
   <script src="../nav.js" defer></script>

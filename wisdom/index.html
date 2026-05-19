@@ -26,47 +26,71 @@
 
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Segoe UI', system-ui, sans-serif; background: #faf9f6; color: #2d2d2d; }
-    .container { max-width: 740px; margin: 0 auto; padding: 1rem; }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: #faf9f6; color: #2d2d2d;
+      -webkit-font-smoothing: antialiased; }
+    .container { max-width: 1040px; margin: 0 auto; padding: 1rem 1.1rem; }
+
     header { text-align: center; padding: 1.2rem 0; border-bottom: 2px solid #e8e4de; }
     header a { text-decoration: none; color: inherit; }
     header h1 { font-size: 1.5rem; font-weight: 300; letter-spacing: 0.15em; color: #4a4a4a; }
     header h1 span { font-weight: 600; color: #c0392b; }
 
-    .hero { text-align: center; padding: 2.5rem 0 1.5rem; }
-    .hero h2 { font-size: 1.8rem; font-weight: 400; color: #333; margin-bottom: 0.5rem; }
-    .hero p { font-size: 1rem; color: #777; max-width: 520px; margin: 0 auto; line-height: 1.6; }
+    .hero { text-align: center; padding: 3rem 0 1.4rem; }
+    .hero .mark { color: #c0392b; font-size: 1.1rem; letter-spacing: 0.4em; margin-bottom: 0.9rem; }
+    .hero h2 { font-family: Georgia, 'Times New Roman', serif; font-size: 2.3rem; font-weight: 400;
+      color: #2d2d2d; margin-bottom: 0.7rem; line-height: 1.2; }
+    .hero p { font-size: 1.05rem; color: #7a756e; max-width: 540px; margin: 0 auto; line-height: 1.65; }
 
-    .search-wrap { margin: 0.5rem 0 0.25rem; }
-    #search { width: 100%; padding: 0.85rem 1.1rem; font-size: 1rem; font-family: inherit;
-      border: 1.5px solid #e8e4de; border-radius: 10px; background: #fff; color: #2d2d2d; outline: none; }
-    #search:focus { border-color: #c0392b; box-shadow: 0 2px 10px rgba(192,57,43,0.08); }
+    .search-box { position: relative; margin: 0.6rem 0 0.4rem; }
+    #search { width: 100%; padding: 0.95rem 1.1rem 0.95rem 2.95rem; font-size: 1rem; font-family: inherit;
+      border: 1.5px solid #e3ded6; border-radius: 12px; color: #2d2d2d; outline: none;
+      background: #fff url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%23a39e97' stroke-width='2' stroke-linecap='round'><circle cx='11' cy='11' r='7'/><path d='M21 21l-4.6-4.6'/></svg>") no-repeat 1.05rem center;
+      transition: border-color 0.15s, box-shadow 0.15s; }
+    #search:focus { border-color: #c0392b; box-shadow: 0 3px 14px rgba(192,57,43,0.1); }
+    .result-count { font-size: 0.8rem; color: #a8a299; margin: 0 0.2rem; min-height: 1.1rem; }
 
     .cat-nav { position: sticky; top: 0; z-index: 20; display: flex; flex-wrap: wrap; gap: 0.4rem;
-      padding: 0.7rem 0; margin-bottom: 0.5rem; background: #faf9f6; border-bottom: 1px solid #e8e4de; }
-    .cat-nav a { font-size: 0.78rem; padding: 0.35rem 0.8rem; border-radius: 999px; background: #fff;
-      border: 1px solid #e8e4de; color: #555; text-decoration: none; white-space: nowrap; transition: all 0.15s; }
-    .cat-nav a:hover { border-color: #c0392b; color: #c0392b; }
+      padding: 0.65rem 0; margin-bottom: 0.4rem; background: #faf9f6; border-bottom: 1px solid #e8e4de; }
+    .cat-nav a { font-size: 0.78rem; padding: 0.36rem 0.82rem; border-radius: 999px; background: #fff;
+      border: 1px solid #e3ded6; color: #6a655f; text-decoration: none; white-space: nowrap;
+      transition: border-color 0.15s, color 0.15s; }
+    .cat-nav a:hover { border-color: var(--cat); color: var(--cat); }
 
-    .cat-section { scroll-margin-top: 3.4rem; margin: 1.9rem 0; }
-    .cat-head { display: flex; align-items: baseline; gap: 0.55rem; border-bottom: 2px solid #e8e4de; padding-bottom: 0.4rem; }
-    .cat-head h3 { font-size: 1.15rem; font-weight: 600; color: #c0392b; letter-spacing: 0.02em; }
-    .cat-count { font-size: 0.72rem; color: #b3b3b3; }
-    .cat-blurb { font-size: 0.85rem; color: #999; margin-top: 0.35rem; line-height: 1.5; }
+    .cat-section { scroll-margin-top: 4rem; margin: 2.5rem 0; }
+    .cat-head { display: flex; align-items: center; gap: 0.55rem; }
+    .cat-dot { width: 11px; height: 11px; border-radius: 3px; background: var(--cat); flex: none; }
+    .cat-head h3 { font-family: Georgia, 'Times New Roman', serif; font-size: 1.42rem; font-weight: 400; color: #2d2d2d; }
+    .cat-count { font-size: 0.72rem; font-weight: 600; color: var(--cat); background: #f1ede5;
+      padding: 0.16rem 0.55rem; border-radius: 999px; }
+    .cat-rule { height: 1px; background: #e8e4de; margin-top: 0.55rem; }
+    .cat-blurb { font-size: 0.9rem; color: #9a948c; margin-top: 0.55rem; line-height: 1.55; }
 
-    .topics-grid { display: grid; grid-template-columns: 1fr; gap: 0.7rem; margin: 0.9rem 0 0; }
-    .topic-card { display: block; padding: 1.2rem 1.5rem; background: white; border-radius: 10px; box-shadow: 0 1px 6px rgba(0,0,0,0.05); text-decoration: none; color: inherit; transition: all 0.2s; border: 1.5px solid transparent; }
-    .topic-card:hover { border-color: #c0392b; box-shadow: 0 3px 12px rgba(0,0,0,0.08); }
-    .topic-title { font-size: 1.05rem; font-weight: 600; color: #333; margin-bottom: 0.3rem; }
-    .topic-desc { font-size: 0.85rem; color: #777; line-height: 1.5; }
+    .topics-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.8rem; margin-top: 1rem; }
+    .topic-card { position: relative; display: flex; flex-direction: column; gap: 0.34rem;
+      padding: 1.15rem 1.35rem; background: #fff; border-radius: 12px; box-shadow: 0 1px 5px rgba(40,30,20,0.05);
+      text-decoration: none; color: inherit; border: 1.5px solid transparent;
+      transition: transform 0.16s, box-shadow 0.16s, border-color 0.16s; }
+    .topic-card:hover { transform: translateY(-2px); border-color: var(--cat);
+      box-shadow: 0 7px 20px rgba(40,30,20,0.1); }
+    .topic-card::after { content: "→"; position: absolute; top: 1.1rem; right: 1.15rem; color: var(--cat);
+      font-size: 1rem; opacity: 0; transform: translateX(-4px); transition: opacity 0.16s, transform 0.16s; }
+    .topic-card:hover::after { opacity: 0.9; transform: translateX(0); }
+    .topic-title { font-family: Georgia, 'Times New Roman', serif; font-size: 1.06rem; font-weight: 400;
+      color: #2d2d2d; line-height: 1.35; padding-right: 1.2rem; }
+    .topic-desc { font-size: 0.85rem; color: #857f78; line-height: 1.55;
+      display: -webkit-box; -webkit-line-clamp: 3; line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
     .topic-card[hidden], .cat-section[hidden] { display: none; }
 
-    .no-results { text-align: center; color: #999; font-size: 0.95rem; padding: 2.5rem 0; }
+    .no-results { text-align: center; color: #9a948c; font-size: 0.98rem; padding: 3rem 1rem; }
 
-    footer { text-align: center; padding: 1.5rem 0 5rem; color: #aaa; font-size: 0.8rem; border-top: 1px solid #e8e4de; margin-top: 2rem; }
+    footer { text-align: center; padding: 2rem 0 5.5rem; color: #b5b0a8; font-size: 0.8rem;
+      border-top: 1px solid #e8e4de; margin-top: 2.5rem; }
 
-    @media (max-width: 600px) {
-      .hero h2 { font-size: 1.4rem; }
+    @media (max-width: 680px) {
+      .hero { padding: 2rem 0 1rem; }
+      .hero h2 { font-size: 1.7rem; }
+      .topics-grid { grid-template-columns: 1fr; }
+      .cat-section { scroll-margin-top: 7.5rem; }
     }
   </style>
 
@@ -79,1098 +103,1116 @@
     </header>
 
     <div class="hero">
+      <div class="mark">&#10047;</div>
       <h2>What are you going through?</h2>
-      <p>Pick your struggle &mdash; or search for it. We'll show you stories and wisdom from people who've been there.</p>
+      <p>Whatever it is, someone has walked it before &mdash; and ancient wisdom has something to say about it. Search for your struggle, or browse by the part of life it touches.</p>
     </div>
 
-    <div class="search-wrap">
-      <input type="search" id="search" placeholder="Search 250 struggles &mdash; e.g. burnout, debt, loneliness" autocomplete="off">
+    <div class="search-box">
+      <input type="search" id="search" placeholder="Search 250 struggles &mdash; try burnout, debt, loneliness" autocomplete="off" aria-label="Search struggles">
     </div>
+    <p class="result-count" id="resultCount">250 struggles, gathered by the part of life they touch</p>
 
     <nav class="cat-nav" id="catNav">
-      <a href="#cat-work">Work &amp; Career</a>
-      <a href="#cat-money">Money &amp; Security</a>
-      <a href="#cat-love">Love &amp; Relationships</a>
-      <a href="#cat-family">Family &amp; Parenting</a>
-      <a href="#cat-health">Health &amp; the Body</a>
-      <a href="#cat-mind">Anxiety &amp; Hard Emotions</a>
-      <a href="#cat-grief">Grief &amp; Loss</a>
-      <a href="#cat-self">Self &amp; Meaning</a>
+        <a href="#cat-work" style="--cat:#5a7d9a">Work &amp; Career</a>
+        <a href="#cat-money" style="--cat:#4f7a52">Money &amp; Security</a>
+        <a href="#cat-love" style="--cat:#b5485b">Love &amp; Relationships</a>
+        <a href="#cat-family" style="--cat:#bf7d3a">Family &amp; Parenting</a>
+        <a href="#cat-health" style="--cat:#3f8f8a">Health &amp; the Body</a>
+        <a href="#cat-mind" style="--cat:#7a6a9c">Anxiety &amp; Hard Emotions</a>
+        <a href="#cat-grief" style="--cat:#6e7681">Grief &amp; Loss</a>
+        <a href="#cat-self" style="--cat:#c2783c">Self &amp; Meaning</a>
     </nav>
 
     <main id="catList">
-      <section class="cat-section" id="cat-work">
-        <div class="cat-head">
-          <h3>Work &amp; Career</h3>
-          <span class="cat-count">40</span>
-        </div>
-        <p class="cat-blurb">Bosses, burnout, being overlooked, and starting again.</p>
-        <div class="topics-grid">
-        <a href="a-boss-who-belittles-you.html" class="topic-card">
-          <div class="topic-title">A Boss Who Belittles You</div>
-          <div class="topic-desc">You know that particular kind of dread when your boss sends a message that just says "can we talk?" ...</div>
-        </a>
-        <a href="always-on-call.html" class="topic-card">
-          <div class="topic-title">Always On Call, Never Off</div>
-          <div class="topic-desc">You know that feeling when your phone buzzes at 9:47pm and your whole body tightens before you even ...</div>
-        </a>
-        <a href="bullied-at-work.html" class="topic-card">
-          <div class="topic-title">Being Bullied at Work</div>
-          <div class="topic-desc">You know that feeling when you walk into the office and your stomach tightens before you even get th...</div>
-        </a>
-        <a href="demoted-at-work.html" class="topic-card">
-          <div class="topic-title">Being Demoted at Work</div>
-          <div class="topic-desc">You know that feeling when you have to update your email signature, and every time you see the new t...</div>
-        </a>
-        <a href="burnout-recovery.html" class="topic-card">
-          <div class="topic-title">Burned Out and Running on Empty</div>
-          <div class="topic-desc">You've given everything and there's nothing left. What to do when hustle culture breaks you....</div>
-        </a>
-        <a href="career-change-at-40.html" class="topic-card">
-          <div class="topic-title">Changing Careers in Your 40s</div>
-          <div class="topic-desc">You know that feeling when you sit down at your desk on a Monday morning, look at the next thirty ye...</div>
-        </a>
-        <a href="ageism-at-work.html" class="topic-card">
-          <div class="topic-title">Facing Ageism at Work</div>
-          <div class="topic-desc">You know that feeling when you are in a meeting and a younger colleague explains something to you sl...</div>
-        </a>
-        <a href="left-out-at-work.html" class="topic-card">
-          <div class="topic-title">Feeling Left Out at Work</div>
-          <div class="topic-desc">You know that feeling when you walk into a meeting and catch the tail end of a conversation - laught...</div>
-        </a>
-        <a href="returning-to-work-after-a-long-gap.html" class="topic-card">
-          <div class="topic-title">Going Back to Work After a Long Gap</div>
-          <div class="topic-desc">You know that feeling when someone asks "so what have you been up to?" at a professional event, and ...</div>
-        </a>
-        <a href="job-interview-anxiety.html" class="topic-card">
-          <div class="topic-title">How to Calm Job Interview Anxiety</div>
-          <div class="topic-desc">You know that feeling the night before an interview, when you should be sleeping but instead you are...</div>
-        </a>
-        <a href="laid-off.html" class="topic-card">
-          <div class="topic-title">How to Cope With Being Laid Off</div>
-          <div class="topic-desc">You know that feeling when you walk into a meeting you didn't put on your calendar, and there's some...</div>
-        </a>
-        <a href="sidelined-at-work.html" class="topic-card">
-          <div class="topic-title">Invisible at Work</div>
-          <div class="topic-desc">You're still on the team but no longer in the room. The quiet pain of being talked around. How to fi...</div>
-        </a>
-        <a href="fear-of-being-fired.html" class="topic-card">
-          <div class="topic-title">Living With the Fear of Being Fired</div>
-          <div class="topic-desc">You know that feeling when your manager schedules an unexpected one-on-one and your stomach drops be...</div>
-        </a>
-        <a href="overcoming-imposter-syndrome.html" class="topic-card">
-          <div class="topic-title">Overcoming Imposter Syndrome</div>
-          <div class="topic-desc">You feel like a fraud at work. You're not alone. Stories and wisdom for anyone who thinks they don't...</div>
-        </a>
-        <a href="starting-over-in-a-new-industry.html" class="topic-card">
-          <div class="topic-title">Starting Over in a New Industry</div>
-          <div class="topic-desc">You know that feeling when you introduce yourself at a networking event in your new field and someon...</div>
-        </a>
-        <a href="stuck-in-a-job-with-no-growth.html" class="topic-card">
-          <div class="topic-title">Stuck in a Job With Nowhere to Grow</div>
-          <div class="topic-desc">You know that feeling when you look around at work and realize you already know how to do everything...</div>
-        </a>
-        <a href="micromanaging-boss.html" class="topic-card">
-          <div class="topic-title">Surviving a Micromanaging Boss</div>
-          <div class="topic-desc">You know that feeling when you send an email and your boss replies within ninety seconds asking why ...</div>
-        </a>
-        <a href="toxic-workplace-survival.html" class="topic-card">
-          <div class="topic-title">Surviving a Toxic Workplace</div>
-          <div class="topic-desc">Your boss is terrible, your coworkers are worse, and you can't quit yet. Wisdom for staying sane....</div>
-        </a>
-        <a href="asking-for-a-raise-fear.html" class="topic-card">
-          <div class="topic-title">The Fear of Asking for a Raise</div>
-          <div class="topic-desc">You know that feeling when you've rehearsed the words in the shower, in the car, walking to the offi...</div>
-        </a>
-        <a href="fear-of-making-a-mistake-at-work.html" class="topic-card">
-          <div class="topic-title">The Fear of Making a Mistake at Work</div>
-          <div class="topic-desc">You know that feeling when you've just sent an email and the moment it leaves your outbox you start ...</div>
-        </a>
-        <a href="public-speaking-fear.html" class="topic-card">
-          <div class="topic-title">The Fear of Speaking Up at Work</div>
-          <div class="topic-desc">You know that feeling when the meeting is going on, and you have a point, a real point, something th...</div>
-        </a>
-        <a href="remote-work-isolation.html" class="topic-card">
-          <div class="topic-title">The Isolation of Working From Home</div>
-          <div class="topic-desc">You know that feeling when you close your laptop at the end of the day and realize you have not spok...</div>
-        </a>
-        <a href="the-pressure-to-never-say-no-at-work.html" class="topic-card">
-          <div class="topic-title">The Pressure to Never Say No at Work</div>
-          <div class="topic-desc">You know that feeling when someone walks over to your desk, or pings you on Slack, or catches you in...</div>
-        </a>
-        <a href="the-title-that-didnt-fix-anything.html" class="topic-card">
-          <div class="topic-title">The Promotion That Didn't Fix Anything</div>
-          <div class="topic-desc">You know that feeling when you finally get the thing you spent years working toward, and you wait fo...</div>
-        </a>
-        <a href="unemployment-shame.html" class="topic-card">
-          <div class="topic-title">The Shame of Being Unemployed</div>
-          <div class="topic-desc">You know that feeling when someone at a wedding or a family gathering asks the simplest question in ...</div>
-        </a>
-        <a href="too-much-work-not-enough-time.html" class="topic-card">
-          <div class="topic-title">Too Much Work, Not Enough Time</div>
-          <div class="topic-desc">You know that feeling when you sit down at your desk in the morning, open your to-do list, and immed...</div>
-        </a>
-        <a href="golden-handcuffs.html" class="topic-card">
-          <div class="topic-title">Trapped by Golden Handcuffs</div>
-          <div class="topic-desc">You know that feeling when someone asks what you do for work and you answer with your job title, and...</div>
-        </a>
-        <a href="coworker-takes-credit.html" class="topic-card">
-          <div class="topic-title">When a Coworker Takes the Credit</div>
-          <div class="topic-desc">You know that feeling when you are sitting in a meeting and someone presents your idea as their own?...</div>
-        </a>
-        <a href="when-a-work-friend-betrays-you.html" class="topic-card">
-          <div class="topic-title">When a Work Friend Betrays You</div>
-          <div class="topic-desc">You know that feeling when you realize the person you told things to in confidence has been telling ...</div>
-        </a>
-        <a href="office-favoritism.html" class="topic-card">
-          <div class="topic-title">When the Office Plays Favorites</div>
-          <div class="topic-desc">You know that feeling when you watch someone get the high-profile project, the public praise, the ma...</div>
-        </a>
-        <a href="dreading-monday.html" class="topic-card">
-          <div class="topic-title">When You Dread Every Monday Morning</div>
-          <div class="topic-desc">You know that feeling when it is Sunday afternoon and the day is still good, but you can already fee...</div>
-        </a>
-        <a href="performance-review-dread.html" class="topic-card">
-          <div class="topic-title">When You Dread Your Performance Review</div>
-          <div class="topic-desc">You know that feeling when you see the calendar invite go in - your name, your manager's name, the w...</div>
-        </a>
-        <a href="hate-my-job-cant-leave.html" class="topic-card">
-          <div class="topic-title">When You Hate Your Job But Can't Afford to Leave</div>
-          <div class="topic-desc">You know that feeling on Sunday evening when the light starts to fade and something in your chest ti...</div>
-        </a>
-        <a href="the-job-offer-you-regret-taking.html" class="topic-card">
-          <div class="topic-title">When You Regret the Job You Took</div>
-          <div class="topic-desc">You know that feeling when you are sitting at your new desk, maybe a few weeks or a few months into ...</div>
-        </a>
-        <a href="passed-over-for-promotion.html" class="topic-card">
-          <div class="topic-title">When You're Passed Over for a Promotion</div>
-          <div class="topic-desc">You know that feeling when the announcement lands - an email, a meeting, a name said out loud - and ...</div>
-        </a>
-        <a href="only-one-like-me-at-work.html" class="topic-card">
-          <div class="topic-title">When You're the Only One Like You in the Room</div>
-          <div class="topic-desc">You know that feeling when you walk into the meeting room, do a quick scan, and realize again that t...</div>
-        </a>
-        <a href="working-below-potential.html" class="topic-card">
-          <div class="topic-title">When You're Working Far Below Your Potential</div>
-          <div class="topic-desc">You know that feeling when you sit down at your desk on a Monday and a quiet voice in your head says...</div>
-        </a>
-        <a href="career-plateau.html" class="topic-card">
-          <div class="topic-title">When Your Career Feels Stuck</div>
-          <div class="topic-desc">You know that feeling when you look at your career and realize you have been standing in the same sp...</div>
-        </a>
-        <a href="when-your-job-becomes-your-identity.html" class="topic-card">
-          <div class="topic-title">When Your Job Becomes Your Whole Identity</div>
-          <div class="topic-desc">You know that feeling when someone asks who you are and the first thing out of your mouth is what yo...</div>
-        </a>
-        <a href="work-that-feels-meaningless.html" class="topic-card">
-          <div class="topic-title">When Your Work Feels Meaningless</div>
-          <div class="topic-desc">You know that feeling when you're sitting at your desk, staring at your screen, and you realize you ...</div>
-        </a>
-        </div>
-      </section>
-      <section class="cat-section" id="cat-money">
-        <div class="cat-head">
-          <h3>Money &amp; Security</h3>
-          <span class="cat-count">32</span>
-        </div>
-        <p class="cat-blurb">Debt, scarcity, and the fear of not having enough.</p>
-        <div class="topics-grid">
-        <a href="borrowing-just-to-get-by.html" class="topic-card">
-          <div class="topic-title">Borrowing Just to Get By</div>
-          <div class="topic-desc">You know that feeling when you check your bank account before buying groceries, not because you're c...</div>
-        </a>
-        <a href="scarcity-mindset.html" class="topic-card">
-          <div class="topic-title">Breaking a Lifelong Scarcity Mindset</div>
-          <div class="topic-desc">You know that feeling when something good finally happens, money comes in, a bill gets paid, things ...</div>
-        </a>
-        <a href="credit-card-debt-spiral.html" class="topic-card">
-          <div class="topic-title">Caught in a Credit Card Debt Spiral</div>
-          <div class="topic-desc">You know that feeling when you open your banking app and immediately close it again? Not because you...</div>
-        </a>
-        <a href="different-money-values-in-a-marriage.html" class="topic-card">
-          <div class="topic-title">Different Money Values in a Marriage</div>
-          <div class="topic-desc">You know that feeling when you look at the bank account, see something your partner bought, and feel...</div>
-        </a>
-        <a href="financial-anxiety.html" class="topic-card">
-          <div class="topic-title">Drowning in Financial Anxiety</div>
-          <div class="topic-desc">Debt, EMIs, and the fear of not providing. Stories about finding peace when money is tight....</div>
-        </a>
-        <a href="earning-less-than-everyone-around-you.html" class="topic-card">
-          <div class="topic-title">Earning Less Than Everyone Around You</div>
-          <div class="topic-desc">You know that feeling when someone at dinner casually mentions what they paid for their car, or thei...</div>
-        </a>
-        <a href="feeling-stuck-because-of-money.html" class="topic-card">
-          <div class="topic-title">Feeling Stuck Because of Money</div>
-          <div class="topic-desc">You know that feeling when there's something you want to do with your life - leave the job, move to ...</div>
-        </a>
-        <a href="hiding-spending-from-your-partner.html" class="topic-card">
-          <div class="topic-title">Hiding Spending From Your Partner</div>
-          <div class="topic-desc">You know that feeling when a package arrives and you stuff it into the back of the closet before you...</div>
-        </a>
-        <a href="paycheck-to-paycheck.html" class="topic-card">
-          <div class="topic-title">Living Paycheck to Paycheck</div>
-          <div class="topic-desc">You know that feeling when payday finally arrives, the money lands, and within seventy-two hours it ...</div>
-        </a>
-        <a href="living-without-a-safety-net.html" class="topic-card">
-          <div class="topic-title">Living Without a Financial Safety Net</div>
-          <div class="topic-desc">You know that feeling when something breaks - the car, the washing machine, a tooth - and your very ...</div>
-        </a>
-        <a href="gambling-losses.html" class="topic-card">
-          <div class="topic-title">Recovering From Gambling Losses</div>
-          <div class="topic-desc">You know that feeling when the screen finally goes still and the number it shows you is real?...</div>
-        </a>
-        <a href="regret-over-money-you-wasted.html" class="topic-card">
-          <div class="topic-title">Regret Over Money You Wasted</div>
-          <div class="topic-desc">You know that feeling when you're lying awake doing the arithmetic of every dumb financial decision ...</div>
-        </a>
-        <a href="bankruptcy-and-starting-over.html" class="topic-card">
-          <div class="topic-title">Starting Over After Bankruptcy</div>
-          <div class="topic-desc">You know that feeling when you open your banking app out of habit, see the number, and your stomach ...</div>
-        </a>
-        <a href="starting-with-nothing-in-your-30s.html" class="topic-card">
-          <div class="topic-title">Starting With Nothing in Your 30s</div>
-          <div class="topic-desc">You know that feeling when you look around at 32, or 35, or 38, and everyone seems to be several lap...</div>
-        </a>
-        <a href="supporting-grown-children-financially.html" class="topic-card">
-          <div class="topic-title">Still Supporting Your Grown Children</div>
-          <div class="topic-desc">You know that feeling when your adult child calls and there's that particular pause before they get ...</div>
-        </a>
-        <a href="fear-of-going-broke.html" class="topic-card">
-          <div class="topic-title">The Fear of Going Broke</div>
-          <div class="topic-desc">You know that feeling when you are lying awake and your mind starts running the worst-case film?...</div>
-        </a>
-        <a href="fear-of-retirement-poverty.html" class="topic-card">
-          <div class="topic-title">The Fear of Not Affording Retirement</div>
-          <div class="topic-desc">You know that feeling when you do the math in your head, late at night, and it just doesn't add up?...</div>
-        </a>
-        <a href="the-fear-of-opening-bills.html" class="topic-card">
-          <div class="topic-title">The Fear of Opening Your Bills</div>
-          <div class="topic-desc">You know that feeling when a bill notification arrives - on your phone, in the mail, in your inbox -...</div>
-        </a>
-        <a href="pressure-to-provide-for-extended-family.html" class="topic-card">
-          <div class="topic-title">The Pressure to Provide for Extended Family</div>
-          <div class="topic-desc">You know that feeling when the phone rings and your stomach drops before you even look at the screen...</div>
-        </a>
-        <a href="financial-shame.html" class="topic-card">
-          <div class="topic-title">The Shame of Money Struggles</div>
-          <div class="topic-desc">You know that feeling when the conversation at dinner turns to holidays, or houses, or what someone ...</div>
-        </a>
-        <a href="the-shame-of-needing-financial-help.html" class="topic-card">
-          <div class="topic-title">The Shame of Needing Financial Help</div>
-          <div class="topic-desc">You know that feeling when someone asks how you're doing and you say "fine" even though you haven't ...</div>
-        </a>
-        <a href="breadwinner-pressure.html" class="topic-card">
-          <div class="topic-title">The Weight of Being the Breadwinner</div>
-          <div class="topic-desc">You know that feeling when the house is finally quiet, everyone is asleep, and you are the only one ...</div>
-        </a>
-        <a href="lifestyle-envy.html" class="topic-card">
-          <div class="topic-title">When Everyone Seems Richer Than You</div>
-          <div class="topic-desc">You know that feeling when you put the phone down and the room you are sitting in suddenly looks sma...</div>
-        </a>
-        <a href="lending-money-to-family.html" class="topic-card">
-          <div class="topic-title">When Lending Money to Family Goes Wrong</div>
-          <div class="topic-desc">You know that feeling when your phone lights up with their name, and your stomach drops before you e...</div>
-        </a>
-        <a href="money-fights-with-partner.html" class="topic-card">
-          <div class="topic-title">When Money Keeps Starting Fights</div>
-          <div class="topic-desc">You know that feeling when one small comment about money turns into a fight in under a minute?...</div>
-        </a>
-        <a href="money-stress-keeping-you-awake.html" class="topic-card">
-          <div class="topic-title">When Money Stress Keeps You Awake</div>
-          <div class="topic-desc">You know that feeling when it's 2am and you've been lying still for an hour, not asleep, not quite a...</div>
-        </a>
-        <a href="financial-dependence-on-partner.html" class="topic-card">
-          <div class="topic-title">When You Depend on a Partner for Money</div>
-          <div class="topic-desc">You know that feeling when you want to buy something small, something completely reasonable, and you...</div>
-        </a>
-        <a href="money-anxiety-despite-comfort.html" class="topic-card">
-          <div class="topic-title">When You Have Enough But Still Fear Money</div>
-          <div class="topic-desc">You know that feeling when you look at your accounts and the numbers are, by any honest measure, fin...</div>
-        </a>
-        <a href="drowning-in-debt.html" class="topic-card">
-          <div class="topic-title">When You're Drowning in Debt</div>
-          <div class="topic-desc">You know that feeling when you open your banking app and your stomach drops before the screen even l...</div>
-        </a>
-        <a href="sudden-loss-of-income.html" class="topic-card">
-          <div class="topic-title">When Your Income Suddenly Disappears</div>
-          <div class="topic-desc">You know that feeling when the email arrives, or the call ends, or the contract simply is not renewe...</div>
-        </a>
-        <a href="when-your-partner-wont-talk-about-money.html" class="topic-card">
-          <div class="topic-title">When Your Partner Won't Talk About Money</div>
-          <div class="topic-desc">You know that feeling when you try to bring up money and the shutters come down? Maybe they say "we'...</div>
-        </a>
-        <a href="working-two-jobs-to-survive.html" class="topic-card">
-          <div class="topic-title">Working Two Jobs Just to Survive</div>
-          <div class="topic-desc">You know that feeling when your alarm goes off for the second time in a day - not the morning alarm,...</div>
-        </a>
-        </div>
-      </section>
-      <section class="cat-section" id="cat-love">
-        <div class="cat-head">
-          <h3>Love &amp; Relationships</h3>
-          <span class="cat-count">36</span>
-        </div>
-        <p class="cat-blurb">Partners, dating, friendships, and drifting apart.</p>
-        <div class="topics-grid">
-        <a href="a-friendship-that-became-one-sided.html" class="topic-card">
-          <div class="topic-title">A Friendship That Became One-Sided</div>
-          <div class="topic-desc">You know that feeling when you are composing a message to someone, and somewhere in the middle of ty...</div>
-        </a>
-        <a href="afraid-to-date-again-after-heartbreak.html" class="topic-card">
-          <div class="topic-title">Afraid to Date Again After Heartbreak</div>
-          <div class="topic-desc">You know that feeling when someone asks if you are seeing anyone and you smile and say something vag...</div>
-        </a>
-        <a href="attracted-to-the-wrong-people.html" class="topic-card">
-          <div class="topic-title">Always Attracted to the Wrong People</div>
-          <div class="topic-desc">You know that feeling when you're sitting across from someone who is exactly your type - the pull is...</div>
-        </a>
-        <a href="being-the-friend-who-always-reaches-out.html" class="topic-card">
-          <div class="topic-title">Being the Friend Who Always Reaches Out</div>
-          <div class="topic-desc">You know that feeling when you're the one who always texts first? When you're the one who suggests p...</div>
-        </a>
-        <a href="being-the-one-who-left.html" class="topic-card">
-          <div class="topic-title">Being the One Who Left</div>
-          <div class="topic-desc">You know that feeling when you've done the thing you knew you had to do, and somehow it still feels ...</div>
-        </a>
-        <a href="dating-after-divorce.html" class="topic-card">
-          <div class="topic-title">Dating After Divorce</div>
-          <div class="topic-desc">You know that feeling when you are sitting across from someone at a restaurant, trying to make conve...</div>
-        </a>
-        <a href="doing-all-the-emotional-labor.html" class="topic-card">
-          <div class="topic-title">Doing All the Emotional Labor</div>
-          <div class="topic-desc">You know that feeling when you realize you are the only one who noticed that your partner was upset ...</div>
-        </a>
-        <a href="lonely-in-marriage.html" class="topic-card">
-          <div class="topic-title">Feeling Lonely Inside Your Marriage</div>
-          <div class="topic-desc">You know that feeling when you're lying next to someone you love, in a bed you share, in a home you ...</div>
-        </a>
-        <a href="feeling-unappreciated-by-your-partner.html" class="topic-card">
-          <div class="topic-title">Feeling Unappreciated by Your Partner</div>
-          <div class="topic-desc">You know that feeling when you have done everything - made dinner, handled the logistics, remembered...</div>
-        </a>
-        <a href="growing-apart-from-old-friends.html" class="topic-card">
-          <div class="topic-title">Growing Apart From Old Friends</div>
-          <div class="topic-desc">You know that feeling when you scroll past a photo of old friends laughing together and realize you ...</div>
-        </a>
-        <a href="getting-over-an-ex.html" class="topic-card">
-          <div class="topic-title">How to Get Over an Ex</div>
-          <div class="topic-desc">You know that feeling when you wake up and for about four seconds you have forgotten, and then it la...</div>
-        </a>
-        <a href="losing-respect-for-your-partner.html" class="topic-card">
-          <div class="topic-title">Losing Respect for Your Partner</div>
-          <div class="topic-desc">You know that feeling when you watch your partner do something - or fail to do something - and somet...</div>
-        </a>
-        <a href="emotional-unavailability.html" class="topic-card">
-          <div class="topic-title">Loving an Emotionally Unavailable Partner</div>
-          <div class="topic-desc">You know that feeling when you are sitting next to the person you love, and somehow you have never f...</div>
-        </a>
-        <a href="loving-someone-who-wont-commit.html" class="topic-card">
-          <div class="topic-title">Loving Someone Who Won't Commit</div>
-          <div class="topic-desc">You know that feeling when someone asks how long you and your partner have been together, and you do...</div>
-        </a>
-        <a href="making-friends-as-an-adult.html" class="topic-card">
-          <div class="topic-title">Making Friends as an Adult</div>
-          <div class="topic-desc">You know that feeling when you move to a new city, or change jobs, or come out the other side of a l...</div>
-        </a>
-        <a href="recovering-from-an-affair.html" class="topic-card">
-          <div class="topic-title">Rebuilding a Marriage After an Affair</div>
-          <div class="topic-desc">You know that feeling when you're sitting across from your husband or wife at dinner, the plates bet...</div>
-        </a>
-        <a href="still-single-while-everyone-pairs-off.html" class="topic-card">
-          <div class="topic-title">Still Single While Everyone Pairs Off</div>
-          <div class="topic-desc">You know that feeling when you open your phone on a Saturday morning and the first thing you see is ...</div>
-        </a>
-        <a href="the-breakup-you-didnt-see-coming.html" class="topic-card">
-          <div class="topic-title">The Breakup You Didn't See Coming</div>
-          <div class="topic-desc">You know that feeling when you're sitting somewhere perfectly ordinary - a restaurant, your couch, t...</div>
-        </a>
-        <a href="fear-of-being-single-forever.html" class="topic-card">
-          <div class="topic-title">The Fear of Being Single Forever</div>
-          <div class="topic-desc">You know that feeling when you are at a wedding, or scrolling past another engagement post, or just ...</div>
-        </a>
-        <a href="fear-of-being-vulnerable-with-someone.html" class="topic-card">
-          <div class="topic-title">The Fear of Being Vulnerable With Someone</div>
-          <div class="topic-desc">You know that feeling when someone you care about asks how you really are, and you feel this brief i...</div>
-        </a>
-        <a href="long-distance-strain.html" class="topic-card">
-          <div class="topic-title">The Strain of a Long-Distance Relationship</div>
-          <div class="topic-desc">You know that feeling when the call ends, the screen goes dark, and the room you're sitting in sudde...</div>
-        </a>
-        <a href="thinking-about-leaving-but-cant.html" class="topic-card">
-          <div class="topic-title">Thinking About Leaving but Unable To</div>
-          <div class="topic-desc">You know that feeling when you've had the same thought a thousand times - maybe I should leave - and...</div>
-        </a>
-        <a href="wanting-love-but-pushing-it-away.html" class="topic-card">
-          <div class="topic-title">Wanting Love but Pushing It Away</div>
-          <div class="topic-desc">You know that feeling when someone actually shows up for you - texts back warmly, makes a plan, look...</div>
-        </a>
-        <a href="losing-a-friendship.html" class="topic-card">
-          <div class="topic-title">When a Friendship Quietly Ends</div>
-          <div class="topic-desc">No fight, no falling out. Just slow distance until they were gone. Wisdom for grieving a friend who ...</div>
-        </a>
-        <a href="divorce.html" class="topic-card">
-          <div class="topic-title">When a Marriage Ends</div>
-          <div class="topic-desc">The life you built is ending. Grief, shame, and starting over all at once. Wisdom for the hardest un...</div>
-        </a>
-        <a href="dating-app-exhaustion.html" class="topic-card">
-          <div class="topic-title">When Dating Apps Have Worn You Down</div>
-          <div class="topic-desc">You know that feeling when you open the app, and before you have even swiped once, you are already t...</div>
-        </a>
-        <a href="mismatched-desire.html" class="topic-card">
-          <div class="topic-title">When Desire No Longer Matches in a Relationship</div>
-          <div class="topic-desc">You know that feeling when you reach for your partner in bed and feel them go slightly still, that s...</div>
-        </a>
-        <a href="betrayal-trust-broken.html" class="topic-card">
-          <div class="topic-title">When Someone You Trusted Betrayed You</div>
-          <div class="topic-desc">The lie changed how you see everything. Wisdom for rebuilding trust in people, and in your own judgm...</div>
-        </a>
-        <a href="constant-arguing.html" class="topic-card">
-          <div class="topic-title">When You and Your Partner Argue About Everything</div>
-          <div class="topic-desc">You know that feeling when you can sense a fight coming before a single word is said?...</div>
-        </a>
-        <a href="drifted-apart.html" class="topic-card">
-          <div class="topic-title">When You and Your Partner Have Drifted Apart</div>
-          <div class="topic-desc">You know that feeling when you look at the person across the dinner table and realize you have nothi...</div>
-        </a>
-        <a href="second-choice-in-love.html" class="topic-card">
-          <div class="topic-title">When You Feel Like Someone's Second Choice</div>
-          <div class="topic-desc">You know that feeling when your partner's phone lights up with a name from their past, and something...</div>
-        </a>
-        <a href="falling-out-of-love.html" class="topic-card">
-          <div class="topic-title">When You're Falling Out of Love</div>
-          <div class="topic-desc">You know that feeling when your partner does something they have always done, something that used to...</div>
-        </a>
-        <a href="staying-for-the-kids.html" class="topic-card">
-          <div class="topic-title">When You're Staying Together for the Kids</div>
-          <div class="topic-desc">You know that feeling when you're lying next to your husband or wife, both of you awake, both of you...</div>
-        </a>
-        <a href="losing-yourself-in-a-relationship.html" class="topic-card">
-          <div class="topic-title">When You've Lost Yourself in a Relationship</div>
-          <div class="topic-desc">You know that feeling when someone asks what you want to do this weekend, and your mind just goes bl...</div>
-        </a>
-        <a href="when-your-partner-shuts-you-out.html" class="topic-card">
-          <div class="topic-title">When Your Partner Shuts You Out</div>
-          <div class="topic-desc">You know that feeling when you try to talk to your partner and it's like speaking into a wall?...</div>
-        </a>
-        <a href="relationship-falling-apart.html" class="topic-card">
-          <div class="topic-title">When Your Relationship Is Falling Apart</div>
-          <div class="topic-desc">You used to be happy together. Now you're just two strangers. Wisdom for the space between love and ...</div>
-        </a>
-        </div>
-      </section>
-      <section class="cat-section" id="cat-family">
-        <div class="cat-head">
-          <h3>Family &amp; Parenting</h3>
-          <span class="cat-count">47</span>
-        </div>
-        <p class="cat-blurb">Parents, children, siblings &mdash; the people you're bound to.</p>
-        <div class="topics-grid">
-        <a href="a-child-who-blames-you-for-everything.html" class="topic-card">
-          <div class="topic-title">A Child Who Blames You for Everything</div>
-          <div class="topic-desc">You know that feeling when your child - grown now, old enough to know better, someone you gave years...</div>
-        </a>
-        <a href="a-parent-who-criticizes-everything.html" class="topic-card">
-          <div class="topic-title">A Parent Who Criticizes Everything</div>
-          <div class="topic-desc">You know that feeling when you walk into a room and immediately start preparing for it - the small i...</div>
-        </a>
-        <a href="adult-child-who-wont-launch.html" class="topic-card">
-          <div class="topic-title">An Adult Child Who Won't Launch</div>
-          <div class="topic-desc">You know that feeling when you walk past your adult child's bedroom at noon and the door is still sh...</div>
-        </a>
-        <a href="family-scapegoat.html" class="topic-card">
-          <div class="topic-title">Being the Family Scapegoat</div>
-          <div class="topic-desc">You know that feeling when something goes wrong in your family, anything, a tense holiday, a money p...</div>
-        </a>
-        <a href="being-the-only-responsible-one-in-the-family.html" class="topic-card">
-          <div class="topic-title">Being the Only Responsible One in the Family</div>
-          <div class="topic-desc">You know that feeling when your phone rings and, before you even pick up, you already know what it i...</div>
-        </a>
-        <a href="caring-for-dying-parent.html" class="topic-card">
-          <div class="topic-title">Caring for a Dying Parent</div>
-          <div class="topic-desc">You know that feeling when you walk out of the hospital room into a hallway with bad lighting, and y...</div>
-        </a>
-        <a href="caregiver-burden.html" class="topic-card">
-          <div class="topic-title">Caring for Someone Who Can't Care for Themselves</div>
-          <div class="topic-desc">Aging parents, a disabled child, a sick partner — the quiet exhaustion of being the one who holds it...</div>
-        </a>
-        <a href="generational-trauma.html" class="topic-card">
-          <div class="topic-title">Carrying Generational Trauma</div>
-          <div class="topic-desc">You know that feeling when you react to something small - a raised voice, a closing door, a certain ...</div>
-        </a>
-        <a href="immigrant-family-expectations.html" class="topic-card">
-          <div class="topic-title">Carrying the Weight of Immigrant Family Expectations</div>
-          <div class="topic-desc">You know that feeling when you get a good grade, a promotion, a paycheck you worked hard for, and th...</div>
-        </a>
-        <a href="co-parenting-after-a-split.html" class="topic-card">
-          <div class="topic-title">Co-Parenting After a Split</div>
-          <div class="topic-desc">You know that feeling when you're coordinating pickup times with someone you can barely look at, usi...</div>
-        </a>
-        <a href="comparing-your-child-to-others.html" class="topic-card">
-          <div class="topic-title">Comparing Your Child to Other Children</div>
-          <div class="topic-desc">You know that feeling when another parent mentions, almost offhandedly, that their child has just st...</div>
-        </a>
-        <a href="difficult-in-laws.html" class="topic-card">
-          <div class="topic-title">Coping With Difficult In-Laws</div>
-          <div class="topic-desc">You know that feeling when you are getting ready to visit your in-laws, and somewhere between the ca...</div>
-        </a>
-        <a href="toxic-parent.html" class="topic-card">
-          <div class="topic-title">Dealing With a Toxic Parent</div>
-          <div class="topic-desc">You know that feeling when you see your parent's name light up your phone and your whole body tighte...</div>
-        </a>
-        <a href="estranged-from-a-sibling.html" class="topic-card">
-          <div class="topic-title">Estranged From a Sibling</div>
-          <div class="topic-desc">You know that feeling when someone asks "how many siblings do you have?" and you pause - not because...</div>
-        </a>
-        <a href="forgiving-a-parent-who-wont-apologize.html" class="topic-card">
-          <div class="topic-title">Forgiving a Parent Who Won't Apologize</div>
-          <div class="topic-desc">You know that feeling when you finally work up the nerve to have the conversation, the one you've be...</div>
-        </a>
-        <a href="fractured-family-holidays.html" class="topic-card">
-          <div class="topic-title">Getting Through the Holidays With a Fractured Family</div>
-          <div class="topic-desc">You know that feeling when the calendar turns toward a holiday and instead of warmth you feel a knot...</div>
-        </a>
-        <a href="parent-with-addiction.html" class="topic-card">
-          <div class="topic-title">Growing Up With a Parent's Addiction</div>
-          <div class="topic-desc">You know that feeling when you walk into your own home and the first thing you do, before you even t...</div>
-        </a>
-        <a href="letting-go-of-a-grown-child.html" class="topic-card">
-          <div class="topic-title">Letting Go of a Grown Child</div>
-          <div class="topic-desc">You know that feeling when your grown child walks out the door - to their own life, their own apartm...</div>
-        </a>
-        <a href="mom-guilt.html" class="topic-card">
-          <div class="topic-title">Living With Mom Guilt</div>
-          <div class="topic-desc">You know that feeling when you finally sit down at the end of the day, the house is quiet, and inste...</div>
-        </a>
-        <a href="losing-your-patience-with-your-kids.html" class="topic-card">
-          <div class="topic-title">Losing Your Patience With Your Kids</div>
-          <div class="topic-desc">You know that feeling when you have said the same thing four times, in four increasingly strained ve...</div>
-        </a>
-        <a href="never-feeling-good-enough-for-your-parents.html" class="topic-card">
-          <div class="topic-title">Never Feeling Good Enough for Your Parents</div>
-          <div class="topic-desc">You know that feeling when you come home with something you're genuinely proud of - a grade, a promo...</div>
-        </a>
-        <a href="never-having-time-for-yourself-as-a-parent.html" class="topic-card">
-          <div class="topic-title">Never Having Time for Yourself as a Parent</div>
-          <div class="topic-desc">You know that feeling when you're in the bathroom - the only room with a lock - and you're just sitt...</div>
-        </a>
-        <a href="defiant-teenager.html" class="topic-card">
-          <div class="topic-title">Parenting a Defiant Teenager</div>
-          <div class="topic-desc">You know that feeling when your teenager looks at you across the kitchen and you genuinely do not re...</div>
-        </a>
-        <a href="raising-special-needs-child.html" class="topic-card">
-          <div class="topic-title">Raising a Child With Special Needs</div>
-          <div class="topic-desc">You know that feeling when you are sitting in another waiting room, another appointment, another ass...</div>
-        </a>
-        <a href="single-parenting-no-support.html" class="topic-card">
-          <div class="topic-title">Single Parenting With No Support</div>
-          <div class="topic-desc">You know that feeling when it is the end of another day, every plate is spinning, and there is genui...</div>
-        </a>
-        <a href="the-black-sheep-of-the-family.html" class="topic-card">
-          <div class="topic-title">The Black Sheep of the Family</div>
-          <div class="topic-desc">You know that feeling when you're sitting at a family dinner and everyone else seems to fit together...</div>
-        </a>
-        <a href="screen-time-battles.html" class="topic-card">
-          <div class="topic-title">The Endless Battle Over Screen Time</div>
-          <div class="topic-desc">You know that feeling when you say "five more minutes" and you already know, in your bones, that fiv...</div>
-        </a>
-        <a href="fear-for-childs-future.html" class="topic-card">
-          <div class="topic-title">The Fear You Carry for Your Child's Future</div>
-          <div class="topic-desc">You know that feeling when your child is finally asleep, peaceful, completely unaware, and you are w...</div>
-        </a>
-        <a href="family-obligation-guilt.html" class="topic-card">
-          <div class="topic-title">The Guilt of Family Obligation</div>
-          <div class="topic-desc">You know that feeling when your phone buzzes, you see it is your family, and before you even read th...</div>
-        </a>
-        <a href="the-loneliness-of-new-parenthood.html" class="topic-card">
-          <div class="topic-title">The Loneliness of New Parenthood</div>
-          <div class="topic-desc">You know that feeling when the baby is finally asleep, the house is quiet, and instead of feeling re...</div>
-        </a>
-        <a href="the-parent-who-was-never-there.html" class="topic-card">
-          <div class="topic-title">The Parent Who Was Never There</div>
-          <div class="topic-desc">You know that feeling when someone asks about your childhood and you have to pause for just a second...</div>
-        </a>
-        <a href="the-sibling-who-got-it-easy.html" class="topic-card">
-          <div class="topic-title">The Sibling Who Got It Easy</div>
-          <div class="topic-desc">You know that feeling when you're at a family gathering and your sibling does something ordinary, sa...</div>
-        </a>
-        <a href="watching-your-child-struggle.html" class="topic-card">
-          <div class="topic-title">Watching Your Child Struggle</div>
-          <div class="topic-desc">You know that feeling when your child is suffering and there is nothing you can actually do about it...</div>
-        </a>
-        <a href="aging-parents.html" class="topic-card">
-          <div class="topic-title">Watching Your Parents Grow Old</div>
-          <div class="topic-desc">The people who took care of you now need care. The role reversal is quietly breaking your heart. You...</div>
-        </a>
-        <a href="parents-favoritism.html" class="topic-card">
-          <div class="topic-title">When a Parent Always Favored Another Child</div>
-          <div class="topic-desc">You know that feeling when you watch your parent's face light up for your sibling in a way it has ne...</div>
-        </a>
-        <a href="when-family-only-calls-when-they-need-something.html" class="topic-card">
-          <div class="topic-title">When Family Only Calls When They Need Something</div>
-          <div class="topic-desc">You know that feeling when you see a family member's name on your phone and your stomach drops a lit...</div>
-        </a>
-        <a href="inheritance-conflict.html" class="topic-card">
-          <div class="topic-title">When Inheritance Tears a Family Apart</div>
-          <div class="topic-desc">You know that feeling when a parent dies and within weeks the people you grew up with, the people wh...</div>
-        </a>
-        <a href="parenting-is-breaking-me.html" class="topic-card">
-          <div class="topic-title">When Parenting Feels Impossible</div>
-          <div class="topic-desc">You love your kids but parenting is crushing you. Wisdom for the days when you have nothing left....</div>
-        </a>
-        <a href="empty-nest.html" class="topic-card">
-          <div class="topic-title">When the House Goes Quiet After the Kids Leave</div>
-          <div class="topic-desc">You raised them to go, and they went. Now the silence is loud. Wisdom for finding yourself again aft...</div>
-        </a>
-        <a href="sibling-conflict.html" class="topic-card">
-          <div class="topic-title">When You and Your Sibling Stopped Speaking</div>
-          <div class="topic-desc">The person who shared your childhood feels like a stranger now. Wisdom for the particular grief of a...</div>
-        </a>
-        <a href="becoming-parent-to-your-parents.html" class="topic-card">
-          <div class="topic-title">When You Become the Parent to Your Own Parents</div>
-          <div class="topic-desc">You know that feeling when you hang up the phone after another call about a doctor's appointment, or...</div>
-        </a>
-        <a href="going-no-contact.html" class="topic-card">
-          <div class="topic-title">When You Go No-Contact With Family</div>
-          <div class="topic-desc">You know that feeling when someone asks how your family is doing, a casual question, the kind people...</div>
-        </a>
-        <a href="never-at-home-in-my-family.html" class="topic-card">
-          <div class="topic-title">When You Never Felt at Home in Your Own Family</div>
-          <div class="topic-desc">You know that feeling when you are sitting at the family table, surrounded by people who share your ...</div>
-        </a>
-        <a href="estranged-from-adult-child.html" class="topic-card">
-          <div class="topic-title">When You're Estranged From Your Adult Child</div>
-          <div class="topic-desc">You know that feeling when the phone has been quiet for so long that you have stopped expecting it t...</div>
-        </a>
-        <a href="parents-who-never-approved.html" class="topic-card">
-          <div class="topic-title">When Your Parents Never Approved of You</div>
-          <div class="topic-desc">You know that feeling when something good happens, a promotion, a piece of praise, a milestone you w...</div>
-        </a>
-        <a href="when-your-teenager-shuts-you-out.html" class="topic-card">
-          <div class="topic-title">When Your Teenager Shuts You Out</div>
-          <div class="topic-desc">You know that feeling when you ask your teenager how their day was and they say "fine," and then the...</div>
-        </a>
-        <a href="worrying-youre-a-bad-parent.html" class="topic-card">
-          <div class="topic-title">Worrying You're a Bad Parent</div>
-          <div class="topic-desc">You know that feeling when you're lying in bed replaying the day, and the highlight reel your brain ...</div>
-        </a>
-        </div>
-      </section>
-      <section class="cat-section" id="cat-health">
-        <div class="cat-head">
-          <h3>Health &amp; the Body</h3>
-          <span class="cat-count">24</span>
-        </div>
-        <p class="cat-blurb">Illness, pain, ageing, and a body that's changing.</p>
-        <div class="topics-grid">
-        <a href="food-and-eating-struggles.html" class="topic-card">
-          <div class="topic-title">A Difficult Relationship With Food</div>
-          <div class="topic-desc">You know that feeling when a meal is over and you can't tell whether you actually ate or just got th...</div>
-        </a>
-        <a href="adjusting-to-disability.html" class="topic-card">
-          <div class="topic-title">Adjusting to a New Disability</div>
-          <div class="topic-desc">You know that feeling when you reach for something your body used to do without a thought, and it is...</div>
-        </a>
-        <a href="body-image-struggles.html" class="topic-card">
-          <div class="topic-title">At War With Your Own Reflection</div>
-          <div class="topic-desc">The mirror has become an enemy. Wisdom for the exhausting fight against your own body and the voice ...</div>
-        </a>
-        <a href="exhaustion-that-wont-lift.html" class="topic-card">
-          <div class="topic-title">Exhaustion That Sleep Won't Fix</div>
-          <div class="topic-desc">You know that feeling when you sleep eight hours, or nine, or you take the whole weekend to rest, an...</div>
-        </a>
-        <a href="new-diagnosis-fear.html" class="topic-card">
-          <div class="topic-title">Facing a Frightening New Diagnosis</div>
-          <div class="topic-desc">You know that feeling when a doctor pauses a half-second too long before speaking, and the room chan...</div>
-        </a>
-        <a href="aging-body-grief.html" class="topic-card">
-          <div class="topic-title">Grieving an Aging Body</div>
-          <div class="topic-desc">You know that feeling when you catch yourself in a window or a video call and there is half a second...</div>
-        </a>
-        <a href="menopause-upheaval.html" class="topic-card">
-          <div class="topic-title">Living Through the Upheaval of Menopause</div>
-          <div class="topic-desc">You know that feeling when you wake at 3am, soaked and overheated, heart going, and lie there in the...</div>
-        </a>
-        <a href="living-with-an-unpredictable-illness.html" class="topic-card">
-          <div class="topic-title">Living With an Unpredictable Illness</div>
-          <div class="topic-desc">You know that feeling when you wake up and spend the first few seconds of consciousness doing a quie...</div>
-        </a>
-        <a href="chronic-fatigue.html" class="topic-card">
-          <div class="topic-title">Living With Chronic Fatigue</div>
-          <div class="topic-desc">You know that feeling when you wake up after eight, nine, ten hours of sleep and your body feels lik...</div>
-        </a>
-        <a href="chronic-pain.html" class="topic-card">
-          <div class="topic-title">Living With Chronic Pain</div>
-          <div class="topic-desc">You know that feeling when you wake up and the first thing you do, before your eyes are even open, i...</div>
-        </a>
-        <a href="losing-your-independence-to-illness.html" class="topic-card">
-          <div class="topic-title">Losing Your Independence to Illness</div>
-          <div class="topic-desc">You know that feeling when you reach for something you have done a thousand times - driving yourself...</div>
-        </a>
-        <a href="life-after-a-health-crisis.html" class="topic-card">
-          <div class="topic-title">Rebuilding Life After a Health Crisis</div>
-          <div class="topic-desc">You know that feeling when the emergency is technically over, the doctors have said the words that w...</div>
-        </a>
-        <a href="the-anxiety-of-waiting-for-results.html" class="topic-card">
-          <div class="topic-title">The Anxiety of Waiting for Test Results</div>
-          <div class="topic-desc">You know that feeling when you're waiting for test results and your brain has completely stopped bei...</div>
-        </a>
-        <a href="the-exhaustion-of-managing-your-health.html" class="topic-card">
-          <div class="topic-title">The Exhaustion of Managing Your Health</div>
-          <div class="topic-desc">You know that feeling when you realize that managing your illness has become a second job?...</div>
-        </a>
-        <a href="addiction-recovery.html" class="topic-card">
-          <div class="topic-title">The Long Climb Back From Addiction</div>
-          <div class="topic-desc">Quitting was only the start. Wisdom for the daily, unglamorous work of staying free and rebuilding a...</div>
-        </a>
-        <a href="infertility.html" class="topic-card">
-          <div class="topic-title">The Quiet Grief of Infertility</div>
-          <div class="topic-desc">You know that feeling when a pregnancy announcement lands in a group chat, and everyone replies with...</div>
-        </a>
-        <a href="recovering-from-surgery.html" class="topic-card">
-          <div class="topic-title">The Slow Work of Recovering From Surgery</div>
-          <div class="topic-desc">You know that feeling when the surgery is supposedly the hard part, it's over, everyone says you sho...</div>
-        </a>
-        <a href="health-scare-fear.html" class="topic-card">
-          <div class="topic-title">Waiting on Test Results and Fearing the Worst</div>
-          <div class="topic-desc">Your mind has already written the bad ending. Wisdom for the long, frightening wait between the test...</div>
-        </a>
-        <a href="when-doctors-cant-find-whats-wrong.html" class="topic-card">
-          <div class="topic-title">When Doctors Can't Find What's Wrong</div>
-          <div class="topic-desc">You know that feeling when you sit in the waiting room for the fourth time in three months, and the ...</div>
-        </a>
-        <a href="invisible-illness.html" class="topic-card">
-          <div class="topic-title">When No One Believes You're Sick</div>
-          <div class="topic-desc">You know that feeling when you tell someone how sick you are, and you watch their face do that small...</div>
-        </a>
-        <a href="fear-of-doctors.html" class="topic-card">
-          <div class="topic-title">When You're Afraid of Doctors and Tests</div>
-          <div class="topic-desc">You know that feeling when you have had a symptom for weeks, maybe months, and a quiet voice keeps s...</div>
-        </a>
-        <a href="weight-loss-despair.html" class="topic-card">
-          <div class="topic-title">When You've Given Up on Losing Weight</div>
-          <div class="topic-desc">You know that feeling when you stand on the scale, see the number, and feel something inside you jus...</div>
-        </a>
-        <a href="hair-loss-and-change.html" class="topic-card">
-          <div class="topic-title">When Your Body Changes in Ways You Didn't Choose</div>
-          <div class="topic-desc">You know that feeling when you catch yourself in a mirror, or a photo, or a shop window, and for hal...</div>
-        </a>
-        <a href="chronic-illness.html" class="topic-card">
-          <div class="topic-title">When Your Body Is Failing You</div>
-          <div class="topic-desc">A diagnosis, a flare-up, a body that won't cooperate. Wisdom for living alongside illness without lo...</div>
-        </a>
-        </div>
-      </section>
-      <section class="cat-section" id="cat-mind">
-        <div class="cat-head">
-          <h3>Anxiety &amp; Hard Emotions</h3>
-          <span class="cat-count">26</span>
-        </div>
-        <p class="cat-blurb">Worry, anger, numbness &mdash; a mind that won't go quiet.</p>
-        <div class="topics-grid">
-        <a href="shame-spirals.html" class="topic-card">
-          <div class="topic-title">Climbing Out of a Shame Spiral</div>
-          <div class="topic-desc">You know that feeling when one small thing goes wrong, you said something awkward, you forgot to rep...</div>
-        </a>
-        <a href="feeling-anxious-for-no-reason.html" class="topic-card">
-          <div class="topic-title">Feeling Anxious for No Reason</div>
-          <div class="topic-desc">You know that feeling when your heart is beating a little too fast and you can't point to why?...</div>
-        </a>
-        <a href="panic-attacks.html" class="topic-card">
-          <div class="topic-title">How to Cope With Panic Attacks</div>
-          <div class="topic-desc">You know that feeling when you're sitting somewhere completely ordinary, the kitchen, your car, the ...</div>
-        </a>
-        <a href="dealing-with-jealousy.html" class="topic-card">
-          <div class="topic-title">How to Deal with Jealousy</div>
-          <div class="topic-desc">Jealousy is eating you alive. Ancient wisdom and modern stories on letting go of envy and finding yo...</div>
-        </a>
-        <a href="intrusive-thoughts.html" class="topic-card">
-          <div class="topic-title">Living With Intrusive Thoughts</div>
-          <div class="topic-desc">You know that feeling when a thought arrives in your head that horrifies you? You are standing at th...</div>
-        </a>
-        <a href="mood-swings.html" class="topic-card">
-          <div class="topic-title">Living With Unpredictable Mood Swings</div>
-          <div class="topic-desc">You know that feeling when you wake up and you genuinely cannot tell which version of yourself you a...</div>
-        </a>
-        <a href="loneliness-despite-everything.html" class="topic-card">
-          <div class="topic-title">Lonely Even When You're Not Alone</div>
-          <div class="topic-desc">Surrounded by people but deeply lonely. Stories about finding real connection....</div>
-        </a>
-        <a href="anxiety-insomnia.html" class="topic-card">
-          <div class="topic-title">The 3am Mind That Won't Stop</div>
-          <div class="topic-desc">Your body is tired but your mind won't let you sleep. What to do when anxiety runs a loop you can't ...</div>
-        </a>
-        <a href="the-fear-of-losing-control-of-your-mind.html" class="topic-card">
-          <div class="topic-title">The Fear of Losing Control of Your Mind</div>
-          <div class="topic-desc">You know that feeling when a thought crosses your mind that frightens you - not because of what's ha...</div>
-        </a>
-        <a href="the-loneliness-of-getting-older.html" class="topic-card">
-          <div class="topic-title">The Loneliness of Getting Older</div>
-          <div class="topic-desc">You know that feeling when you're at a social event -- a birthday, a dinner party, something that's ...</div>
-        </a>
-        <a href="waking-up-with-dread-every-morning.html" class="topic-card">
-          <div class="topic-title">Waking Up With Dread Every Morning</div>
-          <div class="topic-desc">You know that feeling when the alarm goes off and, before you've even opened your eyes, something he...</div>
-        </a>
-        <a href="anger-you-cant-control.html" class="topic-card">
-          <div class="topic-title">When Anger Takes Over</div>
-          <div class="topic-desc">You snap at the people you love. The rage doesn't make sense. Here's what ancient philosophy says ab...</div>
-        </a>
-        <a href="when-bad-thoughts-wont-leave.html" class="topic-card">
-          <div class="topic-title">When Bad Thoughts Won't Leave</div>
-          <div class="topic-desc">You know that feeling when a thought gets stuck? Not just a passing worry - but something that shows...</div>
-        </a>
-        <a href="social-anxiety.html" class="topic-card">
-          <div class="topic-title">When Being Around People Feels Like Too Much</div>
-          <div class="topic-desc">Your heart races before a gathering. You replay conversations for hours. Wisdom for the quiet dread ...</div>
-        </a>
-        <a href="when-hope-feels-impossible.html" class="topic-card">
-          <div class="topic-title">When Hope Feels Impossible</div>
-          <div class="topic-desc">You know that feeling when someone tells you "things will get better" and instead of being comforted...</div>
-        </a>
-        <a href="festering-resentment.html" class="topic-card">
-          <div class="topic-title">When Resentment Won't Let Go</div>
-          <div class="topic-desc">You know that feeling when you think you have moved on from what someone did to you, and then their ...</div>
-        </a>
-        <a href="fear-of-the-future.html" class="topic-card">
-          <div class="topic-title">When the Future Fills You With Dread</div>
-          <div class="topic-desc">Every thought about what's coming tightens your chest. Wisdom for living now when tomorrow feels lik...</div>
-        </a>
-        <a href="hypervigilance.html" class="topic-card">
-          <div class="topic-title">When You Can Never Let Your Guard Down</div>
-          <div class="topic-desc">You know that feeling when you walk into a room and, before you have even decided to, you have scann...</div>
-        </a>
-        <a href="the-inability-to-relax.html" class="topic-card">
-          <div class="topic-title">When You Can Never Truly Relax</div>
-          <div class="topic-desc">You know that feeling when you finally sit down at the end of the day, the house is quiet, nothing i...</div>
-        </a>
-        <a href="depression-fog.html" class="topic-card">
-          <div class="topic-title">When You Can't Get Out of Bed</div>
-          <div class="topic-desc">The fog is real. You're not lazy. Stories and ancient wisdom for the days everything feels heavy....</div>
-        </a>
-        <a href="decision-paralysis.html" class="topic-card">
-          <div class="topic-title">When You Can't Make a Decision</div>
-          <div class="topic-desc">Too many options, too much fear of the wrong one, so you choose nothing. Wisdom for the person froze...</div>
-        </a>
-        <a href="chronic-overthinking.html" class="topic-card">
-          <div class="topic-title">When You Can't Stop Overthinking</div>
-          <div class="topic-desc">You know that feeling when it is late, your body is exhausted, and your mind absolutely will not sto...</div>
-        </a>
-        <a href="emotional-numbness.html" class="topic-card">
-          <div class="topic-title">When You Feel Emotionally Numb</div>
-          <div class="topic-desc">You know that feeling when something good happens, or something sad, and you wait for the feeling to...</div>
-        </a>
-        <a href="feeling-everything-too-intensely.html" class="topic-card">
-          <div class="topic-title">When You Feel Everything Too Intensely</div>
-          <div class="topic-desc">You know that feeling when someone makes a small offhand comment and you carry it for three days?...</div>
-        </a>
-        <a href="replaying-conversations.html" class="topic-card">
-          <div class="topic-title">When You Replay Conversations for Hours</div>
-          <div class="topic-desc">You know that feeling when a conversation ended hours ago, maybe days ago, and your mind will not le...</div>
-        </a>
-        <a href="emotional-exhaustion.html" class="topic-card">
-          <div class="topic-title">When You're Emotionally Exhausted</div>
-          <div class="topic-desc">You know that feeling when someone asks how you are and you say fine, and the word comes out flat, b...</div>
-        </a>
-        </div>
-      </section>
-      <section class="cat-section" id="cat-grief">
-        <div class="cat-head">
-          <h3>Grief &amp; Loss</h3>
-          <span class="cat-count">8</span>
-        </div>
-        <p class="cat-blurb">Losing people, pets, and the life you expected.</p>
-        <div class="topics-grid">
-        <a href="grieving-a-friend.html" class="topic-card">
-          <div class="topic-title">Grieving a Friend</div>
-          <div class="topic-desc">You know that feeling when you pick up your phone to text someone and get halfway through typing bef...</div>
-        </a>
-        <a href="grieving-a-living-parent.html" class="topic-card">
-          <div class="topic-title">Grieving a Parent Who Is Still Alive</div>
-          <div class="topic-desc">You know that feeling when someone asks how your mother is, or your father, and you say "fine" becau...</div>
-        </a>
-        <a href="losing-a-parent.html" class="topic-card">
-          <div class="topic-title">Losing a Parent</div>
-          <div class="topic-desc">You know that feeling when you reach for your phone to tell them something, and then the whole weigh...</div>
-        </a>
-        <a href="losing-a-pet.html" class="topic-card">
-          <div class="topic-title">Losing a Pet</div>
-          <div class="topic-desc">You know that feeling when you walk through the front door and reach down out of habit - for a colla...</div>
-        </a>
-        <a href="losing-someone-suddenly.html" class="topic-card">
-          <div class="topic-title">Losing Someone Suddenly</div>
-          <div class="topic-desc">You know that feeling when your phone rings and somehow - before you even answer, before you've proc...</div>
-        </a>
-        <a href="still-not-over-it-years-later.html" class="topic-card">
-          <div class="topic-title">Still Not Over It Years Later</div>
-          <div class="topic-desc">You know that feeling when a song comes on, or a smell drifts through the air, and suddenly you are ...</div>
-        </a>
-        <a href="the-grief-no-one-acknowledges.html" class="topic-card">
-          <div class="topic-title">The Grief No One Acknowledges</div>
-          <div class="topic-desc">You know that feeling when you're grieving something and you can't quite explain it to anyone - beca...</div>
-        </a>
-        <a href="when-grief-wont-stop.html" class="topic-card">
-          <div class="topic-title">When Grief Won't Stop</div>
-          <div class="topic-desc">Grief doesn't follow a timeline. Wisdom for the 3am moments when loss hits all over again....</div>
-        </a>
-        </div>
-      </section>
-      <section class="cat-section" id="cat-self">
-        <div class="cat-head">
-          <h3>Self &amp; Meaning</h3>
-          <span class="cat-count">37</span>
-        </div>
-        <p class="cat-blurb">Worth, purpose, identity, and starting over within.</p>
-        <div class="topics-grid">
-        <a href="rejection.html" class="topic-card">
-          <div class="topic-title">After Being Rejected</div>
-          <div class="topic-desc">The job, the relationship, the friend group. Rejection lands in the body. Wisdom for standing back u...</div>
-        </a>
-        <a href="always-starting-over-on-monday.html" class="topic-card">
-          <div class="topic-title">Always Starting Over on Monday</div>
-          <div class="topic-desc">You know that feeling when Wednesday or Thursday hits and you've already slipped off whatever plan y...</div>
-        </a>
-        <a href="breaking-a-bad-habit.html" class="topic-card">
-          <div class="topic-title">Breaking a Bad Habit</div>
-          <div class="topic-desc">You know that feeling when you wake up and the first thing your brain does is reach for the thing yo...</div>
-        </a>
-        <a href="comparison-trap.html" class="topic-card">
-          <div class="topic-title">Everyone Is Doing Better Than Me</div>
-          <div class="topic-desc">Instagram says everyone is thriving. You're barely surviving. Here's the truth about comparison....</div>
-        </a>
-        <a href="feeling-disconnected-from-yourself.html" class="topic-card">
-          <div class="topic-title">Feeling Disconnected From Yourself</div>
-          <div class="topic-desc">You know that feeling when you catch your reflection somewhere unexpected - a shop window, a phone s...</div>
-        </a>
-        <a href="feeling-invisible-to-everyone.html" class="topic-card">
-          <div class="topic-title">Feeling Invisible to Everyone</div>
-          <div class="topic-desc">You know that feeling when you're in a room full of people and you're pretty sure no one would notic...</div>
-        </a>
-        <a href="feeling-left-out.html" class="topic-card">
-          <div class="topic-title">Feeling Left Out</div>
-          <div class="topic-desc">You know that feeling when you find out your friends had plans and you weren't included?...</div>
-        </a>
-        <a href="feeling-like-a-failure.html" class="topic-card">
-          <div class="topic-title">Feeling Like a Failure After 30</div>
-          <div class="topic-desc">Everyone else has it figured out. You don't. Here's what an 800-year-old letter says about that....</div>
-        </a>
-        <a href="feeling-like-life-is-passing-you-by.html" class="topic-card">
-          <div class="topic-title">Feeling Like Life Is Passing You By</div>
-          <div class="topic-desc">You know that feeling when you're scrolling through photos and you notice that the last three years ...</div>
-        </a>
-        <a href="feeling-like-times-running-out.html" class="topic-card">
-          <div class="topic-title">Feeling Like Time Is Running Out</div>
-          <div class="topic-desc">You know that feeling when you're lying in bed at 2am and a number comes to you -- your age, or some...</div>
-        </a>
-        <a href="feeling-spiritually-lost.html" class="topic-card">
-          <div class="topic-title">Feeling Lost and Without Direction</div>
-          <div class="topic-desc">You know that feeling when you wake up in the morning and the day just... sits there? Not bad exactl...</div>
-        </a>
-        <a href="finding-purpose-after-retirement.html" class="topic-card">
-          <div class="topic-title">Finding Purpose After Retirement</div>
-          <div class="topic-desc">You know that feeling when you finally get the thing you worked toward for decades, and then you don...</div>
-        </a>
-        <a href="growing-up-too-fast.html" class="topic-card">
-          <div class="topic-title">Growing Up Too Fast</div>
-          <div class="topic-desc">You know that feeling when someone talks about their childhood - a silly story, some game they used ...</div>
-        </a>
-        <a href="how-to-forgive.html" class="topic-card">
-          <div class="topic-title">How to Forgive Someone Who Hurt You</div>
-          <div class="topic-desc">You know you should let go but you can't. What a 13th-century philosopher said about forgiveness....</div>
-        </a>
-        <a href="regret-over-past-choices.html" class="topic-card">
-          <div class="topic-title">Living With the Choices You Wish You Hadn't Made</div>
-          <div class="topic-desc">The road not taken keeps you up at night. Wisdom for making peace with a past you cannot change....</div>
-        </a>
-        <a href="losing-faith-in-everything.html" class="topic-card">
-          <div class="topic-title">Losing Faith in Everything</div>
-          <div class="topic-desc">You know that feeling when you look around at your life -- the people in it, the things you used to ...</div>
-        </a>
-        <a href="quarter-life-crisis.html" class="topic-card">
-          <div class="topic-title">Lost in Your Twenties With No Idea What's Next</div>
-          <div class="topic-desc">Everyone seems to have a plan. You don't. Wisdom for the years when the path was supposed to appear ...</div>
-        </a>
-        <a href="making-peace-with-what-you-cant-change.html" class="topic-card">
-          <div class="topic-title">Making Peace With What You Can't Change</div>
-          <div class="topic-desc">You know that feeling when you replay a conversation that happened six months ago and still feel the...</div>
-        </a>
-        <a href="mourning-the-life-you-expected.html" class="topic-card">
-          <div class="topic-title">Mourning the Life You Expected</div>
-          <div class="topic-desc">You know that feeling when you look at your life and it looks nothing like the one you pictured? Not...</div>
-        </a>
-        <a href="not-knowing-who-you-are-anymore.html" class="topic-card">
-          <div class="topic-title">Not Knowing Who You Are Anymore</div>
-          <div class="topic-desc">You know that feeling when someone asks you a simple question -- 'so what do you love doing?' or 'wh...</div>
-        </a>
-        <a href="harsh-inner-critic.html" class="topic-card">
-          <div class="topic-title">Quieting Your Harsh Inner Critic</div>
-          <div class="topic-desc">You know that voice in your head that never seems to let up? You finish something and it says it was...</div>
-        </a>
-        <a href="searching-for-meaning-in-life.html" class="topic-card">
-          <div class="topic-title">Searching for Meaning in Life</div>
-          <div class="topic-desc">You know that feeling when you're going through the motions of a perfectly functional life -- decent...</div>
-        </a>
-        <a href="starting-life-over-in-a-new-place.html" class="topic-card">
-          <div class="topic-title">Starting Life Over in a New Place</div>
-          <div class="topic-desc">You know that feeling when you're standing in a supermarket in a city you just moved to, holding som...</div>
-        </a>
-        <a href="starting-over.html" class="topic-card">
-          <div class="topic-title">Starting Over at Any Age</div>
-          <div class="topic-desc">Divorce, job loss, or just the feeling that you need to begin again. Courage for the reset....</div>
-        </a>
-        <a href="the-fear-of-growing-old.html" class="topic-card">
-          <div class="topic-title">The Fear of Growing Old</div>
-          <div class="topic-desc">You know that feeling when you catch your reflection in a window and for a half-second you don't rec...</div>
-        </a>
-        <a href="the-weight-of-old-guilt.html" class="topic-card">
-          <div class="topic-title">The Weight of Old Guilt</div>
-          <div class="topic-desc">You know that feeling when something you did years ago surfaces out of nowhere - at 3am, or in the m...</div>
-        </a>
-        <a href="phone-addiction.html" class="topic-card">
-          <div class="topic-title">Trapped by Your Phone</div>
-          <div class="topic-desc">You know that feeling when you pick up your phone to check one thing and somehow forty minutes have ...</div>
-        </a>
-        <a href="midlife-crisis.html" class="topic-card">
-          <div class="topic-title">When Midlife Makes You Question Everything</div>
-          <div class="topic-desc">You did the things you were supposed to do. So why does it feel hollow? Wisdom for the great mid-lif...</div>
-        </a>
-        <a href="perfectionism-trap.html" class="topic-card">
-          <div class="topic-title">When Nothing You Do Is Ever Good Enough</div>
-          <div class="topic-desc">You hold yourself to a standard no human could meet, then punish yourself for missing it. Wisdom for...</div>
-        </a>
-        <a href="cant-stick-to-anything.html" class="topic-card">
-          <div class="topic-title">When You Can't Stick to Anything</div>
-          <div class="topic-desc">You know that feeling when you're three weeks into something - the gym, the journaling, the new diet...</div>
-        </a>
-        <a href="people-pleasing.html" class="topic-card">
-          <div class="topic-title">When You Can't Stop Saying Yes</div>
-          <div class="topic-desc">You bend for everyone and lose yourself doing it. Wisdom for the person who forgot they were allowed...</div>
-        </a>
-        <a href="low-self-worth.html" class="topic-card">
-          <div class="topic-title">When You Don't Believe You're Worth Much</div>
-          <div class="topic-desc">You know that feeling when someone pays you a compliment and your whole body wants to wave it away?...</div>
-        </a>
-        <a href="feeling-broken.html" class="topic-card">
-          <div class="topic-title">When You Feel Fundamentally Broken</div>
-          <div class="topic-desc">You know that feeling when you look at other people and they seem to come with some basic instructio...</div>
-        </a>
-        <a href="losing-motivation.html" class="topic-card">
-          <div class="topic-title">When You Just Don't Care Anymore</div>
-          <div class="topic-desc">The spark that used to drive you is gone and you can't fake it. Wisdom for the flat, grey stretch wh...</div>
-        </a>
-        <a href="procrastination-paralysis.html" class="topic-card">
-          <div class="topic-title">Why You Can't Start the Thing You Need to Do</div>
-          <div class="topic-desc">You want to do it. You know it matters. And still you don't move. The truth about the freeze that lo...</div>
-        </a>
-        <a href="self-sabotage.html" class="topic-card">
-          <div class="topic-title">Why You Keep Sabotaging Yourself</div>
-          <div class="topic-desc">You know that feeling when everything is finally going right, and then - somehow - you blow it? The ...</div>
-        </a>
-        <a href="wondering-if-your-life-matters.html" class="topic-card">
-          <div class="topic-title">Wondering If Your Life Matters</div>
-          <div class="topic-desc">You know that feeling when you're lying awake and a question surfaces that you'd never say out loud ...</div>
-        </a>
-        </div>
-      </section>
+        <section class="cat-section" id="cat-work" style="--cat:#5a7d9a">
+          <div class="cat-head">
+            <span class="cat-dot"></span>
+            <h3>Work &amp; Career</h3>
+            <span class="cat-count">40</span>
+          </div>
+          <div class="cat-rule"></div>
+          <p class="cat-blurb">Bosses, burnout, being overlooked, and starting again.</p>
+          <div class="topics-grid">
+          <a href="a-boss-who-belittles-you.html" class="topic-card" data-kw="a boss who belittles you work stress workplace politics self doubt">
+            <div class="topic-title">A Boss Who Belittles You</div>
+            <div class="topic-desc">Your boss sends a message that just says "can we talk?" and your whole body seizes up?</div>
+          </a>
+          <a href="always-on-call.html" class="topic-card" data-kw="always on call work stress anxiety">
+            <div class="topic-title">Always On Call, Never Off</div>
+            <div class="topic-desc">Your phone buzzes at 9:47pm and your whole body tightens before you even see who it is? You already know.</div>
+          </a>
+          <a href="bullied-at-work.html" class="topic-card" data-kw="bullied at work work stress workplace politics anxiety">
+            <div class="topic-title">Being Bullied at Work</div>
+            <div class="topic-desc">You walk into the office and your stomach tightens before you even get through the door?</div>
+          </a>
+          <a href="demoted-at-work.html" class="topic-card" data-kw="demoted at work work stress self doubt workplace politics">
+            <div class="topic-title">Being Demoted at Work</div>
+            <div class="topic-desc">You have to update your email signature, and every time you see the new title - the lesser title - something in you flinches?</div>
+          </a>
+          <a href="burnout-recovery.html" class="topic-card" data-kw="burnout recovery work stress health">
+            <div class="topic-title">Burned Out and Running on Empty</div>
+            <div class="topic-desc">You've given everything and there's nothing left.</div>
+          </a>
+          <a href="career-change-at-40.html" class="topic-card" data-kw="career change at 40 work stress self doubt perseverance">
+            <div class="topic-title">Changing Careers in Your 40s</div>
+            <div class="topic-desc">You sit down at your desk on a Monday morning, look at the next thirty years of your life, and quietly think: I cannot keep doing this?</div>
+          </a>
+          <a href="ageism-at-work.html" class="topic-card" data-kw="ageism at work work stress rejection self doubt">
+            <div class="topic-title">Facing Ageism at Work</div>
+            <div class="topic-desc">You are in a meeting and a younger colleague explains something to you slowly, as if you might not follow?</div>
+          </a>
+          <a href="left-out-at-work.html" class="topic-card" data-kw="left out at work workplace politics loneliness self doubt">
+            <div class="topic-title">Feeling Left Out at Work</div>
+            <div class="topic-desc">You walk into a meeting and catch the tail end of a conversation - laughter, easy familiarity - and then it stops the moment they...</div>
+          </a>
+          <a href="returning-to-work-after-a-long-gap.html" class="topic-card" data-kw="returning to work after a long gap work stress self doubt perseverance">
+            <div class="topic-title">Going Back to Work After a Long Gap</div>
+            <div class="topic-desc">Someone asks "so what have you been up to?" at a professional event, and instead of answering normally you feel a sudden...</div>
+          </a>
+          <a href="job-interview-anxiety.html" class="topic-card" data-kw="job interview anxiety anxiety self doubt rejection">
+            <div class="topic-title">How to Calm Job Interview Anxiety</div>
+            <div class="topic-desc">You should be sleeping but instead you are lying there running disaster scenarios?</div>
+          </a>
+          <a href="laid-off.html" class="topic-card" data-kw="laid off work stress grief loss finances">
+            <div class="topic-title">How to Cope With Being Laid Off</div>
+            <div class="topic-desc">You walk into a meeting you didn't put on your calendar, and there's someone from HR sitting next to your manager, and they won't quite look at you?</div>
+          </a>
+          <a href="sidelined-at-work.html" class="topic-card" data-kw="sidelined at work workplace politics work stress self doubt">
+            <div class="topic-title">Invisible at Work</div>
+            <div class="topic-desc">You're still on the team but no longer in the room. The quiet pain of being talked around. How to find your footing again.</div>
+          </a>
+          <a href="fear-of-being-fired.html" class="topic-card" data-kw="fear of being fired work stress anxiety self doubt">
+            <div class="topic-title">Living With the Fear of Being Fired</div>
+            <div class="topic-desc">Your manager schedules an unexpected one-on-one and your stomach drops before you even see the calendar invite?</div>
+          </a>
+          <a href="overcoming-imposter-syndrome.html" class="topic-card" data-kw="overcoming imposter syndrome work stress self doubt">
+            <div class="topic-title">Overcoming Imposter Syndrome</div>
+            <div class="topic-desc">You feel like a fraud at work. You're not alone.</div>
+          </a>
+          <a href="starting-over-in-a-new-industry.html" class="topic-card" data-kw="starting over in a new industry work stress self doubt perseverance">
+            <div class="topic-title">Starting Over in a New Industry</div>
+            <div class="topic-desc">You introduce yourself at a networking event in your new field and someone asks a follow-up question that exposes, instantly, that...</div>
+          </a>
+          <a href="stuck-in-a-job-with-no-growth.html" class="topic-card" data-kw="stuck in a job with no growth work stress self doubt perseverance">
+            <div class="topic-title">Stuck in a Job With Nowhere to Grow</div>
+            <div class="topic-desc">You look around at work and realize you already know how to do everything? Not proudly. Not with satisfaction.</div>
+          </a>
+          <a href="micromanaging-boss.html" class="topic-card" data-kw="micromanaging boss work stress workplace politics anxiety">
+            <div class="topic-title">Surviving a Micromanaging Boss</div>
+            <div class="topic-desc">You send an email and your boss replies within ninety seconds asking why you phrased it that way?</div>
+          </a>
+          <a href="toxic-workplace-survival.html" class="topic-card" data-kw="toxic workplace survival work stress">
+            <div class="topic-title">Surviving a Toxic Workplace</div>
+            <div class="topic-desc">Your boss is terrible, your coworkers are worse, and you can't quit yet.</div>
+          </a>
+          <a href="asking-for-a-raise-fear.html" class="topic-card" data-kw="asking for a raise fear work stress finances anxiety">
+            <div class="topic-title">The Fear of Asking for a Raise</div>
+            <div class="topic-desc">You've rehearsed the words in the shower, in the car, walking to the office, and then your manager says "so, what did you...</div>
+          </a>
+          <a href="fear-of-making-a-mistake-at-work.html" class="topic-card" data-kw="fear of making a mistake at work work stress anxiety self doubt">
+            <div class="topic-title">The Fear of Making a Mistake at Work</div>
+            <div class="topic-desc">You've just sent an email and the moment it leaves your outbox you start reading it again, sentence by sentence, looking for the...</div>
+          </a>
+          <a href="public-speaking-fear.html" class="topic-card" data-kw="public speaking fear work stress anxiety self doubt">
+            <div class="topic-title">The Fear of Speaking Up at Work</div>
+            <div class="topic-desc">The meeting is going on, and you have a point, a real point, something that would actually help, and you can feel it sitting right there in your chest?</div>
+          </a>
+          <a href="remote-work-isolation.html" class="topic-card" data-kw="remote work isolation work stress loneliness self doubt">
+            <div class="topic-title">The Isolation of Working From Home</div>
+            <div class="topic-desc">You close your laptop at the end of the day and realize you have not spoken a single word out loud since the morning?</div>
+          </a>
+          <a href="the-pressure-to-never-say-no-at-work.html" class="topic-card" data-kw="the pressure to never say no at work work stress self doubt workplace politics">
+            <div class="topic-title">The Pressure to Never Say No at Work</div>
+            <div class="topic-desc">Someone walks over to your desk, or pings you on Slack, or catches you in the hallway between meetings, and asks you to take on...</div>
+          </a>
+          <a href="the-title-that-didnt-fix-anything.html" class="topic-card" data-kw="the title that didnt fix anything work stress self doubt workplace politics">
+            <div class="topic-title">The Promotion That Didn't Fix Anything</div>
+            <div class="topic-desc">You finally get the thing you spent years working toward, and you wait for the relief to arrive, and it doesn't?</div>
+          </a>
+          <a href="unemployment-shame.html" class="topic-card" data-kw="unemployment shame work stress self doubt finances">
+            <div class="topic-title">The Shame of Being Unemployed</div>
+            <div class="topic-desc">Someone at a wedding or a family gathering asks the simplest question in the world - "So, what do you do?" - and your stomach drops?</div>
+          </a>
+          <a href="too-much-work-not-enough-time.html" class="topic-card" data-kw="too much work not enough time work stress anxiety perseverance">
+            <div class="topic-title">Too Much Work, Not Enough Time</div>
+            <div class="topic-desc">You sit down at your desk in the morning, open your to-do list, and immediately feel a kind of dread settle in your chest?</div>
+          </a>
+          <a href="golden-handcuffs.html" class="topic-card" data-kw="golden handcuffs work stress self doubt anxiety">
+            <div class="topic-title">Trapped by Golden Handcuffs</div>
+            <div class="topic-desc">Someone asks what you do for work and you answer with your job title, and there's a tiny pause in the conversation where you can...</div>
+          </a>
+          <a href="coworker-takes-credit.html" class="topic-card" data-kw="coworker takes credit work stress workplace politics anger">
+            <div class="topic-title">When a Coworker Takes the Credit</div>
+            <div class="topic-desc">You are sitting in a meeting and someone presents your idea as their own?</div>
+          </a>
+          <a href="when-a-work-friend-betrays-you.html" class="topic-card" data-kw="when a work friend betrays you workplace politics relationships anger">
+            <div class="topic-title">When a Work Friend Betrays You</div>
+            <div class="topic-desc">You realize the person you told things to in confidence has been telling other people?</div>
+          </a>
+          <a href="office-favoritism.html" class="topic-card" data-kw="office favoritism workplace politics work stress self doubt">
+            <div class="topic-title">When the Office Plays Favorites</div>
+            <div class="topic-desc">You watch someone get the high-profile project, the public praise, the manager's ear - and you know, with a clarity that has...</div>
+          </a>
+          <a href="dreading-monday.html" class="topic-card" data-kw="dreading monday work stress anxiety self doubt">
+            <div class="topic-title">When You Dread Every Monday Morning</div>
+            <div class="topic-desc">It is Sunday afternoon and the day is still good, but you can already feel it ending?</div>
+          </a>
+          <a href="performance-review-dread.html" class="topic-card" data-kw="performance review dread work stress anxiety self doubt">
+            <div class="topic-title">When You Dread Your Performance Review</div>
+            <div class="topic-desc">You see the calendar invite go in - your name, your manager's name, the words "performance review" - and your whole body tightens?</div>
+          </a>
+          <a href="hate-my-job-cant-leave.html" class="topic-card" data-kw="hate my job cant leave work stress finances perseverance">
+            <div class="topic-title">When You Hate Your Job But Can't Afford to Leave</div>
+            <div class="topic-desc">The light starts to fade and something in your chest tightens, because tomorrow you have to go back?</div>
+          </a>
+          <a href="the-job-offer-you-regret-taking.html" class="topic-card" data-kw="the job offer you regret taking work stress self doubt workplace politics">
+            <div class="topic-title">When You Regret the Job You Took</div>
+            <div class="topic-desc">You are sitting at your new desk, maybe a few weeks or a few months into the job you were so relieved to get, and you realize with...</div>
+          </a>
+          <a href="passed-over-for-promotion.html" class="topic-card" data-kw="passed over for promotion work stress rejection workplace politics">
+            <div class="topic-title">When You're Passed Over for a Promotion</div>
+            <div class="topic-desc">The announcement lands - an email, a meeting, a name said out loud - and it is not your name?</div>
+          </a>
+          <a href="only-one-like-me-at-work.html" class="topic-card" data-kw="only one like me at work work stress loneliness self doubt">
+            <div class="topic-title">When You're the Only One Like You in the Room</div>
+            <div class="topic-desc">You walk into the meeting room, do a quick scan, and realize again that there is no one else in here who is like you?</div>
+          </a>
+          <a href="working-below-potential.html" class="topic-card" data-kw="working below potential work stress self doubt perseverance">
+            <div class="topic-title">When You're Working Far Below Your Potential</div>
+            <div class="topic-desc">You sit down at your desk on a Monday and a quiet voice in your head says, this is not it?</div>
+          </a>
+          <a href="career-plateau.html" class="topic-card" data-kw="career plateau work stress self doubt perseverance">
+            <div class="topic-title">When Your Career Feels Stuck</div>
+            <div class="topic-desc">You look at your career and realize you have been standing in the same spot for a while?</div>
+          </a>
+          <a href="when-your-job-becomes-your-identity.html" class="topic-card" data-kw="when your job becomes your identity work stress self doubt loneliness">
+            <div class="topic-title">When Your Job Becomes Your Whole Identity</div>
+            <div class="topic-desc">Someone asks who you are and the first thing out of your mouth is what you do? Not on purpose -- just reflexively.</div>
+          </a>
+          <a href="work-that-feels-meaningless.html" class="topic-card" data-kw="work that feels meaningless work stress self doubt">
+            <div class="topic-title">When Your Work Feels Meaningless</div>
+            <div class="topic-desc">You're sitting at your desk, staring at your screen, and you realize you have absolutely no idea why you're doing this?</div>
+          </a>
+          </div>
+        </section>
+        <section class="cat-section" id="cat-money" style="--cat:#4f7a52">
+          <div class="cat-head">
+            <span class="cat-dot"></span>
+            <h3>Money &amp; Security</h3>
+            <span class="cat-count">32</span>
+          </div>
+          <div class="cat-rule"></div>
+          <p class="cat-blurb">Debt, scarcity, and the fear of not having enough.</p>
+          <div class="topics-grid">
+          <a href="borrowing-just-to-get-by.html" class="topic-card" data-kw="borrowing just to get by finances anxiety perseverance">
+            <div class="topic-title">Borrowing Just to Get By</div>
+            <div class="topic-desc">You check your bank account before buying groceries, not because you're curious but because you're scared?</div>
+          </a>
+          <a href="scarcity-mindset.html" class="topic-card" data-kw="scarcity mindset finances anxiety self doubt">
+            <div class="topic-title">Breaking a Lifelong Scarcity Mindset</div>
+            <div class="topic-desc">Something good finally happens, money comes in, a bill gets paid, things are briefly okay, and instead of relief you feel a low hum of dread?</div>
+          </a>
+          <a href="credit-card-debt-spiral.html" class="topic-card" data-kw="credit card debt spiral finances anxiety self doubt">
+            <div class="topic-title">Caught in a Credit Card Debt Spiral</div>
+            <div class="topic-desc">You open your banking app and immediately close it again? Not because you checked - just because you couldn't face it.</div>
+          </a>
+          <a href="different-money-values-in-a-marriage.html" class="topic-card" data-kw="different money values in a marriage finances relationships anxiety">
+            <div class="topic-title">Different Money Values in a Marriage</div>
+            <div class="topic-desc">You look at the bank account, see something your partner bought, and feel a flash of something that is not quite anger and not...</div>
+          </a>
+          <a href="financial-anxiety.html" class="topic-card" data-kw="financial anxiety finances">
+            <div class="topic-title">Drowning in Financial Anxiety</div>
+            <div class="topic-desc">Debt, EMIs, and the fear of not providing.</div>
+          </a>
+          <a href="earning-less-than-everyone-around-you.html" class="topic-card" data-kw="earning less than everyone around you finances self doubt envy">
+            <div class="topic-title">Earning Less Than Everyone Around You</div>
+            <div class="topic-desc">Someone at dinner casually mentions what they paid for their car, or their last vacation, or their apartment, and you feel...</div>
+          </a>
+          <a href="feeling-stuck-because-of-money.html" class="topic-card" data-kw="feeling stuck because of money finances anxiety perseverance">
+            <div class="topic-title">Feeling Stuck Because of Money</div>
+            <div class="topic-desc">There's something you want to do with your life - leave the job, move to a different city, start something, go back to school...</div>
+          </a>
+          <a href="hiding-spending-from-your-partner.html" class="topic-card" data-kw="hiding spending from your partner relationships finances self doubt">
+            <div class="topic-title">Hiding Spending From Your Partner</div>
+            <div class="topic-desc">A package arrives and you stuff it into the back of the closet before your partner gets home?</div>
+          </a>
+          <a href="paycheck-to-paycheck.html" class="topic-card" data-kw="paycheck to paycheck finances anxiety perseverance">
+            <div class="topic-title">Living Paycheck to Paycheck</div>
+            <div class="topic-desc">Payday finally arrives, the money lands, and within seventy-two hours it is already gone?</div>
+          </a>
+          <a href="living-without-a-safety-net.html" class="topic-card" data-kw="living without a safety net finances anxiety perseverance">
+            <div class="topic-title">Living Without a Financial Safety Net</div>
+            <div class="topic-desc">Something breaks - the car, the washing machine, a tooth - and your very first thought is not about fixing it but about whether...</div>
+          </a>
+          <a href="gambling-losses.html" class="topic-card" data-kw="gambling losses finances self doubt perseverance">
+            <div class="topic-title">Recovering From Gambling Losses</div>
+            <div class="topic-desc">The screen finally goes still and the number it shows you is real?</div>
+          </a>
+          <a href="regret-over-money-you-wasted.html" class="topic-card" data-kw="regret over money you wasted finances self doubt anxiety">
+            <div class="topic-title">Regret Over Money You Wasted</div>
+            <div class="topic-desc">You're lying awake doing the arithmetic of every dumb financial decision you ever made?</div>
+          </a>
+          <a href="bankruptcy-and-starting-over.html" class="topic-card" data-kw="bankruptcy and starting over finances perseverance self doubt">
+            <div class="topic-title">Starting Over After Bankruptcy</div>
+            <div class="topic-desc">You open your banking app out of habit, see the number, and your stomach drops all over again, even though you already knew?</div>
+          </a>
+          <a href="starting-with-nothing-in-your-30s.html" class="topic-card" data-kw="starting with nothing in your 30s finances self doubt perseverance">
+            <div class="topic-title">Starting With Nothing in Your 30s</div>
+            <div class="topic-desc">You look around at 32, or 35, or 38, and everyone seems to be several laps ahead?</div>
+          </a>
+          <a href="supporting-grown-children-financially.html" class="topic-card" data-kw="supporting grown children financially family finances relationships">
+            <div class="topic-title">Still Supporting Your Grown Children</div>
+            <div class="topic-desc">Your adult child calls and there's that particular pause before they get to the real reason?</div>
+          </a>
+          <a href="fear-of-going-broke.html" class="topic-card" data-kw="fear of going broke finances anxiety perseverance">
+            <div class="topic-title">The Fear of Going Broke</div>
+            <div class="topic-desc">You are lying awake and your mind starts running the worst-case film?</div>
+          </a>
+          <a href="fear-of-retirement-poverty.html" class="topic-card" data-kw="fear of retirement poverty finances anxiety self doubt">
+            <div class="topic-title">The Fear of Not Affording Retirement</div>
+            <div class="topic-desc">You do the math in your head, late at night, and it just doesn't add up?</div>
+          </a>
+          <a href="the-fear-of-opening-bills.html" class="topic-card" data-kw="the fear of opening bills finances anxiety self doubt">
+            <div class="topic-title">The Fear of Opening Your Bills</div>
+            <div class="topic-desc">A bill notification arrives - on your phone, in the mail, in your inbox - and something inside you just goes still?</div>
+          </a>
+          <a href="pressure-to-provide-for-extended-family.html" class="topic-card" data-kw="pressure to provide for extended family finances family self doubt">
+            <div class="topic-title">The Pressure to Provide for Extended Family</div>
+            <div class="topic-desc">The phone rings and your stomach drops before you even look at the screen? You already know it is a family member.</div>
+          </a>
+          <a href="financial-shame.html" class="topic-card" data-kw="financial shame finances self doubt loneliness">
+            <div class="topic-title">The Shame of Money Struggles</div>
+            <div class="topic-desc">The conversation at dinner turns to holidays, or houses, or what someone just bought, and you go quiet?</div>
+          </a>
+          <a href="the-shame-of-needing-financial-help.html" class="topic-card" data-kw="the shame of needing financial help finances self doubt loneliness">
+            <div class="topic-title">The Shame of Needing Financial Help</div>
+            <div class="topic-desc">Someone asks how you're doing and you say "fine" even though you haven't been fine in months?</div>
+          </a>
+          <a href="breadwinner-pressure.html" class="topic-card" data-kw="breadwinner pressure finances family work stress">
+            <div class="topic-title">The Weight of Being the Breadwinner</div>
+            <div class="topic-desc">The house is finally quiet, everyone is asleep, and you are the only one still awake because you are the only one carrying it?</div>
+          </a>
+          <a href="lifestyle-envy.html" class="topic-card" data-kw="lifestyle envy envy finances self doubt">
+            <div class="topic-title">When Everyone Seems Richer Than You</div>
+            <div class="topic-desc">You put the phone down and the room you are sitting in suddenly looks smaller and shabbier than it did ten minutes ago?</div>
+          </a>
+          <a href="lending-money-to-family.html" class="topic-card" data-kw="lending money to family finances family relationships">
+            <div class="topic-title">When Lending Money to Family Goes Wrong</div>
+            <div class="topic-desc">Your phone lights up with their name, and your stomach drops before you even read the message?</div>
+          </a>
+          <a href="money-fights-with-partner.html" class="topic-card" data-kw="money fights with partner finances relationships anger">
+            <div class="topic-title">When Money Keeps Starting Fights</div>
+            <div class="topic-desc">One small comment about money turns into a fight in under a minute?</div>
+          </a>
+          <a href="money-stress-keeping-you-awake.html" class="topic-card" data-kw="money stress keeping you awake finances anxiety self doubt">
+            <div class="topic-title">When Money Stress Keeps You Awake</div>
+            <div class="topic-desc">It's 2am and you've been lying still for an hour, not asleep, not quite awake, just running the same calculation over and over in...</div>
+          </a>
+          <a href="financial-dependence-on-partner.html" class="topic-card" data-kw="financial dependence on partner finances relationships self doubt">
+            <div class="topic-title">When You Depend on a Partner for Money</div>
+            <div class="topic-desc">You want to buy something small, something completely reasonable, and you find yourself rehearsing how you will explain it?</div>
+          </a>
+          <a href="money-anxiety-despite-comfort.html" class="topic-card" data-kw="money anxiety despite comfort finances anxiety self doubt">
+            <div class="topic-title">When You Have Enough But Still Fear Money</div>
+            <div class="topic-desc">You look at your accounts and the numbers are, by any honest measure, fine, and yet your chest tightens anyway?</div>
+          </a>
+          <a href="drowning-in-debt.html" class="topic-card" data-kw="drowning in debt finances anxiety perseverance">
+            <div class="topic-title">When You're Drowning in Debt</div>
+            <div class="topic-desc">You open your banking app and your stomach drops before the screen even loads?</div>
+          </a>
+          <a href="sudden-loss-of-income.html" class="topic-card" data-kw="sudden loss of income finances work stress anxiety">
+            <div class="topic-title">When Your Income Suddenly Disappears</div>
+            <div class="topic-desc">The email arrives, or the call ends, or the contract simply is not renewed, and suddenly the ground that was under you yesterday is gone?</div>
+          </a>
+          <a href="when-your-partner-wont-talk-about-money.html" class="topic-card" data-kw="when your partner wont talk about money relationships finances anxiety">
+            <div class="topic-title">When Your Partner Won't Talk About Money</div>
+            <div class="topic-desc">You try to bring up money and the shutters come down? Maybe they say "we'll figure it out later" and change the subject.</div>
+          </a>
+          <a href="working-two-jobs-to-survive.html" class="topic-card" data-kw="working two jobs to survive work stress finances perseverance">
+            <div class="topic-title">Working Two Jobs Just to Survive</div>
+            <div class="topic-desc">Your alarm goes off for the second time in a day - not the morning alarm, but the one that means you have to leave job number one...</div>
+          </a>
+          </div>
+        </section>
+        <section class="cat-section" id="cat-love" style="--cat:#b5485b">
+          <div class="cat-head">
+            <span class="cat-dot"></span>
+            <h3>Love &amp; Relationships</h3>
+            <span class="cat-count">36</span>
+          </div>
+          <div class="cat-rule"></div>
+          <p class="cat-blurb">Partners, dating, friendships, and drifting apart.</p>
+          <div class="topics-grid">
+          <a href="a-friendship-that-became-one-sided.html" class="topic-card" data-kw="a friendship that became one sided relationships loneliness grief loss">
+            <div class="topic-title">A Friendship That Became One-Sided</div>
+            <div class="topic-desc">You are composing a message to someone, and somewhere in the middle of typing it you stop, because you realise you have sent the...</div>
+          </a>
+          <a href="afraid-to-date-again-after-heartbreak.html" class="topic-card" data-kw="afraid to date again after heartbreak relationships grief loss rejection">
+            <div class="topic-title">Afraid to Date Again After Heartbreak</div>
+            <div class="topic-desc">Someone asks if you are seeing anyone and you smile and say something vague and change the subject?</div>
+          </a>
+          <a href="attracted-to-the-wrong-people.html" class="topic-card" data-kw="attracted to the wrong people relationships self doubt rejection">
+            <div class="topic-title">Always Attracted to the Wrong People</div>
+            <div class="topic-desc">You're sitting across from someone who is exactly your type - the pull is immediate, physical, undeniable - and somewhere in the...</div>
+          </a>
+          <a href="being-the-friend-who-always-reaches-out.html" class="topic-card" data-kw="being the friend who always reaches out relationships loneliness self doubt">
+            <div class="topic-title">Being the Friend Who Always Reaches Out</div>
+            <div class="topic-desc">You're the one who always texts first? When you're the one who suggests plans, follows up, checks in -- and when you stop, you...</div>
+          </a>
+          <a href="being-the-one-who-left.html" class="topic-card" data-kw="being the one who left relationships self doubt grief loss">
+            <div class="topic-title">Being the One Who Left</div>
+            <div class="topic-desc">You've done the thing you knew you had to do, and somehow it still feels terrible? You made the choice. You had good reasons.</div>
+          </a>
+          <a href="dating-after-divorce.html" class="topic-card" data-kw="dating after divorce divorce relationships loneliness">
+            <div class="topic-title">Dating After Divorce</div>
+            <div class="topic-desc">You are sitting across from someone at a restaurant, trying to make conversation, and some part of your brain is simultaneously...</div>
+          </a>
+          <a href="doing-all-the-emotional-labor.html" class="topic-card" data-kw="doing all the emotional labor relationships caregiving self doubt">
+            <div class="topic-title">Doing All the Emotional Labor</div>
+            <div class="topic-desc">You realize you are the only one who noticed that your partner was upset three days ago, the only one who remembered your friend's...</div>
+          </a>
+          <a href="lonely-in-marriage.html" class="topic-card" data-kw="lonely in marriage relationships loneliness self doubt">
+            <div class="topic-title">Feeling Lonely Inside Your Marriage</div>
+            <div class="topic-desc">You're lying next to someone you love, in a bed you share, in a home you built together, and you have never felt more alone in your life?</div>
+          </a>
+          <a href="feeling-unappreciated-by-your-partner.html" class="topic-card" data-kw="feeling unappreciated by your partner relationships loneliness anger">
+            <div class="topic-title">Feeling Unappreciated by Your Partner</div>
+            <div class="topic-desc">You have done everything - made dinner, handled the logistics, remembered the thing they forgot, managed the hard conversation...</div>
+          </a>
+          <a href="growing-apart-from-old-friends.html" class="topic-card" data-kw="growing apart from old friends relationships loneliness grief loss">
+            <div class="topic-title">Growing Apart From Old Friends</div>
+            <div class="topic-desc">You scroll past a photo of old friends laughing together and realize you haven't spoken to any of them in two years?</div>
+          </a>
+          <a href="getting-over-an-ex.html" class="topic-card" data-kw="getting over an ex relationships grief loss divorce">
+            <div class="topic-title">How to Get Over an Ex</div>
+            <div class="topic-desc">You wake up and for about four seconds you have forgotten, and then it lands on you all over again?</div>
+          </a>
+          <a href="losing-respect-for-your-partner.html" class="topic-card" data-kw="losing respect for your partner relationships anger divorce">
+            <div class="topic-title">Losing Respect for Your Partner</div>
+            <div class="topic-desc">You watch your partner do something - or fail to do something - and something quietly shifts inside you? Not a fight.</div>
+          </a>
+          <a href="emotional-unavailability.html" class="topic-card" data-kw="emotional unavailability relationships loneliness self doubt">
+            <div class="topic-title">Loving an Emotionally Unavailable Partner</div>
+            <div class="topic-desc">You are sitting next to the person you love, and somehow you have never felt more alone?</div>
+          </a>
+          <a href="loving-someone-who-wont-commit.html" class="topic-card" data-kw="loving someone who wont commit relationships anxiety self doubt">
+            <div class="topic-title">Loving Someone Who Won't Commit</div>
+            <div class="topic-desc">Someone asks how long you and your partner have been together, and you do a little mental scramble before answering,...</div>
+          </a>
+          <a href="making-friends-as-an-adult.html" class="topic-card" data-kw="making friends as an adult loneliness relationships anxiety">
+            <div class="topic-title">Making Friends as an Adult</div>
+            <div class="topic-desc">You move to a new city, or change jobs, or come out the other side of a long relationship, and you look around and realise you...</div>
+          </a>
+          <a href="recovering-from-an-affair.html" class="topic-card" data-kw="recovering from an affair relationships anger grief loss">
+            <div class="topic-title">Rebuilding a Marriage After an Affair</div>
+            <div class="topic-desc">You're sitting across from your husband or wife at dinner, the plates between you, the kids talking about their day, and...</div>
+          </a>
+          <a href="still-single-while-everyone-pairs-off.html" class="topic-card" data-kw="still single while everyone pairs off loneliness relationships self doubt">
+            <div class="topic-title">Still Single While Everyone Pairs Off</div>
+            <div class="topic-desc">You open your phone on a Saturday morning and the first thing you see is another engagement announcement?</div>
+          </a>
+          <a href="the-breakup-you-didnt-see-coming.html" class="topic-card" data-kw="the breakup you didnt see coming relationships grief loss loneliness">
+            <div class="topic-title">The Breakup You Didn't See Coming</div>
+            <div class="topic-desc">You're sitting somewhere perfectly ordinary - a restaurant, your couch, the passenger seat of their car - and the person across...</div>
+          </a>
+          <a href="fear-of-being-single-forever.html" class="topic-card" data-kw="fear of being single forever relationships anxiety loneliness">
+            <div class="topic-title">The Fear of Being Single Forever</div>
+            <div class="topic-desc">You are at a wedding, or scrolling past another engagement post, or just lying awake on an ordinary night, and a cold thought arrives without warning?</div>
+          </a>
+          <a href="fear-of-being-vulnerable-with-someone.html" class="topic-card" data-kw="fear of being vulnerable with someone relationships loneliness anxiety">
+            <div class="topic-title">The Fear of Being Vulnerable With Someone</div>
+            <div class="topic-desc">Someone you care about asks how you really are, and you feel this brief internal scramble, and you say something like "pretty...</div>
+          </a>
+          <a href="long-distance-strain.html" class="topic-card" data-kw="long distance strain relationships loneliness perseverance">
+            <div class="topic-title">The Strain of a Long-Distance Relationship</div>
+            <div class="topic-desc">The call ends, the screen goes dark, and the room you're sitting in suddenly feels too quiet?</div>
+          </a>
+          <a href="thinking-about-leaving-but-cant.html" class="topic-card" data-kw="thinking about leaving but cant relationships divorce self doubt">
+            <div class="topic-title">Thinking About Leaving but Unable To</div>
+            <div class="topic-desc">You've had the same thought a thousand times - maybe I should leave - and then immediately, automatically, a hundred reasons why...</div>
+          </a>
+          <a href="wanting-love-but-pushing-it-away.html" class="topic-card" data-kw="wanting love but pushing it away relationships anxiety self doubt">
+            <div class="topic-title">Wanting Love but Pushing It Away</div>
+            <div class="topic-desc">Someone actually shows up for you - texts back warmly, makes a plan, looks at you like you matter - and something inside you...</div>
+          </a>
+          <a href="losing-a-friendship.html" class="topic-card" data-kw="losing a friendship relationships loneliness grief loss">
+            <div class="topic-title">When a Friendship Quietly Ends</div>
+            <div class="topic-desc">No fight, no falling out. Just slow distance until they were gone.</div>
+          </a>
+          <a href="divorce.html" class="topic-card" data-kw="divorce divorce relationships grief loss">
+            <div class="topic-title">When a Marriage Ends</div>
+            <div class="topic-desc">The life you built is ending. Grief, shame, and starting over all at once.</div>
+          </a>
+          <a href="dating-app-exhaustion.html" class="topic-card" data-kw="dating app exhaustion relationships rejection self doubt">
+            <div class="topic-title">When Dating Apps Have Worn You Down</div>
+            <div class="topic-desc">You open the app, and before you have even swiped once, you are already tired?</div>
+          </a>
+          <a href="mismatched-desire.html" class="topic-card" data-kw="mismatched desire relationships self doubt loneliness">
+            <div class="topic-title">When Desire No Longer Matches in a Relationship</div>
+            <div class="topic-desc">You reach for your partner in bed and feel them go slightly still, that small tightening that means not tonight, and you...</div>
+          </a>
+          <a href="betrayal-trust-broken.html" class="topic-card" data-kw="betrayal trust broken relationships anger grief loss">
+            <div class="topic-title">When Someone You Trusted Betrayed You</div>
+            <div class="topic-desc">The lie changed how you see everything.</div>
+          </a>
+          <a href="constant-arguing.html" class="topic-card" data-kw="constant arguing relationships anger perseverance">
+            <div class="topic-title">When You and Your Partner Argue About Everything</div>
+            <div class="topic-desc">You can sense a fight coming before a single word is said?</div>
+          </a>
+          <a href="drifted-apart.html" class="topic-card" data-kw="drifted apart relationships loneliness grief loss">
+            <div class="topic-title">When You and Your Partner Have Drifted Apart</div>
+            <div class="topic-desc">You look at the person across the dinner table and realize you have nothing to say?</div>
+          </a>
+          <a href="second-choice-in-love.html" class="topic-card" data-kw="second choice in love relationships rejection self doubt">
+            <div class="topic-title">When You Feel Like Someone's Second Choice</div>
+            <div class="topic-desc">Your partner's phone lights up with a name from their past, and something in their face changes for half a second -...</div>
+          </a>
+          <a href="falling-out-of-love.html" class="topic-card" data-kw="falling out of love relationships divorce self doubt">
+            <div class="topic-title">When You're Falling Out of Love</div>
+            <div class="topic-desc">Your partner does something they have always done, something that used to make you smile, and now you feel nothing?</div>
+          </a>
+          <a href="staying-for-the-kids.html" class="topic-card" data-kw="staying for the kids relationships family divorce">
+            <div class="topic-title">When You're Staying Together for the Kids</div>
+            <div class="topic-desc">You're lying next to your husband or wife, both of you awake, both of you pretending to be asleep, and there is a foot of...</div>
+          </a>
+          <a href="losing-yourself-in-a-relationship.html" class="topic-card" data-kw="losing yourself in a relationship relationships self doubt loneliness">
+            <div class="topic-title">When You've Lost Yourself in a Relationship</div>
+            <div class="topic-desc">Someone asks what you want to do this weekend, and your mind just goes blank?</div>
+          </a>
+          <a href="when-your-partner-shuts-you-out.html" class="topic-card" data-kw="when your partner shuts you out relationships loneliness anxiety">
+            <div class="topic-title">When Your Partner Shuts You Out</div>
+            <div class="topic-desc">You try to talk to your partner and it's like speaking into a wall?</div>
+          </a>
+          <a href="relationship-falling-apart.html" class="topic-card" data-kw="relationship falling apart relationships">
+            <div class="topic-title">When Your Relationship Is Falling Apart</div>
+            <div class="topic-desc">You used to be happy together. Now you're just two strangers.</div>
+          </a>
+          </div>
+        </section>
+        <section class="cat-section" id="cat-family" style="--cat:#bf7d3a">
+          <div class="cat-head">
+            <span class="cat-dot"></span>
+            <h3>Family &amp; Parenting</h3>
+            <span class="cat-count">47</span>
+          </div>
+          <div class="cat-rule"></div>
+          <p class="cat-blurb">Parents, children, siblings &mdash; the people you're bound to.</p>
+          <div class="topics-grid">
+          <a href="a-child-who-blames-you-for-everything.html" class="topic-card" data-kw="a child who blames you for everything family relationships anger">
+            <div class="topic-title">A Child Who Blames You for Everything</div>
+            <div class="topic-desc">Your child - grown now, old enough to know better, someone you gave years of your life to - looks at you and says that everything...</div>
+          </a>
+          <a href="a-parent-who-criticizes-everything.html" class="topic-card" data-kw="a parent who criticizes everything family self doubt anxiety">
+            <div class="topic-title">A Parent Who Criticizes Everything</div>
+            <div class="topic-desc">You walk into a room and immediately start preparing for it - the small inventory you do before you speak, before you've even said...</div>
+          </a>
+          <a href="adult-child-who-wont-launch.html" class="topic-card" data-kw="adult child who wont launch family relationships self doubt">
+            <div class="topic-title">An Adult Child Who Won't Launch</div>
+            <div class="topic-desc">You walk past your adult child's bedroom at noon and the door is still shut, and you stand there in the hallway, holding a basket...</div>
+          </a>
+          <a href="family-scapegoat.html" class="topic-card" data-kw="family scapegoat family self doubt rejection">
+            <div class="topic-title">Being the Family Scapegoat</div>
+            <div class="topic-desc">Something goes wrong in your family, anything, a tense holiday, a money problem, an argument between two other people...</div>
+          </a>
+          <a href="being-the-only-responsible-one-in-the-family.html" class="topic-card" data-kw="being the only responsible one in the family family caregiving relationships">
+            <div class="topic-title">Being the Only Responsible One in the Family</div>
+            <div class="topic-desc">Your phone rings and, before you even pick up, you already know what it is going to be? Another crisis.</div>
+          </a>
+          <a href="caring-for-dying-parent.html" class="topic-card" data-kw="caring for dying parent caregiving grief loss family">
+            <div class="topic-title">Caring for a Dying Parent</div>
+            <div class="topic-desc">You walk out of the hospital room into a hallway with bad lighting, and you stand there for a second because you do not know what your body is supposed to do next?</div>
+          </a>
+          <a href="caregiver-burden.html" class="topic-card" data-kw="caregiver burden caregiving family health">
+            <div class="topic-title">Caring for Someone Who Can't Care for Themselves</div>
+            <div class="topic-desc">Aging parents, a disabled child, a sick partner — the quiet exhaustion of being the one who holds it together. You are not invisible.</div>
+          </a>
+          <a href="generational-trauma.html" class="topic-card" data-kw="generational trauma family anxiety perseverance">
+            <div class="topic-title">Carrying Generational Trauma</div>
+            <div class="topic-desc">You react to something small - a raised voice, a closing door, a certain silence - and the size of your reaction makes no sense even to you?</div>
+          </a>
+          <a href="immigrant-family-expectations.html" class="topic-card" data-kw="immigrant family expectations family self doubt anxiety">
+            <div class="topic-title">Carrying the Weight of Immigrant Family Expectations</div>
+            <div class="topic-desc">You get a good grade, a promotion, a paycheck you worked hard for, and the first thing you feel is not pride but relief?</div>
+          </a>
+          <a href="co-parenting-after-a-split.html" class="topic-card" data-kw="co parenting after a split divorce family relationships">
+            <div class="topic-title">Co-Parenting After a Split</div>
+            <div class="topic-desc">You're coordinating pickup times with someone you can barely look at, using the cheerful language of logistics while something...</div>
+          </a>
+          <a href="comparing-your-child-to-others.html" class="topic-card" data-kw="comparing your child to others family envy anxiety">
+            <div class="topic-title">Comparing Your Child to Other Children</div>
+            <div class="topic-desc">Another parent mentions, almost offhandedly, that their child has just started reading - and your child is the same age and shows...</div>
+          </a>
+          <a href="difficult-in-laws.html" class="topic-card" data-kw="difficult in laws family relationships anger">
+            <div class="topic-title">Coping With Difficult In-Laws</div>
+            <div class="topic-desc">You are getting ready to visit your in-laws, and somewhere between the car and the front door you feel yourself shrinking?</div>
+          </a>
+          <a href="toxic-parent.html" class="topic-card" data-kw="toxic parent family relationships self doubt">
+            <div class="topic-title">Dealing With a Toxic Parent</div>
+            <div class="topic-desc">You see your parent's name light up your phone and your whole body tightens before you've even answered?</div>
+          </a>
+          <a href="estranged-from-a-sibling.html" class="topic-card" data-kw="estranged from a sibling family relationships grief loss">
+            <div class="topic-title">Estranged From a Sibling</div>
+            <div class="topic-desc">Someone asks "how many siblings do you have?" and you pause - not because you can't count, but because the honest answer is...</div>
+          </a>
+          <a href="forgiving-a-parent-who-wont-apologize.html" class="topic-card" data-kw="forgiving a parent who wont apologize family anger grief loss">
+            <div class="topic-title">Forgiving a Parent Who Won't Apologize</div>
+            <div class="topic-desc">You finally work up the nerve to have the conversation, the one you've been rehearsing in your head for years, and instead of the...</div>
+          </a>
+          <a href="fractured-family-holidays.html" class="topic-card" data-kw="fractured family holidays family loneliness grief loss">
+            <div class="topic-title">Getting Through the Holidays With a Fractured Family</div>
+            <div class="topic-desc">The calendar turns toward a holiday and instead of warmth you feel a knot start to form in your stomach?</div>
+          </a>
+          <a href="parent-with-addiction.html" class="topic-card" data-kw="parent with addiction family grief loss perseverance">
+            <div class="topic-title">Growing Up With a Parent's Addiction</div>
+            <div class="topic-desc">You walk into your own home and the first thing you do, before you even take your shoes off, is read the air?</div>
+          </a>
+          <a href="letting-go-of-a-grown-child.html" class="topic-card" data-kw="letting go of a grown child family grief loss loneliness">
+            <div class="topic-title">Letting Go of a Grown Child</div>
+            <div class="topic-desc">Your grown child walks out the door - to their own life, their own apartment, their own relationship, their own set of choices you...</div>
+          </a>
+          <a href="mom-guilt.html" class="topic-card" data-kw="mom guilt family self doubt caregiving">
+            <div class="topic-title">Living With Mom Guilt</div>
+            <div class="topic-desc">You finally sit down at the end of the day, the house is quiet, and instead of relief, a quiet prosecutor starts up inside your head?</div>
+          </a>
+          <a href="losing-your-patience-with-your-kids.html" class="topic-card" data-kw="losing your patience with your kids family anger self doubt">
+            <div class="topic-title">Losing Your Patience With Your Kids</div>
+            <div class="topic-desc">You have said the same thing four times, in four increasingly strained versions of your own voice, and then on the fifth time...</div>
+          </a>
+          <a href="never-feeling-good-enough-for-your-parents.html" class="topic-card" data-kw="never feeling good enough for your parents family self doubt relationships">
+            <div class="topic-title">Never Feeling Good Enough for Your Parents</div>
+            <div class="topic-desc">You come home with something you're genuinely proud of - a grade, a promotion, a piece of news you thought would finally land...</div>
+          </a>
+          <a href="never-having-time-for-yourself-as-a-parent.html" class="topic-card" data-kw="never having time for yourself as a parent family anxiety self doubt">
+            <div class="topic-title">Never Having Time for Yourself as a Parent</div>
+            <div class="topic-desc">You're in the bathroom - the only room with a lock - and you're just sitting on the edge of the tub for two minutes trying to...</div>
+          </a>
+          <a href="defiant-teenager.html" class="topic-card" data-kw="defiant teenager family anger perseverance">
+            <div class="topic-title">Parenting a Defiant Teenager</div>
+            <div class="topic-desc">Your teenager looks at you across the kitchen and you genuinely do not recognize the person standing there?</div>
+          </a>
+          <a href="raising-special-needs-child.html" class="topic-card" data-kw="raising special needs child family caregiving perseverance">
+            <div class="topic-title">Raising a Child With Special Needs</div>
+            <div class="topic-desc">You are sitting in another waiting room, another appointment, another assessment, and the professional across the desk is...</div>
+          </a>
+          <a href="single-parenting-no-support.html" class="topic-card" data-kw="single parenting no support family caregiving loneliness">
+            <div class="topic-title">Single Parenting With No Support</div>
+            <div class="topic-desc">It is the end of another day, every plate is spinning, and there is genuinely no one to hand even one of them to?</div>
+          </a>
+          <a href="the-black-sheep-of-the-family.html" class="topic-card" data-kw="the black sheep of the family family loneliness rejection">
+            <div class="topic-title">The Black Sheep of the Family</div>
+            <div class="topic-desc">You're sitting at a family dinner and everyone else seems to fit together like pieces of a puzzle - same jokes, same assumptions...</div>
+          </a>
+          <a href="screen-time-battles.html" class="topic-card" data-kw="screen time battles family anger anxiety">
+            <div class="topic-title">The Endless Battle Over Screen Time</div>
+            <div class="topic-desc">You say "five more minutes" and you already know, in your bones, that five more minutes is going to become a war?</div>
+          </a>
+          <a href="fear-for-childs-future.html" class="topic-card" data-kw="fear for childs future family anxiety caregiving">
+            <div class="topic-title">The Fear You Carry for Your Child's Future</div>
+            <div class="topic-desc">Your child is finally asleep, peaceful, completely unaware, and you are wide awake with a knot in your chest about everything that could go wrong for them?</div>
+          </a>
+          <a href="family-obligation-guilt.html" class="topic-card" data-kw="family obligation guilt family anxiety relationships">
+            <div class="topic-title">The Guilt of Family Obligation</div>
+            <div class="topic-desc">Your phone buzzes, you see it is your family, and before you even read the message you feel a weight settle on your chest?</div>
+          </a>
+          <a href="the-loneliness-of-new-parenthood.html" class="topic-card" data-kw="the loneliness of new parenthood loneliness family relationships">
+            <div class="topic-title">The Loneliness of New Parenthood</div>
+            <div class="topic-desc">The baby is finally asleep, the house is quiet, and instead of feeling relief you feel this strange hollow sensation - like you...</div>
+          </a>
+          <a href="the-parent-who-was-never-there.html" class="topic-card" data-kw="the parent who was never there family grief loss loneliness">
+            <div class="topic-title">The Parent Who Was Never There</div>
+            <div class="topic-desc">Someone asks about your childhood and you have to pause for just a second too long before answering?</div>
+          </a>
+          <a href="the-sibling-who-got-it-easy.html" class="topic-card" data-kw="the sibling who got it easy family envy self doubt">
+            <div class="topic-title">The Sibling Who Got It Easy</div>
+            <div class="topic-desc">You're at a family gathering and your sibling does something ordinary, says something unremarkable, and your parents light up in a...</div>
+          </a>
+          <a href="watching-your-child-struggle.html" class="topic-card" data-kw="watching your child struggle family caregiving grief loss">
+            <div class="topic-title">Watching Your Child Struggle</div>
+            <div class="topic-desc">Your child is suffering and there is nothing you can actually do about it?</div>
+          </a>
+          <a href="aging-parents.html" class="topic-card" data-kw="aging parents family caregiving grief loss">
+            <div class="topic-title">Watching Your Parents Grow Old</div>
+            <div class="topic-desc">The people who took care of you now need care. The role reversal is quietly breaking your heart. You are not failing them.</div>
+          </a>
+          <a href="parents-favoritism.html" class="topic-card" data-kw="parents favoritism family self doubt relationships">
+            <div class="topic-title">When a Parent Always Favored Another Child</div>
+            <div class="topic-desc">You watch your parent's face light up for your sibling in a way it has never quite lit up for you?</div>
+          </a>
+          <a href="when-family-only-calls-when-they-need-something.html" class="topic-card" data-kw="when family only calls when they need something family relationships loneliness">
+            <div class="topic-title">When Family Only Calls When They Need Something</div>
+            <div class="topic-desc">You see a family member's name on your phone and your stomach drops a little before you answer?</div>
+          </a>
+          <a href="inheritance-conflict.html" class="topic-card" data-kw="inheritance conflict family grief loss anger">
+            <div class="topic-title">When Inheritance Tears a Family Apart</div>
+            <div class="topic-desc">A parent dies and within weeks the people you grew up with, the people who taught you to ride a bike and sat with you...</div>
+          </a>
+          <a href="parenting-is-breaking-me.html" class="topic-card" data-kw="parenting is breaking me family">
+            <div class="topic-title">When Parenting Feels Impossible</div>
+            <div class="topic-desc">You love your kids but parenting is crushing you.</div>
+          </a>
+          <a href="empty-nest.html" class="topic-card" data-kw="empty nest family grief loss loneliness">
+            <div class="topic-title">When the House Goes Quiet After the Kids Leave</div>
+            <div class="topic-desc">You raised them to go, and they went. Now the silence is loud.</div>
+          </a>
+          <a href="sibling-conflict.html" class="topic-card" data-kw="sibling conflict family anger grief loss">
+            <div class="topic-title">When You and Your Sibling Stopped Speaking</div>
+            <div class="topic-desc">The person who shared your childhood feels like a stranger now.</div>
+          </a>
+          <a href="becoming-parent-to-your-parents.html" class="topic-card" data-kw="becoming parent to your parents caregiving family grief loss">
+            <div class="topic-title">When You Become the Parent to Your Own Parents</div>
+            <div class="topic-desc">You hang up the phone after another call about a doctor's appointment, or an unpaid bill, or a fall in the bathroom, and...</div>
+          </a>
+          <a href="going-no-contact.html" class="topic-card" data-kw="going no contact family relationships grief loss">
+            <div class="topic-title">When You Go No-Contact With Family</div>
+            <div class="topic-desc">Someone asks how your family is doing, a casual question, the kind people ask at work or at a party, and your stomach drops?</div>
+          </a>
+          <a href="never-at-home-in-my-family.html" class="topic-card" data-kw="never at home in my family family loneliness self doubt">
+            <div class="topic-title">When You Never Felt at Home in Your Own Family</div>
+            <div class="topic-desc">You are sitting at the family table, surrounded by people who share your last name and your face and your childhood, and you feel completely, quietly alone?</div>
+          </a>
+          <a href="estranged-from-adult-child.html" class="topic-card" data-kw="estranged from adult child family grief loss loneliness">
+            <div class="topic-title">When You're Estranged From Your Adult Child</div>
+            <div class="topic-desc">The phone has been quiet for so long that you have stopped expecting it to ring?</div>
+          </a>
+          <a href="parents-who-never-approved.html" class="topic-card" data-kw="parents who never approved family self doubt rejection">
+            <div class="topic-title">When Your Parents Never Approved of You</div>
+            <div class="topic-desc">Something good happens, a promotion, a piece of praise, a milestone you worked years for, and the very first thought that...</div>
+          </a>
+          <a href="when-your-teenager-shuts-you-out.html" class="topic-card" data-kw="when your teenager shuts you out family relationships loneliness">
+            <div class="topic-title">When Your Teenager Shuts You Out</div>
+            <div class="topic-desc">You ask your teenager how their day was and they say "fine," and then they go to their room, and the door closes, and you're...</div>
+          </a>
+          <a href="worrying-youre-a-bad-parent.html" class="topic-card" data-kw="worrying youre a bad parent family self doubt anxiety">
+            <div class="topic-title">Worrying You're a Bad Parent</div>
+            <div class="topic-desc">You're lying in bed replaying the day, and the highlight reel your brain chooses to show you is every single thing you did wrong?</div>
+          </a>
+          </div>
+        </section>
+        <section class="cat-section" id="cat-health" style="--cat:#3f8f8a">
+          <div class="cat-head">
+            <span class="cat-dot"></span>
+            <h3>Health &amp; the Body</h3>
+            <span class="cat-count">24</span>
+          </div>
+          <div class="cat-rule"></div>
+          <p class="cat-blurb">Illness, pain, ageing, and a body that's changing.</p>
+          <div class="topics-grid">
+          <a href="food-and-eating-struggles.html" class="topic-card" data-kw="food and eating struggles health self doubt anxiety">
+            <div class="topic-title">A Difficult Relationship With Food</div>
+            <div class="topic-desc">A meal is over and you can't tell whether you actually ate or just got through something?</div>
+          </a>
+          <a href="adjusting-to-disability.html" class="topic-card" data-kw="adjusting to disability chronic illness grief loss health">
+            <div class="topic-title">Adjusting to a New Disability</div>
+            <div class="topic-desc">You reach for something your body used to do without a thought, and it isn't there anymore?</div>
+          </a>
+          <a href="body-image-struggles.html" class="topic-card" data-kw="body image struggles health self doubt envy">
+            <div class="topic-title">At War With Your Own Reflection</div>
+            <div class="topic-desc">The mirror has become an enemy.</div>
+          </a>
+          <a href="exhaustion-that-wont-lift.html" class="topic-card" data-kw="exhaustion that wont lift health work stress chronic illness">
+            <div class="topic-title">Exhaustion That Sleep Won't Fix</div>
+            <div class="topic-desc">You sleep eight hours, or nine, or you take the whole weekend to rest, and you wake up and you are still tired?</div>
+          </a>
+          <a href="new-diagnosis-fear.html" class="topic-card" data-kw="new diagnosis fear health anxiety chronic illness">
+            <div class="topic-title">Facing a Frightening New Diagnosis</div>
+            <div class="topic-desc">A doctor pauses a half-second too long before speaking, and the room changes temperature?</div>
+          </a>
+          <a href="aging-body-grief.html" class="topic-card" data-kw="aging body grief grief loss health self doubt">
+            <div class="topic-title">Grieving an Aging Body</div>
+            <div class="topic-desc">You catch yourself in a window or a video call and there is half a second where you do not recognise the person looking back?</div>
+          </a>
+          <a href="menopause-upheaval.html" class="topic-card" data-kw="menopause upheaval health anxiety self doubt">
+            <div class="topic-title">Living Through the Upheaval of Menopause</div>
+            <div class="topic-desc">You wake at 3am, soaked and overheated, heart going, and lie there in the dark wondering where exactly you went?</div>
+          </a>
+          <a href="living-with-an-unpredictable-illness.html" class="topic-card" data-kw="living with an unpredictable illness chronic illness health anxiety">
+            <div class="topic-title">Living With an Unpredictable Illness</div>
+            <div class="topic-desc">You wake up and spend the first few seconds of consciousness doing a quiet body inventory - scanning for where the pain is today...</div>
+          </a>
+          <a href="chronic-fatigue.html" class="topic-card" data-kw="chronic fatigue chronic illness health perseverance">
+            <div class="topic-title">Living With Chronic Fatigue</div>
+            <div class="topic-desc">You wake up after eight, nine, ten hours of sleep and your body feels like it never rested at all?</div>
+          </a>
+          <a href="chronic-pain.html" class="topic-card" data-kw="chronic pain chronic illness health loneliness">
+            <div class="topic-title">Living With Chronic Pain</div>
+            <div class="topic-desc">You wake up and the first thing you do, before your eyes are even open, is run a quiet inventory of your own body?</div>
+          </a>
+          <a href="losing-your-independence-to-illness.html" class="topic-card" data-kw="losing your independence to illness health chronic illness grief loss">
+            <div class="topic-title">Losing Your Independence to Illness</div>
+            <div class="topic-desc">You reach for something you have done a thousand times - driving yourself somewhere, cooking a meal, carrying groceries, walking...</div>
+          </a>
+          <a href="life-after-a-health-crisis.html" class="topic-card" data-kw="life after a health crisis health perseverance chronic illness">
+            <div class="topic-title">Rebuilding Life After a Health Crisis</div>
+            <div class="topic-desc">The emergency is technically over, the doctors have said the words that were supposed to bring relief, and everyone around...</div>
+          </a>
+          <a href="the-anxiety-of-waiting-for-results.html" class="topic-card" data-kw="the anxiety of waiting for results anxiety health perseverance">
+            <div class="topic-title">The Anxiety of Waiting for Test Results</div>
+            <div class="topic-desc">You're waiting for test results and your brain has completely stopped being able to think about anything else?</div>
+          </a>
+          <a href="the-exhaustion-of-managing-your-health.html" class="topic-card" data-kw="the exhaustion of managing your health health chronic illness self doubt">
+            <div class="topic-title">The Exhaustion of Managing Your Health</div>
+            <div class="topic-desc">You realize that managing your illness has become a second job?</div>
+          </a>
+          <a href="addiction-recovery.html" class="topic-card" data-kw="addiction recovery health perseverance self doubt">
+            <div class="topic-title">The Long Climb Back From Addiction</div>
+            <div class="topic-desc">Quitting was only the start.</div>
+          </a>
+          <a href="infertility.html" class="topic-card" data-kw="infertility grief loss relationships family">
+            <div class="topic-title">The Quiet Grief of Infertility</div>
+            <div class="topic-desc">A pregnancy announcement lands in a group chat, and everyone replies with hearts, and you type something warm too, and...</div>
+          </a>
+          <a href="recovering-from-surgery.html" class="topic-card" data-kw="recovering from surgery health perseverance chronic illness">
+            <div class="topic-title">The Slow Work of Recovering From Surgery</div>
+            <div class="topic-desc">The surgery is supposedly the hard part, it's over, everyone says you should be relieved, and instead you're lying in bed...</div>
+          </a>
+          <a href="health-scare-fear.html" class="topic-card" data-kw="health scare fear health anxiety chronic illness">
+            <div class="topic-title">Waiting on Test Results and Fearing the Worst</div>
+            <div class="topic-desc">Your mind has already written the bad ending.</div>
+          </a>
+          <a href="when-doctors-cant-find-whats-wrong.html" class="topic-card" data-kw="when doctors cant find whats wrong health chronic illness anxiety">
+            <div class="topic-title">When Doctors Can't Find What's Wrong</div>
+            <div class="topic-desc">You sit in the waiting room for the fourth time in three months, and the doctor walks in, looks at your test results, and says the...</div>
+          </a>
+          <a href="invisible-illness.html" class="topic-card" data-kw="invisible illness chronic illness loneliness self doubt">
+            <div class="topic-title">When No One Believes You're Sick</div>
+            <div class="topic-desc">You tell someone how sick you are, and you watch their face do that small thing - the polite nod, the flicker of doubt,...</div>
+          </a>
+          <a href="fear-of-doctors.html" class="topic-card" data-kw="fear of doctors anxiety health perseverance">
+            <div class="topic-title">When You're Afraid of Doctors and Tests</div>
+            <div class="topic-desc">You have had a symptom for weeks, maybe months, and a quiet voice keeps saying you should get it checked, and another part of you simply will not pick up the phone?</div>
+          </a>
+          <a href="weight-loss-despair.html" class="topic-card" data-kw="weight loss despair health self doubt perseverance">
+            <div class="topic-title">When You've Given Up on Losing Weight</div>
+            <div class="topic-desc">You stand on the scale, see the number, and feel something inside you just go quiet?</div>
+          </a>
+          <a href="hair-loss-and-change.html" class="topic-card" data-kw="hair loss and change health self doubt grief loss">
+            <div class="topic-title">When Your Body Changes in Ways You Didn't Choose</div>
+            <div class="topic-desc">You catch yourself in a mirror, or a photo, or a shop window, and for half a second you do not recognise the person looking back?</div>
+          </a>
+          <a href="chronic-illness.html" class="topic-card" data-kw="chronic illness chronic illness health">
+            <div class="topic-title">When Your Body Is Failing You</div>
+            <div class="topic-desc">A diagnosis, a flare-up, a body that won't cooperate.</div>
+          </a>
+          </div>
+        </section>
+        <section class="cat-section" id="cat-mind" style="--cat:#7a6a9c">
+          <div class="cat-head">
+            <span class="cat-dot"></span>
+            <h3>Anxiety &amp; Hard Emotions</h3>
+            <span class="cat-count">26</span>
+          </div>
+          <div class="cat-rule"></div>
+          <p class="cat-blurb">Worry, anger, numbness &mdash; a mind that won't go quiet.</p>
+          <div class="topics-grid">
+          <a href="shame-spirals.html" class="topic-card" data-kw="shame spirals self doubt rejection anxiety">
+            <div class="topic-title">Climbing Out of a Shame Spiral</div>
+            <div class="topic-desc">One small thing goes wrong, you said something awkward, you forgot to reply, you made a mistake at work, and within an...</div>
+          </a>
+          <a href="feeling-anxious-for-no-reason.html" class="topic-card" data-kw="feeling anxious for no reason anxiety self doubt health">
+            <div class="topic-title">Feeling Anxious for No Reason</div>
+            <div class="topic-desc">Your heart is beating a little too fast and you can't point to why?</div>
+          </a>
+          <a href="panic-attacks.html" class="topic-card" data-kw="panic attacks anxiety health perseverance">
+            <div class="topic-title">How to Cope With Panic Attacks</div>
+            <div class="topic-desc">You're sitting somewhere completely ordinary, the kitchen, your car, the back of a bus, and suddenly your heart starts pounding like you're about to die?</div>
+          </a>
+          <a href="dealing-with-jealousy.html" class="topic-card" data-kw="dealing with jealousy envy self doubt relationships">
+            <div class="topic-title">How to Deal with Jealousy</div>
+            <div class="topic-desc">Jealousy is eating you alive.</div>
+          </a>
+          <a href="intrusive-thoughts.html" class="topic-card" data-kw="intrusive thoughts anxiety health self doubt">
+            <div class="topic-title">Living With Intrusive Thoughts</div>
+            <div class="topic-desc">A thought arrives in your head that horrifies you? You are standing at the top of a staircase, or holding a knife in the...</div>
+          </a>
+          <a href="mood-swings.html" class="topic-card" data-kw="mood swings anxiety health self doubt">
+            <div class="topic-title">Living With Unpredictable Mood Swings</div>
+            <div class="topic-desc">You wake up and you genuinely cannot tell which version of yourself you are going to get today?</div>
+          </a>
+          <a href="loneliness-despite-everything.html" class="topic-card" data-kw="loneliness despite everything loneliness relationships">
+            <div class="topic-title">Lonely Even When You're Not Alone</div>
+            <div class="topic-desc">Surrounded by people but deeply lonely.</div>
+          </a>
+          <a href="anxiety-insomnia.html" class="topic-card" data-kw="anxiety insomnia anxiety health">
+            <div class="topic-title">The 3am Mind That Won't Stop</div>
+            <div class="topic-desc">Your body is tired but your mind won't let you sleep.</div>
+          </a>
+          <a href="the-fear-of-losing-control-of-your-mind.html" class="topic-card" data-kw="the fear of losing control of your mind anxiety self doubt health">
+            <div class="topic-title">The Fear of Losing Control of Your Mind</div>
+            <div class="topic-desc">A thought crosses your mind that frightens you - not because of what's happening in the world, but because of what's happening...</div>
+          </a>
+          <a href="the-loneliness-of-getting-older.html" class="topic-card" data-kw="the loneliness of getting older loneliness relationships self doubt">
+            <div class="topic-title">The Loneliness of Getting Older</div>
+            <div class="topic-desc">You're at a social event -- a birthday, a dinner party, something that's supposed to be fun -- and you look around at the people...</div>
+          </a>
+          <a href="waking-up-with-dread-every-morning.html" class="topic-card" data-kw="waking up with dread every morning anxiety work stress health">
+            <div class="topic-title">Waking Up With Dread Every Morning</div>
+            <div class="topic-desc">The alarm goes off and, before you've even opened your eyes, something heavy presses down on your chest?</div>
+          </a>
+          <a href="anger-you-cant-control.html" class="topic-card" data-kw="anger you cant control anger relationships family">
+            <div class="topic-title">When Anger Takes Over</div>
+            <div class="topic-desc">You snap at the people you love. The rage doesn't make sense.</div>
+          </a>
+          <a href="when-bad-thoughts-wont-leave.html" class="topic-card" data-kw="when bad thoughts wont leave anxiety self doubt health">
+            <div class="topic-title">When Bad Thoughts Won't Leave</div>
+            <div class="topic-desc">A thought gets stuck? Not just a passing worry - but something that shows up uninvited at 3am, follows you into the shower, sits...</div>
+          </a>
+          <a href="social-anxiety.html" class="topic-card" data-kw="social anxiety anxiety self doubt loneliness">
+            <div class="topic-title">When Being Around People Feels Like Too Much</div>
+            <div class="topic-desc">Your heart races before a gathering. You replay conversations for hours.</div>
+          </a>
+          <a href="when-hope-feels-impossible.html" class="topic-card" data-kw="when hope feels impossible grief loss anxiety perseverance">
+            <div class="topic-title">When Hope Feels Impossible</div>
+            <div class="topic-desc">Someone tells you "things will get better" and instead of being comforted, you feel a flash of something like anger?</div>
+          </a>
+          <a href="festering-resentment.html" class="topic-card" data-kw="festering resentment anger relationships grief loss">
+            <div class="topic-title">When Resentment Won't Let Go</div>
+            <div class="topic-desc">You think you have moved on from what someone did to you, and then their name comes up, or you see their face, or...</div>
+          </a>
+          <a href="fear-of-the-future.html" class="topic-card" data-kw="fear of the future anxiety self doubt finances">
+            <div class="topic-title">When the Future Fills You With Dread</div>
+            <div class="topic-desc">Every thought about what's coming tightens your chest.</div>
+          </a>
+          <a href="hypervigilance.html" class="topic-card" data-kw="hypervigilance anxiety relationships chronic illness">
+            <div class="topic-title">When You Can Never Let Your Guard Down</div>
+            <div class="topic-desc">You walk into a room and, before you have even decided to, you have scanned it?</div>
+          </a>
+          <a href="the-inability-to-relax.html" class="topic-card" data-kw="the inability to relax anxiety work stress health">
+            <div class="topic-title">When You Can Never Truly Relax</div>
+            <div class="topic-desc">You finally sit down at the end of the day, the house is quiet, nothing is urgent, and your body simply will not believe it?</div>
+          </a>
+          <a href="depression-fog.html" class="topic-card" data-kw="depression fog health loneliness">
+            <div class="topic-title">When You Can't Get Out of Bed</div>
+            <div class="topic-desc">The fog is real. You're not lazy.</div>
+          </a>
+          <a href="decision-paralysis.html" class="topic-card" data-kw="decision paralysis anxiety self doubt perseverance">
+            <div class="topic-title">When You Can't Make a Decision</div>
+            <div class="topic-desc">Too many options, too much fear of the wrong one, so you choose nothing.</div>
+          </a>
+          <a href="chronic-overthinking.html" class="topic-card" data-kw="chronic overthinking anxiety self doubt perseverance">
+            <div class="topic-title">When You Can't Stop Overthinking</div>
+            <div class="topic-desc">It is late, your body is exhausted, and your mind absolutely will not stop?</div>
+          </a>
+          <a href="emotional-numbness.html" class="topic-card" data-kw="emotional numbness health grief loss loneliness">
+            <div class="topic-title">When You Feel Emotionally Numb</div>
+            <div class="topic-desc">Something good happens, or something sad, and you wait for the feeling to arrive and it just does not come?</div>
+          </a>
+          <a href="feeling-everything-too-intensely.html" class="topic-card" data-kw="feeling everything too intensely anxiety self doubt health">
+            <div class="topic-title">When You Feel Everything Too Intensely</div>
+            <div class="topic-desc">Someone makes a small offhand comment and you carry it for three days?</div>
+          </a>
+          <a href="replaying-conversations.html" class="topic-card" data-kw="replaying conversations anxiety self doubt relationships">
+            <div class="topic-title">When You Replay Conversations for Hours</div>
+            <div class="topic-desc">A conversation ended hours ago, maybe days ago, and your mind will not let it end?</div>
+          </a>
+          <a href="emotional-exhaustion.html" class="topic-card" data-kw="emotional exhaustion work stress caregiving health">
+            <div class="topic-title">When You're Emotionally Exhausted</div>
+            <div class="topic-desc">Someone asks how you are and you say fine, and the word comes out flat, because the truth would take too long and you do not have the energy to say it?</div>
+          </a>
+          </div>
+        </section>
+        <section class="cat-section" id="cat-grief" style="--cat:#6e7681">
+          <div class="cat-head">
+            <span class="cat-dot"></span>
+            <h3>Grief &amp; Loss</h3>
+            <span class="cat-count">8</span>
+          </div>
+          <div class="cat-rule"></div>
+          <p class="cat-blurb">Losing people, pets, and the life you expected.</p>
+          <div class="topics-grid">
+          <a href="grieving-a-friend.html" class="topic-card" data-kw="grieving a friend grief loss relationships loneliness">
+            <div class="topic-title">Grieving a Friend</div>
+            <div class="topic-desc">You pick up your phone to text someone and get halfway through typing before you remember -- they're gone.</div>
+          </a>
+          <a href="grieving-a-living-parent.html" class="topic-card" data-kw="grieving a living parent family grief loss caregiving">
+            <div class="topic-title">Grieving a Parent Who Is Still Alive</div>
+            <div class="topic-desc">Someone asks how your mother is, or your father, and you say "fine" because the real answer would take an hour and would not make sense to them anyway?</div>
+          </a>
+          <a href="losing-a-parent.html" class="topic-card" data-kw="losing a parent grief loss family loneliness">
+            <div class="topic-title">Losing a Parent</div>
+            <div class="topic-desc">You reach for your phone to tell them something, and then the whole weight of it hits you again?</div>
+          </a>
+          <a href="losing-a-pet.html" class="topic-card" data-kw="losing a pet grief loss loneliness">
+            <div class="topic-title">Losing a Pet</div>
+            <div class="topic-desc">You walk through the front door and reach down out of habit - for a collar, a nose, a head pressing into your palm - and then...</div>
+          </a>
+          <a href="losing-someone-suddenly.html" class="topic-card" data-kw="losing someone suddenly grief loss anxiety perseverance">
+            <div class="topic-title">Losing Someone Suddenly</div>
+            <div class="topic-desc">Your phone rings and somehow - before you even answer, before you've processed anything - some part of you already knows?</div>
+          </a>
+          <a href="still-not-over-it-years-later.html" class="topic-card" data-kw="still not over it years later grief loss perseverance self doubt">
+            <div class="topic-title">Still Not Over It Years Later</div>
+            <div class="topic-desc">A song comes on, or a smell drifts through the air, and suddenly you are right back there -- flooded, undone, like the years...</div>
+          </a>
+          <a href="the-grief-no-one-acknowledges.html" class="topic-card" data-kw="the grief no one acknowledges grief loss loneliness anxiety">
+            <div class="topic-title">The Grief No One Acknowledges</div>
+            <div class="topic-desc">You're grieving something and you can't quite explain it to anyone - because on the surface it doesn't look like the kind of loss...</div>
+          </a>
+          <a href="when-grief-wont-stop.html" class="topic-card" data-kw="when grief wont stop grief loss">
+            <div class="topic-title">When Grief Won't Stop</div>
+            <div class="topic-desc">Grief doesn't follow a timeline.</div>
+          </a>
+          </div>
+        </section>
+        <section class="cat-section" id="cat-self" style="--cat:#c2783c">
+          <div class="cat-head">
+            <span class="cat-dot"></span>
+            <h3>Self &amp; Meaning</h3>
+            <span class="cat-count">37</span>
+          </div>
+          <div class="cat-rule"></div>
+          <p class="cat-blurb">Worth, purpose, identity, and starting over within.</p>
+          <div class="topics-grid">
+          <a href="rejection.html" class="topic-card" data-kw="rejection rejection self doubt relationships">
+            <div class="topic-title">After Being Rejected</div>
+            <div class="topic-desc">The job, the relationship, the friend group. Rejection lands in the body.</div>
+          </a>
+          <a href="always-starting-over-on-monday.html" class="topic-card" data-kw="always starting over on monday self doubt perseverance">
+            <div class="topic-title">Always Starting Over on Monday</div>
+            <div class="topic-desc">Wednesday or Thursday hits and you've already slipped off whatever plan you set on Sunday night, and your brain quietly files the...</div>
+          </a>
+          <a href="breaking-a-bad-habit.html" class="topic-card" data-kw="breaking a bad habit self doubt perseverance health">
+            <div class="topic-title">Breaking a Bad Habit</div>
+            <div class="topic-desc">You wake up and the first thing your brain does is reach for the thing you told yourself you were done with? The phone.</div>
+          </a>
+          <a href="comparison-trap.html" class="topic-card" data-kw="comparison trap envy self doubt loneliness">
+            <div class="topic-title">Everyone Is Doing Better Than Me</div>
+            <div class="topic-desc">Instagram says everyone is thriving. You're barely surviving.</div>
+          </a>
+          <a href="feeling-disconnected-from-yourself.html" class="topic-card" data-kw="feeling disconnected from yourself loneliness self doubt anxiety">
+            <div class="topic-title">Feeling Disconnected From Yourself</div>
+            <div class="topic-desc">You catch your reflection somewhere unexpected - a shop window, a phone screen - and for a split second you don't recognize the...</div>
+          </a>
+          <a href="feeling-invisible-to-everyone.html" class="topic-card" data-kw="feeling invisible to everyone loneliness relationships self doubt">
+            <div class="topic-title">Feeling Invisible to Everyone</div>
+            <div class="topic-desc">You're in a room full of people and you're pretty sure no one would notice if you quietly slipped out?</div>
+          </a>
+          <a href="feeling-left-out.html" class="topic-card" data-kw="feeling left out relationships loneliness rejection">
+            <div class="topic-title">Feeling Left Out</div>
+            <div class="topic-desc">You find out your friends had plans and you weren't included?</div>
+          </a>
+          <a href="feeling-like-a-failure.html" class="topic-card" data-kw="feeling like a failure self doubt perseverance finances">
+            <div class="topic-title">Feeling Like a Failure After 30</div>
+            <div class="topic-desc">Everyone else has it figured out. You don't.</div>
+          </a>
+          <a href="feeling-like-life-is-passing-you-by.html" class="topic-card" data-kw="feeling like life is passing you by self doubt anxiety loneliness">
+            <div class="topic-title">Feeling Like Life Is Passing You By</div>
+            <div class="topic-desc">You're scrolling through photos and you notice that the last three years look almost identical?</div>
+          </a>
+          <a href="feeling-like-times-running-out.html" class="topic-card" data-kw="feeling like times running out anxiety self doubt perseverance">
+            <div class="topic-title">Feeling Like Time Is Running Out</div>
+            <div class="topic-desc">You're lying in bed at 2am and a number comes to you -- your age, or someone else's, or some milestone you haven't hit -- and your...</div>
+          </a>
+          <a href="feeling-spiritually-lost.html" class="topic-card" data-kw="feeling spiritually lost self doubt loneliness anxiety">
+            <div class="topic-title">Feeling Lost and Without Direction</div>
+            <div class="topic-desc">You wake up in the morning and the day just... sits there? Not bad exactly, not good either. Just flat.</div>
+          </a>
+          <a href="finding-purpose-after-retirement.html" class="topic-card" data-kw="finding purpose after retirement loneliness self doubt perseverance">
+            <div class="topic-title">Finding Purpose After Retirement</div>
+            <div class="topic-desc">You finally get the thing you worked toward for decades, and then you don't know what to do with yourself?</div>
+          </a>
+          <a href="growing-up-too-fast.html" class="topic-card" data-kw="growing up too fast family grief loss relationships">
+            <div class="topic-title">Growing Up Too Fast</div>
+            <div class="topic-desc">Someone talks about their childhood - a silly story, some game they used to play, a time they were just completely irresponsible...</div>
+          </a>
+          <a href="how-to-forgive.html" class="topic-card" data-kw="how to forgive relationships anger grief loss">
+            <div class="topic-title">How to Forgive Someone Who Hurt You</div>
+            <div class="topic-desc">You know you should let go but you can't.</div>
+          </a>
+          <a href="regret-over-past-choices.html" class="topic-card" data-kw="regret over past choices grief loss self doubt perseverance">
+            <div class="topic-title">Living With the Choices You Wish You Hadn't Made</div>
+            <div class="topic-desc">The road not taken keeps you up at night.</div>
+          </a>
+          <a href="losing-faith-in-everything.html" class="topic-card" data-kw="losing faith in everything self doubt grief loss loneliness">
+            <div class="topic-title">Losing Faith in Everything</div>
+            <div class="topic-desc">You look around at your life -- the people in it, the things you used to believe, the future you thought you were building -- and...</div>
+          </a>
+          <a href="quarter-life-crisis.html" class="topic-card" data-kw="quarter life crisis self doubt perseverance envy">
+            <div class="topic-title">Lost in Your Twenties With No Idea What's Next</div>
+            <div class="topic-desc">Everyone seems to have a plan. You don't.</div>
+          </a>
+          <a href="making-peace-with-what-you-cant-change.html" class="topic-card" data-kw="making peace with what you cant change grief loss anxiety perseverance">
+            <div class="topic-title">Making Peace With What You Can't Change</div>
+            <div class="topic-desc">You replay a conversation that happened six months ago and still feel the exact same spike of anger or hurt?</div>
+          </a>
+          <a href="mourning-the-life-you-expected.html" class="topic-card" data-kw="mourning the life you expected grief loss self doubt loneliness">
+            <div class="topic-title">Mourning the Life You Expected</div>
+            <div class="topic-desc">You look at your life and it looks nothing like the one you pictured? Not in a small way -- in a fundamental, bone-deep way.</div>
+          </a>
+          <a href="not-knowing-who-you-are-anymore.html" class="topic-card" data-kw="not knowing who you are anymore self doubt anxiety perseverance">
+            <div class="topic-title">Not Knowing Who You Are Anymore</div>
+            <div class="topic-desc">Someone asks you a simple question -- 'so what do you love doing?' or 'what are you into these days?' -- and you open your mouth...</div>
+          </a>
+          <a href="harsh-inner-critic.html" class="topic-card" data-kw="harsh inner critic self doubt perseverance health">
+            <div class="topic-title">Quieting Your Harsh Inner Critic</div>
+            <div class="topic-desc">Voice in your head that never seems to let up? You finish something and it says it was not good enough. You make a small mistake and it...</div>
+          </a>
+          <a href="searching-for-meaning-in-life.html" class="topic-card" data-kw="searching for meaning in life self doubt loneliness anxiety">
+            <div class="topic-title">Searching for Meaning in Life</div>
+            <div class="topic-desc">You're going through the motions of a perfectly functional life -- decent job, people who care about you, nothing catastrophically...</div>
+          </a>
+          <a href="starting-life-over-in-a-new-place.html" class="topic-card" data-kw="starting life over in a new place loneliness relationships self doubt">
+            <div class="topic-title">Starting Life Over in a New Place</div>
+            <div class="topic-desc">You're standing in a supermarket in a city you just moved to, holding something as ordinary as a can of tomatoes, and you realize...</div>
+          </a>
+          <a href="starting-over.html" class="topic-card" data-kw="starting over perseverance self doubt grief loss">
+            <div class="topic-title">Starting Over at Any Age</div>
+            <div class="topic-desc">Divorce, job loss, or just the feeling that you need to begin again.</div>
+          </a>
+          <a href="the-fear-of-growing-old.html" class="topic-card" data-kw="the fear of growing old anxiety grief loss loneliness">
+            <div class="topic-title">The Fear of Growing Old</div>
+            <div class="topic-desc">You catch your reflection in a window and for a half-second you don't recognize yourself?</div>
+          </a>
+          <a href="the-weight-of-old-guilt.html" class="topic-card" data-kw="the weight of old guilt self doubt grief loss relationships">
+            <div class="topic-title">The Weight of Old Guilt</div>
+            <div class="topic-desc">Something you did years ago surfaces out of nowhere - at 3am, or in the middle of a perfectly ordinary afternoon - and you feel...</div>
+          </a>
+          <a href="phone-addiction.html" class="topic-card" data-kw="phone addiction anxiety self doubt">
+            <div class="topic-title">Trapped by Your Phone</div>
+            <div class="topic-desc">You pick up your phone to check one thing and somehow forty minutes have passed and you're watching a stranger's vacation video...</div>
+          </a>
+          <a href="midlife-crisis.html" class="topic-card" data-kw="midlife crisis self doubt perseverance grief loss">
+            <div class="topic-title">When Midlife Makes You Question Everything</div>
+            <div class="topic-desc">You did the things you were supposed to do. So why does it feel hollow?</div>
+          </a>
+          <a href="perfectionism-trap.html" class="topic-card" data-kw="perfectionism trap self doubt work stress anxiety">
+            <div class="topic-title">When Nothing You Do Is Ever Good Enough</div>
+            <div class="topic-desc">You hold yourself to a standard no human could meet, then punish yourself for missing it.</div>
+          </a>
+          <a href="cant-stick-to-anything.html" class="topic-card" data-kw="cant stick to anything self doubt perseverance">
+            <div class="topic-title">When You Can't Stick to Anything</div>
+            <div class="topic-desc">You're three weeks into something - the gym, the journaling, the new diet, learning the guitar - and the initial energy has...</div>
+          </a>
+          <a href="people-pleasing.html" class="topic-card" data-kw="people pleasing self doubt relationships anxiety">
+            <div class="topic-title">When You Can't Stop Saying Yes</div>
+            <div class="topic-desc">You bend for everyone and lose yourself doing it.</div>
+          </a>
+          <a href="low-self-worth.html" class="topic-card" data-kw="low self worth self doubt rejection loneliness">
+            <div class="topic-title">When You Don't Believe You're Worth Much</div>
+            <div class="topic-desc">Someone pays you a compliment and your whole body wants to wave it away?</div>
+          </a>
+          <a href="feeling-broken.html" class="topic-card" data-kw="feeling broken self doubt rejection perseverance">
+            <div class="topic-title">When You Feel Fundamentally Broken</div>
+            <div class="topic-desc">You look at other people and they seem to come with some basic instruction manual you never received?</div>
+          </a>
+          <a href="losing-motivation.html" class="topic-card" data-kw="losing motivation perseverance health self doubt">
+            <div class="topic-title">When You Just Don't Care Anymore</div>
+            <div class="topic-desc">The spark that used to drive you is gone and you can't fake it.</div>
+          </a>
+          <a href="procrastination-paralysis.html" class="topic-card" data-kw="procrastination paralysis self doubt perseverance anxiety">
+            <div class="topic-title">Why You Can't Start the Thing You Need to Do</div>
+            <div class="topic-desc">You want to do it. You know it matters. And still you don't move. The truth about the freeze that looks like laziness.</div>
+          </a>
+          <a href="self-sabotage.html" class="topic-card" data-kw="self sabotage self doubt anxiety perseverance">
+            <div class="topic-title">Why You Keep Sabotaging Yourself</div>
+            <div class="topic-desc">Everything is finally going right, and then - somehow - you blow it? The job interview you bombed after weeks of preparation.</div>
+          </a>
+          <a href="wondering-if-your-life-matters.html" class="topic-card" data-kw="wondering if your life matters self doubt grief loss perseverance">
+            <div class="topic-title">Wondering If Your Life Matters</div>
+            <div class="topic-desc">You're lying awake and a question surfaces that you'd never say out loud to anyone?</div>
+          </a>
+          </div>
+        </section>
     </main>
 
     <p class="no-results" id="noResults" hidden>Nothing matches that word. Try another &mdash; or browse the sections above.</p>
@@ -1182,23 +1224,34 @@
 
   <script>
     (function () {
+      var TOTAL = 250;
       var search = document.getElementById('search');
       var noResults = document.getElementById('noResults');
+      var resultCount = document.getElementById('resultCount');
       var cards = Array.prototype.slice.call(document.querySelectorAll('.topic-card'));
       var sections = Array.prototype.slice.call(document.querySelectorAll('.cat-section'));
-      search.addEventListener('input', function () {
+
+      function applyFilter() {
         var q = search.value.trim().toLowerCase();
+        var shown = 0;
         cards.forEach(function (card) {
-          card.hidden = q !== '' && card.textContent.toLowerCase().indexOf(q) === -1;
+          var hay = (card.getAttribute('data-kw') + ' ' + card.textContent).toLowerCase();
+          var match = q === '' || hay.indexOf(q) !== -1;
+          card.hidden = !match;
+          if (match) shown++;
         });
-        var anyVisible = false;
         sections.forEach(function (section) {
-          var visible = section.querySelectorAll('.topic-card:not([hidden])').length;
-          section.hidden = visible === 0;
-          if (visible) anyVisible = true;
+          section.hidden = section.querySelectorAll('.topic-card:not([hidden])').length === 0;
         });
-        noResults.hidden = anyVisible;
-      });
+        noResults.hidden = shown !== 0;
+        if (q === '') {
+          resultCount.textContent = TOTAL + ' struggles, gathered by the part of life they touch';
+        } else {
+          resultCount.textContent = shown + (shown === 1 ? ' struggle matches' : ' struggles match') + ' \u201c' + search.value.trim() + '\u201d';
+        }
+      }
+
+      search.addEventListener('input', applyFilter);
     })();
   </script>
   <script src="../nav.js" defer></script>
