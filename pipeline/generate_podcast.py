@@ -492,7 +492,12 @@ def main() -> None:
                 return
         slug = pick_next_unpublished_slug()
         if not slug:
-            sys.exit("No unpublished wisdom slugs remaining")
+            # Genuinely nothing left to publish is not a failure — the daily
+            # cron should exit cleanly so it doesn't fire a false-alarm
+            # "workflow failed" email. Add wisdom essays to resume episodes.
+            print("No unpublished wisdom slugs remaining — nothing to "
+                  "publish, exiting cleanly.")
+            return
         print(f"picked: {slug}")
     else:
         slug = args.slug
