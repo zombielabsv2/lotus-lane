@@ -34,151 +34,233 @@
 
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Segoe UI', system-ui, sans-serif; background: #faf9f6; color: #2d2d2d; }
-    .container { max-width: 740px; margin: 0 auto; padding: 1rem; }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: #faf9f6; color: #2d2d2d;
+      -webkit-font-smoothing: antialiased; }
+    .container { max-width: 760px; margin: 0 auto; padding: 1rem 1.15rem; }
     header { text-align: center; padding: 1.2rem 0; border-bottom: 2px solid #e8e4de; }
     header a { text-decoration: none; color: inherit; }
     header h1 { font-size: 1.5rem; font-weight: 300; letter-spacing: 0.15em; color: #4a4a4a; }
     header h1 span { font-weight: 600; color: #c0392b; }
 
-    .hero { padding: 2.5rem 0 1.5rem; text-align: center; }
-    .hero h2 { font-size: 1.8rem; font-weight: 500; color: #333; line-height: 1.3; margin-bottom: 0.8rem; }
-    .hero p { font-size: 1.05rem; color: #666; line-height: 1.7; max-width: 600px; margin: 0 auto; }
+    .back-link { display: inline-block; margin-top: 1.4rem; font-size: 0.84rem; color: #9a948c;
+      text-decoration: none; transition: color 0.15s; }
+    .back-link:hover { color: var(--cat); }
 
-    .section-title { font-size: 1.1rem; font-weight: 600; color: #555; margin: 2rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid #e8e4de; }
+    .hero { padding: 1.6rem 0 1.2rem; }
+    .hero-cat { display: flex; align-items: center; gap: 0.45rem; margin-bottom: 0.7rem; }
+    .hero-dot { width: 10px; height: 10px; border-radius: 3px; background: var(--cat); flex: none; }
+    .hero-cat a { font-size: 0.76rem; font-weight: 700; letter-spacing: 0.07em; color: var(--cat);
+      text-decoration: none; text-transform: uppercase; }
+    .hero-cat a:hover { text-decoration: underline; }
+    .hero h2 { font-family: Georgia, 'Times New Roman', serif; font-size: 2.15rem; font-weight: 400;
+      color: #2d2d2d; line-height: 1.22; }
+    .hero-lead { font-size: 1.1rem; color: #6f6a63; line-height: 1.7; margin: 0.4rem 0 2rem; }
 
-    .strip-card { display: flex; gap: 1rem; padding: 1rem; background: white; border-radius: 8px; box-shadow: 0 1px 6px rgba(0,0,0,0.05); margin-bottom: 0.8rem; text-decoration: none; color: inherit; transition: box-shadow 0.2s; }
-    .strip-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.1); }
-    .strip-card img { width: 120px; height: 120px; object-fit: cover; border-radius: 6px; flex-shrink: 0; }
-    .strip-card-info { flex: 1; min-width: 0; }
-    .strip-card-title { font-size: 1rem; font-weight: 600; color: #333; margin-bottom: 0.2rem; }
-    .strip-card-topic { font-size: 0.75rem; color: #c0392b; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.3rem; }
-    .strip-card-message { font-size: 0.85rem; color: #666; line-height: 1.5; }
+    .article-content { margin: 0.6rem 0 2rem; }
+    .article-content p { font-size: 1.07rem; line-height: 1.82; color: #403c37; margin-bottom: 1.15rem; }
+    .article-content > p:first-of-type::first-letter { font-family: Georgia, serif; font-size: 3.1rem;
+      font-weight: 600; float: left; line-height: 0.86; margin: 0.32rem 0.55rem 0 0; color: var(--cat); }
+    .article-content h3 { font-family: Georgia, 'Times New Roman', serif; font-size: 1.4rem;
+      font-weight: 400; color: #2d2d2d; margin: 2rem 0 0.7rem; }
+    .article-content blockquote { border-left: 3px solid var(--cat); padding: 0.3rem 0 0.3rem 1.3rem;
+      margin: 1.6rem 0; font-family: Georgia, serif; font-style: italic; font-size: 1.18rem;
+      line-height: 1.6; color: #504a42; }
+    .article-content blockquote p { font-size: inherit; line-height: inherit; color: inherit; margin: 0; }
+    .article-content a { color: var(--cat); }
 
-    .wisdom-quote { border-left: 3px solid #c0392b; padding: 0.8rem 1.2rem; margin: 0.8rem 0; background: #f5f3ee; border-radius: 0 6px 6px 0; }
-    .wisdom-quote p { font-style: italic; color: #504638; line-height: 1.6; font-size: 0.95rem; }
-    .wisdom-quote cite { display: block; margin-top: 0.4rem; font-size: 0.8rem; color: #8c8278; font-style: normal; }
+    .section-title { font-family: Georgia, 'Times New Roman', serif; font-size: 1.32rem; font-weight: 400;
+      color: #2d2d2d; margin: 2.4rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #e8e4de; }
 
-    .subscribe-cta { text-align: center; padding: 2rem; background: #f0ece4; border-radius: 10px; margin: 2rem 0; }
-    .subscribe-cta h3 { font-size: 1.1rem; color: #333; margin-bottom: 0.4rem; }
-    .subscribe-cta p { font-size: 0.9rem; color: #666; margin-bottom: 0.8rem; }
-    .subscribe-cta a { display: inline-block; padding: 0.7rem 1.5rem; background: #c0392b; color: white; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 0.9rem; }
-    .subscribe-cta a:hover { background: #a93226; }
-
-    .related-links { display: flex; gap: 0.5rem; flex-wrap: wrap; margin: 1.5rem 0; }
-    .related-links a { padding: 0.4rem 0.8rem; background: white; border: 1px solid #d4cfc7; border-radius: 999px; font-size: 0.8rem; color: #666; text-decoration: none; transition: all 0.2s; }
-    .related-links a:hover { border-color: #c0392b; color: #c0392b; }
-
-    .article-content { margin: 1.5rem 0; line-height: 1.8; color: #444; font-size: 1rem; }
-    .article-content p { margin-bottom: 1rem; }
-    .article-content h3 { font-size: 1.15rem; font-weight: 600; color: #333; margin: 1.5rem 0 0.5rem; }
-    .article-content blockquote { border-left: 3px solid #c0392b; padding: 0.8rem 1.2rem; margin: 1.2rem 0; background: #f5f3ee; border-radius: 0 6px 6px 0; font-style: italic; color: #504638; }
-
-    .empty { color: #999; font-style: italic; padding: 1rem 0; }
+    .wisdom-quote { border-left: 3px solid var(--cat); padding: 0.9rem 1.25rem; margin: 0.8rem 0;
+      background: #f5f3ee; border-radius: 0 8px 8px 0; }
+    .wisdom-quote p { font-family: Georgia, serif; font-style: italic; color: #504638;
+      line-height: 1.62; font-size: 1rem; }
+    .wisdom-quote cite { display: block; margin-top: 0.5rem; font-size: 0.78rem; color: #9a8f82;
+      font-style: normal; letter-spacing: 0.02em; }
 
     /* Hub — cross-format cross-link block */
-    .hub { margin: 2.5rem 0 1.2rem; padding: 1.6rem 1.4rem 1.2rem; background: linear-gradient(160deg, #fdf8f0 0%, #faf9f6 100%); border: 1px solid #e8e4de; border-radius: 16px; }
-    .hub-eyebrow { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; color: #c0392b; text-transform: uppercase; margin-bottom: 0.3rem; }
-    .hub-headline { font-size: 1.2rem; font-weight: 500; color: #2d2d2d; margin-bottom: 0.4rem; }
-    .hub-headline em { font-style: italic; color: #c0392b; font-weight: 500; }
-    .hub-sub { font-size: 0.86rem; color: #888; margin-bottom: 1.2rem; }
-    .hub-row { display: flex; align-items: center; gap: 1rem; padding: 0.95rem 1rem; background: white; border: 1px solid #e8e4de; border-radius: 12px; text-decoration: none; color: inherit; margin-bottom: 0.55rem; transition: all 0.18s; }
-    .hub-row:hover { border-color: #c0392b; transform: translateY(-1px); box-shadow: 0 4px 16px rgba(192,57,43,0.08); }
-    .hub-row .icon { width: 42px; height: 42px; background: #fdf8f0; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.15rem; flex-shrink: 0; }
-    .hub-row .icon.podcast { background: linear-gradient(135deg, #fdf6e3 0%, #f8ecd1 100%); }
+    .hub { margin: 2.6rem 0 1.2rem; padding: 1.6rem 1.4rem 1.2rem; background: #fff;
+      border: 1px solid #e8e4de; border-radius: 16px; }
+    .hub-eyebrow { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.13em; color: var(--cat);
+      text-transform: uppercase; margin-bottom: 0.35rem; }
+    .hub-headline { font-family: Georgia, serif; font-size: 1.3rem; font-weight: 400; color: #2d2d2d;
+      margin-bottom: 0.3rem; }
+    .hub-headline em { font-style: italic; color: var(--cat); }
+    .hub-sub { font-size: 0.86rem; color: #9a948c; margin-bottom: 1.2rem; }
+    .hub-row { display: flex; align-items: center; gap: 1rem; padding: 0.95rem 1rem; background: #faf9f6;
+      border: 1px solid #e8e4de; border-radius: 12px; text-decoration: none; color: inherit;
+      margin-bottom: 0.55rem; transition: all 0.18s; }
+    .hub-row:hover { border-color: var(--cat); transform: translateY(-1px); box-shadow: 0 5px 16px rgba(40,30,20,0.07); }
+    .hub-row .icon { width: 42px; height: 42px; background: #fff; border: 1px solid #e8e4de;
+      border-radius: 10px; display: flex; align-items: center; justify-content: center;
+      font-size: 1.15rem; flex-shrink: 0; }
+    .hub-row .icon.podcast { background: #fdf6e3; }
     .hub-row .text { flex: 1; min-width: 0; }
-    .hub-row .row-eyebrow { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; color: #c0392b; text-transform: uppercase; }
+    .hub-row .row-eyebrow { font-size: 0.64rem; font-weight: 700; letter-spacing: 0.1em; color: var(--cat); text-transform: uppercase; }
     .hub-row .row-title { font-size: 0.96rem; font-weight: 600; color: #2d2d2d; margin-top: 0.15rem; line-height: 1.35; }
-    .hub-row .row-meta { font-size: 0.76rem; color: #888; margin-top: 0.15rem; }
-    .hub-row .arrow { color: #c0392b; font-weight: 600; flex-shrink: 0; }
-    .hub-divider { font-size: 0.68rem; color: #aaa; letter-spacing: 0.1em; text-transform: uppercase; margin: 1rem 0 0.4rem; padding-left: 0.2rem; }
-    .strip-card-mini { display: flex; gap: 0.9rem; padding: 0.75rem; background: white; border-radius: 10px; box-shadow: 0 1px 4px rgba(0,0,0,0.04); margin-bottom: 0.55rem; text-decoration: none; color: inherit; transition: all 0.2s; border: 1px solid transparent; }
-    .strip-card-mini:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.08); border-color: #e8e4de; }
+    .hub-row .row-meta { font-size: 0.76rem; color: #9a948c; margin-top: 0.15rem; }
+    .hub-row .arrow { color: var(--cat); font-weight: 600; flex-shrink: 0; }
+    .hub-divider { font-size: 0.66rem; color: #b5b0a8; letter-spacing: 0.1em; text-transform: uppercase; margin: 1.1rem 0 0.5rem; padding-left: 0.2rem; }
+    .strip-card-mini { display: flex; gap: 0.9rem; padding: 0.75rem; background: #faf9f6;
+      border: 1px solid #e8e4de; border-radius: 10px; margin-bottom: 0.55rem; text-decoration: none;
+      color: inherit; transition: all 0.18s; }
+    .strip-card-mini:hover { border-color: var(--cat); }
     .strip-card-mini img { width: 80px; height: 80px; object-fit: cover; border-radius: 6px; flex-shrink: 0; }
     .strip-card-mini .strip-card-info { flex: 1; min-width: 0; }
-    .strip-card-mini .strip-card-topic { font-size: 0.65rem; color: #c0392b; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.2rem; font-weight: 700; }
+    .strip-card-mini .strip-card-topic { font-size: 0.64rem; color: var(--cat); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.2rem; font-weight: 700; }
     .strip-card-mini .strip-card-title { font-size: 0.92rem; font-weight: 600; color: #2d2d2d; margin-bottom: 0.2rem; line-height: 1.3; }
-    .strip-card-mini .strip-card-message { font-size: 0.78rem; color: #777; line-height: 1.45; }
-    .listicle-card { display: flex; align-items: center; gap: 1rem; padding: 0.85rem 1rem; background: white; border: 1px solid #e8e4de; border-radius: 10px; text-decoration: none; color: inherit; margin-bottom: 0.55rem; transition: all 0.18s; }
-    .listicle-card:hover { border-color: #c0392b; }
-    .listicle-card .num { width: 36px; height: 36px; background: #fdf8f0; color: #c0392b; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.85rem; flex-shrink: 0; }
+    .strip-card-mini .strip-card-message { font-size: 0.78rem; color: #857f78; line-height: 1.45; }
+    .listicle-card { display: flex; align-items: center; gap: 1rem; padding: 0.85rem 1rem;
+      background: #faf9f6; border: 1px solid #e8e4de; border-radius: 10px; text-decoration: none;
+      color: inherit; margin-bottom: 0.55rem; transition: all 0.18s; }
+    .listicle-card:hover { border-color: var(--cat); }
+    .listicle-card .num { width: 36px; height: 36px; background: #fff; border: 1px solid #e8e4de;
+      color: var(--cat); border-radius: 8px; display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 0.85rem; flex-shrink: 0; }
     .listicle-card .text { flex: 1; min-width: 0; }
-    .listicle-card .row-eyebrow { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; color: #c0392b; text-transform: uppercase; }
+    .listicle-card .row-eyebrow { font-size: 0.64rem; font-weight: 700; letter-spacing: 0.1em; color: var(--cat); text-transform: uppercase; }
     .listicle-card .row-title { font-size: 0.9rem; font-weight: 600; color: #2d2d2d; margin-top: 0.15rem; line-height: 1.35; }
-    .daily-band { display: flex; align-items: center; gap: 1rem; padding: 1rem 1.2rem; background: #fdf8f0; border: 1.5px solid #e8d9b3; border-radius: 12px; text-decoration: none; color: inherit; margin: 1.5rem 0 0; transition: all 0.2s; }
-    .daily-band:hover { border-color: #c0392b; transform: translateY(-1px); }
+    .daily-band { display: flex; align-items: center; gap: 1rem; padding: 1.05rem 1.2rem; background: #fff;
+      border: 1.5px solid #e8e4de; border-radius: 12px; text-decoration: none; color: inherit;
+      margin: 1.5rem 0 0; transition: all 0.18s; }
+    .daily-band:hover { border-color: var(--cat); transform: translateY(-1px); }
     .daily-band .icon { font-size: 1.3rem; flex-shrink: 0; line-height: 1; }
     .daily-band .text { flex: 1; }
-    .daily-band .row-eyebrow { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; color: #c0392b; text-transform: uppercase; }
-    .daily-band .row-title { font-size: 0.9rem; font-weight: 600; color: #4a3d20; margin-top: 0.2rem; }
-    .daily-band .row-meta { font-size: 0.74rem; color: #8a7d5f; margin-top: 0.15rem; }
-    .daily-band .cta { flex-shrink: 0; padding: 0.5rem 0.9rem; background: #c0392b; color: white; border-radius: 20px; font-size: 0.76rem; font-weight: 600; white-space: nowrap; }
+    .daily-band .row-eyebrow { font-size: 0.64rem; font-weight: 700; letter-spacing: 0.12em; color: var(--cat); text-transform: uppercase; }
+    .daily-band .row-title { font-size: 0.92rem; font-weight: 600; color: #2d2d2d; margin-top: 0.2rem; }
+    .daily-band .row-meta { font-size: 0.75rem; color: #9a948c; margin-top: 0.15rem; }
+    .daily-band .cta { flex-shrink: 0; padding: 0.5rem 0.95rem; background: var(--cat); color: white; border-radius: 20px; font-size: 0.76rem; font-weight: 600; white-space: nowrap; }
 
     /* Closely related struggles — tight, hand-curated, 4 not 20 */
-    .related-struggles { margin-top: 2rem; }
-    .related-struggles h3 { font-size: 0.95rem; font-weight: 600; color: #555; margin-bottom: 0.7rem; }
-    .related-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem; }
-    .related-grid a { padding: 0.7rem 0.9rem; background: white; border: 1px solid #e8e4de; border-radius: 8px; font-size: 0.85rem; color: #555; text-decoration: none; transition: all 0.18s; }
-    .related-grid a:hover { border-color: #c0392b; color: #c0392b; }
-    .browse-all-row { text-align: center; margin-top: 1rem; font-size: 0.85rem; }
-    .browse-all-row a { color: #888; text-decoration: none; border-bottom: 1px dashed #c0c0b8; padding-bottom: 1px; }
-    .browse-all-row a:hover { color: #c0392b; border-color: #c0392b; }
+    .related-struggles { margin-top: 2.4rem; }
+    .related-struggles h3 { font-family: Georgia, 'Times New Roman', serif; font-size: 1.32rem;
+      font-weight: 400; color: #2d2d2d; margin-bottom: 0.9rem; padding-bottom: 0.5rem;
+      border-bottom: 2px solid #e8e4de; }
+    .related-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.6rem; }
+    .related-grid a { padding: 0.85rem 1rem; background: #fff; border: 1px solid #e8e4de;
+      border-radius: 10px; font-size: 0.9rem; color: #403c37; text-decoration: none; transition: all 0.16s; }
+    .related-grid a:hover { border-color: var(--cat); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(40,30,20,0.06); }
+    .browse-all-row { text-align: center; margin-top: 1.1rem; font-size: 0.86rem; }
+    .browse-all-row a { color: #9a948c; text-decoration: none; border-bottom: 1px dashed #c0c0b8; padding-bottom: 1px; }
+    .browse-all-row a:hover { color: var(--cat); border-color: var(--cat); }
 
-    .share-section { text-align: center; margin: 2rem 0; padding: 1.2rem; background: #f5f3ee; border-radius: 10px; }
-    .share-label { font-size: 0.92rem; color: #555; margin-bottom: 0.8rem; }
+    .share-section { text-align: center; margin: 2.4rem 0 0; padding: 1.5rem; background: #f1ede5; border-radius: 12px; }
+    .share-label { font-family: Georgia, serif; font-size: 1.05rem; color: #504a42; margin-bottom: 0.9rem; }
     .share-buttons { display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; }
-    .share-btn { display: inline-flex; align-items: center; padding: 0.6rem 1.1rem; font: inherit; font-size: 0.88rem; font-weight: 600; border-radius: 6px; border: 0; cursor: pointer; text-decoration: none; transition: opacity 0.15s; }
+    .share-btn { display: inline-flex; align-items: center; padding: 0.6rem 1.15rem; font: inherit; font-size: 0.88rem; font-weight: 600; border-radius: 8px; border: 0; cursor: pointer; text-decoration: none; transition: opacity 0.15s; }
     .share-btn:hover { opacity: 0.88; }
     .share-btn.wa { background: #25D366; color: #fff; }
-    .share-btn.native { background: #c0392b; color: #fff; }
-    .share-btn.copy { background: #e8e4de; color: #555; }
+    .share-btn.native { background: var(--cat); color: #fff; }
+    .share-btn.copy { background: #e3ded6; color: #555; }
 
-    footer { text-align: center; padding: 1.5rem 0; color: #aaa; font-size: 0.8rem; border-top: 1px solid #e8e4de; margin-top: 2rem; }
+    footer { text-align: center; padding: 2rem 0 5.5rem; color: #b5b0a8; font-size: 0.8rem; border-top: 1px solid #e8e4de; margin-top: 2.5rem; }
 
     @media (max-width: 600px) {
-      .hero h2 { font-size: 1.4rem; }
-      .strip-card { flex-direction: column; }
-      .strip-card img { width: 100%; height: 180px; }
+      .hero h2 { font-size: 1.7rem; }
+      .article-content p { font-size: 1.03rem; }
+      .related-grid { grid-template-columns: 1fr; }
     }
   </style>
 
   <script data-goatcounter="https://zombielabs.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </head>
-<body>
+<body style="--cat:#5a7d9a">
   <div class="container">
     <header>
       <a href="../"><h1>THE <span>LOTUS</span> LANE</h1></a>
     </header>
 
+    <a class="back-link" href="./">&larr;&nbsp; All life challenges</a>
+
     <div class="hero">
+      <div class="hero-cat">
+        <span class="hero-dot"></span>
+        <a href="./#cat-work">Work &amp; Career</a>
+      </div>
       <h2>Too Much Work, Not Enough Time</h2>
-      <p>You know that feeling when you sit down at your desk in the morning, open your to-do list, and immediately feel a kind of dread settle in your chest?</p>
     </div>
 
-    
+    <article class="article-content"><p>You know that feeling when you sit down at your desk in the morning, open your to-do list, and immediately feel a kind of dread settle in your chest? Not dread about any one thing specifically -- just the dread of the whole picture. The list is long. The day is not. And somewhere in the back of your mind, the math is quietly not working out.</p>
+
+<p>You start the first task. A notification comes in. A meeting you forgot about is in twenty minutes. Someone has replied to a thread from yesterday with a question that needs your input. By ten in the morning you have already been interrupted three times, and now you're calculating how you'll make up the time, and the answer is that you won't, and you still have six hours left in the workday and you're already exhausted.</p>
+
+<p>This is not a time management problem. That framing is part of what makes the situation worse -- it implies that if you only scheduled better, planned more carefully, downloaded the right productivity app, you could fit everything in. You can't. The issue isn't your schedule. The issue is that there is genuinely more work than there is capacity to do it. And the system benefits from you believing that the gap is your fault.</p>
+
+<h3>The Lie That Makes It Worse</h3>
+
+<p>There is a story that most workplaces tell, and that many people internalize, which goes something like this: the successful people here handle everything that comes at them, and if you can't, that's a personal failing. You need to be more organized, more disciplined, more efficient. You need to get up earlier or stay later.</p>
+
+<p>This story is useful for organizations because it locates the problem entirely in the individual. If the problem is your time management, then the organization doesn't have to reckon with the fact that it has given one person the work of one-and-a-half people. It doesn't have to question the pace of new initiatives, the culture of urgent-marking everything, or the unwritten expectation that availability is a measure of commitment.</p>
+
+<p>The truth is messier. Some of the problem may genuinely be about how you work -- habits that waste time, commitments taken on that could be declined. But a lot of it, probably more than you're allowed to say out loud, is structural. There is too much work. That is a real thing that happens in real organizations, and it is not your fault, and "work smarter" is not an answer to it.</p>
+
+<p>Naming this clearly matters, because as long as you believe the gap is entirely your own failure to manage better, you keep looking for personal solutions to a systemic problem. And you stay exhausted while doing it.</p>
+
+<h3>What Actually Helps (and What Doesn't)</h3>
+
+<p>Let's start with what doesn't help: working longer. It feels productive. It feels like you're closing the gap. But chronic overwork degrades the quality of what you do, reduces your ability to think clearly, and shifts your baseline so that the extended hours become the new normal -- meaning the list still won't fit in a day, it'll just be a longer day that still doesn't fit.</p>
+
+<p>What also doesn't help: trying to multitask your way through it. The research on this is settled. Human beings don't do two cognitive tasks simultaneously -- they switch between them, and every switch costs a small reorientation fee. When the day is full of interruptions, you arrive at the end having worked hard and accomplished far less than the hours spent would suggest.</p>
+
+<p>Here is something that genuinely helps: write down everything you need to do, without filtering, and then pick the three things that actually matter today. Not the three easiest. The three that have the most real consequence if they don't get done.</p>
+
+<p>Do those first. Before the inbox. Give them the hours when your mind is sharpest -- for most people, that's the first two or three hours of the day. Protect those hours, because everything else will compete for them if you let it.</p>
+
+<p>This does not empty the list. But it means that when the day ends and you haven't gotten to everything -- which will happen -- the things you didn't get to are the lower-stakes ones.</p>
+
+<h3>The Problem of Unfinished Things</h3>
+
+<p>One of the most grinding parts of too much work is not the work itself but the pile of unfinished things that accumulates. The email from two weeks ago. The project that has been 80% done for a month. Each of these sits at the edge of awareness and pulls a small, constant amount of attention -- not enough to do anything about it, but enough to make the background noise of your days louder.</p>
+
+<p>Researchers who study cognitive load call this the Zeigarnik effect: unfinished tasks stay mentally active in a way that finished ones don't. They loop, and when you have a long list of them, that background noise adds up to something significant. It's part of why overloaded people often feel scattered even when they're sitting still.</p>
+
+<p>The antidote is to make a deliberate decision about each unfinished thing: do it, delete it, defer it with a specific date, or delegate it. Just deciding -- even if the decision is that this doesn't get done -- quiets the loop. "I will do this on Thursday" works. "I keep meaning to get to this" doesn't.</p>
+
+<h3>Asking For Less Is Not Weakness</h3>
+
+<p>At some point, if the load is genuinely unmanageable, the conversation you need to have is not with a productivity app. It's with someone who has the power to change the situation.</p>
+
+<p>This is the conversation most people avoid longest. You don't want to look like you can't handle it. You worry it will be held against you.</p>
+
+<p>But consider what happens when you don't have it. The work stays unmanageable. You keep absorbing the cost personally. The people around you, including your manager, have no information that anything needs to change. From their vantage point, things are working fine because you haven't said otherwise.</p>
+
+<p>There is a thought worth holding here, from a letter about how to survive genuinely difficult periods: <em>"There are no deadlocks in life. There are only people who have given up. As long as you refuse to give up, you can always find a way forward."</em> Refusing to give up and suffering in silence are not the same thing. Finding a way forward sometimes means saying, plainly and without drama, that the current arrangement isn't sustainable and asking what can change.</p>
+
+<p>That conversation works best when you come with specifics: here is my list, here is how long these things actually take, here is where the conflict is. Most reasonable managers respond differently to a clear description of a resource problem than to a general expression of overwhelm. Give them the information they need to help you.</p>
+
+<h3>What Enough Looks Like</h3>
+
+<p>There is a harder thing underneath all of this, and it has to do with identity. Many people who are chronically overloaded are not just victims of organizational structure. They are also, at some level, choosing it -- because busyness has become part of who they are, or because the full inbox feels like evidence that they matter, or because slowing down would mean confronting something about the life they're building that they're not ready to look at.</p>
+
+<p>There's an observation that cuts through a lot of this: <em>"Small daily actions compound into great achievements over time. Never underestimate the power of consistent, daily effort."</em> The thing it's pointing at is that the quality of what you do day after day -- done steadily, with real attention -- matters more than how much you can fit into a single overwhelming week. Sustainable effort over time outperforms heroic effort in bursts, almost every time. The goal is not to see how much you can endure. The goal is to do good work for a long time.</p>
+
+<p>That requires protecting yourself. Saying no to some things. Ending some days before everything is done. Taking real breaks instead of performative ones. Treating your own capacity as a resource worth managing rather than a reservoir to be drained.</p>
+
+<p>You are not a machine. The list will always be longer than the day. The question is not how to make the list fit -- it's how to make your choices in it, and how to stop measuring your worth by how much of it you managed to clear.</p>
+
+<p>A day where you did three important things with full attention is better than a day where you did twelve things badly while exhausted. That's not inspiration. That's just the truth about how work actually gets done -- and how people actually stay standing long enough to do it for years.</p></article>
 
     <h3 class="section-title">Words that help</h3>
-    
-    <div class="wisdom-quote">
-      <p>&ldquo;Winter always turns to spring. Never, from ancient times on, has anyone heard or seen of winter turning back to autumn.&rdquo;</p>
-      <cite>- The Writings of Nichiren Daishonin (referenced in guidance)</cite>
-    </div>
-    <div class="wisdom-quote">
-      <p>&ldquo;As long as we have hope, we have direction, the energy to move, and the map to move by.&rdquo;</p>
-      <cite>- For Today and Tomorrow</cite>
-    </div>
-    <div class="wisdom-quote">
-      <p>&ldquo;Hope is not a matter of ability; it is a matter of decision.&rdquo;</p>
-      <cite>- Discussions on Youth</cite>
-    </div>
-    <div class="wisdom-quote">
-      <p>&ldquo;Buddhism is about winning. In every aspect of life - work, health, family, relationships - we must be determined to win.&rdquo;</p>
-      <cite>- The New Human Revolution, Vol. 1</cite>
-    </div>
-    <div class="wisdom-quote">
-      <p>&ldquo;True victory is not about defeating others. It is about overcoming your own weakness, your own negativity, your own despair.&rdquo;</p>
-      <cite>- Discussions on Youth</cite>
-    </div>
+      <div class="wisdom-quote">
+        <p>&ldquo;Knowledge is important, but wisdom is essential. Knowledge without wisdom is like a sword in the hands of a child.&rdquo;</p>
+        <cite>&mdash; Discussions on Youth</cite>
+      </div>
+      <div class="wisdom-quote">
+        <p>&ldquo;Wisdom is the ability to see things as they really are, not as we wish them to be. And then to act accordingly.&rdquo;</p>
+        <cite>&mdash; The Wisdom for Creating Happiness and Peace</cite>
+      </div>
+      <div class="wisdom-quote">
+        <p>&ldquo;True wisdom is not about being clever. It is about having the depth of life to understand what is truly important.&rdquo;</p>
+        <cite>&mdash; For Today and Tomorrow</cite>
+      </div>
+      <div class="wisdom-quote">
+        <p>&ldquo;Action speaks louder than words. Buddhism is about action, not about theory or debate.&rdquo;</p>
+        <cite>&mdash; The New Human Revolution, Vol. 1</cite>
+      </div>
+      <div class="wisdom-quote">
+        <p>&ldquo;A hundred theories without a single action are worthless. Even one small step taken with determination changes everything.&rdquo;</p>
+        <cite>&mdash; For Today and Tomorrow</cite>
+      </div>
 
     
 

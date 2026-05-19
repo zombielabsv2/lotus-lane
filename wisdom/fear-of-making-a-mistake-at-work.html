@@ -34,151 +34,235 @@
 
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Segoe UI', system-ui, sans-serif; background: #faf9f6; color: #2d2d2d; }
-    .container { max-width: 740px; margin: 0 auto; padding: 1rem; }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: #faf9f6; color: #2d2d2d;
+      -webkit-font-smoothing: antialiased; }
+    .container { max-width: 760px; margin: 0 auto; padding: 1rem 1.15rem; }
     header { text-align: center; padding: 1.2rem 0; border-bottom: 2px solid #e8e4de; }
     header a { text-decoration: none; color: inherit; }
     header h1 { font-size: 1.5rem; font-weight: 300; letter-spacing: 0.15em; color: #4a4a4a; }
     header h1 span { font-weight: 600; color: #c0392b; }
 
-    .hero { padding: 2.5rem 0 1.5rem; text-align: center; }
-    .hero h2 { font-size: 1.8rem; font-weight: 500; color: #333; line-height: 1.3; margin-bottom: 0.8rem; }
-    .hero p { font-size: 1.05rem; color: #666; line-height: 1.7; max-width: 600px; margin: 0 auto; }
+    .back-link { display: inline-block; margin-top: 1.4rem; font-size: 0.84rem; color: #9a948c;
+      text-decoration: none; transition: color 0.15s; }
+    .back-link:hover { color: var(--cat); }
 
-    .section-title { font-size: 1.1rem; font-weight: 600; color: #555; margin: 2rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid #e8e4de; }
+    .hero { padding: 1.6rem 0 1.2rem; }
+    .hero-cat { display: flex; align-items: center; gap: 0.45rem; margin-bottom: 0.7rem; }
+    .hero-dot { width: 10px; height: 10px; border-radius: 3px; background: var(--cat); flex: none; }
+    .hero-cat a { font-size: 0.76rem; font-weight: 700; letter-spacing: 0.07em; color: var(--cat);
+      text-decoration: none; text-transform: uppercase; }
+    .hero-cat a:hover { text-decoration: underline; }
+    .hero h2 { font-family: Georgia, 'Times New Roman', serif; font-size: 2.15rem; font-weight: 400;
+      color: #2d2d2d; line-height: 1.22; }
+    .hero-lead { font-size: 1.1rem; color: #6f6a63; line-height: 1.7; margin: 0.4rem 0 2rem; }
 
-    .strip-card { display: flex; gap: 1rem; padding: 1rem; background: white; border-radius: 8px; box-shadow: 0 1px 6px rgba(0,0,0,0.05); margin-bottom: 0.8rem; text-decoration: none; color: inherit; transition: box-shadow 0.2s; }
-    .strip-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.1); }
-    .strip-card img { width: 120px; height: 120px; object-fit: cover; border-radius: 6px; flex-shrink: 0; }
-    .strip-card-info { flex: 1; min-width: 0; }
-    .strip-card-title { font-size: 1rem; font-weight: 600; color: #333; margin-bottom: 0.2rem; }
-    .strip-card-topic { font-size: 0.75rem; color: #c0392b; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.3rem; }
-    .strip-card-message { font-size: 0.85rem; color: #666; line-height: 1.5; }
+    .article-content { margin: 0.6rem 0 2rem; }
+    .article-content p { font-size: 1.07rem; line-height: 1.82; color: #403c37; margin-bottom: 1.15rem; }
+    .article-content > p:first-of-type::first-letter { font-family: Georgia, serif; font-size: 3.1rem;
+      font-weight: 600; float: left; line-height: 0.86; margin: 0.32rem 0.55rem 0 0; color: var(--cat); }
+    .article-content h3 { font-family: Georgia, 'Times New Roman', serif; font-size: 1.4rem;
+      font-weight: 400; color: #2d2d2d; margin: 2rem 0 0.7rem; }
+    .article-content blockquote { border-left: 3px solid var(--cat); padding: 0.3rem 0 0.3rem 1.3rem;
+      margin: 1.6rem 0; font-family: Georgia, serif; font-style: italic; font-size: 1.18rem;
+      line-height: 1.6; color: #504a42; }
+    .article-content blockquote p { font-size: inherit; line-height: inherit; color: inherit; margin: 0; }
+    .article-content a { color: var(--cat); }
 
-    .wisdom-quote { border-left: 3px solid #c0392b; padding: 0.8rem 1.2rem; margin: 0.8rem 0; background: #f5f3ee; border-radius: 0 6px 6px 0; }
-    .wisdom-quote p { font-style: italic; color: #504638; line-height: 1.6; font-size: 0.95rem; }
-    .wisdom-quote cite { display: block; margin-top: 0.4rem; font-size: 0.8rem; color: #8c8278; font-style: normal; }
+    .section-title { font-family: Georgia, 'Times New Roman', serif; font-size: 1.32rem; font-weight: 400;
+      color: #2d2d2d; margin: 2.4rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #e8e4de; }
 
-    .subscribe-cta { text-align: center; padding: 2rem; background: #f0ece4; border-radius: 10px; margin: 2rem 0; }
-    .subscribe-cta h3 { font-size: 1.1rem; color: #333; margin-bottom: 0.4rem; }
-    .subscribe-cta p { font-size: 0.9rem; color: #666; margin-bottom: 0.8rem; }
-    .subscribe-cta a { display: inline-block; padding: 0.7rem 1.5rem; background: #c0392b; color: white; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 0.9rem; }
-    .subscribe-cta a:hover { background: #a93226; }
-
-    .related-links { display: flex; gap: 0.5rem; flex-wrap: wrap; margin: 1.5rem 0; }
-    .related-links a { padding: 0.4rem 0.8rem; background: white; border: 1px solid #d4cfc7; border-radius: 999px; font-size: 0.8rem; color: #666; text-decoration: none; transition: all 0.2s; }
-    .related-links a:hover { border-color: #c0392b; color: #c0392b; }
-
-    .article-content { margin: 1.5rem 0; line-height: 1.8; color: #444; font-size: 1rem; }
-    .article-content p { margin-bottom: 1rem; }
-    .article-content h3 { font-size: 1.15rem; font-weight: 600; color: #333; margin: 1.5rem 0 0.5rem; }
-    .article-content blockquote { border-left: 3px solid #c0392b; padding: 0.8rem 1.2rem; margin: 1.2rem 0; background: #f5f3ee; border-radius: 0 6px 6px 0; font-style: italic; color: #504638; }
-
-    .empty { color: #999; font-style: italic; padding: 1rem 0; }
+    .wisdom-quote { border-left: 3px solid var(--cat); padding: 0.9rem 1.25rem; margin: 0.8rem 0;
+      background: #f5f3ee; border-radius: 0 8px 8px 0; }
+    .wisdom-quote p { font-family: Georgia, serif; font-style: italic; color: #504638;
+      line-height: 1.62; font-size: 1rem; }
+    .wisdom-quote cite { display: block; margin-top: 0.5rem; font-size: 0.78rem; color: #9a8f82;
+      font-style: normal; letter-spacing: 0.02em; }
 
     /* Hub — cross-format cross-link block */
-    .hub { margin: 2.5rem 0 1.2rem; padding: 1.6rem 1.4rem 1.2rem; background: linear-gradient(160deg, #fdf8f0 0%, #faf9f6 100%); border: 1px solid #e8e4de; border-radius: 16px; }
-    .hub-eyebrow { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; color: #c0392b; text-transform: uppercase; margin-bottom: 0.3rem; }
-    .hub-headline { font-size: 1.2rem; font-weight: 500; color: #2d2d2d; margin-bottom: 0.4rem; }
-    .hub-headline em { font-style: italic; color: #c0392b; font-weight: 500; }
-    .hub-sub { font-size: 0.86rem; color: #888; margin-bottom: 1.2rem; }
-    .hub-row { display: flex; align-items: center; gap: 1rem; padding: 0.95rem 1rem; background: white; border: 1px solid #e8e4de; border-radius: 12px; text-decoration: none; color: inherit; margin-bottom: 0.55rem; transition: all 0.18s; }
-    .hub-row:hover { border-color: #c0392b; transform: translateY(-1px); box-shadow: 0 4px 16px rgba(192,57,43,0.08); }
-    .hub-row .icon { width: 42px; height: 42px; background: #fdf8f0; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.15rem; flex-shrink: 0; }
-    .hub-row .icon.podcast { background: linear-gradient(135deg, #fdf6e3 0%, #f8ecd1 100%); }
+    .hub { margin: 2.6rem 0 1.2rem; padding: 1.6rem 1.4rem 1.2rem; background: #fff;
+      border: 1px solid #e8e4de; border-radius: 16px; }
+    .hub-eyebrow { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.13em; color: var(--cat);
+      text-transform: uppercase; margin-bottom: 0.35rem; }
+    .hub-headline { font-family: Georgia, serif; font-size: 1.3rem; font-weight: 400; color: #2d2d2d;
+      margin-bottom: 0.3rem; }
+    .hub-headline em { font-style: italic; color: var(--cat); }
+    .hub-sub { font-size: 0.86rem; color: #9a948c; margin-bottom: 1.2rem; }
+    .hub-row { display: flex; align-items: center; gap: 1rem; padding: 0.95rem 1rem; background: #faf9f6;
+      border: 1px solid #e8e4de; border-radius: 12px; text-decoration: none; color: inherit;
+      margin-bottom: 0.55rem; transition: all 0.18s; }
+    .hub-row:hover { border-color: var(--cat); transform: translateY(-1px); box-shadow: 0 5px 16px rgba(40,30,20,0.07); }
+    .hub-row .icon { width: 42px; height: 42px; background: #fff; border: 1px solid #e8e4de;
+      border-radius: 10px; display: flex; align-items: center; justify-content: center;
+      font-size: 1.15rem; flex-shrink: 0; }
+    .hub-row .icon.podcast { background: #fdf6e3; }
     .hub-row .text { flex: 1; min-width: 0; }
-    .hub-row .row-eyebrow { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; color: #c0392b; text-transform: uppercase; }
+    .hub-row .row-eyebrow { font-size: 0.64rem; font-weight: 700; letter-spacing: 0.1em; color: var(--cat); text-transform: uppercase; }
     .hub-row .row-title { font-size: 0.96rem; font-weight: 600; color: #2d2d2d; margin-top: 0.15rem; line-height: 1.35; }
-    .hub-row .row-meta { font-size: 0.76rem; color: #888; margin-top: 0.15rem; }
-    .hub-row .arrow { color: #c0392b; font-weight: 600; flex-shrink: 0; }
-    .hub-divider { font-size: 0.68rem; color: #aaa; letter-spacing: 0.1em; text-transform: uppercase; margin: 1rem 0 0.4rem; padding-left: 0.2rem; }
-    .strip-card-mini { display: flex; gap: 0.9rem; padding: 0.75rem; background: white; border-radius: 10px; box-shadow: 0 1px 4px rgba(0,0,0,0.04); margin-bottom: 0.55rem; text-decoration: none; color: inherit; transition: all 0.2s; border: 1px solid transparent; }
-    .strip-card-mini:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.08); border-color: #e8e4de; }
+    .hub-row .row-meta { font-size: 0.76rem; color: #9a948c; margin-top: 0.15rem; }
+    .hub-row .arrow { color: var(--cat); font-weight: 600; flex-shrink: 0; }
+    .hub-divider { font-size: 0.66rem; color: #b5b0a8; letter-spacing: 0.1em; text-transform: uppercase; margin: 1.1rem 0 0.5rem; padding-left: 0.2rem; }
+    .strip-card-mini { display: flex; gap: 0.9rem; padding: 0.75rem; background: #faf9f6;
+      border: 1px solid #e8e4de; border-radius: 10px; margin-bottom: 0.55rem; text-decoration: none;
+      color: inherit; transition: all 0.18s; }
+    .strip-card-mini:hover { border-color: var(--cat); }
     .strip-card-mini img { width: 80px; height: 80px; object-fit: cover; border-radius: 6px; flex-shrink: 0; }
     .strip-card-mini .strip-card-info { flex: 1; min-width: 0; }
-    .strip-card-mini .strip-card-topic { font-size: 0.65rem; color: #c0392b; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.2rem; font-weight: 700; }
+    .strip-card-mini .strip-card-topic { font-size: 0.64rem; color: var(--cat); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.2rem; font-weight: 700; }
     .strip-card-mini .strip-card-title { font-size: 0.92rem; font-weight: 600; color: #2d2d2d; margin-bottom: 0.2rem; line-height: 1.3; }
-    .strip-card-mini .strip-card-message { font-size: 0.78rem; color: #777; line-height: 1.45; }
-    .listicle-card { display: flex; align-items: center; gap: 1rem; padding: 0.85rem 1rem; background: white; border: 1px solid #e8e4de; border-radius: 10px; text-decoration: none; color: inherit; margin-bottom: 0.55rem; transition: all 0.18s; }
-    .listicle-card:hover { border-color: #c0392b; }
-    .listicle-card .num { width: 36px; height: 36px; background: #fdf8f0; color: #c0392b; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.85rem; flex-shrink: 0; }
+    .strip-card-mini .strip-card-message { font-size: 0.78rem; color: #857f78; line-height: 1.45; }
+    .listicle-card { display: flex; align-items: center; gap: 1rem; padding: 0.85rem 1rem;
+      background: #faf9f6; border: 1px solid #e8e4de; border-radius: 10px; text-decoration: none;
+      color: inherit; margin-bottom: 0.55rem; transition: all 0.18s; }
+    .listicle-card:hover { border-color: var(--cat); }
+    .listicle-card .num { width: 36px; height: 36px; background: #fff; border: 1px solid #e8e4de;
+      color: var(--cat); border-radius: 8px; display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 0.85rem; flex-shrink: 0; }
     .listicle-card .text { flex: 1; min-width: 0; }
-    .listicle-card .row-eyebrow { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; color: #c0392b; text-transform: uppercase; }
+    .listicle-card .row-eyebrow { font-size: 0.64rem; font-weight: 700; letter-spacing: 0.1em; color: var(--cat); text-transform: uppercase; }
     .listicle-card .row-title { font-size: 0.9rem; font-weight: 600; color: #2d2d2d; margin-top: 0.15rem; line-height: 1.35; }
-    .daily-band { display: flex; align-items: center; gap: 1rem; padding: 1rem 1.2rem; background: #fdf8f0; border: 1.5px solid #e8d9b3; border-radius: 12px; text-decoration: none; color: inherit; margin: 1.5rem 0 0; transition: all 0.2s; }
-    .daily-band:hover { border-color: #c0392b; transform: translateY(-1px); }
+    .daily-band { display: flex; align-items: center; gap: 1rem; padding: 1.05rem 1.2rem; background: #fff;
+      border: 1.5px solid #e8e4de; border-radius: 12px; text-decoration: none; color: inherit;
+      margin: 1.5rem 0 0; transition: all 0.18s; }
+    .daily-band:hover { border-color: var(--cat); transform: translateY(-1px); }
     .daily-band .icon { font-size: 1.3rem; flex-shrink: 0; line-height: 1; }
     .daily-band .text { flex: 1; }
-    .daily-band .row-eyebrow { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; color: #c0392b; text-transform: uppercase; }
-    .daily-band .row-title { font-size: 0.9rem; font-weight: 600; color: #4a3d20; margin-top: 0.2rem; }
-    .daily-band .row-meta { font-size: 0.74rem; color: #8a7d5f; margin-top: 0.15rem; }
-    .daily-band .cta { flex-shrink: 0; padding: 0.5rem 0.9rem; background: #c0392b; color: white; border-radius: 20px; font-size: 0.76rem; font-weight: 600; white-space: nowrap; }
+    .daily-band .row-eyebrow { font-size: 0.64rem; font-weight: 700; letter-spacing: 0.12em; color: var(--cat); text-transform: uppercase; }
+    .daily-band .row-title { font-size: 0.92rem; font-weight: 600; color: #2d2d2d; margin-top: 0.2rem; }
+    .daily-band .row-meta { font-size: 0.75rem; color: #9a948c; margin-top: 0.15rem; }
+    .daily-band .cta { flex-shrink: 0; padding: 0.5rem 0.95rem; background: var(--cat); color: white; border-radius: 20px; font-size: 0.76rem; font-weight: 600; white-space: nowrap; }
 
     /* Closely related struggles — tight, hand-curated, 4 not 20 */
-    .related-struggles { margin-top: 2rem; }
-    .related-struggles h3 { font-size: 0.95rem; font-weight: 600; color: #555; margin-bottom: 0.7rem; }
-    .related-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem; }
-    .related-grid a { padding: 0.7rem 0.9rem; background: white; border: 1px solid #e8e4de; border-radius: 8px; font-size: 0.85rem; color: #555; text-decoration: none; transition: all 0.18s; }
-    .related-grid a:hover { border-color: #c0392b; color: #c0392b; }
-    .browse-all-row { text-align: center; margin-top: 1rem; font-size: 0.85rem; }
-    .browse-all-row a { color: #888; text-decoration: none; border-bottom: 1px dashed #c0c0b8; padding-bottom: 1px; }
-    .browse-all-row a:hover { color: #c0392b; border-color: #c0392b; }
+    .related-struggles { margin-top: 2.4rem; }
+    .related-struggles h3 { font-family: Georgia, 'Times New Roman', serif; font-size: 1.32rem;
+      font-weight: 400; color: #2d2d2d; margin-bottom: 0.9rem; padding-bottom: 0.5rem;
+      border-bottom: 2px solid #e8e4de; }
+    .related-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.6rem; }
+    .related-grid a { padding: 0.85rem 1rem; background: #fff; border: 1px solid #e8e4de;
+      border-radius: 10px; font-size: 0.9rem; color: #403c37; text-decoration: none; transition: all 0.16s; }
+    .related-grid a:hover { border-color: var(--cat); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(40,30,20,0.06); }
+    .browse-all-row { text-align: center; margin-top: 1.1rem; font-size: 0.86rem; }
+    .browse-all-row a { color: #9a948c; text-decoration: none; border-bottom: 1px dashed #c0c0b8; padding-bottom: 1px; }
+    .browse-all-row a:hover { color: var(--cat); border-color: var(--cat); }
 
-    .share-section { text-align: center; margin: 2rem 0; padding: 1.2rem; background: #f5f3ee; border-radius: 10px; }
-    .share-label { font-size: 0.92rem; color: #555; margin-bottom: 0.8rem; }
+    .share-section { text-align: center; margin: 2.4rem 0 0; padding: 1.5rem; background: #f1ede5; border-radius: 12px; }
+    .share-label { font-family: Georgia, serif; font-size: 1.05rem; color: #504a42; margin-bottom: 0.9rem; }
     .share-buttons { display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; }
-    .share-btn { display: inline-flex; align-items: center; padding: 0.6rem 1.1rem; font: inherit; font-size: 0.88rem; font-weight: 600; border-radius: 6px; border: 0; cursor: pointer; text-decoration: none; transition: opacity 0.15s; }
+    .share-btn { display: inline-flex; align-items: center; padding: 0.6rem 1.15rem; font: inherit; font-size: 0.88rem; font-weight: 600; border-radius: 8px; border: 0; cursor: pointer; text-decoration: none; transition: opacity 0.15s; }
     .share-btn:hover { opacity: 0.88; }
     .share-btn.wa { background: #25D366; color: #fff; }
-    .share-btn.native { background: #c0392b; color: #fff; }
-    .share-btn.copy { background: #e8e4de; color: #555; }
+    .share-btn.native { background: var(--cat); color: #fff; }
+    .share-btn.copy { background: #e3ded6; color: #555; }
 
-    footer { text-align: center; padding: 1.5rem 0; color: #aaa; font-size: 0.8rem; border-top: 1px solid #e8e4de; margin-top: 2rem; }
+    footer { text-align: center; padding: 2rem 0 5.5rem; color: #b5b0a8; font-size: 0.8rem; border-top: 1px solid #e8e4de; margin-top: 2.5rem; }
 
     @media (max-width: 600px) {
-      .hero h2 { font-size: 1.4rem; }
-      .strip-card { flex-direction: column; }
-      .strip-card img { width: 100%; height: 180px; }
+      .hero h2 { font-size: 1.7rem; }
+      .article-content p { font-size: 1.03rem; }
+      .related-grid { grid-template-columns: 1fr; }
     }
   </style>
 
   <script data-goatcounter="https://zombielabs.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </head>
-<body>
+<body style="--cat:#5a7d9a">
   <div class="container">
     <header>
       <a href="../"><h1>THE <span>LOTUS</span> LANE</h1></a>
     </header>
 
+    <a class="back-link" href="./">&larr;&nbsp; All life challenges</a>
+
     <div class="hero">
+      <div class="hero-cat">
+        <span class="hero-dot"></span>
+        <a href="./#cat-work">Work &amp; Career</a>
+      </div>
       <h2>The Fear of Making a Mistake at Work</h2>
-      <p>You know that feeling when you've just sent an email and the moment it leaves your outbox you start reading it again, sentence by sentence, looking for the...</p>
     </div>
 
-    
+    <article class="article-content"><p>You know that feeling when you've just sent an email and the moment it leaves your outbox you start reading it again, sentence by sentence, looking for the thing that will blow up? Or when you're in a meeting and you give an answer and then spend the rest of the day quietly replaying it, convinced you said something wrong, wondering if people noticed, wondering if that's the moment your credibility started to crack?</p>
+
+<p>That loop -- that constant, low-grade audit of your own actions -- is exhausting in a way that's hard to explain to people who don't have it. Because from the outside, you might look like someone who is careful, thorough, conscientious. From the inside, you're just someone who is very, very tired of being afraid.</p>
+
+<p>Fear of making mistakes at work is common enough that it barely gets named. It just gets absorbed into the job. But it shapes everything -- how you communicate, how much you say, what risks you take, whether you ever put forward an idea that might not land. Left unchecked, it quietly shrinks the range of what you're willing to do until you're spending all your energy managing the fear and very little of it actually doing the work.</p>
+
+<h3>Why This Fear Gets So Loud at Work</h3>
+
+<p>Work is the place where the stakes feel highest for most adults. Your income, your standing, your sense of competence, your identity -- all of it passes through this thing called your job. A mistake there isn't just a mistake. It's evidence about who you are, or at least that's what the fear tells you.</p>
+
+<p>And many workplaces reinforce this, either explicitly or through atmosphere. The culture where everyone pretends to have everything handled. The manager who responds to problems by looking for someone to blame. The performance review system that turns a year of solid work into a single number. These things train people to treat errors as catastrophic, even when they're not.</p>
+
+<p>The tricky part is that being careful about your work is healthy. Caring about the quality of what you do is healthy. The line between healthy conscientiousness and paralyzing fear is not always obvious from inside the feeling. But one marker is this: conscientiousness improves your work. Fear of mistakes often makes work worse -- you second-guess decisions that were right, you hedge when clarity was needed, you avoid the risk that would have been the smart one to take.</p>
+
+<h3>What the Fear Is Actually Protecting</h3>
+
+<p>Fear of mistakes is almost always protecting something -- a self-image, a relationship, a sense of security. It's worth asking which one it is for you, because the answer changes what you actually need to do about it.</p>
+
+<p>For some people, the fear is about identity. If you have built your sense of self around being the capable one, the reliable one, the one who has it together, a mistake feels like more than a mistake. It feels like a challenge to who you are. This is particularly common in people who were praised heavily as children for being smart or talented rather than for effort and growth. The praise felt good, but it wired something uncomfortable: that your value is conditional on performing well.</p>
+
+<p>For others, it's relational. The fear is not really about the mistake itself but about how other people will react. Will they think less of me? Will they lose confidence in me? Will this change how they treat me? These fears are real because these consequences are sometimes real. But they're often wildly overestimated. Most mistakes, in most workplaces, are smaller events than they feel like from inside the person who made them.</p>
+
+<p>For others still, the fear has roots in previous experience -- a boss who publicly humiliated people, a period of real professional crisis, a workplace where errors did have lasting consequences. If that's true for you, the fear isn't irrational. It learned something real. But the learning may not apply to where you are now, and it's worth checking.</p>
+
+<h3>What Actually Happens When You Make a Mistake</h3>
+
+<p>Here is the honest accounting of what usually happens when someone makes a mistake at work, as opposed to what the fear predicts.</p>
+
+<p>The mistake is noticed. Someone, maybe several people, is inconvenienced or frustrated. You acknowledge it, you fix what can be fixed, you figure out what went wrong. And then, for most people in most workplaces, it moves on. The person who made the mistake is not defined by it. The work continues. Life continues.</p>
+
+<p>The fear predicts catastrophe. The reality is usually inconvenience followed by resolution. The gap between those two things is where most of the suffering lives.</p>
+
+<p>There is something worth sitting with here, from a simple observation about how growth actually works: <em>"A wise person is not one who never makes mistakes, but one who learns from every mistake and keeps growing."</em> That sounds like something people say on motivational posters, and it is. But it's also just true. The people you probably most respect professionally are not people who never make mistakes. They're people who handle mistakes well -- who own them, understand them, and don't fall apart.</p>
+
+<p>That's actually a learnable thing. And it starts with changing your relationship to the mistake while it's happening, not after.</p>
+
+<h3>How to Sit With a Mistake Without Unraveling</h3>
+
+<p>When a mistake happens -- and it will, because you are a person doing a job and not a machine following a script -- there is a small window where the response you choose matters a lot. Not for the mistake itself, which is done, but for you.</p>
+
+<p>The first thing is to resist the urge to disappear. The instinct when you've done something wrong is to go quiet, become less visible, wait for it to blow over. This usually makes things worse, because the absence itself becomes a signal that you're not handling it. Showing up, acknowledging what happened clearly and without excessive self-flagellation, and stating what you're doing about it -- this is almost always better.</p>
+
+<p>The second thing is to notice the difference between accountability and punishment. Accountability sounds like: "I missed this, here's what I understand about why, here's how I'm fixing it." Punishment sounds like the internal monologue that calls you an idiot for an hour, or the way you carry the weight of it for days after the issue is resolved. Accountability is useful. Punishment is just suffering without output.</p>
+
+<p>The third thing is harder, and it has to do with courage. There's a real observation about what fear actually consists of: <em>"Courage is not the absence of fear. Courage is feeling fear, recognizing fear, and still taking action."</em> The action here is continuing to show up fully to your work after you've made a mistake. Continuing to put ideas forward. Continuing to take considered risks. Not retreating into a smaller, safer version of yourself that never puts anything on the line.</p>
+
+<p>That retreat is the real loss. Not the mistake itself.</p>
+
+<h3>Building a Different Relationship With Imperfection</h3>
+
+<p>The longer-term work here is changing what mistakes mean to you, which is genuinely harder than managing them in the moment.</p>
+
+<p>One practical shift: start tracking the things that go right, with the same attention you give to the things that go wrong. Fear of mistakes is almost always asymmetric -- errors get remembered in detail and successes get forgotten or explained away. Correcting that imbalance doesn't require positive thinking. It just requires equal accounting.</p>
+
+<p>Another shift: talk to people you trust about mistakes they've made. Not to gossip or process drama, but to normalize the experience. Most people who seem like they have everything handled have a private collection of errors, misjudgments, and moments they'd like back. The difference between them and someone paralyzed by fear is often just that they've stopped treating those moments as defining.</p>
+
+<p>And if there is a particular workplace or manager whose reaction to mistakes is genuinely outsized and disproportionate -- that's worth naming too. Sometimes the fear is a very accurate reading of an environment that punishes failure in ways that aren't fair. In those cases, the issue isn't your relationship with imperfection. The issue is the environment. Those are different problems and they need different solutions.</p>
+
+<p>But for most people, in most workplaces, the fear is bigger than the actual threat. And a life spent trying to never be wrong is a life that never finds out what you're capable of when you're willing to risk it.</p>
+
+<p>You will make mistakes. So will everyone around you. The question is not how to avoid them -- it's how to move through them in a way that costs you as little as possible and teaches you as much as possible. That is, in the end, how anyone gets good at anything.</p></article>
 
     <h3 class="section-title">Words that help</h3>
-    
-    <div class="wisdom-quote">
-      <p>&ldquo;Winter always turns to spring. Never, from ancient times on, has anyone heard or seen of winter turning back to autumn.&rdquo;</p>
-      <cite>- The Writings of Nichiren Daishonin (referenced in guidance)</cite>
-    </div>
-    <div class="wisdom-quote">
-      <p>&ldquo;As long as we have hope, we have direction, the energy to move, and the map to move by.&rdquo;</p>
-      <cite>- For Today and Tomorrow</cite>
-    </div>
-    <div class="wisdom-quote">
-      <p>&ldquo;Hope is not a matter of ability; it is a matter of decision.&rdquo;</p>
-      <cite>- Discussions on Youth</cite>
-    </div>
-    <div class="wisdom-quote">
-      <p>&ldquo;The last five minutes of endurance - that is what decides victory or defeat. Never give up in the crucial moment.&rdquo;</p>
-      <cite>- The New Human Revolution, Vol. 3</cite>
-    </div>
-    <div class="wisdom-quote">
-      <p>&ldquo;Fall down seven times, stand up eight. This is the spirit of Buddhism. This is the spirit of a winner.&rdquo;</p>
-      <cite>- For Today and Tomorrow</cite>
-    </div>
+      <div class="wisdom-quote">
+        <p>&ldquo;Knowledge is important, but wisdom is essential. Knowledge without wisdom is like a sword in the hands of a child.&rdquo;</p>
+        <cite>&mdash; Discussions on Youth</cite>
+      </div>
+      <div class="wisdom-quote">
+        <p>&ldquo;Wisdom is the ability to see things as they really are, not as we wish them to be. And then to act accordingly.&rdquo;</p>
+        <cite>&mdash; The Wisdom for Creating Happiness and Peace</cite>
+      </div>
+      <div class="wisdom-quote">
+        <p>&ldquo;True wisdom is not about being clever. It is about having the depth of life to understand what is truly important.&rdquo;</p>
+        <cite>&mdash; For Today and Tomorrow</cite>
+      </div>
+      <div class="wisdom-quote">
+        <p>&ldquo;Action speaks louder than words. Buddhism is about action, not about theory or debate.&rdquo;</p>
+        <cite>&mdash; The New Human Revolution, Vol. 1</cite>
+      </div>
+      <div class="wisdom-quote">
+        <p>&ldquo;A hundred theories without a single action are worthless. Even one small step taken with determination changes everything.&rdquo;</p>
+        <cite>&mdash; For Today and Tomorrow</cite>
+      </div>
 
     
 

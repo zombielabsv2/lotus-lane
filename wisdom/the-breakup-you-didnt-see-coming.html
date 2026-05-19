@@ -34,151 +34,231 @@
 
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Segoe UI', system-ui, sans-serif; background: #faf9f6; color: #2d2d2d; }
-    .container { max-width: 740px; margin: 0 auto; padding: 1rem; }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: #faf9f6; color: #2d2d2d;
+      -webkit-font-smoothing: antialiased; }
+    .container { max-width: 760px; margin: 0 auto; padding: 1rem 1.15rem; }
     header { text-align: center; padding: 1.2rem 0; border-bottom: 2px solid #e8e4de; }
     header a { text-decoration: none; color: inherit; }
     header h1 { font-size: 1.5rem; font-weight: 300; letter-spacing: 0.15em; color: #4a4a4a; }
     header h1 span { font-weight: 600; color: #c0392b; }
 
-    .hero { padding: 2.5rem 0 1.5rem; text-align: center; }
-    .hero h2 { font-size: 1.8rem; font-weight: 500; color: #333; line-height: 1.3; margin-bottom: 0.8rem; }
-    .hero p { font-size: 1.05rem; color: #666; line-height: 1.7; max-width: 600px; margin: 0 auto; }
+    .back-link { display: inline-block; margin-top: 1.4rem; font-size: 0.84rem; color: #9a948c;
+      text-decoration: none; transition: color 0.15s; }
+    .back-link:hover { color: var(--cat); }
 
-    .section-title { font-size: 1.1rem; font-weight: 600; color: #555; margin: 2rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid #e8e4de; }
+    .hero { padding: 1.6rem 0 1.2rem; }
+    .hero-cat { display: flex; align-items: center; gap: 0.45rem; margin-bottom: 0.7rem; }
+    .hero-dot { width: 10px; height: 10px; border-radius: 3px; background: var(--cat); flex: none; }
+    .hero-cat a { font-size: 0.76rem; font-weight: 700; letter-spacing: 0.07em; color: var(--cat);
+      text-decoration: none; text-transform: uppercase; }
+    .hero-cat a:hover { text-decoration: underline; }
+    .hero h2 { font-family: Georgia, 'Times New Roman', serif; font-size: 2.15rem; font-weight: 400;
+      color: #2d2d2d; line-height: 1.22; }
+    .hero-lead { font-size: 1.1rem; color: #6f6a63; line-height: 1.7; margin: 0.4rem 0 2rem; }
 
-    .strip-card { display: flex; gap: 1rem; padding: 1rem; background: white; border-radius: 8px; box-shadow: 0 1px 6px rgba(0,0,0,0.05); margin-bottom: 0.8rem; text-decoration: none; color: inherit; transition: box-shadow 0.2s; }
-    .strip-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.1); }
-    .strip-card img { width: 120px; height: 120px; object-fit: cover; border-radius: 6px; flex-shrink: 0; }
-    .strip-card-info { flex: 1; min-width: 0; }
-    .strip-card-title { font-size: 1rem; font-weight: 600; color: #333; margin-bottom: 0.2rem; }
-    .strip-card-topic { font-size: 0.75rem; color: #c0392b; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.3rem; }
-    .strip-card-message { font-size: 0.85rem; color: #666; line-height: 1.5; }
+    .article-content { margin: 0.6rem 0 2rem; }
+    .article-content p { font-size: 1.07rem; line-height: 1.82; color: #403c37; margin-bottom: 1.15rem; }
+    .article-content > p:first-of-type::first-letter { font-family: Georgia, serif; font-size: 3.1rem;
+      font-weight: 600; float: left; line-height: 0.86; margin: 0.32rem 0.55rem 0 0; color: var(--cat); }
+    .article-content h3 { font-family: Georgia, 'Times New Roman', serif; font-size: 1.4rem;
+      font-weight: 400; color: #2d2d2d; margin: 2rem 0 0.7rem; }
+    .article-content blockquote { border-left: 3px solid var(--cat); padding: 0.3rem 0 0.3rem 1.3rem;
+      margin: 1.6rem 0; font-family: Georgia, serif; font-style: italic; font-size: 1.18rem;
+      line-height: 1.6; color: #504a42; }
+    .article-content blockquote p { font-size: inherit; line-height: inherit; color: inherit; margin: 0; }
+    .article-content a { color: var(--cat); }
 
-    .wisdom-quote { border-left: 3px solid #c0392b; padding: 0.8rem 1.2rem; margin: 0.8rem 0; background: #f5f3ee; border-radius: 0 6px 6px 0; }
-    .wisdom-quote p { font-style: italic; color: #504638; line-height: 1.6; font-size: 0.95rem; }
-    .wisdom-quote cite { display: block; margin-top: 0.4rem; font-size: 0.8rem; color: #8c8278; font-style: normal; }
+    .section-title { font-family: Georgia, 'Times New Roman', serif; font-size: 1.32rem; font-weight: 400;
+      color: #2d2d2d; margin: 2.4rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #e8e4de; }
 
-    .subscribe-cta { text-align: center; padding: 2rem; background: #f0ece4; border-radius: 10px; margin: 2rem 0; }
-    .subscribe-cta h3 { font-size: 1.1rem; color: #333; margin-bottom: 0.4rem; }
-    .subscribe-cta p { font-size: 0.9rem; color: #666; margin-bottom: 0.8rem; }
-    .subscribe-cta a { display: inline-block; padding: 0.7rem 1.5rem; background: #c0392b; color: white; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 0.9rem; }
-    .subscribe-cta a:hover { background: #a93226; }
-
-    .related-links { display: flex; gap: 0.5rem; flex-wrap: wrap; margin: 1.5rem 0; }
-    .related-links a { padding: 0.4rem 0.8rem; background: white; border: 1px solid #d4cfc7; border-radius: 999px; font-size: 0.8rem; color: #666; text-decoration: none; transition: all 0.2s; }
-    .related-links a:hover { border-color: #c0392b; color: #c0392b; }
-
-    .article-content { margin: 1.5rem 0; line-height: 1.8; color: #444; font-size: 1rem; }
-    .article-content p { margin-bottom: 1rem; }
-    .article-content h3 { font-size: 1.15rem; font-weight: 600; color: #333; margin: 1.5rem 0 0.5rem; }
-    .article-content blockquote { border-left: 3px solid #c0392b; padding: 0.8rem 1.2rem; margin: 1.2rem 0; background: #f5f3ee; border-radius: 0 6px 6px 0; font-style: italic; color: #504638; }
-
-    .empty { color: #999; font-style: italic; padding: 1rem 0; }
+    .wisdom-quote { border-left: 3px solid var(--cat); padding: 0.9rem 1.25rem; margin: 0.8rem 0;
+      background: #f5f3ee; border-radius: 0 8px 8px 0; }
+    .wisdom-quote p { font-family: Georgia, serif; font-style: italic; color: #504638;
+      line-height: 1.62; font-size: 1rem; }
+    .wisdom-quote cite { display: block; margin-top: 0.5rem; font-size: 0.78rem; color: #9a8f82;
+      font-style: normal; letter-spacing: 0.02em; }
 
     /* Hub — cross-format cross-link block */
-    .hub { margin: 2.5rem 0 1.2rem; padding: 1.6rem 1.4rem 1.2rem; background: linear-gradient(160deg, #fdf8f0 0%, #faf9f6 100%); border: 1px solid #e8e4de; border-radius: 16px; }
-    .hub-eyebrow { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; color: #c0392b; text-transform: uppercase; margin-bottom: 0.3rem; }
-    .hub-headline { font-size: 1.2rem; font-weight: 500; color: #2d2d2d; margin-bottom: 0.4rem; }
-    .hub-headline em { font-style: italic; color: #c0392b; font-weight: 500; }
-    .hub-sub { font-size: 0.86rem; color: #888; margin-bottom: 1.2rem; }
-    .hub-row { display: flex; align-items: center; gap: 1rem; padding: 0.95rem 1rem; background: white; border: 1px solid #e8e4de; border-radius: 12px; text-decoration: none; color: inherit; margin-bottom: 0.55rem; transition: all 0.18s; }
-    .hub-row:hover { border-color: #c0392b; transform: translateY(-1px); box-shadow: 0 4px 16px rgba(192,57,43,0.08); }
-    .hub-row .icon { width: 42px; height: 42px; background: #fdf8f0; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.15rem; flex-shrink: 0; }
-    .hub-row .icon.podcast { background: linear-gradient(135deg, #fdf6e3 0%, #f8ecd1 100%); }
+    .hub { margin: 2.6rem 0 1.2rem; padding: 1.6rem 1.4rem 1.2rem; background: #fff;
+      border: 1px solid #e8e4de; border-radius: 16px; }
+    .hub-eyebrow { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.13em; color: var(--cat);
+      text-transform: uppercase; margin-bottom: 0.35rem; }
+    .hub-headline { font-family: Georgia, serif; font-size: 1.3rem; font-weight: 400; color: #2d2d2d;
+      margin-bottom: 0.3rem; }
+    .hub-headline em { font-style: italic; color: var(--cat); }
+    .hub-sub { font-size: 0.86rem; color: #9a948c; margin-bottom: 1.2rem; }
+    .hub-row { display: flex; align-items: center; gap: 1rem; padding: 0.95rem 1rem; background: #faf9f6;
+      border: 1px solid #e8e4de; border-radius: 12px; text-decoration: none; color: inherit;
+      margin-bottom: 0.55rem; transition: all 0.18s; }
+    .hub-row:hover { border-color: var(--cat); transform: translateY(-1px); box-shadow: 0 5px 16px rgba(40,30,20,0.07); }
+    .hub-row .icon { width: 42px; height: 42px; background: #fff; border: 1px solid #e8e4de;
+      border-radius: 10px; display: flex; align-items: center; justify-content: center;
+      font-size: 1.15rem; flex-shrink: 0; }
+    .hub-row .icon.podcast { background: #fdf6e3; }
     .hub-row .text { flex: 1; min-width: 0; }
-    .hub-row .row-eyebrow { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; color: #c0392b; text-transform: uppercase; }
+    .hub-row .row-eyebrow { font-size: 0.64rem; font-weight: 700; letter-spacing: 0.1em; color: var(--cat); text-transform: uppercase; }
     .hub-row .row-title { font-size: 0.96rem; font-weight: 600; color: #2d2d2d; margin-top: 0.15rem; line-height: 1.35; }
-    .hub-row .row-meta { font-size: 0.76rem; color: #888; margin-top: 0.15rem; }
-    .hub-row .arrow { color: #c0392b; font-weight: 600; flex-shrink: 0; }
-    .hub-divider { font-size: 0.68rem; color: #aaa; letter-spacing: 0.1em; text-transform: uppercase; margin: 1rem 0 0.4rem; padding-left: 0.2rem; }
-    .strip-card-mini { display: flex; gap: 0.9rem; padding: 0.75rem; background: white; border-radius: 10px; box-shadow: 0 1px 4px rgba(0,0,0,0.04); margin-bottom: 0.55rem; text-decoration: none; color: inherit; transition: all 0.2s; border: 1px solid transparent; }
-    .strip-card-mini:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.08); border-color: #e8e4de; }
+    .hub-row .row-meta { font-size: 0.76rem; color: #9a948c; margin-top: 0.15rem; }
+    .hub-row .arrow { color: var(--cat); font-weight: 600; flex-shrink: 0; }
+    .hub-divider { font-size: 0.66rem; color: #b5b0a8; letter-spacing: 0.1em; text-transform: uppercase; margin: 1.1rem 0 0.5rem; padding-left: 0.2rem; }
+    .strip-card-mini { display: flex; gap: 0.9rem; padding: 0.75rem; background: #faf9f6;
+      border: 1px solid #e8e4de; border-radius: 10px; margin-bottom: 0.55rem; text-decoration: none;
+      color: inherit; transition: all 0.18s; }
+    .strip-card-mini:hover { border-color: var(--cat); }
     .strip-card-mini img { width: 80px; height: 80px; object-fit: cover; border-radius: 6px; flex-shrink: 0; }
     .strip-card-mini .strip-card-info { flex: 1; min-width: 0; }
-    .strip-card-mini .strip-card-topic { font-size: 0.65rem; color: #c0392b; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.2rem; font-weight: 700; }
+    .strip-card-mini .strip-card-topic { font-size: 0.64rem; color: var(--cat); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.2rem; font-weight: 700; }
     .strip-card-mini .strip-card-title { font-size: 0.92rem; font-weight: 600; color: #2d2d2d; margin-bottom: 0.2rem; line-height: 1.3; }
-    .strip-card-mini .strip-card-message { font-size: 0.78rem; color: #777; line-height: 1.45; }
-    .listicle-card { display: flex; align-items: center; gap: 1rem; padding: 0.85rem 1rem; background: white; border: 1px solid #e8e4de; border-radius: 10px; text-decoration: none; color: inherit; margin-bottom: 0.55rem; transition: all 0.18s; }
-    .listicle-card:hover { border-color: #c0392b; }
-    .listicle-card .num { width: 36px; height: 36px; background: #fdf8f0; color: #c0392b; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.85rem; flex-shrink: 0; }
+    .strip-card-mini .strip-card-message { font-size: 0.78rem; color: #857f78; line-height: 1.45; }
+    .listicle-card { display: flex; align-items: center; gap: 1rem; padding: 0.85rem 1rem;
+      background: #faf9f6; border: 1px solid #e8e4de; border-radius: 10px; text-decoration: none;
+      color: inherit; margin-bottom: 0.55rem; transition: all 0.18s; }
+    .listicle-card:hover { border-color: var(--cat); }
+    .listicle-card .num { width: 36px; height: 36px; background: #fff; border: 1px solid #e8e4de;
+      color: var(--cat); border-radius: 8px; display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 0.85rem; flex-shrink: 0; }
     .listicle-card .text { flex: 1; min-width: 0; }
-    .listicle-card .row-eyebrow { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; color: #c0392b; text-transform: uppercase; }
+    .listicle-card .row-eyebrow { font-size: 0.64rem; font-weight: 700; letter-spacing: 0.1em; color: var(--cat); text-transform: uppercase; }
     .listicle-card .row-title { font-size: 0.9rem; font-weight: 600; color: #2d2d2d; margin-top: 0.15rem; line-height: 1.35; }
-    .daily-band { display: flex; align-items: center; gap: 1rem; padding: 1rem 1.2rem; background: #fdf8f0; border: 1.5px solid #e8d9b3; border-radius: 12px; text-decoration: none; color: inherit; margin: 1.5rem 0 0; transition: all 0.2s; }
-    .daily-band:hover { border-color: #c0392b; transform: translateY(-1px); }
+    .daily-band { display: flex; align-items: center; gap: 1rem; padding: 1.05rem 1.2rem; background: #fff;
+      border: 1.5px solid #e8e4de; border-radius: 12px; text-decoration: none; color: inherit;
+      margin: 1.5rem 0 0; transition: all 0.18s; }
+    .daily-band:hover { border-color: var(--cat); transform: translateY(-1px); }
     .daily-band .icon { font-size: 1.3rem; flex-shrink: 0; line-height: 1; }
     .daily-band .text { flex: 1; }
-    .daily-band .row-eyebrow { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; color: #c0392b; text-transform: uppercase; }
-    .daily-band .row-title { font-size: 0.9rem; font-weight: 600; color: #4a3d20; margin-top: 0.2rem; }
-    .daily-band .row-meta { font-size: 0.74rem; color: #8a7d5f; margin-top: 0.15rem; }
-    .daily-band .cta { flex-shrink: 0; padding: 0.5rem 0.9rem; background: #c0392b; color: white; border-radius: 20px; font-size: 0.76rem; font-weight: 600; white-space: nowrap; }
+    .daily-band .row-eyebrow { font-size: 0.64rem; font-weight: 700; letter-spacing: 0.12em; color: var(--cat); text-transform: uppercase; }
+    .daily-band .row-title { font-size: 0.92rem; font-weight: 600; color: #2d2d2d; margin-top: 0.2rem; }
+    .daily-band .row-meta { font-size: 0.75rem; color: #9a948c; margin-top: 0.15rem; }
+    .daily-band .cta { flex-shrink: 0; padding: 0.5rem 0.95rem; background: var(--cat); color: white; border-radius: 20px; font-size: 0.76rem; font-weight: 600; white-space: nowrap; }
 
     /* Closely related struggles — tight, hand-curated, 4 not 20 */
-    .related-struggles { margin-top: 2rem; }
-    .related-struggles h3 { font-size: 0.95rem; font-weight: 600; color: #555; margin-bottom: 0.7rem; }
-    .related-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem; }
-    .related-grid a { padding: 0.7rem 0.9rem; background: white; border: 1px solid #e8e4de; border-radius: 8px; font-size: 0.85rem; color: #555; text-decoration: none; transition: all 0.18s; }
-    .related-grid a:hover { border-color: #c0392b; color: #c0392b; }
-    .browse-all-row { text-align: center; margin-top: 1rem; font-size: 0.85rem; }
-    .browse-all-row a { color: #888; text-decoration: none; border-bottom: 1px dashed #c0c0b8; padding-bottom: 1px; }
-    .browse-all-row a:hover { color: #c0392b; border-color: #c0392b; }
+    .related-struggles { margin-top: 2.4rem; }
+    .related-struggles h3 { font-family: Georgia, 'Times New Roman', serif; font-size: 1.32rem;
+      font-weight: 400; color: #2d2d2d; margin-bottom: 0.9rem; padding-bottom: 0.5rem;
+      border-bottom: 2px solid #e8e4de; }
+    .related-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.6rem; }
+    .related-grid a { padding: 0.85rem 1rem; background: #fff; border: 1px solid #e8e4de;
+      border-radius: 10px; font-size: 0.9rem; color: #403c37; text-decoration: none; transition: all 0.16s; }
+    .related-grid a:hover { border-color: var(--cat); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(40,30,20,0.06); }
+    .browse-all-row { text-align: center; margin-top: 1.1rem; font-size: 0.86rem; }
+    .browse-all-row a { color: #9a948c; text-decoration: none; border-bottom: 1px dashed #c0c0b8; padding-bottom: 1px; }
+    .browse-all-row a:hover { color: var(--cat); border-color: var(--cat); }
 
-    .share-section { text-align: center; margin: 2rem 0; padding: 1.2rem; background: #f5f3ee; border-radius: 10px; }
-    .share-label { font-size: 0.92rem; color: #555; margin-bottom: 0.8rem; }
+    .share-section { text-align: center; margin: 2.4rem 0 0; padding: 1.5rem; background: #f1ede5; border-radius: 12px; }
+    .share-label { font-family: Georgia, serif; font-size: 1.05rem; color: #504a42; margin-bottom: 0.9rem; }
     .share-buttons { display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; }
-    .share-btn { display: inline-flex; align-items: center; padding: 0.6rem 1.1rem; font: inherit; font-size: 0.88rem; font-weight: 600; border-radius: 6px; border: 0; cursor: pointer; text-decoration: none; transition: opacity 0.15s; }
+    .share-btn { display: inline-flex; align-items: center; padding: 0.6rem 1.15rem; font: inherit; font-size: 0.88rem; font-weight: 600; border-radius: 8px; border: 0; cursor: pointer; text-decoration: none; transition: opacity 0.15s; }
     .share-btn:hover { opacity: 0.88; }
     .share-btn.wa { background: #25D366; color: #fff; }
-    .share-btn.native { background: #c0392b; color: #fff; }
-    .share-btn.copy { background: #e8e4de; color: #555; }
+    .share-btn.native { background: var(--cat); color: #fff; }
+    .share-btn.copy { background: #e3ded6; color: #555; }
 
-    footer { text-align: center; padding: 1.5rem 0; color: #aaa; font-size: 0.8rem; border-top: 1px solid #e8e4de; margin-top: 2rem; }
+    footer { text-align: center; padding: 2rem 0 5.5rem; color: #b5b0a8; font-size: 0.8rem; border-top: 1px solid #e8e4de; margin-top: 2.5rem; }
 
     @media (max-width: 600px) {
-      .hero h2 { font-size: 1.4rem; }
-      .strip-card { flex-direction: column; }
-      .strip-card img { width: 100%; height: 180px; }
+      .hero h2 { font-size: 1.7rem; }
+      .article-content p { font-size: 1.03rem; }
+      .related-grid { grid-template-columns: 1fr; }
     }
   </style>
 
   <script data-goatcounter="https://zombielabs.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </head>
-<body>
+<body style="--cat:#b5485b">
   <div class="container">
     <header>
       <a href="../"><h1>THE <span>LOTUS</span> LANE</h1></a>
     </header>
 
+    <a class="back-link" href="./">&larr;&nbsp; All life challenges</a>
+
     <div class="hero">
+      <div class="hero-cat">
+        <span class="hero-dot"></span>
+        <a href="./#cat-love">Love &amp; Relationships</a>
+      </div>
       <h2>The Breakup You Didn't See Coming</h2>
-      <p>You know that feeling when you're sitting somewhere perfectly ordinary - a restaurant, your couch, the passenger seat of their car - and the person across...</p>
     </div>
 
-    
+    <article class="article-content"><p>You know that feeling when you're sitting somewhere perfectly ordinary - a restaurant, your couch, the passenger seat of their car - and the person across from you says the words, and the entire room tilts? Not a dramatic collapse. Just a tilt. Like gravity shifted a few degrees and nobody told you. Everything looks the same. The lights are still on. The food is still warm. And yet something has ended, right here, in the middle of Tuesday.</p>
+
+<p>That's what a breakup you didn't see coming feels like. And if that's why you're reading this at whatever hour it is, that tilt is probably still with you.</p>
+
+<p>The thing nobody prepares you for is the disorientation. Not the sadness - you expected sadness eventually, in the abstract way we all know things end - but the confusion. The way you keep replaying conversations, looking for the moment you missed. Was it three months ago? Six? Did they know for a long time and you just didn't? You start treating your own memory like a crime scene, looking for clues you should have caught. And the worst part is, sometimes there are clues. And sometimes there genuinely aren't. Either way, it doesn't help as much as you hoped.</p>
+
+<h3>Why Your Brain Keeps Doing This to You</h3>
+
+<p>When something shocks us, the mind's first instinct isn't to grieve - it's to understand. We are pattern-recognition machines, and a sudden end breaks the pattern we were counting on. So the brain loops. It goes back over the evidence, looking for the logic, because logic would mean control, and control would mean this couldn't happen again. It's not weakness. It's actually your mind trying to protect you. The problem is that the explanation - even when you find it - doesn't stop the hurt. It just gives the hurt a label.</p>
+
+<p>There's also something specific about an unexpected breakup that cuts deeper than a slow unraveling: you had a future planned. Maybe not in explicit detail, but in your body - in the casual assumption that they would be there next month, next year, for the thing you were looking forward to. When that ends abruptly, you're not just losing the relationship. You're losing a version of the future. And grief for an imagined future is just as real as grief for anything else. It just doesn't have a name, so people don't take it seriously. You should take it seriously.</p>
+
+<h3>The Specific Cruelty of Not Knowing Why</h3>
+
+<p>Sometimes breakups come with a reason that makes sense. More often, they come with a reason that doesn't quite satisfy. Or with explanations that feel rehearsed, distant, borrowed from a self-help framework the other person picked up somewhere. And sometimes they come with almost nothing at all - just the fact of it, the door closing.</p>
+
+<p>If you're in that last group, you may have spent real energy trying to reverse-engineer the why from their behavior, their tone, things they said months ago. There's a thought that keeps coming back to me when I think about this kind of search: wisdom is the ability to see things as they really are, not as we wish them to be - and then to act accordingly. What that means here is uncomfortable but true: sometimes you're not going to get the answer that would satisfy you. Not because it doesn't exist, but because it lives in another person and they either can't articulate it or won't. That's genuinely unfair. You are allowed to feel how unfair that is. But at some point, the question shifts from <em>why did this happen</em> to <em>what do I do now</em>.</p>
+
+<p>That shift is not giving up. It's the beginning of actual movement.</p>
+
+<h3>What You're Actually Allowed to Feel</h3>
+
+<p>Anger. You are allowed to feel anger. Not just sadness - anger. At the timing, at the way it was delivered, at the months or years of something that apparently meant very different things to two people in the same room. Anger doesn't mean you're bitter. It means you cared, and care has weight, and when you drop something heavy it makes an impact.</p>
+
+<p>Embarrassment, too. This one is quieter, but it's there - the sting of having told people about this person, having brought them into your life, having been visibly invested. Social embarrassment around heartbreak is real and it's underdiscussed. You don't have to pretend you weren't hurt in front of the people who watched you be hopeful.</p>
+
+<p>Relief, possibly. This one surprises people. But if any part of the relationship had been tense, uncertain, or quietly painful - if you had been monitoring their moods or managing their expectations or holding yourself back in some way - there may be a layer of something like relief underneath the loss. That doesn't mean you didn't love them. It just means that sometimes our nervous systems know things before our minds catch up.</p>
+
+<p>And underneath all of it: a specific kind of loneliness. The loneliness of the person who is used to reaching for someone and now has to consciously stop reaching. That habit - the reaching - takes a long time to undo. It's not pathetic. It's just a fact of attachment.</p>
+
+<h3>Small Things That Actually Help Right Now</h3>
+
+<p>The internet is full of breakup advice that treats heartbreak like a productivity problem. Seventeen steps to moving on. Get to the gym. Focus on yourself. All of this is technically fine and mostly useless for the first stretch, because the first stretch is about surviving the initial shock, not optimizing.</p>
+
+<p>So here's a more honest list.</p>
+
+<p><strong>Stop trying to make it make sense right now.</strong> You probably won't reach closure in the next few weeks through thinking harder. The clarity that helps tends to arrive slowly, months later, when you're not looking for it. For now, let the not-knowing be there without fighting it.</p>
+
+<p><strong>Don't disappear.</strong> The instinct to go quiet, cancel plans, pull away from people - that instinct is understandable, and a small dose of it is fine. But isolation past a certain point stops being self-care and becomes a trap. One person, at minimum. Someone who won't immediately push you toward solutions, just let you say the real things out loud.</p>
+
+<p><strong>Keep one small anchor.</strong> Not a project, not a goal, not a grand reinvention. Just one small thing per day that reminds your body what it feels like to function: a walk, a meal you cooked, a conversation that wasn't about this. The smallest normalcy can be load-bearing.</p>
+
+<p><strong>Let time be slow.</strong> There's enormous social pressure to be over it quickly, to be resilient, to have your story of growth ready to tell. Ignore that. Grief for a relationship is not a sign of weakness or over-investment. It's proportional to how much you were present in it.</p>
+
+<p>An old letter I came across once put it plainly: <em>"Each morning we are born again. What we do today is what matters most."</em> Not next year. Not the healed, improved version of you. Today. Whatever today asks for - that's the only thing you have to answer.</p>
+
+<h3>On the Other Side of This</h3>
+
+<p>There's something that doesn't get said enough about unexpected endings: they have a particular way of clarifying things. When a relationship ends slowly, there's often so much negotiation, so much trying to make it work, that by the end you can barely remember what you actually wanted. When it ends suddenly, the want is still intact. It hasn't been worn down yet. And that's painful, but it's also information - about what you were building toward, what kind of love you were capable of, what you were hoping your life would look like.</p>
+
+<p>That's not nothing. That's actually quite a lot.</p>
+
+<p>You don't have to find the silver lining tonight. You don't have to be growing or learning or becoming anything. But somewhere in this, when the shock fades enough to let you see clearly, you will find that you know more about yourself than you did before this happened. That knowledge costs a lot. It's still worth having.</p>
+
+<p>There are no dead ends in this - only people who have stopped moving, temporarily, while they catch their breath. You can stay still a while. Then, when you're ready, even one step forward is enough.</p>
+
+<p>Take care of yourself tonight. That's enough.</p></article>
 
     <h3 class="section-title">Words that help</h3>
-    
-    <div class="wisdom-quote">
-      <p>&ldquo;Winter always turns to spring. Never, from ancient times on, has anyone heard or seen of winter turning back to autumn.&rdquo;</p>
-      <cite>- The Writings of Nichiren Daishonin (referenced in guidance)</cite>
-    </div>
-    <div class="wisdom-quote">
-      <p>&ldquo;As long as we have hope, we have direction, the energy to move, and the map to move by.&rdquo;</p>
-      <cite>- For Today and Tomorrow</cite>
-    </div>
-    <div class="wisdom-quote">
-      <p>&ldquo;Hope is not a matter of ability; it is a matter of decision.&rdquo;</p>
-      <cite>- Discussions on Youth</cite>
-    </div>
-    <div class="wisdom-quote">
-      <p>&ldquo;Life and death are the two faces of the same coin. To understand life, we must understand death. To conquer death, we must live fully.&rdquo;</p>
-      <cite>- The Wisdom for Creating Happiness and Peace</cite>
-    </div>
-    <div class="wisdom-quote">
-      <p>&ldquo;In Buddhism, death is not the end. It is a transition, a continuation. The life we have lived does not disappear - it continues in a new form.&rdquo;</p>
-      <cite>- For Today and Tomorrow</cite>
-    </div>
+      <div class="wisdom-quote">
+        <p>&ldquo;Compassion is not about feeling pity for others. It is about sharing their suffering and working together to overcome it.&rdquo;</p>
+        <cite>&mdash; The Wisdom for Creating Happiness and Peace</cite>
+      </div>
+      <div class="wisdom-quote">
+        <p>&ldquo;A single warm word can give someone the courage to go on living. Never underestimate the power of your compassion.&rdquo;</p>
+        <cite>&mdash; For Today and Tomorrow</cite>
+      </div>
+      <div class="wisdom-quote">
+        <p>&ldquo;True compassion is not soft or weak. It takes great strength to truly care about others, to shoulder their pain.&rdquo;</p>
+        <cite>&mdash; Discussions on Youth</cite>
+      </div>
+      <div class="wisdom-quote">
+        <p>&ldquo;Dialogue is the most fundamental and effective means for building peace. It is the very foundation of civilization.&rdquo;</p>
+        <cite>&mdash; For Today and Tomorrow</cite>
+      </div>
+      <div class="wisdom-quote">
+        <p>&ldquo;When we engage in dialogue with sincerity and respect, the walls of misunderstanding crumble. Even the most hardened hearts can be opened.&rdquo;</p>
+        <cite>&mdash; The New Human Revolution, Vol. 7</cite>
+      </div>
 
     
 

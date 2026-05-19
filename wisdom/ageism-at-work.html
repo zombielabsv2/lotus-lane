@@ -34,151 +34,229 @@
 
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Segoe UI', system-ui, sans-serif; background: #faf9f6; color: #2d2d2d; }
-    .container { max-width: 740px; margin: 0 auto; padding: 1rem; }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: #faf9f6; color: #2d2d2d;
+      -webkit-font-smoothing: antialiased; }
+    .container { max-width: 760px; margin: 0 auto; padding: 1rem 1.15rem; }
     header { text-align: center; padding: 1.2rem 0; border-bottom: 2px solid #e8e4de; }
     header a { text-decoration: none; color: inherit; }
     header h1 { font-size: 1.5rem; font-weight: 300; letter-spacing: 0.15em; color: #4a4a4a; }
     header h1 span { font-weight: 600; color: #c0392b; }
 
-    .hero { padding: 2.5rem 0 1.5rem; text-align: center; }
-    .hero h2 { font-size: 1.8rem; font-weight: 500; color: #333; line-height: 1.3; margin-bottom: 0.8rem; }
-    .hero p { font-size: 1.05rem; color: #666; line-height: 1.7; max-width: 600px; margin: 0 auto; }
+    .back-link { display: inline-block; margin-top: 1.4rem; font-size: 0.84rem; color: #9a948c;
+      text-decoration: none; transition: color 0.15s; }
+    .back-link:hover { color: var(--cat); }
 
-    .section-title { font-size: 1.1rem; font-weight: 600; color: #555; margin: 2rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid #e8e4de; }
+    .hero { padding: 1.6rem 0 1.2rem; }
+    .hero-cat { display: flex; align-items: center; gap: 0.45rem; margin-bottom: 0.7rem; }
+    .hero-dot { width: 10px; height: 10px; border-radius: 3px; background: var(--cat); flex: none; }
+    .hero-cat a { font-size: 0.76rem; font-weight: 700; letter-spacing: 0.07em; color: var(--cat);
+      text-decoration: none; text-transform: uppercase; }
+    .hero-cat a:hover { text-decoration: underline; }
+    .hero h2 { font-family: Georgia, 'Times New Roman', serif; font-size: 2.15rem; font-weight: 400;
+      color: #2d2d2d; line-height: 1.22; }
+    .hero-lead { font-size: 1.1rem; color: #6f6a63; line-height: 1.7; margin: 0.4rem 0 2rem; }
 
-    .strip-card { display: flex; gap: 1rem; padding: 1rem; background: white; border-radius: 8px; box-shadow: 0 1px 6px rgba(0,0,0,0.05); margin-bottom: 0.8rem; text-decoration: none; color: inherit; transition: box-shadow 0.2s; }
-    .strip-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.1); }
-    .strip-card img { width: 120px; height: 120px; object-fit: cover; border-radius: 6px; flex-shrink: 0; }
-    .strip-card-info { flex: 1; min-width: 0; }
-    .strip-card-title { font-size: 1rem; font-weight: 600; color: #333; margin-bottom: 0.2rem; }
-    .strip-card-topic { font-size: 0.75rem; color: #c0392b; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.3rem; }
-    .strip-card-message { font-size: 0.85rem; color: #666; line-height: 1.5; }
+    .article-content { margin: 0.6rem 0 2rem; }
+    .article-content p { font-size: 1.07rem; line-height: 1.82; color: #403c37; margin-bottom: 1.15rem; }
+    .article-content > p:first-of-type::first-letter { font-family: Georgia, serif; font-size: 3.1rem;
+      font-weight: 600; float: left; line-height: 0.86; margin: 0.32rem 0.55rem 0 0; color: var(--cat); }
+    .article-content h3 { font-family: Georgia, 'Times New Roman', serif; font-size: 1.4rem;
+      font-weight: 400; color: #2d2d2d; margin: 2rem 0 0.7rem; }
+    .article-content blockquote { border-left: 3px solid var(--cat); padding: 0.3rem 0 0.3rem 1.3rem;
+      margin: 1.6rem 0; font-family: Georgia, serif; font-style: italic; font-size: 1.18rem;
+      line-height: 1.6; color: #504a42; }
+    .article-content blockquote p { font-size: inherit; line-height: inherit; color: inherit; margin: 0; }
+    .article-content a { color: var(--cat); }
 
-    .wisdom-quote { border-left: 3px solid #c0392b; padding: 0.8rem 1.2rem; margin: 0.8rem 0; background: #f5f3ee; border-radius: 0 6px 6px 0; }
-    .wisdom-quote p { font-style: italic; color: #504638; line-height: 1.6; font-size: 0.95rem; }
-    .wisdom-quote cite { display: block; margin-top: 0.4rem; font-size: 0.8rem; color: #8c8278; font-style: normal; }
+    .section-title { font-family: Georgia, 'Times New Roman', serif; font-size: 1.32rem; font-weight: 400;
+      color: #2d2d2d; margin: 2.4rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #e8e4de; }
 
-    .subscribe-cta { text-align: center; padding: 2rem; background: #f0ece4; border-radius: 10px; margin: 2rem 0; }
-    .subscribe-cta h3 { font-size: 1.1rem; color: #333; margin-bottom: 0.4rem; }
-    .subscribe-cta p { font-size: 0.9rem; color: #666; margin-bottom: 0.8rem; }
-    .subscribe-cta a { display: inline-block; padding: 0.7rem 1.5rem; background: #c0392b; color: white; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 0.9rem; }
-    .subscribe-cta a:hover { background: #a93226; }
-
-    .related-links { display: flex; gap: 0.5rem; flex-wrap: wrap; margin: 1.5rem 0; }
-    .related-links a { padding: 0.4rem 0.8rem; background: white; border: 1px solid #d4cfc7; border-radius: 999px; font-size: 0.8rem; color: #666; text-decoration: none; transition: all 0.2s; }
-    .related-links a:hover { border-color: #c0392b; color: #c0392b; }
-
-    .article-content { margin: 1.5rem 0; line-height: 1.8; color: #444; font-size: 1rem; }
-    .article-content p { margin-bottom: 1rem; }
-    .article-content h3 { font-size: 1.15rem; font-weight: 600; color: #333; margin: 1.5rem 0 0.5rem; }
-    .article-content blockquote { border-left: 3px solid #c0392b; padding: 0.8rem 1.2rem; margin: 1.2rem 0; background: #f5f3ee; border-radius: 0 6px 6px 0; font-style: italic; color: #504638; }
-
-    .empty { color: #999; font-style: italic; padding: 1rem 0; }
+    .wisdom-quote { border-left: 3px solid var(--cat); padding: 0.9rem 1.25rem; margin: 0.8rem 0;
+      background: #f5f3ee; border-radius: 0 8px 8px 0; }
+    .wisdom-quote p { font-family: Georgia, serif; font-style: italic; color: #504638;
+      line-height: 1.62; font-size: 1rem; }
+    .wisdom-quote cite { display: block; margin-top: 0.5rem; font-size: 0.78rem; color: #9a8f82;
+      font-style: normal; letter-spacing: 0.02em; }
 
     /* Hub — cross-format cross-link block */
-    .hub { margin: 2.5rem 0 1.2rem; padding: 1.6rem 1.4rem 1.2rem; background: linear-gradient(160deg, #fdf8f0 0%, #faf9f6 100%); border: 1px solid #e8e4de; border-radius: 16px; }
-    .hub-eyebrow { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; color: #c0392b; text-transform: uppercase; margin-bottom: 0.3rem; }
-    .hub-headline { font-size: 1.2rem; font-weight: 500; color: #2d2d2d; margin-bottom: 0.4rem; }
-    .hub-headline em { font-style: italic; color: #c0392b; font-weight: 500; }
-    .hub-sub { font-size: 0.86rem; color: #888; margin-bottom: 1.2rem; }
-    .hub-row { display: flex; align-items: center; gap: 1rem; padding: 0.95rem 1rem; background: white; border: 1px solid #e8e4de; border-radius: 12px; text-decoration: none; color: inherit; margin-bottom: 0.55rem; transition: all 0.18s; }
-    .hub-row:hover { border-color: #c0392b; transform: translateY(-1px); box-shadow: 0 4px 16px rgba(192,57,43,0.08); }
-    .hub-row .icon { width: 42px; height: 42px; background: #fdf8f0; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.15rem; flex-shrink: 0; }
-    .hub-row .icon.podcast { background: linear-gradient(135deg, #fdf6e3 0%, #f8ecd1 100%); }
+    .hub { margin: 2.6rem 0 1.2rem; padding: 1.6rem 1.4rem 1.2rem; background: #fff;
+      border: 1px solid #e8e4de; border-radius: 16px; }
+    .hub-eyebrow { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.13em; color: var(--cat);
+      text-transform: uppercase; margin-bottom: 0.35rem; }
+    .hub-headline { font-family: Georgia, serif; font-size: 1.3rem; font-weight: 400; color: #2d2d2d;
+      margin-bottom: 0.3rem; }
+    .hub-headline em { font-style: italic; color: var(--cat); }
+    .hub-sub { font-size: 0.86rem; color: #9a948c; margin-bottom: 1.2rem; }
+    .hub-row { display: flex; align-items: center; gap: 1rem; padding: 0.95rem 1rem; background: #faf9f6;
+      border: 1px solid #e8e4de; border-radius: 12px; text-decoration: none; color: inherit;
+      margin-bottom: 0.55rem; transition: all 0.18s; }
+    .hub-row:hover { border-color: var(--cat); transform: translateY(-1px); box-shadow: 0 5px 16px rgba(40,30,20,0.07); }
+    .hub-row .icon { width: 42px; height: 42px; background: #fff; border: 1px solid #e8e4de;
+      border-radius: 10px; display: flex; align-items: center; justify-content: center;
+      font-size: 1.15rem; flex-shrink: 0; }
+    .hub-row .icon.podcast { background: #fdf6e3; }
     .hub-row .text { flex: 1; min-width: 0; }
-    .hub-row .row-eyebrow { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; color: #c0392b; text-transform: uppercase; }
+    .hub-row .row-eyebrow { font-size: 0.64rem; font-weight: 700; letter-spacing: 0.1em; color: var(--cat); text-transform: uppercase; }
     .hub-row .row-title { font-size: 0.96rem; font-weight: 600; color: #2d2d2d; margin-top: 0.15rem; line-height: 1.35; }
-    .hub-row .row-meta { font-size: 0.76rem; color: #888; margin-top: 0.15rem; }
-    .hub-row .arrow { color: #c0392b; font-weight: 600; flex-shrink: 0; }
-    .hub-divider { font-size: 0.68rem; color: #aaa; letter-spacing: 0.1em; text-transform: uppercase; margin: 1rem 0 0.4rem; padding-left: 0.2rem; }
-    .strip-card-mini { display: flex; gap: 0.9rem; padding: 0.75rem; background: white; border-radius: 10px; box-shadow: 0 1px 4px rgba(0,0,0,0.04); margin-bottom: 0.55rem; text-decoration: none; color: inherit; transition: all 0.2s; border: 1px solid transparent; }
-    .strip-card-mini:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.08); border-color: #e8e4de; }
+    .hub-row .row-meta { font-size: 0.76rem; color: #9a948c; margin-top: 0.15rem; }
+    .hub-row .arrow { color: var(--cat); font-weight: 600; flex-shrink: 0; }
+    .hub-divider { font-size: 0.66rem; color: #b5b0a8; letter-spacing: 0.1em; text-transform: uppercase; margin: 1.1rem 0 0.5rem; padding-left: 0.2rem; }
+    .strip-card-mini { display: flex; gap: 0.9rem; padding: 0.75rem; background: #faf9f6;
+      border: 1px solid #e8e4de; border-radius: 10px; margin-bottom: 0.55rem; text-decoration: none;
+      color: inherit; transition: all 0.18s; }
+    .strip-card-mini:hover { border-color: var(--cat); }
     .strip-card-mini img { width: 80px; height: 80px; object-fit: cover; border-radius: 6px; flex-shrink: 0; }
     .strip-card-mini .strip-card-info { flex: 1; min-width: 0; }
-    .strip-card-mini .strip-card-topic { font-size: 0.65rem; color: #c0392b; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.2rem; font-weight: 700; }
+    .strip-card-mini .strip-card-topic { font-size: 0.64rem; color: var(--cat); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.2rem; font-weight: 700; }
     .strip-card-mini .strip-card-title { font-size: 0.92rem; font-weight: 600; color: #2d2d2d; margin-bottom: 0.2rem; line-height: 1.3; }
-    .strip-card-mini .strip-card-message { font-size: 0.78rem; color: #777; line-height: 1.45; }
-    .listicle-card { display: flex; align-items: center; gap: 1rem; padding: 0.85rem 1rem; background: white; border: 1px solid #e8e4de; border-radius: 10px; text-decoration: none; color: inherit; margin-bottom: 0.55rem; transition: all 0.18s; }
-    .listicle-card:hover { border-color: #c0392b; }
-    .listicle-card .num { width: 36px; height: 36px; background: #fdf8f0; color: #c0392b; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.85rem; flex-shrink: 0; }
+    .strip-card-mini .strip-card-message { font-size: 0.78rem; color: #857f78; line-height: 1.45; }
+    .listicle-card { display: flex; align-items: center; gap: 1rem; padding: 0.85rem 1rem;
+      background: #faf9f6; border: 1px solid #e8e4de; border-radius: 10px; text-decoration: none;
+      color: inherit; margin-bottom: 0.55rem; transition: all 0.18s; }
+    .listicle-card:hover { border-color: var(--cat); }
+    .listicle-card .num { width: 36px; height: 36px; background: #fff; border: 1px solid #e8e4de;
+      color: var(--cat); border-radius: 8px; display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 0.85rem; flex-shrink: 0; }
     .listicle-card .text { flex: 1; min-width: 0; }
-    .listicle-card .row-eyebrow { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; color: #c0392b; text-transform: uppercase; }
+    .listicle-card .row-eyebrow { font-size: 0.64rem; font-weight: 700; letter-spacing: 0.1em; color: var(--cat); text-transform: uppercase; }
     .listicle-card .row-title { font-size: 0.9rem; font-weight: 600; color: #2d2d2d; margin-top: 0.15rem; line-height: 1.35; }
-    .daily-band { display: flex; align-items: center; gap: 1rem; padding: 1rem 1.2rem; background: #fdf8f0; border: 1.5px solid #e8d9b3; border-radius: 12px; text-decoration: none; color: inherit; margin: 1.5rem 0 0; transition: all 0.2s; }
-    .daily-band:hover { border-color: #c0392b; transform: translateY(-1px); }
+    .daily-band { display: flex; align-items: center; gap: 1rem; padding: 1.05rem 1.2rem; background: #fff;
+      border: 1.5px solid #e8e4de; border-radius: 12px; text-decoration: none; color: inherit;
+      margin: 1.5rem 0 0; transition: all 0.18s; }
+    .daily-band:hover { border-color: var(--cat); transform: translateY(-1px); }
     .daily-band .icon { font-size: 1.3rem; flex-shrink: 0; line-height: 1; }
     .daily-band .text { flex: 1; }
-    .daily-band .row-eyebrow { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; color: #c0392b; text-transform: uppercase; }
-    .daily-band .row-title { font-size: 0.9rem; font-weight: 600; color: #4a3d20; margin-top: 0.2rem; }
-    .daily-band .row-meta { font-size: 0.74rem; color: #8a7d5f; margin-top: 0.15rem; }
-    .daily-band .cta { flex-shrink: 0; padding: 0.5rem 0.9rem; background: #c0392b; color: white; border-radius: 20px; font-size: 0.76rem; font-weight: 600; white-space: nowrap; }
+    .daily-band .row-eyebrow { font-size: 0.64rem; font-weight: 700; letter-spacing: 0.12em; color: var(--cat); text-transform: uppercase; }
+    .daily-band .row-title { font-size: 0.92rem; font-weight: 600; color: #2d2d2d; margin-top: 0.2rem; }
+    .daily-band .row-meta { font-size: 0.75rem; color: #9a948c; margin-top: 0.15rem; }
+    .daily-band .cta { flex-shrink: 0; padding: 0.5rem 0.95rem; background: var(--cat); color: white; border-radius: 20px; font-size: 0.76rem; font-weight: 600; white-space: nowrap; }
 
     /* Closely related struggles — tight, hand-curated, 4 not 20 */
-    .related-struggles { margin-top: 2rem; }
-    .related-struggles h3 { font-size: 0.95rem; font-weight: 600; color: #555; margin-bottom: 0.7rem; }
-    .related-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem; }
-    .related-grid a { padding: 0.7rem 0.9rem; background: white; border: 1px solid #e8e4de; border-radius: 8px; font-size: 0.85rem; color: #555; text-decoration: none; transition: all 0.18s; }
-    .related-grid a:hover { border-color: #c0392b; color: #c0392b; }
-    .browse-all-row { text-align: center; margin-top: 1rem; font-size: 0.85rem; }
-    .browse-all-row a { color: #888; text-decoration: none; border-bottom: 1px dashed #c0c0b8; padding-bottom: 1px; }
-    .browse-all-row a:hover { color: #c0392b; border-color: #c0392b; }
+    .related-struggles { margin-top: 2.4rem; }
+    .related-struggles h3 { font-family: Georgia, 'Times New Roman', serif; font-size: 1.32rem;
+      font-weight: 400; color: #2d2d2d; margin-bottom: 0.9rem; padding-bottom: 0.5rem;
+      border-bottom: 2px solid #e8e4de; }
+    .related-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.6rem; }
+    .related-grid a { padding: 0.85rem 1rem; background: #fff; border: 1px solid #e8e4de;
+      border-radius: 10px; font-size: 0.9rem; color: #403c37; text-decoration: none; transition: all 0.16s; }
+    .related-grid a:hover { border-color: var(--cat); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(40,30,20,0.06); }
+    .browse-all-row { text-align: center; margin-top: 1.1rem; font-size: 0.86rem; }
+    .browse-all-row a { color: #9a948c; text-decoration: none; border-bottom: 1px dashed #c0c0b8; padding-bottom: 1px; }
+    .browse-all-row a:hover { color: var(--cat); border-color: var(--cat); }
 
-    .share-section { text-align: center; margin: 2rem 0; padding: 1.2rem; background: #f5f3ee; border-radius: 10px; }
-    .share-label { font-size: 0.92rem; color: #555; margin-bottom: 0.8rem; }
+    .share-section { text-align: center; margin: 2.4rem 0 0; padding: 1.5rem; background: #f1ede5; border-radius: 12px; }
+    .share-label { font-family: Georgia, serif; font-size: 1.05rem; color: #504a42; margin-bottom: 0.9rem; }
     .share-buttons { display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; }
-    .share-btn { display: inline-flex; align-items: center; padding: 0.6rem 1.1rem; font: inherit; font-size: 0.88rem; font-weight: 600; border-radius: 6px; border: 0; cursor: pointer; text-decoration: none; transition: opacity 0.15s; }
+    .share-btn { display: inline-flex; align-items: center; padding: 0.6rem 1.15rem; font: inherit; font-size: 0.88rem; font-weight: 600; border-radius: 8px; border: 0; cursor: pointer; text-decoration: none; transition: opacity 0.15s; }
     .share-btn:hover { opacity: 0.88; }
     .share-btn.wa { background: #25D366; color: #fff; }
-    .share-btn.native { background: #c0392b; color: #fff; }
-    .share-btn.copy { background: #e8e4de; color: #555; }
+    .share-btn.native { background: var(--cat); color: #fff; }
+    .share-btn.copy { background: #e3ded6; color: #555; }
 
-    footer { text-align: center; padding: 1.5rem 0; color: #aaa; font-size: 0.8rem; border-top: 1px solid #e8e4de; margin-top: 2rem; }
+    footer { text-align: center; padding: 2rem 0 5.5rem; color: #b5b0a8; font-size: 0.8rem; border-top: 1px solid #e8e4de; margin-top: 2.5rem; }
 
     @media (max-width: 600px) {
-      .hero h2 { font-size: 1.4rem; }
-      .strip-card { flex-direction: column; }
-      .strip-card img { width: 100%; height: 180px; }
+      .hero h2 { font-size: 1.7rem; }
+      .article-content p { font-size: 1.03rem; }
+      .related-grid { grid-template-columns: 1fr; }
     }
   </style>
 
   <script data-goatcounter="https://zombielabs.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </head>
-<body>
+<body style="--cat:#5a7d9a">
   <div class="container">
     <header>
       <a href="../"><h1>THE <span>LOTUS</span> LANE</h1></a>
     </header>
 
+    <a class="back-link" href="./">&larr;&nbsp; All life challenges</a>
+
     <div class="hero">
+      <div class="hero-cat">
+        <span class="hero-dot"></span>
+        <a href="./#cat-work">Work &amp; Career</a>
+      </div>
       <h2>Facing Ageism at Work</h2>
-      <p>You know that feeling when you are in a meeting and a younger colleague explains something to you slowly, as if you might not follow?</p>
     </div>
 
-    
+    <article class="article-content"><p>You know that feeling when you are in a meeting and a younger colleague explains something to you slowly, as if you might not follow? Or when you submit an application that matches the job perfectly and hear nothing back, again? Or when you catch the word "energy" or "culture fit" being used, and you understand exactly what it is standing in for? You have decades of skill and good judgment, and somehow the message coming back at you is that you are past it.</p>
+
+<p>It is a particular kind of hurt. It is not the sharp pain of being fired or insulted. It is slower and quieter than that. It is the feeling of being gradually written off while you are still standing right there, still capable, still wanting to contribute.</p>
+
+<p>If you are awake at 2am turning this over, you are not being paranoid and you are not being bitter. Ageism is real, it is common, and most people who face it suffer it in silence because there is shame wrapped around it that there should not be. Let us talk about it plainly.</p>
+
+<h3>First, Name What This Actually Is</h3>
+
+<p>Ageism is a prejudice. That word matters. When a workplace assumes an older person is slow, resistant to change, expensive, or out of touch, that is not a neutral observation. It is a stereotype, the same kind of lazy thinking that any other prejudice runs on. It substitutes a story about a group for the reality of a person.</p>
+
+<p>This matters because of what it does to you internally. When you face ageism for long enough, you start to absorb it. You begin to wonder if maybe they are right, if maybe you really are slower, less relevant, harder to employ. That is the most damaging part, the moment the outside prejudice becomes an inside belief. So the first act of self-defense is to keep the two things separate. Their assumption is theirs. It is not the truth about you, and you do not have to carry it.</p>
+
+<h3>The Cruelty of the Timing</h3>
+
+<p>Part of what makes ageism so painful is when it arrives. It tends to hit in the years when you most need stability, when you may have a mortgage, children in education, parents to support, retirement to think about. It hits exactly when starting over feels most frightening and least fair.</p>
+
+<p>And it carries an extra sting, because you did everything right. You built the experience. You stayed loyal. You got good at your work. And the reward for that long climb seems to be a quiet message that the experience itself has become a liability. That feels like a betrayal, because in a sense it is one.</p>
+
+<p>You are allowed to be angry about that. You are allowed to grieve it. What you do with the anger afterward matters, but you do not have to pretend the feeling is not legitimate. It is.</p>
+
+<h3>What Your Experience Is Actually Worth</h3>
+
+<p>Here is something the ageist story conveniently leaves out. Experience is not just a list of years. It is pattern recognition. It is the ability to see a problem coming because you have seen its cousin three times before. It is knowing which fires need fighting and which will burn themselves out. It is staying calm in a crisis because you have survived crises. It is judgment, and judgment is the single hardest thing for any organization to buy or train.</p>
+
+<p>A younger colleague may move faster on a new tool. Fine. But speed without judgment causes expensive mistakes, and you are the person who prevents those mistakes. That is not a small contribution. It is one of the most valuable things a person can bring to any workplace, and no amount of dismissive language changes that fact.</p>
+
+<p>There is a line worth holding onto: <em>"In the end, the person who wins is not the one with the most talent, but the one who refuses to give up."</em> The contest here is not about being the youngest or the flashiest. It is about endurance, clarity, and refusing to accept someone else's verdict on your worth.</p>
+
+<h3>Practical Things You Can Do</h3>
+
+<p>Anger alone will not move you forward. Here is what actually helps.</p>
+
+<p><strong>Stay genuinely current, but on your own terms.</strong> One of the few stereotypes you can directly disprove is the one about being out of touch. Keep learning. Pick up the new tools that matter in your field. You do not have to chase every trend, and you should not pretend to be 25. But quietly staying fluent in how your work is done today removes a real weapon from the other side.</p>
+
+<p><strong>Lead with value, not with years.</strong> When you present yourself, in an interview or a meeting, talk about results, problems solved, outcomes delivered. Frame your experience as judgment and reliability, the things a buyer of work actually wants, rather than as a long timeline. You are not hiding your age. You are simply pointing the conversation at what matters.</p>
+
+<p><strong>Build relationships across generations.</strong> Ageism feeds on distance. It is much harder to dismiss someone you actually know and respect. Mentor a younger colleague. Let yourself be mentored on something too. The more genuine working friendships you have across age lines, the fewer people see you as a stereotype and the more see you as a person.</p>
+
+<p><strong>Use your network, not the application portal.</strong> If you are job hunting, the anonymous online application is where ageism does its quietest work. People who know your actual track record do not write you off. Most good roles later in a career come through human connection. Reach out to people who have seen you work. That is not a fallback. It is the main road.</p>
+
+<p><strong>Know the line, and know your rights.</strong> In many places, age discrimination is unlawful. If what you are experiencing crosses from cold treatment into clear discrimination, it is worth understanding your legal protections and, where it makes sense, documenting what is happening. You do not have to absorb everything in silence.</p>
+
+<h3>Do Not Let It Become Your Whole Story</h3>
+
+<p>The biggest risk of ageism is not any single rejection. It is what repeated rejection does to your spirit over time. It can make you cautious, apologetic, smaller. It can make you walk into rooms already braced for dismissal, and people feel that, and it becomes a loop.</p>
+
+<p>There is a thought worth keeping close on the hard days: <em>"No one can make you feel hopeless unless you allow them to. Hope resides in the heart. It is something you create."</em> That is not a denial of how unfair the situation is. It is a reminder of where the one thing you control actually lives. They can control whether they call you back. They cannot control whether you keep believing that your contribution has worth, unless you hand them that power.</p>
+
+<p>So keep your own counsel. Keep a record of what you have done well, recently, in plain facts you can return to when the doubt creeps in. Surround yourself with people who see you clearly. And keep moving, one real step at a time, toward the people and places that want what you actually offer.</p>
+
+<h3>You Are Not Finished</h3>
+
+<p>Whatever number is attached to your age, it does not get to write the ending of your working life. There are organizations and leaders who understand exactly what seasoned judgment is worth, and your task is not to convince the ones who do not. It is to find the ones who do.</p>
+
+<p>You have done hard, real work for a long time. The skill, the steadiness, the perspective, none of that has gone anywhere. It is all still here, still yours. Some part of the world has simply forgotten to look properly. Your job now is not to shrink to fit their poor eyesight. It is to keep showing up, clearly and without apology, until you stand in front of the people who see you. They exist. Keep going until you reach them.</p></article>
 
     <h3 class="section-title">Words that help</h3>
-    
-    <div class="wisdom-quote">
-      <p>&ldquo;Winter always turns to spring. Never, from ancient times on, has anyone heard or seen of winter turning back to autumn.&rdquo;</p>
-      <cite>- The Writings of Nichiren Daishonin (referenced in guidance)</cite>
-    </div>
-    <div class="wisdom-quote">
-      <p>&ldquo;As long as we have hope, we have direction, the energy to move, and the map to move by.&rdquo;</p>
-      <cite>- For Today and Tomorrow</cite>
-    </div>
-    <div class="wisdom-quote">
-      <p>&ldquo;Hope is not a matter of ability; it is a matter of decision.&rdquo;</p>
-      <cite>- Discussions on Youth</cite>
-    </div>
-    <div class="wisdom-quote">
-      <p>&ldquo;A great human revolution in just a single individual will help achieve a change in the destiny of a nation and, further, will enable a change in the destiny of all humankind.&rdquo;</p>
-      <cite>- The Human Revolution</cite>
-    </div>
-    <div class="wisdom-quote">
-      <p>&ldquo;There is no true happiness for human beings other than chanting Nam-myoho-renge-kyo. There is no true human revolution apart from faith.&rdquo;</p>
-      <cite>- The New Human Revolution, Vol. 4</cite>
-    </div>
+      <div class="wisdom-quote">
+        <p>&ldquo;Action speaks louder than words. Buddhism is about action, not about theory or debate.&rdquo;</p>
+        <cite>&mdash; The New Human Revolution, Vol. 1</cite>
+      </div>
+      <div class="wisdom-quote">
+        <p>&ldquo;A hundred theories without a single action are worthless. Even one small step taken with determination changes everything.&rdquo;</p>
+        <cite>&mdash; For Today and Tomorrow</cite>
+      </div>
+      <div class="wisdom-quote">
+        <p>&ldquo;Now is the time to act. Not tomorrow, not next week, not when conditions are perfect. Now.&rdquo;</p>
+        <cite>&mdash; Discussions on Youth</cite>
+      </div>
+      <div class="wisdom-quote">
+        <p>&ldquo;A great human revolution in just a single individual will help achieve a change in the destiny of a nation and, further, will enable a change in the destiny of all humankind.&rdquo;</p>
+        <cite>&mdash; The Human Revolution</cite>
+      </div>
+      <div class="wisdom-quote">
+        <p>&ldquo;Human revolution is not something special or out of the ordinary. It is the process of transforming our lives, one challenge at a time.&rdquo;</p>
+        <cite>&mdash; Discussions on Youth</cite>
+      </div>
 
     
 

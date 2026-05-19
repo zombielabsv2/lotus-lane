@@ -113,8 +113,16 @@ def build_hub_html(slug, strips, content_struggles, podcast_episodes):
     if not content_struggles:
         return ""
 
-    related_strips = find_strips_for_struggle(slug, strips, content_struggles)[:3]
-    related_listicles = find_listicles_for_struggle(slug, content_struggles)[:2]
+    # Drop any cross-link whose visible text carries practice-specific language
+    # (older pre-reframe strips/listicles) — keeps the hub universally framed.
+    related_strips = [
+        s for s in find_strips_for_struggle(slug, strips, content_struggles)
+        if not _BANNED_QUOTE_RE.search(f"{s.get('title') or ''} {s.get('message') or ''}")
+    ][:3]
+    related_listicles = [
+        (date, title) for date, title in find_listicles_for_struggle(slug, content_struggles)
+        if not _BANNED_QUOTE_RE.search(title or "")
+    ][:2]
     has_podcast = slug in podcast_episodes
     podcast_title = podcast_episodes.get(slug, "")
 
@@ -346,6 +354,18 @@ def find_relevant_strips(strips, categories):
     return relevant
 
 
+# Practice-specific language that must not surface in user-facing quote text.
+# The Universal Framing rule (CLAUDE.md) targets universal human suffering, not
+# practitioners. Book titles in the `cite` attribution are proper citation and
+# are left untouched — this filter only screens the quote body.
+_BANNED_QUOTE_RE = re.compile(
+    r"nam-myoho-renge-kyo|daimoku|nichiren|gohonzon|\bchant|\bsgi\b|"
+    r"soka gakkai|mystic law|kosen-rufu|buddha|gosho|lotus sutra|"
+    r"\bdharma|\bsangha\b",
+    re.I,
+)
+
+
 def find_relevant_quotes(ikeda_themes, categories):
     """Find Ikeda quotes matching the affliction's theme areas."""
     # Map affliction categories to Ikeda theme IDs
@@ -376,13 +396,20 @@ def find_relevant_quotes(ikeda_themes, categories):
     quotes = []
     for tid in theme_ids:
         theme = ikeda_themes.get(tid)
-        if theme:
-            for q in theme.get("quotes", [])[:3]:  # Max 3 per theme
-                quotes.append({
-                    "text": q["text"],
-                    "source": q.get("source", ""),
-                    "theme": theme.get("name", tid),
-                })
+        if not theme:
+            continue
+        # Screen practice-specific language out of both the quote body and its
+        # source citation, before slicing, so each theme still yields up to 3
+        # fully universal-framed quotes.
+        clean = [q for q in theme.get("quotes", [])
+                 if not _BANNED_QUOTE_RE.search(q.get("text", ""))
+                 and not _BANNED_QUOTE_RE.search(q.get("source", ""))]
+        for q in clean[:3]:  # Max 3 per theme
+            quotes.append({
+                "text": q["text"],
+                "source": q.get("source", ""),
+                "theme": theme.get("name", tid),
+            })
     return quotes[:9]  # Max 9 quotes per page
 
 
@@ -392,10 +419,12 @@ def generate_affliction_page(slug, title, meta_desc, categories, strips, ikeda_t
     relevant_strips = find_relevant_strips(strips, categories)
     relevant_quotes = find_relevant_quotes(ikeda_themes, categories)
 
-    # Generate long-form article content if requested
-    article_html = ""
-    if generate_articles:
-        article_html = generate_article_content(slug, title, meta_desc, categories, relevant_quotes)
+    # Always render the long-form essay. generate_article_content() returns the
+    # cached article for free; it only calls the Claude API when the cache is
+    # missing (e.g. a brand-new slug) and an API key is present. The legacy
+    # `generate_articles` flag is kept for call-site compatibility but no longer
+    # gates rendering — the cache covers every existing page.
+    article_html = generate_article_content(slug, title, meta_desc, categories, relevant_quotes)
 
     # Build hub + Daily Wisdom band + closely-related from content_struggles.json
     hub_html = build_hub_html(slug, strips, content_struggles or {}, podcast_episodes or {})
@@ -430,33 +459,56 @@ def generate_affliction_page(slug, title, meta_desc, categories, strips, ikeda_t
         "dateModified": now,
     }
 
-    # Build quotes HTML — trim to 5 (was 9 — felt like padding)
+    # Category context — drives the per-page accent colour + breadcrumb.
+    cat_key = _category_for(slug, categories)
+    cat_name = WISDOM_CATEGORIES[cat_key][0]
+    cat_color = _CAT_COLOR[cat_key]
+
+    def _esc(s):
+        return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+
+    title_html = _esc(title)
+    title_attr = title_html.replace('"', "&quot;")
+    md_text = _esc(meta_desc)
+    md_attr = md_text.replace('"', "&quot;")
+
+    # Build quotes HTML — trim to 5 (was 9 — felt like padding).
     quotes_html = ""
     for q in relevant_quotes[:5]:
         quotes_html += f"""
-    <div class="wisdom-quote">
-      <p>&ldquo;{q['text']}&rdquo;</p>
-      <cite>- {q['source']}</cite>
-    </div>"""
+      <div class="wisdom-quote">
+        <p>&ldquo;{_esc(q['text'])}&rdquo;</p>
+        <cite>&mdash; {_esc(q['source'])}</cite>
+      </div>"""
+    words_section = ""
+    if quotes_html:
+        words_section = f"""
+    <h3 class="section-title">Words that help</h3>{quotes_html}"""
+
+    # Article body — cached essay, with a defensive fallback to the lead line.
+    if article_html:
+        body_intro = f'<article class="article-content">{article_html}</article>'
+    else:
+        body_intro = f'<p class="hero-lead">{md_text}</p>'
 
     html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{title} | The Lotus Lane</title>
-  <meta name="description" content="{meta_desc}">
+  <title>{title_html} | The Lotus Lane</title>
+  <meta name="description" content="{md_attr}">
   <meta name="robots" content="max-image-preview:large">
   <link rel="canonical" href="{page_url}">
 
   <meta property="og:type" content="article">
-  <meta property="og:title" content="{title} | The Lotus Lane">
-  <meta property="og:description" content="{meta_desc}">
+  <meta property="og:title" content="{title_attr} | The Lotus Lane">
+  <meta property="og:description" content="{md_attr}">
   <meta property="og:url" content="{page_url}">
 
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="{title} | The Lotus Lane">
-  <meta name="twitter:description" content="{meta_desc}">
+  <meta name="twitter:title" content="{title_attr} | The Lotus Lane">
+  <meta name="twitter:description" content="{md_attr}">
 
   <script type="application/ld+json">
 {json.dumps(schema, indent=2)}
@@ -464,131 +516,154 @@ def generate_affliction_page(slug, title, meta_desc, categories, strips, ikeda_t
 
   <style>
     * {{ margin: 0; padding: 0; box-sizing: border-box; }}
-    body {{ font-family: 'Segoe UI', system-ui, sans-serif; background: #faf9f6; color: #2d2d2d; }}
-    .container {{ max-width: 740px; margin: 0 auto; padding: 1rem; }}
+    body {{ font-family: 'Segoe UI', system-ui, sans-serif; background: #faf9f6; color: #2d2d2d;
+      -webkit-font-smoothing: antialiased; }}
+    .container {{ max-width: 760px; margin: 0 auto; padding: 1rem 1.15rem; }}
     header {{ text-align: center; padding: 1.2rem 0; border-bottom: 2px solid #e8e4de; }}
     header a {{ text-decoration: none; color: inherit; }}
     header h1 {{ font-size: 1.5rem; font-weight: 300; letter-spacing: 0.15em; color: #4a4a4a; }}
     header h1 span {{ font-weight: 600; color: #c0392b; }}
 
-    .hero {{ padding: 2.5rem 0 1.5rem; text-align: center; }}
-    .hero h2 {{ font-size: 1.8rem; font-weight: 500; color: #333; line-height: 1.3; margin-bottom: 0.8rem; }}
-    .hero p {{ font-size: 1.05rem; color: #666; line-height: 1.7; max-width: 600px; margin: 0 auto; }}
+    .back-link {{ display: inline-block; margin-top: 1.4rem; font-size: 0.84rem; color: #9a948c;
+      text-decoration: none; transition: color 0.15s; }}
+    .back-link:hover {{ color: var(--cat); }}
 
-    .section-title {{ font-size: 1.1rem; font-weight: 600; color: #555; margin: 2rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid #e8e4de; }}
+    .hero {{ padding: 1.6rem 0 1.2rem; }}
+    .hero-cat {{ display: flex; align-items: center; gap: 0.45rem; margin-bottom: 0.7rem; }}
+    .hero-dot {{ width: 10px; height: 10px; border-radius: 3px; background: var(--cat); flex: none; }}
+    .hero-cat a {{ font-size: 0.76rem; font-weight: 700; letter-spacing: 0.07em; color: var(--cat);
+      text-decoration: none; text-transform: uppercase; }}
+    .hero-cat a:hover {{ text-decoration: underline; }}
+    .hero h2 {{ font-family: Georgia, 'Times New Roman', serif; font-size: 2.15rem; font-weight: 400;
+      color: #2d2d2d; line-height: 1.22; }}
+    .hero-lead {{ font-size: 1.1rem; color: #6f6a63; line-height: 1.7; margin: 0.4rem 0 2rem; }}
 
-    .strip-card {{ display: flex; gap: 1rem; padding: 1rem; background: white; border-radius: 8px; box-shadow: 0 1px 6px rgba(0,0,0,0.05); margin-bottom: 0.8rem; text-decoration: none; color: inherit; transition: box-shadow 0.2s; }}
-    .strip-card:hover {{ box-shadow: 0 3px 12px rgba(0,0,0,0.1); }}
-    .strip-card img {{ width: 120px; height: 120px; object-fit: cover; border-radius: 6px; flex-shrink: 0; }}
-    .strip-card-info {{ flex: 1; min-width: 0; }}
-    .strip-card-title {{ font-size: 1rem; font-weight: 600; color: #333; margin-bottom: 0.2rem; }}
-    .strip-card-topic {{ font-size: 0.75rem; color: #c0392b; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.3rem; }}
-    .strip-card-message {{ font-size: 0.85rem; color: #666; line-height: 1.5; }}
+    .article-content {{ margin: 0.6rem 0 2rem; }}
+    .article-content p {{ font-size: 1.07rem; line-height: 1.82; color: #403c37; margin-bottom: 1.15rem; }}
+    .article-content > p:first-of-type::first-letter {{ font-family: Georgia, serif; font-size: 3.1rem;
+      font-weight: 600; float: left; line-height: 0.86; margin: 0.32rem 0.55rem 0 0; color: var(--cat); }}
+    .article-content h3 {{ font-family: Georgia, 'Times New Roman', serif; font-size: 1.4rem;
+      font-weight: 400; color: #2d2d2d; margin: 2rem 0 0.7rem; }}
+    .article-content blockquote {{ border-left: 3px solid var(--cat); padding: 0.3rem 0 0.3rem 1.3rem;
+      margin: 1.6rem 0; font-family: Georgia, serif; font-style: italic; font-size: 1.18rem;
+      line-height: 1.6; color: #504a42; }}
+    .article-content blockquote p {{ font-size: inherit; line-height: inherit; color: inherit; margin: 0; }}
+    .article-content a {{ color: var(--cat); }}
 
-    .wisdom-quote {{ border-left: 3px solid #c0392b; padding: 0.8rem 1.2rem; margin: 0.8rem 0; background: #f5f3ee; border-radius: 0 6px 6px 0; }}
-    .wisdom-quote p {{ font-style: italic; color: #504638; line-height: 1.6; font-size: 0.95rem; }}
-    .wisdom-quote cite {{ display: block; margin-top: 0.4rem; font-size: 0.8rem; color: #8c8278; font-style: normal; }}
+    .section-title {{ font-family: Georgia, 'Times New Roman', serif; font-size: 1.32rem; font-weight: 400;
+      color: #2d2d2d; margin: 2.4rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #e8e4de; }}
 
-    .subscribe-cta {{ text-align: center; padding: 2rem; background: #f0ece4; border-radius: 10px; margin: 2rem 0; }}
-    .subscribe-cta h3 {{ font-size: 1.1rem; color: #333; margin-bottom: 0.4rem; }}
-    .subscribe-cta p {{ font-size: 0.9rem; color: #666; margin-bottom: 0.8rem; }}
-    .subscribe-cta a {{ display: inline-block; padding: 0.7rem 1.5rem; background: #c0392b; color: white; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 0.9rem; }}
-    .subscribe-cta a:hover {{ background: #a93226; }}
-
-    .related-links {{ display: flex; gap: 0.5rem; flex-wrap: wrap; margin: 1.5rem 0; }}
-    .related-links a {{ padding: 0.4rem 0.8rem; background: white; border: 1px solid #d4cfc7; border-radius: 999px; font-size: 0.8rem; color: #666; text-decoration: none; transition: all 0.2s; }}
-    .related-links a:hover {{ border-color: #c0392b; color: #c0392b; }}
-
-    .article-content {{ margin: 1.5rem 0; line-height: 1.8; color: #444; font-size: 1rem; }}
-    .article-content p {{ margin-bottom: 1rem; }}
-    .article-content h3 {{ font-size: 1.15rem; font-weight: 600; color: #333; margin: 1.5rem 0 0.5rem; }}
-    .article-content blockquote {{ border-left: 3px solid #c0392b; padding: 0.8rem 1.2rem; margin: 1.2rem 0; background: #f5f3ee; border-radius: 0 6px 6px 0; font-style: italic; color: #504638; }}
-
-    .empty {{ color: #999; font-style: italic; padding: 1rem 0; }}
+    .wisdom-quote {{ border-left: 3px solid var(--cat); padding: 0.9rem 1.25rem; margin: 0.8rem 0;
+      background: #f5f3ee; border-radius: 0 8px 8px 0; }}
+    .wisdom-quote p {{ font-family: Georgia, serif; font-style: italic; color: #504638;
+      line-height: 1.62; font-size: 1rem; }}
+    .wisdom-quote cite {{ display: block; margin-top: 0.5rem; font-size: 0.78rem; color: #9a8f82;
+      font-style: normal; letter-spacing: 0.02em; }}
 
     /* Hub — cross-format cross-link block */
-    .hub {{ margin: 2.5rem 0 1.2rem; padding: 1.6rem 1.4rem 1.2rem; background: linear-gradient(160deg, #fdf8f0 0%, #faf9f6 100%); border: 1px solid #e8e4de; border-radius: 16px; }}
-    .hub-eyebrow {{ font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; color: #c0392b; text-transform: uppercase; margin-bottom: 0.3rem; }}
-    .hub-headline {{ font-size: 1.2rem; font-weight: 500; color: #2d2d2d; margin-bottom: 0.4rem; }}
-    .hub-headline em {{ font-style: italic; color: #c0392b; font-weight: 500; }}
-    .hub-sub {{ font-size: 0.86rem; color: #888; margin-bottom: 1.2rem; }}
-    .hub-row {{ display: flex; align-items: center; gap: 1rem; padding: 0.95rem 1rem; background: white; border: 1px solid #e8e4de; border-radius: 12px; text-decoration: none; color: inherit; margin-bottom: 0.55rem; transition: all 0.18s; }}
-    .hub-row:hover {{ border-color: #c0392b; transform: translateY(-1px); box-shadow: 0 4px 16px rgba(192,57,43,0.08); }}
-    .hub-row .icon {{ width: 42px; height: 42px; background: #fdf8f0; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.15rem; flex-shrink: 0; }}
-    .hub-row .icon.podcast {{ background: linear-gradient(135deg, #fdf6e3 0%, #f8ecd1 100%); }}
+    .hub {{ margin: 2.6rem 0 1.2rem; padding: 1.6rem 1.4rem 1.2rem; background: #fff;
+      border: 1px solid #e8e4de; border-radius: 16px; }}
+    .hub-eyebrow {{ font-size: 0.68rem; font-weight: 700; letter-spacing: 0.13em; color: var(--cat);
+      text-transform: uppercase; margin-bottom: 0.35rem; }}
+    .hub-headline {{ font-family: Georgia, serif; font-size: 1.3rem; font-weight: 400; color: #2d2d2d;
+      margin-bottom: 0.3rem; }}
+    .hub-headline em {{ font-style: italic; color: var(--cat); }}
+    .hub-sub {{ font-size: 0.86rem; color: #9a948c; margin-bottom: 1.2rem; }}
+    .hub-row {{ display: flex; align-items: center; gap: 1rem; padding: 0.95rem 1rem; background: #faf9f6;
+      border: 1px solid #e8e4de; border-radius: 12px; text-decoration: none; color: inherit;
+      margin-bottom: 0.55rem; transition: all 0.18s; }}
+    .hub-row:hover {{ border-color: var(--cat); transform: translateY(-1px); box-shadow: 0 5px 16px rgba(40,30,20,0.07); }}
+    .hub-row .icon {{ width: 42px; height: 42px; background: #fff; border: 1px solid #e8e4de;
+      border-radius: 10px; display: flex; align-items: center; justify-content: center;
+      font-size: 1.15rem; flex-shrink: 0; }}
+    .hub-row .icon.podcast {{ background: #fdf6e3; }}
     .hub-row .text {{ flex: 1; min-width: 0; }}
-    .hub-row .row-eyebrow {{ font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; color: #c0392b; text-transform: uppercase; }}
+    .hub-row .row-eyebrow {{ font-size: 0.64rem; font-weight: 700; letter-spacing: 0.1em; color: var(--cat); text-transform: uppercase; }}
     .hub-row .row-title {{ font-size: 0.96rem; font-weight: 600; color: #2d2d2d; margin-top: 0.15rem; line-height: 1.35; }}
-    .hub-row .row-meta {{ font-size: 0.76rem; color: #888; margin-top: 0.15rem; }}
-    .hub-row .arrow {{ color: #c0392b; font-weight: 600; flex-shrink: 0; }}
-    .hub-divider {{ font-size: 0.68rem; color: #aaa; letter-spacing: 0.1em; text-transform: uppercase; margin: 1rem 0 0.4rem; padding-left: 0.2rem; }}
-    .strip-card-mini {{ display: flex; gap: 0.9rem; padding: 0.75rem; background: white; border-radius: 10px; box-shadow: 0 1px 4px rgba(0,0,0,0.04); margin-bottom: 0.55rem; text-decoration: none; color: inherit; transition: all 0.2s; border: 1px solid transparent; }}
-    .strip-card-mini:hover {{ box-shadow: 0 3px 12px rgba(0,0,0,0.08); border-color: #e8e4de; }}
+    .hub-row .row-meta {{ font-size: 0.76rem; color: #9a948c; margin-top: 0.15rem; }}
+    .hub-row .arrow {{ color: var(--cat); font-weight: 600; flex-shrink: 0; }}
+    .hub-divider {{ font-size: 0.66rem; color: #b5b0a8; letter-spacing: 0.1em; text-transform: uppercase; margin: 1.1rem 0 0.5rem; padding-left: 0.2rem; }}
+    .strip-card-mini {{ display: flex; gap: 0.9rem; padding: 0.75rem; background: #faf9f6;
+      border: 1px solid #e8e4de; border-radius: 10px; margin-bottom: 0.55rem; text-decoration: none;
+      color: inherit; transition: all 0.18s; }}
+    .strip-card-mini:hover {{ border-color: var(--cat); }}
     .strip-card-mini img {{ width: 80px; height: 80px; object-fit: cover; border-radius: 6px; flex-shrink: 0; }}
     .strip-card-mini .strip-card-info {{ flex: 1; min-width: 0; }}
-    .strip-card-mini .strip-card-topic {{ font-size: 0.65rem; color: #c0392b; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.2rem; font-weight: 700; }}
+    .strip-card-mini .strip-card-topic {{ font-size: 0.64rem; color: var(--cat); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.2rem; font-weight: 700; }}
     .strip-card-mini .strip-card-title {{ font-size: 0.92rem; font-weight: 600; color: #2d2d2d; margin-bottom: 0.2rem; line-height: 1.3; }}
-    .strip-card-mini .strip-card-message {{ font-size: 0.78rem; color: #777; line-height: 1.45; }}
-    .listicle-card {{ display: flex; align-items: center; gap: 1rem; padding: 0.85rem 1rem; background: white; border: 1px solid #e8e4de; border-radius: 10px; text-decoration: none; color: inherit; margin-bottom: 0.55rem; transition: all 0.18s; }}
-    .listicle-card:hover {{ border-color: #c0392b; }}
-    .listicle-card .num {{ width: 36px; height: 36px; background: #fdf8f0; color: #c0392b; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.85rem; flex-shrink: 0; }}
+    .strip-card-mini .strip-card-message {{ font-size: 0.78rem; color: #857f78; line-height: 1.45; }}
+    .listicle-card {{ display: flex; align-items: center; gap: 1rem; padding: 0.85rem 1rem;
+      background: #faf9f6; border: 1px solid #e8e4de; border-radius: 10px; text-decoration: none;
+      color: inherit; margin-bottom: 0.55rem; transition: all 0.18s; }}
+    .listicle-card:hover {{ border-color: var(--cat); }}
+    .listicle-card .num {{ width: 36px; height: 36px; background: #fff; border: 1px solid #e8e4de;
+      color: var(--cat); border-radius: 8px; display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 0.85rem; flex-shrink: 0; }}
     .listicle-card .text {{ flex: 1; min-width: 0; }}
-    .listicle-card .row-eyebrow {{ font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; color: #c0392b; text-transform: uppercase; }}
+    .listicle-card .row-eyebrow {{ font-size: 0.64rem; font-weight: 700; letter-spacing: 0.1em; color: var(--cat); text-transform: uppercase; }}
     .listicle-card .row-title {{ font-size: 0.9rem; font-weight: 600; color: #2d2d2d; margin-top: 0.15rem; line-height: 1.35; }}
-    .daily-band {{ display: flex; align-items: center; gap: 1rem; padding: 1rem 1.2rem; background: #fdf8f0; border: 1.5px solid #e8d9b3; border-radius: 12px; text-decoration: none; color: inherit; margin: 1.5rem 0 0; transition: all 0.2s; }}
-    .daily-band:hover {{ border-color: #c0392b; transform: translateY(-1px); }}
+    .daily-band {{ display: flex; align-items: center; gap: 1rem; padding: 1.05rem 1.2rem; background: #fff;
+      border: 1.5px solid #e8e4de; border-radius: 12px; text-decoration: none; color: inherit;
+      margin: 1.5rem 0 0; transition: all 0.18s; }}
+    .daily-band:hover {{ border-color: var(--cat); transform: translateY(-1px); }}
     .daily-band .icon {{ font-size: 1.3rem; flex-shrink: 0; line-height: 1; }}
     .daily-band .text {{ flex: 1; }}
-    .daily-band .row-eyebrow {{ font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; color: #c0392b; text-transform: uppercase; }}
-    .daily-band .row-title {{ font-size: 0.9rem; font-weight: 600; color: #4a3d20; margin-top: 0.2rem; }}
-    .daily-band .row-meta {{ font-size: 0.74rem; color: #8a7d5f; margin-top: 0.15rem; }}
-    .daily-band .cta {{ flex-shrink: 0; padding: 0.5rem 0.9rem; background: #c0392b; color: white; border-radius: 20px; font-size: 0.76rem; font-weight: 600; white-space: nowrap; }}
+    .daily-band .row-eyebrow {{ font-size: 0.64rem; font-weight: 700; letter-spacing: 0.12em; color: var(--cat); text-transform: uppercase; }}
+    .daily-band .row-title {{ font-size: 0.92rem; font-weight: 600; color: #2d2d2d; margin-top: 0.2rem; }}
+    .daily-band .row-meta {{ font-size: 0.75rem; color: #9a948c; margin-top: 0.15rem; }}
+    .daily-band .cta {{ flex-shrink: 0; padding: 0.5rem 0.95rem; background: var(--cat); color: white; border-radius: 20px; font-size: 0.76rem; font-weight: 600; white-space: nowrap; }}
 
     /* Closely related struggles — tight, hand-curated, 4 not 20 */
-    .related-struggles {{ margin-top: 2rem; }}
-    .related-struggles h3 {{ font-size: 0.95rem; font-weight: 600; color: #555; margin-bottom: 0.7rem; }}
-    .related-grid {{ display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem; }}
-    .related-grid a {{ padding: 0.7rem 0.9rem; background: white; border: 1px solid #e8e4de; border-radius: 8px; font-size: 0.85rem; color: #555; text-decoration: none; transition: all 0.18s; }}
-    .related-grid a:hover {{ border-color: #c0392b; color: #c0392b; }}
-    .browse-all-row {{ text-align: center; margin-top: 1rem; font-size: 0.85rem; }}
-    .browse-all-row a {{ color: #888; text-decoration: none; border-bottom: 1px dashed #c0c0b8; padding-bottom: 1px; }}
-    .browse-all-row a:hover {{ color: #c0392b; border-color: #c0392b; }}
+    .related-struggles {{ margin-top: 2.4rem; }}
+    .related-struggles h3 {{ font-family: Georgia, 'Times New Roman', serif; font-size: 1.32rem;
+      font-weight: 400; color: #2d2d2d; margin-bottom: 0.9rem; padding-bottom: 0.5rem;
+      border-bottom: 2px solid #e8e4de; }}
+    .related-grid {{ display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.6rem; }}
+    .related-grid a {{ padding: 0.85rem 1rem; background: #fff; border: 1px solid #e8e4de;
+      border-radius: 10px; font-size: 0.9rem; color: #403c37; text-decoration: none; transition: all 0.16s; }}
+    .related-grid a:hover {{ border-color: var(--cat); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(40,30,20,0.06); }}
+    .browse-all-row {{ text-align: center; margin-top: 1.1rem; font-size: 0.86rem; }}
+    .browse-all-row a {{ color: #9a948c; text-decoration: none; border-bottom: 1px dashed #c0c0b8; padding-bottom: 1px; }}
+    .browse-all-row a:hover {{ color: var(--cat); border-color: var(--cat); }}
 
-    .share-section {{ text-align: center; margin: 2rem 0; padding: 1.2rem; background: #f5f3ee; border-radius: 10px; }}
-    .share-label {{ font-size: 0.92rem; color: #555; margin-bottom: 0.8rem; }}
+    .share-section {{ text-align: center; margin: 2.4rem 0 0; padding: 1.5rem; background: #f1ede5; border-radius: 12px; }}
+    .share-label {{ font-family: Georgia, serif; font-size: 1.05rem; color: #504a42; margin-bottom: 0.9rem; }}
     .share-buttons {{ display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; }}
-    .share-btn {{ display: inline-flex; align-items: center; padding: 0.6rem 1.1rem; font: inherit; font-size: 0.88rem; font-weight: 600; border-radius: 6px; border: 0; cursor: pointer; text-decoration: none; transition: opacity 0.15s; }}
+    .share-btn {{ display: inline-flex; align-items: center; padding: 0.6rem 1.15rem; font: inherit; font-size: 0.88rem; font-weight: 600; border-radius: 8px; border: 0; cursor: pointer; text-decoration: none; transition: opacity 0.15s; }}
     .share-btn:hover {{ opacity: 0.88; }}
     .share-btn.wa {{ background: #25D366; color: #fff; }}
-    .share-btn.native {{ background: #c0392b; color: #fff; }}
-    .share-btn.copy {{ background: #e8e4de; color: #555; }}
+    .share-btn.native {{ background: var(--cat); color: #fff; }}
+    .share-btn.copy {{ background: #e3ded6; color: #555; }}
 
-    footer {{ text-align: center; padding: 1.5rem 0; color: #aaa; font-size: 0.8rem; border-top: 1px solid #e8e4de; margin-top: 2rem; }}
+    footer {{ text-align: center; padding: 2rem 0 5.5rem; color: #b5b0a8; font-size: 0.8rem; border-top: 1px solid #e8e4de; margin-top: 2.5rem; }}
 
     @media (max-width: 600px) {{
-      .hero h2 {{ font-size: 1.4rem; }}
-      .strip-card {{ flex-direction: column; }}
-      .strip-card img {{ width: 100%; height: 180px; }}
+      .hero h2 {{ font-size: 1.7rem; }}
+      .article-content p {{ font-size: 1.03rem; }}
+      .related-grid {{ grid-template-columns: 1fr; }}
     }}
   </style>
 
   <script data-goatcounter="https://zombielabs.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </head>
-<body>
+<body style="--cat:{cat_color}">
   <div class="container">
     <header>
       <a href="../"><h1>THE <span>LOTUS</span> LANE</h1></a>
     </header>
 
+    <a class="back-link" href="./">&larr;&nbsp; All life challenges</a>
+
     <div class="hero">
-      <h2>{title}</h2>
-      <p>{meta_desc}</p>
+      <div class="hero-cat">
+        <span class="hero-dot"></span>
+        <a href="./#cat-{cat_key}">{cat_name}</a>
+      </div>
+      <h2>{title_html}</h2>
     </div>
 
-    {"<article class=\"article-content\">" + article_html + "</article>" if article_html else ""}
-
-    <h3 class="section-title">Words that help</h3>
-    {quotes_html}
+    {body_intro}
+{words_section}
 
     {hub_html}
 
