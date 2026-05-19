@@ -1,0 +1,902 @@
+{
+  "adjusting-to-disability": [
+    "Adjusting to a New Disability",
+    "You know that feeling when you reach for something your body used to do without a thought, and it isn't there anymore?",
+    [
+      "chronic-illness",
+      "grief-loss",
+      "health"
+    ]
+  ],
+  "ageism-at-work": [
+    "Facing Ageism at Work",
+    "You know that feeling when you are in a meeting and a younger colleague explains something to you slowly, as if you might not follow?",
+    [
+      "work-stress",
+      "rejection",
+      "self-doubt"
+    ]
+  ],
+  "aging-body-grief": [
+    "Grieving an Aging Body",
+    "You know that feeling when you catch yourself in a window or a video call and there is half a second where you do not recognise the person looking back?",
+    [
+      "grief-loss",
+      "health",
+      "self-doubt"
+    ]
+  ],
+  "asking-for-a-raise-fear": [
+    "The Fear of Asking for a Raise",
+    "You know that feeling when you've rehearsed the words in the shower, in the car, walking to the office, and then your manager says \"so, what did you...",
+    [
+      "work-stress",
+      "finances",
+      "anxiety"
+    ]
+  ],
+  "bankruptcy-and-starting-over": [
+    "Starting Over After Bankruptcy",
+    "You know that feeling when you open your banking app out of habit, see the number, and your stomach drops all over again, even though you already knew?",
+    [
+      "finances",
+      "perseverance",
+      "self-doubt"
+    ]
+  ],
+  "becoming-parent-to-your-parents": [
+    "When You Become the Parent to Your Own Parents",
+    "You know that feeling when you hang up the phone after another call about a doctor's appointment, or an unpaid bill, or a fall in the bathroom, and...",
+    [
+      "caregiving",
+      "family",
+      "grief-loss"
+    ]
+  ],
+  "breadwinner-pressure": [
+    "The Weight of Being the Breadwinner",
+    "You know that feeling when the house is finally quiet, everyone is asleep, and you are the only one still awake because you are the only one carrying it?",
+    [
+      "finances",
+      "family",
+      "work-stress"
+    ]
+  ],
+  "career-change-at-40": [
+    "Changing Careers in Your 40s",
+    "You know that feeling when you sit down at your desk on a Monday morning, look at the next thirty years of your life, and quietly think: I cannot keep doing this?",
+    [
+      "work-stress",
+      "self-doubt",
+      "perseverance"
+    ]
+  ],
+  "career-plateau": [
+    "When Your Career Feels Stuck",
+    "You know that feeling when you look at your career and realize you have been standing in the same spot for a while?",
+    [
+      "work-stress",
+      "self-doubt",
+      "perseverance"
+    ]
+  ],
+  "caring-for-dying-parent": [
+    "Caring for a Dying Parent",
+    "You know that feeling when you walk out of the hospital room into a hallway with bad lighting, and you stand there for a second because you do not know what your body is supposed to do next?",
+    [
+      "caregiving",
+      "grief-loss",
+      "family"
+    ]
+  ],
+  "chronic-fatigue": [
+    "Living With Chronic Fatigue",
+    "You know that feeling when you wake up after eight, nine, ten hours of sleep and your body feels like it never rested at all?",
+    [
+      "chronic-illness",
+      "health",
+      "perseverance"
+    ]
+  ],
+  "chronic-overthinking": [
+    "When You Can't Stop Overthinking",
+    "You know that feeling when it is late, your body is exhausted, and your mind absolutely will not stop?",
+    [
+      "anxiety",
+      "self-doubt",
+      "perseverance"
+    ]
+  ],
+  "chronic-pain": [
+    "Living With Chronic Pain",
+    "You know that feeling when you wake up and the first thing you do, before your eyes are even open, is run a quiet inventory of your own body?",
+    [
+      "chronic-illness",
+      "health",
+      "loneliness"
+    ]
+  ],
+  "constant-arguing": [
+    "When You and Your Partner Argue About Everything",
+    "You know that feeling when you can sense a fight coming before a single word is said?",
+    [
+      "relationships",
+      "anger",
+      "perseverance"
+    ]
+  ],
+  "coworker-takes-credit": [
+    "When a Coworker Takes the Credit",
+    "You know that feeling when you are sitting in a meeting and someone presents your idea as their own?",
+    [
+      "work-stress",
+      "workplace-politics",
+      "anger"
+    ]
+  ],
+  "dating-app-exhaustion": [
+    "When Dating Apps Have Worn You Down",
+    "You know that feeling when you open the app, and before you have even swiped once, you are already tired?",
+    [
+      "relationships",
+      "rejection",
+      "self-doubt"
+    ]
+  ],
+  "defiant-teenager": [
+    "Parenting a Defiant Teenager",
+    "You know that feeling when your teenager looks at you across the kitchen and you genuinely do not recognize the person standing there?",
+    [
+      "family",
+      "anger",
+      "perseverance"
+    ]
+  ],
+  "difficult-in-laws": [
+    "Coping With Difficult In-Laws",
+    "You know that feeling when you are getting ready to visit your in-laws, and somewhere between the car and the front door you feel yourself shrinking?",
+    [
+      "family",
+      "relationships",
+      "anger"
+    ]
+  ],
+  "dreading-monday": [
+    "When You Dread Every Monday Morning",
+    "You know that feeling when it is Sunday afternoon and the day is still good, but you can already feel it ending?",
+    [
+      "work-stress",
+      "anxiety",
+      "self-doubt"
+    ]
+  ],
+  "drifted-apart": [
+    "When You and Your Partner Have Drifted Apart",
+    "You know that feeling when you look at the person across the dinner table and realize you have nothing to say?",
+    [
+      "relationships",
+      "loneliness",
+      "grief-loss"
+    ]
+  ],
+  "drowning-in-debt": [
+    "When You're Drowning in Debt",
+    "You know that feeling when you open your banking app and your stomach drops before the screen even loads?",
+    [
+      "finances",
+      "anxiety",
+      "perseverance"
+    ]
+  ],
+  "emotional-exhaustion": [
+    "When You're Emotionally Exhausted",
+    "You know that feeling when someone asks how you are and you say fine, and the word comes out flat, because the truth would take too long and you do not have the energy to say it?",
+    [
+      "work-stress",
+      "caregiving",
+      "health"
+    ]
+  ],
+  "emotional-numbness": [
+    "When You Feel Emotionally Numb",
+    "You know that feeling when something good happens, or something sad, and you wait for the feeling to arrive and it just does not come?",
+    [
+      "health",
+      "grief-loss",
+      "loneliness"
+    ]
+  ],
+  "emotional-unavailability": [
+    "Loving an Emotionally Unavailable Partner",
+    "You know that feeling when you are sitting next to the person you love, and somehow you have never felt more alone?",
+    [
+      "relationships",
+      "loneliness",
+      "self-doubt"
+    ]
+  ],
+  "estranged-from-adult-child": [
+    "When You're Estranged From Your Adult Child",
+    "You know that feeling when the phone has been quiet for so long that you have stopped expecting it to ring?",
+    [
+      "family",
+      "grief-loss",
+      "loneliness"
+    ]
+  ],
+  "exhaustion-that-wont-lift": [
+    "Exhaustion That Sleep Won't Fix",
+    "You know that feeling when you sleep eight hours, or nine, or you take the whole weekend to rest, and you wake up and you are still tired?",
+    [
+      "health",
+      "work-stress",
+      "chronic-illness"
+    ]
+  ],
+  "falling-out-of-love": [
+    "When You're Falling Out of Love",
+    "You know that feeling when your partner does something they have always done, something that used to make you smile, and now you feel nothing?",
+    [
+      "relationships",
+      "divorce",
+      "self-doubt"
+    ]
+  ],
+  "family-obligation-guilt": [
+    "The Guilt of Family Obligation",
+    "You know that feeling when your phone buzzes, you see it is your family, and before you even read the message you feel a weight settle on your chest?",
+    [
+      "family",
+      "anxiety",
+      "relationships"
+    ]
+  ],
+  "family-scapegoat": [
+    "Being the Family Scapegoat",
+    "You know that feeling when something goes wrong in your family, anything, a tense holiday, a money problem, an argument between two other people...",
+    [
+      "family",
+      "self-doubt",
+      "rejection"
+    ]
+  ],
+  "fear-for-childs-future": [
+    "The Fear You Carry for Your Child's Future",
+    "You know that feeling when your child is finally asleep, peaceful, completely unaware, and you are wide awake with a knot in your chest about everything that could go wrong for them?",
+    [
+      "family",
+      "anxiety",
+      "caregiving"
+    ]
+  ],
+  "fear-of-being-single-forever": [
+    "The Fear of Being Single Forever",
+    "You know that feeling when you are at a wedding, or scrolling past another engagement post, or just lying awake on an ordinary night, and a cold thought arrives without warning?",
+    [
+      "relationships",
+      "anxiety",
+      "loneliness"
+    ]
+  ],
+  "fear-of-doctors": [
+    "When You're Afraid of Doctors and Tests",
+    "You know that feeling when you have had a symptom for weeks, maybe months, and a quiet voice keeps saying you should get it checked, and another part of you simply will not pick up the phone?",
+    [
+      "anxiety",
+      "health",
+      "perseverance"
+    ]
+  ],
+  "fear-of-going-broke": [
+    "The Fear of Going Broke",
+    "You know that feeling when you are lying awake and your mind starts running the worst-case film?",
+    [
+      "finances",
+      "anxiety",
+      "perseverance"
+    ]
+  ],
+  "fear-of-retirement-poverty": [
+    "The Fear of Not Affording Retirement",
+    "You know that feeling when you do the math in your head, late at night, and it just doesn't add up?",
+    [
+      "finances",
+      "anxiety",
+      "self-doubt"
+    ]
+  ],
+  "feeling-broken": [
+    "When You Feel Fundamentally Broken",
+    "You know that feeling when you look at other people and they seem to come with some basic instruction manual you never received?",
+    [
+      "self-doubt",
+      "rejection",
+      "perseverance"
+    ]
+  ],
+  "feeling-everything-too-intensely": [
+    "When You Feel Everything Too Intensely",
+    "You know that feeling when someone makes a small offhand comment and you carry it for three days?",
+    [
+      "anxiety",
+      "self-doubt",
+      "health"
+    ]
+  ],
+  "festering-resentment": [
+    "When Resentment Won't Let Go",
+    "You know that feeling when you think you have moved on from what someone did to you, and then their name comes up, or you see their face, or...",
+    [
+      "anger",
+      "relationships",
+      "grief-loss"
+    ]
+  ],
+  "financial-dependence-on-partner": [
+    "When You Depend on a Partner for Money",
+    "You know that feeling when you want to buy something small, something completely reasonable, and you find yourself rehearsing how you will explain it?",
+    [
+      "finances",
+      "relationships",
+      "self-doubt"
+    ]
+  ],
+  "financial-shame": [
+    "The Shame of Money Struggles",
+    "You know that feeling when the conversation at dinner turns to holidays, or houses, or what someone just bought, and you go quiet?",
+    [
+      "finances",
+      "self-doubt",
+      "loneliness"
+    ]
+  ],
+  "food-and-eating-struggles": [
+    "A Difficult Relationship With Food",
+    "You know that feeling when a meal is over and you can't tell whether you actually ate or just got through something?",
+    [
+      "health",
+      "self-doubt",
+      "anxiety"
+    ]
+  ],
+  "fractured-family-holidays": [
+    "Getting Through the Holidays With a Fractured Family",
+    "You know that feeling when the calendar turns toward a holiday and instead of warmth you feel a knot start to form in your stomach?",
+    [
+      "family",
+      "loneliness",
+      "grief-loss"
+    ]
+  ],
+  "gambling-losses": [
+    "Recovering From Gambling Losses",
+    "You know that feeling when the screen finally goes still and the number it shows you is real?",
+    [
+      "finances",
+      "self-doubt",
+      "perseverance"
+    ]
+  ],
+  "generational-trauma": [
+    "Carrying Generational Trauma",
+    "You know that feeling when you react to something small - a raised voice, a closing door, a certain silence - and the size of your reaction makes no sense even to you?",
+    [
+      "family",
+      "anxiety",
+      "perseverance"
+    ]
+  ],
+  "getting-over-an-ex": [
+    "How to Get Over an Ex",
+    "You know that feeling when you wake up and for about four seconds you have forgotten, and then it lands on you all over again?",
+    [
+      "relationships",
+      "grief-loss",
+      "divorce"
+    ]
+  ],
+  "going-no-contact": [
+    "When You Go No-Contact With Family",
+    "You know that feeling when someone asks how your family is doing, a casual question, the kind people ask at work or at a party, and your stomach drops?",
+    [
+      "family",
+      "relationships",
+      "grief-loss"
+    ]
+  ],
+  "grieving-a-living-parent": [
+    "Grieving a Parent Who Is Still Alive",
+    "You know that feeling when someone asks how your mother is, or your father, and you say \"fine\" because the real answer would take an hour and would not make sense to them anyway?",
+    [
+      "family",
+      "grief-loss",
+      "caregiving"
+    ]
+  ],
+  "hair-loss-and-change": [
+    "When Your Body Changes in Ways You Didn't Choose",
+    "You know that feeling when you catch yourself in a mirror, or a photo, or a shop window, and for half a second you do not recognise the person looking back?",
+    [
+      "health",
+      "self-doubt",
+      "grief-loss"
+    ]
+  ],
+  "harsh-inner-critic": [
+    "Quieting Your Harsh Inner Critic",
+    "You know that voice in your head that never seems to let up? You finish something and it says it was not good enough. You make a small mistake and it...",
+    [
+      "self-doubt",
+      "perseverance",
+      "health"
+    ]
+  ],
+  "hate-my-job-cant-leave": [
+    "When You Hate Your Job But Can't Afford to Leave",
+    "You know that feeling on Sunday evening when the light starts to fade and something in your chest tightens, because tomorrow you have to go back?",
+    [
+      "work-stress",
+      "finances",
+      "perseverance"
+    ]
+  ],
+  "hypervigilance": [
+    "When You Can Never Let Your Guard Down",
+    "You know that feeling when you walk into a room and, before you have even decided to, you have scanned it?",
+    [
+      "anxiety",
+      "relationships",
+      "chronic-illness"
+    ]
+  ],
+  "immigrant-family-expectations": [
+    "Carrying the Weight of Immigrant Family Expectations",
+    "You know that feeling when you get a good grade, a promotion, a paycheck you worked hard for, and the first thing you feel is not pride but relief?",
+    [
+      "family",
+      "self-doubt",
+      "anxiety"
+    ]
+  ],
+  "infertility": [
+    "The Quiet Grief of Infertility",
+    "You know that feeling when a pregnancy announcement lands in a group chat, and everyone replies with hearts, and you type something warm too, and...",
+    [
+      "grief-loss",
+      "relationships",
+      "family"
+    ]
+  ],
+  "inheritance-conflict": [
+    "When Inheritance Tears a Family Apart",
+    "You know that feeling when a parent dies and within weeks the people you grew up with, the people who taught you to ride a bike and sat with you...",
+    [
+      "family",
+      "grief-loss",
+      "anger"
+    ]
+  ],
+  "intrusive-thoughts": [
+    "Living With Intrusive Thoughts",
+    "You know that feeling when a thought arrives in your head that horrifies you? You are standing at the top of a staircase, or holding a knife in the...",
+    [
+      "anxiety",
+      "health",
+      "self-doubt"
+    ]
+  ],
+  "invisible-illness": [
+    "When No One Believes You're Sick",
+    "You know that feeling when you tell someone how sick you are, and you watch their face do that small thing - the polite nod, the flicker of doubt,...",
+    [
+      "chronic-illness",
+      "loneliness",
+      "self-doubt"
+    ]
+  ],
+  "job-interview-anxiety": [
+    "How to Calm Job Interview Anxiety",
+    "You know that feeling the night before an interview, when you should be sleeping but instead you are lying there running disaster scenarios?",
+    [
+      "anxiety",
+      "self-doubt",
+      "rejection"
+    ]
+  ],
+  "laid-off": [
+    "How to Cope With Being Laid Off",
+    "You know that feeling when you walk into a meeting you didn't put on your calendar, and there's someone from HR sitting next to your manager, and they won't quite look at you?",
+    [
+      "work-stress",
+      "grief-loss",
+      "finances"
+    ]
+  ],
+  "lending-money-to-family": [
+    "When Lending Money to Family Goes Wrong",
+    "You know that feeling when your phone lights up with their name, and your stomach drops before you even read the message?",
+    [
+      "finances",
+      "family",
+      "relationships"
+    ]
+  ],
+  "life-after-a-health-crisis": [
+    "Rebuilding Life After a Health Crisis",
+    "You know that feeling when the emergency is technically over, the doctors have said the words that were supposed to bring relief, and everyone around...",
+    [
+      "health",
+      "perseverance",
+      "chronic-illness"
+    ]
+  ],
+  "lifestyle-envy": [
+    "When Everyone Seems Richer Than You",
+    "You know that feeling when you put the phone down and the room you are sitting in suddenly looks smaller and shabbier than it did ten minutes ago?",
+    [
+      "envy",
+      "finances",
+      "self-doubt"
+    ]
+  ],
+  "lonely-in-marriage": [
+    "Feeling Lonely Inside Your Marriage",
+    "You know that feeling when you're lying next to someone you love, in a bed you share, in a home you built together, and you have never felt more alone in your life?",
+    [
+      "relationships",
+      "loneliness",
+      "self-doubt"
+    ]
+  ],
+  "long-distance-strain": [
+    "The Strain of a Long-Distance Relationship",
+    "You know that feeling when the call ends, the screen goes dark, and the room you're sitting in suddenly feels too quiet?",
+    [
+      "relationships",
+      "loneliness",
+      "perseverance"
+    ]
+  ],
+  "losing-yourself-in-a-relationship": [
+    "When You've Lost Yourself in a Relationship",
+    "You know that feeling when someone asks what you want to do this weekend, and your mind just goes blank?",
+    [
+      "relationships",
+      "self-doubt",
+      "loneliness"
+    ]
+  ],
+  "loving-someone-who-wont-commit": [
+    "Loving Someone Who Won't Commit",
+    "You know that feeling when someone asks how long you and your partner have been together, and you do a little mental scramble before answering,...",
+    [
+      "relationships",
+      "anxiety",
+      "self-doubt"
+    ]
+  ],
+  "low-self-worth": [
+    "When You Don't Believe You're Worth Much",
+    "You know that feeling when someone pays you a compliment and your whole body wants to wave it away?",
+    [
+      "self-doubt",
+      "rejection",
+      "loneliness"
+    ]
+  ],
+  "menopause-upheaval": [
+    "Living Through the Upheaval of Menopause",
+    "You know that feeling when you wake at 3am, soaked and overheated, heart going, and lie there in the dark wondering where exactly you went?",
+    [
+      "health",
+      "anxiety",
+      "self-doubt"
+    ]
+  ],
+  "micromanaging-boss": [
+    "Surviving a Micromanaging Boss",
+    "You know that feeling when you send an email and your boss replies within ninety seconds asking why you phrased it that way?",
+    [
+      "work-stress",
+      "workplace-politics",
+      "anxiety"
+    ]
+  ],
+  "mismatched-desire": [
+    "When Desire No Longer Matches in a Relationship",
+    "You know that feeling when you reach for your partner in bed and feel them go slightly still, that small tightening that means not tonight, and you...",
+    [
+      "relationships",
+      "self-doubt",
+      "loneliness"
+    ]
+  ],
+  "mom-guilt": [
+    "Living With Mom Guilt",
+    "You know that feeling when you finally sit down at the end of the day, the house is quiet, and instead of relief, a quiet prosecutor starts up inside your head?",
+    [
+      "family",
+      "self-doubt",
+      "caregiving"
+    ]
+  ],
+  "money-anxiety-despite-comfort": [
+    "When You Have Enough But Still Fear Money",
+    "You know that feeling when you look at your accounts and the numbers are, by any honest measure, fine, and yet your chest tightens anyway?",
+    [
+      "finances",
+      "anxiety",
+      "self-doubt"
+    ]
+  ],
+  "money-fights-with-partner": [
+    "When Money Keeps Starting Fights",
+    "You know that feeling when one small comment about money turns into a fight in under a minute?",
+    [
+      "finances",
+      "relationships",
+      "anger"
+    ]
+  ],
+  "mood-swings": [
+    "Living With Unpredictable Mood Swings",
+    "You know that feeling when you wake up and you genuinely cannot tell which version of yourself you are going to get today?",
+    [
+      "anxiety",
+      "health",
+      "self-doubt"
+    ]
+  ],
+  "never-at-home-in-my-family": [
+    "When You Never Felt at Home in Your Own Family",
+    "You know that feeling when you are sitting at the family table, surrounded by people who share your last name and your face and your childhood, and you feel completely, quietly alone?",
+    [
+      "family",
+      "loneliness",
+      "self-doubt"
+    ]
+  ],
+  "new-diagnosis-fear": [
+    "Facing a Frightening New Diagnosis",
+    "You know that feeling when a doctor pauses a half-second too long before speaking, and the room changes temperature?",
+    [
+      "health",
+      "anxiety",
+      "chronic-illness"
+    ]
+  ],
+  "only-one-like-me-at-work": [
+    "When You're the Only One Like You in the Room",
+    "You know that feeling when you walk into the meeting room, do a quick scan, and realize again that there is no one else in here who is like you?",
+    [
+      "work-stress",
+      "loneliness",
+      "self-doubt"
+    ]
+  ],
+  "panic-attacks": [
+    "How to Cope With Panic Attacks",
+    "You know that feeling when you're sitting somewhere completely ordinary, the kitchen, your car, the back of a bus, and suddenly your heart starts pounding like you're about to die?",
+    [
+      "anxiety",
+      "health",
+      "perseverance"
+    ]
+  ],
+  "parent-with-addiction": [
+    "Growing Up With a Parent's Addiction",
+    "You know that feeling when you walk into your own home and the first thing you do, before you even take your shoes off, is read the air?",
+    [
+      "family",
+      "grief-loss",
+      "perseverance"
+    ]
+  ],
+  "parents-favoritism": [
+    "When a Parent Always Favored Another Child",
+    "You know that feeling when you watch your parent's face light up for your sibling in a way it has never quite lit up for you?",
+    [
+      "family",
+      "self-doubt",
+      "relationships"
+    ]
+  ],
+  "parents-who-never-approved": [
+    "When Your Parents Never Approved of You",
+    "You know that feeling when something good happens, a promotion, a piece of praise, a milestone you worked years for, and the very first thought that...",
+    [
+      "family",
+      "self-doubt",
+      "rejection"
+    ]
+  ],
+  "passed-over-for-promotion": [
+    "When You're Passed Over for a Promotion",
+    "You know that feeling when the announcement lands - an email, a meeting, a name said out loud - and it is not your name?",
+    [
+      "work-stress",
+      "rejection",
+      "workplace-politics"
+    ]
+  ],
+  "paycheck-to-paycheck": [
+    "Living Paycheck to Paycheck",
+    "You know that feeling when payday finally arrives, the money lands, and within seventy-two hours it is already gone?",
+    [
+      "finances",
+      "anxiety",
+      "perseverance"
+    ]
+  ],
+  "performance-review-dread": [
+    "When You Dread Your Performance Review",
+    "You know that feeling when you see the calendar invite go in - your name, your manager's name, the words \"performance review\" - and your whole body tightens?",
+    [
+      "work-stress",
+      "anxiety",
+      "self-doubt"
+    ]
+  ],
+  "public-speaking-fear": [
+    "The Fear of Speaking Up at Work",
+    "You know that feeling when the meeting is going on, and you have a point, a real point, something that would actually help, and you can feel it sitting right there in your chest?",
+    [
+      "work-stress",
+      "anxiety",
+      "self-doubt"
+    ]
+  ],
+  "raising-special-needs-child": [
+    "Raising a Child With Special Needs",
+    "You know that feeling when you are sitting in another waiting room, another appointment, another assessment, and the professional across the desk is...",
+    [
+      "family",
+      "caregiving",
+      "perseverance"
+    ]
+  ],
+  "recovering-from-an-affair": [
+    "Rebuilding a Marriage After an Affair",
+    "You know that feeling when you're sitting across from your husband or wife at dinner, the plates between you, the kids talking about their day, and...",
+    [
+      "relationships",
+      "anger",
+      "grief-loss"
+    ]
+  ],
+  "recovering-from-surgery": [
+    "The Slow Work of Recovering From Surgery",
+    "You know that feeling when the surgery is supposedly the hard part, it's over, everyone says you should be relieved, and instead you're lying in bed...",
+    [
+      "health",
+      "perseverance",
+      "chronic-illness"
+    ]
+  ],
+  "remote-work-isolation": [
+    "The Isolation of Working From Home",
+    "You know that feeling when you close your laptop at the end of the day and realize you have not spoken a single word out loud since the morning?",
+    [
+      "work-stress",
+      "loneliness",
+      "self-doubt"
+    ]
+  ],
+  "replaying-conversations": [
+    "When You Replay Conversations for Hours",
+    "You know that feeling when a conversation ended hours ago, maybe days ago, and your mind will not let it end?",
+    [
+      "anxiety",
+      "self-doubt",
+      "relationships"
+    ]
+  ],
+  "scarcity-mindset": [
+    "Breaking a Lifelong Scarcity Mindset",
+    "You know that feeling when something good finally happens, money comes in, a bill gets paid, things are briefly okay, and instead of relief you feel a low hum of dread?",
+    [
+      "finances",
+      "anxiety",
+      "self-doubt"
+    ]
+  ],
+  "screen-time-battles": [
+    "The Endless Battle Over Screen Time",
+    "You know that feeling when you say \"five more minutes\" and you already know, in your bones, that five more minutes is going to become a war?",
+    [
+      "family",
+      "anger",
+      "anxiety"
+    ]
+  ],
+  "second-choice-in-love": [
+    "When You Feel Like Someone's Second Choice",
+    "You know that feeling when your partner's phone lights up with a name from their past, and something in their face changes for half a second -...",
+    [
+      "relationships",
+      "rejection",
+      "self-doubt"
+    ]
+  ],
+  "shame-spirals": [
+    "Climbing Out of a Shame Spiral",
+    "You know that feeling when one small thing goes wrong, you said something awkward, you forgot to reply, you made a mistake at work, and within an...",
+    [
+      "self-doubt",
+      "rejection",
+      "anxiety"
+    ]
+  ],
+  "single-parenting-no-support": [
+    "Single Parenting With No Support",
+    "You know that feeling when it is the end of another day, every plate is spinning, and there is genuinely no one to hand even one of them to?",
+    [
+      "family",
+      "caregiving",
+      "loneliness"
+    ]
+  ],
+  "staying-for-the-kids": [
+    "When You're Staying Together for the Kids",
+    "You know that feeling when you're lying next to your husband or wife, both of you awake, both of you pretending to be asleep, and there is a foot of...",
+    [
+      "relationships",
+      "family",
+      "divorce"
+    ]
+  ],
+  "sudden-loss-of-income": [
+    "When Your Income Suddenly Disappears",
+    "You know that feeling when the email arrives, or the call ends, or the contract simply is not renewed, and suddenly the ground that was under you yesterday is gone?",
+    [
+      "finances",
+      "work-stress",
+      "anxiety"
+    ]
+  ],
+  "the-inability-to-relax": [
+    "When You Can Never Truly Relax",
+    "You know that feeling when you finally sit down at the end of the day, the house is quiet, nothing is urgent, and your body simply will not believe it?",
+    [
+      "anxiety",
+      "work-stress",
+      "health"
+    ]
+  ],
+  "toxic-parent": [
+    "Dealing With a Toxic Parent",
+    "You know that feeling when you see your parent's name light up your phone and your whole body tightens before you've even answered?",
+    [
+      "family",
+      "relationships",
+      "self-doubt"
+    ]
+  ],
+  "unemployment-shame": [
+    "The Shame of Being Unemployed",
+    "You know that feeling when someone at a wedding or a family gathering asks the simplest question in the world - \"So, what do you do?\" - and your stomach drops?",
+    [
+      "work-stress",
+      "self-doubt",
+      "finances"
+    ]
+  ],
+  "weight-loss-despair": [
+    "When You've Given Up on Losing Weight",
+    "You know that feeling when you stand on the scale, see the number, and feel something inside you just go quiet?",
+    [
+      "health",
+      "self-doubt",
+      "perseverance"
+    ]
+  ],
+  "working-below-potential": [
+    "When You're Working Far Below Your Potential",
+    "You know that feeling when you sit down at your desk on a Monday and a quiet voice in your head says, this is not it?",
+    [
+      "work-stress",
+      "self-doubt",
+      "perseverance"
+    ]
+  ]
+}
