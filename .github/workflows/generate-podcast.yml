@@ -48,34 +48,21 @@ jobs:
       - name: Set up gcloud
         uses: google-github-actions/setup-gcloud@v2
 
-      - name: Ensure wisdom pool is not running dry
+      - name: Check wisdom pool buffer
         if: ${{ github.event.inputs.dry_run != 'true' }}
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          NOTIFY_EMAIL: ${{ secrets.NOTIFY_EMAIL }}
           PYTHONIOENCODING: utf-8
+        # Monitor only — emails Rahul if the unpublished essay buffer is low.
+        # It never generates content and never calls the Anthropic API:
+        # wisdom essays are authored in Claude Code on the subscription, not
+        # billed per-token from a cron. Non-blocking — a low pool is a
+        # heads-up, not a build failure.
         run: |
-          # Top up the unpublished wisdom buffer BEFORE picking the next slug,
-          # so the daily cron is self-feeding and the podcast never runs out.
-          python pipeline/ensure_wisdom_pool.py --min 5 --target 8
-
-      - name: Commit any new wisdom essays
-        if: ${{ github.event.inputs.dry_run != 'true' }}
-        run: |
-          # Stage only the wisdom content + sitemap that the pool step may
-          # have produced. NEVER `git checkout -- .` / `git clean -fd` here —
-          # that would destroy untracked files (CLAUDE.md gotcha #10).
-          git add wisdom/ sitemap.xml pipeline/wisdom_topic_bank.json 2>/dev/null || true
-          if git diff --cached --quiet; then
-            echo "No new wisdom essays to commit"
-          else
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git commit -m "wisdom: auto-replenish content pool (perpetual engine)"
-            git pull --rebase --autostash origin main
-            git push
-          fi
+          python pipeline/ensure_wisdom_pool.py --min 7 || true
 
       - name: Generate episode
         env:
