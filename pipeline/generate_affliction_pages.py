@@ -632,15 +632,210 @@ def generate_affliction_page(slug, title, meta_desc, categories, strips, ikeda_t
     return html
 
 
+# --- Wisdom index: life-area grouping -------------------------------------
+# Ordered map of category key -> (display name, one-line blurb). Names carry
+# &amp; so they render correctly inside HTML.
+WISDOM_CATEGORIES = {
+    "work":   ("Work &amp; Career",         "Bosses, burnout, being overlooked, and starting again."),
+    "money":  ("Money &amp; Security",      "Debt, scarcity, and the fear of not having enough."),
+    "love":   ("Love &amp; Relationships",  "Partners, dating, friendships, and drifting apart."),
+    "family": ("Family &amp; Parenting",    "Parents, children, siblings &mdash; the people you're bound to."),
+    "health": ("Health &amp; the Body",     "Illness, pain, ageing, and a body that's changing."),
+    "mind":   ("Anxiety &amp; Hard Emotions","Worry, anger, numbness &mdash; a mind that won't go quiet."),
+    "grief":  ("Grief &amp; Loss",          "Losing people, pets, and the life you expected."),
+    "self":   ("Self &amp; Meaning",        "Worth, purpose, identity, and starting over within."),
+}
+
+# Hand-classified primary category for every affliction slug. New slugs that
+# aren't listed here fall back to tag-based classification (_category_for).
+_CATEGORY_SLUGS = {
+    "work": [
+        "a-boss-who-belittles-you", "ageism-at-work", "always-on-call",
+        "asking-for-a-raise-fear", "bullied-at-work", "burnout-recovery",
+        "career-change-at-40", "career-plateau", "coworker-takes-credit",
+        "demoted-at-work", "dreading-monday", "fear-of-being-fired",
+        "fear-of-making-a-mistake-at-work", "golden-handcuffs",
+        "hate-my-job-cant-leave", "job-interview-anxiety", "laid-off",
+        "left-out-at-work", "micromanaging-boss", "office-favoritism",
+        "only-one-like-me-at-work", "overcoming-imposter-syndrome",
+        "passed-over-for-promotion", "performance-review-dread",
+        "public-speaking-fear", "remote-work-isolation",
+        "returning-to-work-after-a-long-gap", "sidelined-at-work",
+        "starting-over-in-a-new-industry", "stuck-in-a-job-with-no-growth",
+        "the-job-offer-you-regret-taking", "the-pressure-to-never-say-no-at-work",
+        "the-title-that-didnt-fix-anything", "too-much-work-not-enough-time",
+        "toxic-workplace-survival", "unemployment-shame",
+        "when-a-work-friend-betrays-you", "when-your-job-becomes-your-identity",
+        "work-that-feels-meaningless", "working-below-potential",
+    ],
+    "money": [
+        "bankruptcy-and-starting-over", "borrowing-just-to-get-by",
+        "breadwinner-pressure", "credit-card-debt-spiral",
+        "different-money-values-in-a-marriage", "drowning-in-debt",
+        "earning-less-than-everyone-around-you", "fear-of-going-broke",
+        "fear-of-retirement-poverty", "feeling-stuck-because-of-money",
+        "financial-anxiety", "financial-dependence-on-partner",
+        "financial-shame", "gambling-losses", "hiding-spending-from-your-partner",
+        "lending-money-to-family", "lifestyle-envy", "living-without-a-safety-net",
+        "money-anxiety-despite-comfort", "money-fights-with-partner",
+        "money-stress-keeping-you-awake", "paycheck-to-paycheck",
+        "pressure-to-provide-for-extended-family", "regret-over-money-you-wasted",
+        "scarcity-mindset", "starting-with-nothing-in-your-30s",
+        "sudden-loss-of-income", "supporting-grown-children-financially",
+        "the-fear-of-opening-bills", "the-shame-of-needing-financial-help",
+        "when-your-partner-wont-talk-about-money", "working-two-jobs-to-survive",
+    ],
+    "love": [
+        "a-friendship-that-became-one-sided",
+        "afraid-to-date-again-after-heartbreak", "attracted-to-the-wrong-people",
+        "being-the-friend-who-always-reaches-out", "being-the-one-who-left",
+        "betrayal-trust-broken", "constant-arguing", "dating-after-divorce",
+        "dating-app-exhaustion", "divorce", "doing-all-the-emotional-labor",
+        "drifted-apart", "emotional-unavailability", "falling-out-of-love",
+        "fear-of-being-single-forever", "fear-of-being-vulnerable-with-someone",
+        "feeling-unappreciated-by-your-partner", "getting-over-an-ex",
+        "growing-apart-from-old-friends", "lonely-in-marriage",
+        "long-distance-strain", "losing-a-friendship",
+        "losing-respect-for-your-partner", "losing-yourself-in-a-relationship",
+        "loving-someone-who-wont-commit", "making-friends-as-an-adult",
+        "mismatched-desire", "recovering-from-an-affair",
+        "relationship-falling-apart", "second-choice-in-love",
+        "staying-for-the-kids", "still-single-while-everyone-pairs-off",
+        "the-breakup-you-didnt-see-coming", "thinking-about-leaving-but-cant",
+        "wanting-love-but-pushing-it-away", "when-your-partner-shuts-you-out",
+    ],
+    "family": [
+        "a-child-who-blames-you-for-everything",
+        "a-parent-who-criticizes-everything", "adult-child-who-wont-launch",
+        "aging-parents", "becoming-parent-to-your-parents",
+        "being-the-only-responsible-one-in-the-family", "caregiver-burden",
+        "caring-for-dying-parent", "co-parenting-after-a-split",
+        "comparing-your-child-to-others", "defiant-teenager", "difficult-in-laws",
+        "empty-nest", "estranged-from-a-sibling", "estranged-from-adult-child",
+        "family-obligation-guilt", "family-scapegoat", "fear-for-childs-future",
+        "forgiving-a-parent-who-wont-apologize", "fractured-family-holidays",
+        "generational-trauma", "going-no-contact",
+        "immigrant-family-expectations", "inheritance-conflict",
+        "letting-go-of-a-grown-child", "losing-your-patience-with-your-kids",
+        "mom-guilt", "never-at-home-in-my-family",
+        "never-feeling-good-enough-for-your-parents",
+        "never-having-time-for-yourself-as-a-parent", "parent-with-addiction",
+        "parenting-is-breaking-me", "parents-favoritism",
+        "parents-who-never-approved", "raising-special-needs-child",
+        "screen-time-battles", "sibling-conflict", "single-parenting-no-support",
+        "the-black-sheep-of-the-family", "the-loneliness-of-new-parenthood",
+        "the-parent-who-was-never-there", "the-sibling-who-got-it-easy",
+        "toxic-parent", "watching-your-child-struggle",
+        "when-family-only-calls-when-they-need-something",
+        "when-your-teenager-shuts-you-out", "worrying-youre-a-bad-parent",
+    ],
+    "health": [
+        "addiction-recovery", "adjusting-to-disability", "aging-body-grief",
+        "body-image-struggles", "chronic-fatigue", "chronic-illness",
+        "chronic-pain", "exhaustion-that-wont-lift", "fear-of-doctors",
+        "food-and-eating-struggles", "hair-loss-and-change", "health-scare-fear",
+        "infertility", "invisible-illness", "life-after-a-health-crisis",
+        "living-with-an-unpredictable-illness",
+        "losing-your-independence-to-illness", "menopause-upheaval",
+        "new-diagnosis-fear", "recovering-from-surgery",
+        "the-anxiety-of-waiting-for-results",
+        "the-exhaustion-of-managing-your-health", "weight-loss-despair",
+        "when-doctors-cant-find-whats-wrong",
+    ],
+    "mind": [
+        "anger-you-cant-control", "anxiety-insomnia", "chronic-overthinking",
+        "dealing-with-jealousy", "decision-paralysis", "depression-fog",
+        "emotional-exhaustion", "emotional-numbness", "fear-of-the-future",
+        "feeling-anxious-for-no-reason", "feeling-everything-too-intensely",
+        "festering-resentment", "hypervigilance", "intrusive-thoughts",
+        "loneliness-despite-everything", "mood-swings", "panic-attacks",
+        "replaying-conversations", "shame-spirals", "social-anxiety",
+        "the-fear-of-losing-control-of-your-mind", "the-inability-to-relax",
+        "the-loneliness-of-getting-older", "waking-up-with-dread-every-morning",
+        "when-bad-thoughts-wont-leave", "when-hope-feels-impossible",
+    ],
+    "grief": [
+        "grieving-a-friend", "grieving-a-living-parent", "losing-a-parent",
+        "losing-a-pet", "losing-someone-suddenly", "still-not-over-it-years-later",
+        "the-grief-no-one-acknowledges", "when-grief-wont-stop",
+    ],
+    "self": [
+        "always-starting-over-on-monday", "breaking-a-bad-habit",
+        "cant-stick-to-anything", "comparison-trap", "feeling-broken",
+        "feeling-disconnected-from-yourself", "feeling-invisible-to-everyone",
+        "feeling-left-out", "feeling-like-a-failure",
+        "feeling-like-life-is-passing-you-by", "feeling-like-times-running-out",
+        "feeling-spiritually-lost", "finding-purpose-after-retirement",
+        "growing-up-too-fast", "harsh-inner-critic", "how-to-forgive",
+        "losing-faith-in-everything", "losing-motivation", "low-self-worth",
+        "making-peace-with-what-you-cant-change", "midlife-crisis",
+        "mourning-the-life-you-expected", "not-knowing-who-you-are-anymore",
+        "people-pleasing", "perfectionism-trap", "phone-addiction",
+        "procrastination-paralysis", "quarter-life-crisis",
+        "regret-over-past-choices", "rejection", "searching-for-meaning-in-life",
+        "self-sabotage", "starting-life-over-in-a-new-place", "starting-over",
+        "the-fear-of-growing-old", "the-weight-of-old-guilt",
+        "wondering-if-your-life-matters",
+    ],
+}
+TOPIC_CATEGORY = {slug: cat for cat, slugs in _CATEGORY_SLUGS.items() for slug in slugs}
+
+# Fallback for any slug missing from TOPIC_CATEGORY: map its content tags.
+_TAG_TO_CAT = {
+    "work-stress": "work", "workplace-politics": "work",
+    "finances": "money",
+    "relationships": "love", "divorce": "love", "rejection": "love",
+    "family": "family", "caregiving": "family",
+    "health": "health", "chronic-illness": "health",
+    "grief-loss": "grief",
+    "anxiety": "mind", "anger": "mind", "envy": "mind", "loneliness": "mind",
+    "self-doubt": "self", "perseverance": "self",
+}
+
+
+def _category_for(slug, cats):
+    """Return the life-area category key for an affliction slug."""
+    if slug in TOPIC_CATEGORY:
+        return TOPIC_CATEGORY[slug]
+    for tag in cats:
+        if tag in _TAG_TO_CAT:
+            return _TAG_TO_CAT[tag]
+    return "self"
+
+
 def generate_index_page():
-    """Generate the wisdom/ index page listing all affliction topics."""
-    cards_html = ""
-    for slug, (title, meta_desc, _) in sorted(AFFLICTION_PAGES.items()):
-        cards_html += f"""
-    <a href="{slug}.html" class="topic-card">
-      <div class="topic-title">{title}</div>
-      <div class="topic-desc">{meta_desc[:100]}...</div>
-    </a>"""
+    """Generate the wisdom/ index page — topics grouped into life-area sections."""
+    # Bucket every affliction into one life area.
+    grouped = {key: [] for key in WISDOM_CATEGORIES}
+    for slug, (title, meta_desc, cats) in AFFLICTION_PAGES.items():
+        grouped[_category_for(slug, cats)].append((slug, title, meta_desc))
+
+    nav_html = ""
+    sections_html = ""
+    for key, (name, blurb) in WISDOM_CATEGORIES.items():
+        items = sorted(grouped[key], key=lambda x: x[1].lower())
+        if not items:
+            continue
+        nav_html += f'\n      <a href="#cat-{key}">{name}</a>'
+        cards = ""
+        for slug, title, meta_desc in items:
+            cards += f"""
+        <a href="{slug}.html" class="topic-card">
+          <div class="topic-title">{title}</div>
+          <div class="topic-desc">{meta_desc[:100]}...</div>
+        </a>"""
+        sections_html += f"""
+      <section class="cat-section" id="cat-{key}">
+        <div class="cat-head">
+          <h3>{name}</h3>
+          <span class="cat-count">{len(items)}</span>
+        </div>
+        <p class="cat-blurb">{blurb}</p>
+        <div class="topics-grid">{cards}
+        </div>
+      </section>"""
+
+    total = len(AFFLICTION_PAGES)
 
     html = f"""<!DOCTYPE html>
 <html lang="en">
@@ -681,13 +876,33 @@ def generate_index_page():
     .hero h2 {{ font-size: 1.8rem; font-weight: 400; color: #333; margin-bottom: 0.5rem; }}
     .hero p {{ font-size: 1rem; color: #777; max-width: 520px; margin: 0 auto; line-height: 1.6; }}
 
-    .topics-grid {{ display: grid; grid-template-columns: 1fr; gap: 0.8rem; margin: 1.5rem 0; }}
+    .search-wrap {{ margin: 0.5rem 0 0.25rem; }}
+    #search {{ width: 100%; padding: 0.85rem 1.1rem; font-size: 1rem; font-family: inherit;
+      border: 1.5px solid #e8e4de; border-radius: 10px; background: #fff; color: #2d2d2d; outline: none; }}
+    #search:focus {{ border-color: #c0392b; box-shadow: 0 2px 10px rgba(192,57,43,0.08); }}
+
+    .cat-nav {{ position: sticky; top: 0; z-index: 20; display: flex; flex-wrap: wrap; gap: 0.4rem;
+      padding: 0.7rem 0; margin-bottom: 0.5rem; background: #faf9f6; border-bottom: 1px solid #e8e4de; }}
+    .cat-nav a {{ font-size: 0.78rem; padding: 0.35rem 0.8rem; border-radius: 999px; background: #fff;
+      border: 1px solid #e8e4de; color: #555; text-decoration: none; white-space: nowrap; transition: all 0.15s; }}
+    .cat-nav a:hover {{ border-color: #c0392b; color: #c0392b; }}
+
+    .cat-section {{ scroll-margin-top: 3.4rem; margin: 1.9rem 0; }}
+    .cat-head {{ display: flex; align-items: baseline; gap: 0.55rem; border-bottom: 2px solid #e8e4de; padding-bottom: 0.4rem; }}
+    .cat-head h3 {{ font-size: 1.15rem; font-weight: 600; color: #c0392b; letter-spacing: 0.02em; }}
+    .cat-count {{ font-size: 0.72rem; color: #b3b3b3; }}
+    .cat-blurb {{ font-size: 0.85rem; color: #999; margin-top: 0.35rem; line-height: 1.5; }}
+
+    .topics-grid {{ display: grid; grid-template-columns: 1fr; gap: 0.7rem; margin: 0.9rem 0 0; }}
     .topic-card {{ display: block; padding: 1.2rem 1.5rem; background: white; border-radius: 10px; box-shadow: 0 1px 6px rgba(0,0,0,0.05); text-decoration: none; color: inherit; transition: all 0.2s; border: 1.5px solid transparent; }}
     .topic-card:hover {{ border-color: #c0392b; box-shadow: 0 3px 12px rgba(0,0,0,0.08); }}
     .topic-title {{ font-size: 1.05rem; font-weight: 600; color: #333; margin-bottom: 0.3rem; }}
     .topic-desc {{ font-size: 0.85rem; color: #777; line-height: 1.5; }}
+    .topic-card[hidden], .cat-section[hidden] {{ display: none; }}
 
-    footer {{ text-align: center; padding: 1.5rem 0; color: #aaa; font-size: 0.8rem; border-top: 1px solid #e8e4de; margin-top: 2rem; }}
+    .no-results {{ text-align: center; color: #999; font-size: 0.95rem; padding: 2.5rem 0; }}
+
+    footer {{ text-align: center; padding: 1.5rem 0 5rem; color: #aaa; font-size: 0.8rem; border-top: 1px solid #e8e4de; margin-top: 2rem; }}
 
     @media (max-width: 600px) {{
       .hero h2 {{ font-size: 1.4rem; }}
@@ -704,17 +919,47 @@ def generate_index_page():
 
     <div class="hero">
       <h2>What are you going through?</h2>
-      <p>Pick your struggle. We'll show you stories and wisdom from people who've been there.</p>
+      <p>Pick your struggle &mdash; or search for it. We'll show you stories and wisdom from people who've been there.</p>
     </div>
 
-    <div class="topics-grid">
-      {cards_html}
+    <div class="search-wrap">
+      <input type="search" id="search" placeholder="Search {total} struggles &mdash; e.g. burnout, debt, loneliness" autocomplete="off">
     </div>
+
+    <nav class="cat-nav" id="catNav">{nav_html}
+    </nav>
+
+    <main id="catList">{sections_html}
+    </main>
+
+    <p class="no-results" id="noResults" hidden>Nothing matches that word. Try another &mdash; or browse the sections above.</p>
 
     <footer>
       <p>The Lotus Lane &middot; Ancient wisdom for modern struggles</p>
     </footer>
   </div>
+
+  <script>
+    (function () {{
+      var search = document.getElementById('search');
+      var noResults = document.getElementById('noResults');
+      var cards = Array.prototype.slice.call(document.querySelectorAll('.topic-card'));
+      var sections = Array.prototype.slice.call(document.querySelectorAll('.cat-section'));
+      search.addEventListener('input', function () {{
+        var q = search.value.trim().toLowerCase();
+        cards.forEach(function (card) {{
+          card.hidden = q !== '' && card.textContent.toLowerCase().indexOf(q) === -1;
+        }});
+        var anyVisible = false;
+        sections.forEach(function (section) {{
+          var visible = section.querySelectorAll('.topic-card:not([hidden])').length;
+          section.hidden = visible === 0;
+          if (visible) anyVisible = true;
+        }});
+        noResults.hidden = anyVisible;
+      }});
+    }})();
+  </script>
   <script src="../nav.js" defer></script>
 </body>
 </html>"""
