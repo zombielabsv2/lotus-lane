@@ -891,12 +891,32 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://thelotuslane.in/wisdom/addiction-recovery.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://thelotuslane.in/wisdom/aging-parents.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
     <loc>https://thelotuslane.in/wisdom/anger-you-cant-control.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://thelotuslane.in/wisdom/anxiety-insomnia.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://thelotuslane.in/wisdom/betrayal-trust-broken.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://thelotuslane.in/wisdom/body-image-struggles.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
@@ -926,6 +946,11 @@
     <priority>0.85</priority>
   </url>
   <url>
+    <loc>https://thelotuslane.in/wisdom/decision-paralysis.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
     <loc>https://thelotuslane.in/wisdom/depression-fog.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
@@ -936,12 +961,27 @@
     <priority>0.85</priority>
   </url>
   <url>
+    <loc>https://thelotuslane.in/wisdom/empty-nest.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://thelotuslane.in/wisdom/fear-of-the-future.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
     <loc>https://thelotuslane.in/wisdom/feeling-like-a-failure.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://thelotuslane.in/wisdom/financial-anxiety.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://thelotuslane.in/wisdom/health-scare-fear.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
@@ -961,12 +1001,52 @@
     <priority>0.85</priority>
   </url>
   <url>
+    <loc>https://thelotuslane.in/wisdom/losing-a-friendship.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://thelotuslane.in/wisdom/losing-motivation.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://thelotuslane.in/wisdom/midlife-crisis.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
     <loc>https://thelotuslane.in/wisdom/overcoming-imposter-syndrome.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://thelotuslane.in/wisdom/parenting-is-breaking-me.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://thelotuslane.in/wisdom/people-pleasing.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://thelotuslane.in/wisdom/perfectionism-trap.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://thelotuslane.in/wisdom/procrastination-paralysis.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://thelotuslane.in/wisdom/quarter-life-crisis.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://thelotuslane.in/wisdom/regret-over-past-choices.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
@@ -981,7 +1061,17 @@
     <priority>0.85</priority>
   </url>
   <url>
+    <loc>https://thelotuslane.in/wisdom/sibling-conflict.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
     <loc>https://thelotuslane.in/wisdom/sidelined-at-work.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://thelotuslane.in/wisdom/social-anxiety.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>

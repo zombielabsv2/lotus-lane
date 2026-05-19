@@ -237,7 +237,114 @@ AFFLICTION_PAGES = {
         "The job, the relationship, the friend group. Rejection lands in the body. Wisdom for standing back up without armoring up.",
         ["rejection", "self-doubt", "relationships"],
     ),
+    "social-anxiety": (
+        "When Being Around People Feels Like Too Much",
+        "Your heart races before a gathering. You replay conversations for hours. Wisdom for the quiet dread of being seen.",
+        ["anxiety", "self-doubt", "loneliness"],
+    ),
+    "procrastination-paralysis": (
+        "Why You Can't Start the Thing You Need to Do",
+        "You want to do it. You know it matters. And still you don't move. The truth about the freeze that looks like laziness.",
+        ["self-doubt", "perseverance", "anxiety"],
+    ),
+    "quarter-life-crisis": (
+        "Lost in Your Twenties With No Idea What's Next",
+        "Everyone seems to have a plan. You don't. Wisdom for the years when the path was supposed to appear and didn't.",
+        ["self-doubt", "perseverance", "envy"],
+    ),
+    "midlife-crisis": (
+        "When Midlife Makes You Question Everything",
+        "You did the things you were supposed to do. So why does it feel hollow? Wisdom for the great mid-life reckoning.",
+        ["self-doubt", "perseverance", "grief-loss"],
+    ),
+    "empty-nest": (
+        "When the House Goes Quiet After the Kids Leave",
+        "You raised them to go, and they went. Now the silence is loud. Wisdom for finding yourself again after parenting.",
+        ["family", "grief-loss", "loneliness"],
+    ),
+    "aging-parents": (
+        "Watching Your Parents Grow Old",
+        "The people who took care of you now need care. The role reversal is quietly breaking your heart. You are not failing them.",
+        ["family", "caregiving", "grief-loss"],
+    ),
+    "sibling-conflict": (
+        "When You and Your Sibling Stopped Speaking",
+        "The person who shared your childhood feels like a stranger now. Wisdom for the particular grief of a broken sibling bond.",
+        ["family", "anger", "grief-loss"],
+    ),
+    "losing-a-friendship": (
+        "When a Friendship Quietly Ends",
+        "No fight, no falling out. Just slow distance until they were gone. Wisdom for grieving a friend who is still alive.",
+        ["relationships", "loneliness", "grief-loss"],
+    ),
+    "people-pleasing": (
+        "When You Can't Stop Saying Yes",
+        "You bend for everyone and lose yourself doing it. Wisdom for the person who forgot they were allowed to have needs.",
+        ["self-doubt", "relationships", "anxiety"],
+    ),
+    "perfectionism-trap": (
+        "When Nothing You Do Is Ever Good Enough",
+        "You hold yourself to a standard no human could meet, then punish yourself for missing it. Wisdom for setting the bar down.",
+        ["self-doubt", "work-stress", "anxiety"],
+    ),
+    "decision-paralysis": (
+        "When You Can't Make a Decision",
+        "Too many options, too much fear of the wrong one, so you choose nothing. Wisdom for the person frozen at the crossroads.",
+        ["anxiety", "self-doubt", "perseverance"],
+    ),
+    "regret-over-past-choices": (
+        "Living With the Choices You Wish You Hadn't Made",
+        "The road not taken keeps you up at night. Wisdom for making peace with a past you cannot change.",
+        ["grief-loss", "self-doubt", "perseverance"],
+    ),
+    "fear-of-the-future": (
+        "When the Future Fills You With Dread",
+        "Every thought about what's coming tightens your chest. Wisdom for living now when tomorrow feels like a threat.",
+        ["anxiety", "self-doubt", "finances"],
+    ),
+    "losing-motivation": (
+        "When You Just Don't Care Anymore",
+        "The spark that used to drive you is gone and you can't fake it. Wisdom for the flat, grey stretch where nothing pulls.",
+        ["perseverance", "health", "self-doubt"],
+    ),
+    "health-scare-fear": (
+        "Waiting on Test Results and Fearing the Worst",
+        "Your mind has already written the bad ending. Wisdom for the long, frightening wait between the test and the news.",
+        ["health", "anxiety", "chronic-illness"],
+    ),
+    "body-image-struggles": (
+        "At War With Your Own Reflection",
+        "The mirror has become an enemy. Wisdom for the exhausting fight against your own body and the voice that judges it.",
+        ["health", "self-doubt", "envy"],
+    ),
+    "addiction-recovery": (
+        "The Long Climb Back From Addiction",
+        "Quitting was only the start. Wisdom for the daily, unglamorous work of staying free and rebuilding a life.",
+        ["health", "perseverance", "self-doubt"],
+    ),
+    "betrayal-trust-broken": (
+        "When Someone You Trusted Betrayed You",
+        "The lie changed how you see everything. Wisdom for rebuilding trust in people, and in your own judgment, after betrayal.",
+        ["relationships", "anger", "grief-loss"],
+    ),
 }
+
+# Dynamically-generated affliction topics — appended by ensure_wisdom_pool.py
+# when the hand-curated bank above is exhausted. Kept in a separate JSON file
+# so the perpetual content engine never has to edit this source file.
+# Format: {"slug": [title, meta_description, [categories]], ...}
+_TOPIC_BANK_FILE = PROJECT_ROOT / "pipeline" / "wisdom_topic_bank.json"
+if _TOPIC_BANK_FILE.exists():
+    try:
+        import json as _json
+        with open(_TOPIC_BANK_FILE, "r", encoding="utf-8") as _f:
+            _bank = _json.load(_f)
+        for _slug, _entry in _bank.items():
+            if _slug not in AFFLICTION_PAGES and isinstance(_entry, (list, tuple)) and len(_entry) == 3:
+                AFFLICTION_PAGES[_slug] = (_entry[0], _entry[1], list(_entry[2]))
+    except Exception as _e:
+        import sys as _sys
+        print(f"[config] failed to load wisdom_topic_bank.json: {_e}", file=_sys.stderr)
 
 # Art style prompt prefix (for consistent visual style)
 ART_STYLE = (

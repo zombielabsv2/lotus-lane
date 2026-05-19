@@ -36,6 +36,9 @@ except ImportError:
 
 from pipeline.config import AFFLICTION_PAGES, ASSETS_BASE_URL
 
+# Total number of struggle pages — used in "See all N struggles" links.
+STRUGGLE_COUNT = len(AFFLICTION_PAGES)
+
 PROJECT_ROOT = Path(__file__).parent.parent
 STRIPS_JSON = PROJECT_ROOT / "strips.json"
 IKEDA_QUOTES = PROJECT_ROOT / "ikeda" / "quotes.json"
@@ -199,7 +202,7 @@ def build_closely_related_html(slug, content_struggles):
       <h3>Closely related struggles</h3>
       <div class="related-grid">{cards}</div>
       <div class="browse-all-row">
-        <a href="./">See all 21 struggles &rarr;</a>
+        <a href="./">See all {STRUGGLE_COUNT} struggles &rarr;</a>
       </div>
     </div>'''
 
