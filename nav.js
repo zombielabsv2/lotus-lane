@@ -105,14 +105,22 @@
       border-bottom: 1px solid #e8e4de;
       font-size: 0.85rem;
       font-family: 'Segoe UI', system-ui, sans-serif;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
     }
+    #lotus-top-nav::-webkit-scrollbar { display: none; }
     #lotus-top-nav a {
       text-decoration: none;
       color: #888;
       padding: 0.2rem 0.5rem;
       border-radius: 4px;
       transition: color 0.2s;
+      white-space: nowrap;
+      flex: 0 0 auto;
     }
+    #lotus-top-nav .sep { flex: 0 0 auto; }
     #lotus-top-nav a:hover { color: #c0392b; }
     #lotus-top-nav a.active { color: #c0392b; font-weight: 600; }
     #lotus-top-nav .sep { color: #ddd; font-size: 0.75rem; }
@@ -151,7 +159,7 @@
     body { padding-bottom: 60px !important; }
 
     @media (max-width: 600px) {
-      #lotus-top-nav { font-size: 0.78rem; gap: 0.3rem; }
+      #lotus-top-nav { font-size: 0.78rem; gap: 0.3rem; justify-content: flex-start; }
       #lotus-top-nav a { padding: 0.2rem 0.3rem; }
       #lotus-bottom-nav a { padding: 0.3rem 0.6rem; min-width: 50px; }
     }
