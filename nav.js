@@ -52,13 +52,27 @@
     <a href="${base}subscribe.html" class="${isSubscribe ? 'active' : ''}">Daily Wisdom</a>
   `;
 
+  // Wrap so a right-edge fade can pin to the edge while the links scroll under it
+  const topNavWrap = document.createElement('div');
+  topNavWrap.id = 'lotus-top-nav-wrap';
+  topNavWrap.appendChild(topNav);
+
   // Insert after the header element
   const header = document.querySelector('header');
   if (header && header.nextSibling) {
-    header.parentNode.insertBefore(topNav, header.nextSibling);
+    header.parentNode.insertBefore(topNavWrap, header.nextSibling);
   } else {
-    document.body.prepend(topNav);
+    document.body.prepend(topNavWrap);
   }
+
+  // Show the fade only when there's more nav to the right; hide it at the end (or when it all fits)
+  const updateNavFade = () => {
+    const moreRight = topNav.scrollWidth - topNav.clientWidth - topNav.scrollLeft > 2;
+    topNavWrap.classList.toggle('has-overflow', moreRight);
+  };
+  topNav.addEventListener('scroll', updateNavFade, { passive: true });
+  window.addEventListener('resize', updateNavFade);
+  requestAnimationFrame(updateNavFade);
 
   // --- BOTTOM NAV (sticky tab bar) ---
   const bottomNav = document.createElement('nav');
@@ -95,6 +109,20 @@
   // --- STYLES ---
   const style = document.createElement('style');
   style.textContent = `
+    #lotus-top-nav-wrap { position: relative; }
+    #lotus-top-nav-wrap::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 36px;
+      background: linear-gradient(to right, rgba(245,242,237,0), #f5f2ed 75%);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    #lotus-top-nav-wrap.has-overflow::after { opacity: 1; }
     #lotus-top-nav {
       display: flex;
       justify-content: center;
