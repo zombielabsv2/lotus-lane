@@ -1783,5 +1783,44 @@
       "overcoming-imposter-syndrome",
       "burnout-recovery"
     ]
+  },
+  {
+    "date": "2026-05-21",
+    "title": "Watching Someone You Love Suffer and Feeling Helpless? 5 Truths About What Real Compassion Does",
+    "theme": "compassion",
+    "theme_name": "Compassion",
+    "image": "listicles/2026-05-21.png",
+    "items": [
+      {
+        "quote": "Compassion is not about feeling pity for others. It is about sharing their suffering and working together to overcome it.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "Sitting with someone in their pain and acting alongside them is far more powerful than simply feeling sorry from a distance."
+      },
+      {
+        "quote": "A single warm word can give someone the courage to go on living. Never underestimate the power of your compassion.",
+        "source": "For Today and Tomorrow",
+        "explanation": "That text you hesitated to send, that honest compliment you held back - it may be exactly what someone needed to hear today."
+      },
+      {
+        "quote": "True compassion is not soft or weak. It takes great strength to truly care about others, to shoulder their pain.",
+        "source": "Discussions on Youth",
+        "explanation": "Showing up for a grieving friend, saying the hard truth with kindness, choosing not to look away - these are acts of real courage."
+      },
+      {
+        "quote": "Genuine compassion means not only sharing another's suffering, but also helping them to realize their own strength.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "The deepest help you can offer someone is not rescuing them, but reminding them of the resilience they already carry inside."
+      },
+      {
+        "quote": "Buddhism teaches that compassion without wisdom is sentimentality, and wisdom without compassion is cold and heartless. We need both.",
+        "source": "Discussions on Youth",
+        "explanation": "Caring about someone without thinking clearly can cause harm, just as having all the answers without warmth leaves people feeling alone."
+      }
+    ],
+    "struggles": [
+      "caregiver-burden",
+      "loneliness-despite-everything",
+      "when-grief-wont-stop"
+    ]
   }
 ]
