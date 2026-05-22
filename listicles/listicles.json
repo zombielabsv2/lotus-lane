@@ -1822,5 +1822,44 @@
       "loneliness-despite-everything",
       "when-grief-wont-stop"
     ]
+  },
+  {
+    "date": "2026-05-22",
+    "title": "Can't See a Way Out? 5 Reminders That This Darkness Has an Expiration Date",
+    "theme": "hope",
+    "theme_name": "Hope",
+    "image": "listicles/2026-05-22.png",
+    "items": [
+      {
+        "quote": "Winter always turns to spring. Never, from ancient times on, has anyone heard or seen of winter turning back to autumn.",
+        "source": "The Writings of Nichiren Daishonin (referenced in guidance)",
+        "explanation": "When life feels frozen and stuck, history itself promises that hard seasons always move forward - never backward."
+      },
+      {
+        "quote": "No matter how hopeless or bleak things appear, the moment you resolve to never give up, every nerve and fiber in your being will orient itself toward your success.",
+        "source": "Faith Into Action",
+        "explanation": "A single decision to keep going can physically shift your focus and energy in ways that create real momentum out of a standstill."
+      },
+      {
+        "quote": "Hope is not a matter of ability; it is a matter of decision.",
+        "source": "Discussions on Youth",
+        "explanation": "You don't have to feel ready or strong to choose hope - it is available to you right now, regardless of how low you feel."
+      },
+      {
+        "quote": "No one can make you feel hopeless unless you allow them to. Hope resides in the heart. It is something you create.",
+        "source": "Discussions on Youth",
+        "explanation": "Even when circumstances or other people drain your spirit, your ability to rebuild hope is something no situation can permanently take from you."
+      },
+      {
+        "quote": "Each morning we are born again. What we do today is what matters most.",
+        "source": "For Today and Tomorrow",
+        "explanation": "Yesterday's failures and last year's losses don't have to define today - every morning is a clean starting point that belongs entirely to you."
+      }
+    ],
+    "struggles": [
+      "depression-fog",
+      "anxiety-insomnia",
+      "starting-over"
+    ]
   }
 ]
