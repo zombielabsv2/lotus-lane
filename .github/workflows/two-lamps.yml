@@ -58,11 +58,11 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          git pull --rebase --autostash origin main
           git add index.html two-lamps/index.html
           if git diff --cached --quiet; then
             echo "No lotus-lane changes — skipping."
           else
-            git pull --rebase --autostash origin main
             git commit -m "Two Lamps: weekly dialogue"
             git push
           fi
@@ -73,11 +73,11 @@ jobs:
           cd _iqbal
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          git pull --rebase --autostash origin main
           git add data/two-lamps.ts
           if git diff --cached --quiet; then
             echo "No iqbal-for-all changes — skipping."
           else
-            git pull --rebase --autostash origin main
             git commit -m "Two Lamps: weekly dialogue"
             git push
           fi
