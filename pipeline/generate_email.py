@@ -1148,6 +1148,20 @@ Return ONLY the JSON, no other text."""
 
     email_data = json.loads(content_text)
 
+    # Normalize: Claude occasionally omits a key (e.g. quote_source). Guarantee
+    # every field the template reads exists so one missing key never crashes the
+    # whole send. (A KeyError here used to log generation_failed and drop the
+    # subscriber's email entirely.)
+    email_data = {
+        "subject": (email_data.get("subject") or f"A moment for you, {name}").strip(),
+        "opening": email_data.get("opening", "").strip(),
+        "quote": email_data.get("quote", "").strip(),
+        "quote_source": email_data.get("quote_source", "").strip(),
+        "interpretation": email_data.get("interpretation", "").strip(),
+        "practice": email_data.get("practice", "").strip(),
+        "closing": email_data.get("closing", "").strip(),
+    }
+
     # Build HTML body
     html_body = build_html_email(email_data, name, subscriber_email=subscriber.get("email", ""))
 
@@ -1160,7 +1174,40 @@ Return ONLY the JSON, no other text."""
 
 
 def build_html_email(data: dict, name: str, subscriber_email: str = "") -> str:
-    """Build a beautiful HTML email from the generated content."""
+    """Build a beautiful HTML email from the generated content.
+
+    Reads every field defensively (.get) so a missing key from the model's
+    JSON degrades gracefully instead of raising KeyError and dropping the send.
+    """
+    opening = data.get("opening", "")
+    quote = data.get("quote", "")
+    quote_source = data.get("quote_source", "")
+    interpretation = data.get("interpretation", "")
+    practice = data.get("practice", "")
+    closing = data.get("closing", "")
+
+    # Only render the quote block if there's an actual quote, and only show the
+    # attribution line when a source is present (avoids a dangling "- ").
+    quote_block = ""
+    if quote:
+        source_line = (
+            f"""
+            <p style="margin:8px 0 0; font-size:12px; color:#999;">
+              - {quote_source}
+            </p>"""
+            if quote_source
+            else ""
+        )
+        quote_block = f"""
+        <!-- Wisdom Quote -->
+        <tr><td style="padding:20px 30px;">
+          <div style="background:#fdf8f0; border-left:4px solid #c0392b; padding:16px 20px; border-radius:0 8px 8px 0;">
+            <p style="margin:0; font-size:14px; line-height:1.7; color:#444; font-style:italic;">
+              "{quote}"
+            </p>{source_line}
+          </div>
+        </td></tr>"""
+
     return f"""
 <!DOCTYPE html>
 <html>
@@ -1183,26 +1230,15 @@ def build_html_email(data: dict, name: str, subscriber_email: str = "") -> str:
         <!-- Opening -->
         <tr><td style="padding:30px 30px 0;">
           <p style="margin:0; font-size:15px; line-height:1.7; color:#333;">
-            {data['opening']}
+            {opening}
           </p>
         </td></tr>
-
-        <!-- Nichiren Quote -->
-        <tr><td style="padding:20px 30px;">
-          <div style="background:#fdf8f0; border-left:4px solid #c0392b; padding:16px 20px; border-radius:0 8px 8px 0;">
-            <p style="margin:0; font-size:14px; line-height:1.7; color:#444; font-style:italic;">
-              "{data['quote']}"
-            </p>
-            <p style="margin:8px 0 0; font-size:12px; color:#999;">
-              - {data['quote_source']}
-            </p>
-          </div>
-        </td></tr>
+        {quote_block}
 
         <!-- Interpretation -->
         <tr><td style="padding:0 30px;">
           <p style="margin:0; font-size:15px; line-height:1.7; color:#333;">
-            {data['interpretation']}
+            {interpretation}
           </p>
         </td></tr>
 
@@ -1213,7 +1249,7 @@ def build_html_email(data: dict, name: str, subscriber_email: str = "") -> str:
               Today's Practice
             </p>
             <p style="margin:8px 0 0; font-size:14px; line-height:1.6; color:#333;">
-              {data['practice']}
+              {practice}
             </p>
           </div>
         </td></tr>
@@ -1221,7 +1257,7 @@ def build_html_email(data: dict, name: str, subscriber_email: str = "") -> str:
         <!-- Closing -->
         <tr><td style="padding:0 30px 30px;">
           <p style="margin:0; font-size:15px; line-height:1.7; color:#333;">
-            {data['closing']}
+            {closing}
           </p>
         </td></tr>
 

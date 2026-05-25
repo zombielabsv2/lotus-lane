@@ -174,6 +174,33 @@ def test_html_email_escaping():
     assert len(html) > 500
 
 
+def test_build_html_email_missing_keys():
+    """Regression: a model response missing keys (e.g. quote_source) must NOT
+    crash. On 2026-05-22 a KeyError: 'quote_source' logged generation_failed and
+    dropped a subscriber's email entirely."""
+    from pipeline.generate_email import build_html_email
+
+    # quote_source omitted entirely
+    data = {
+        "opening": "I know this is hard.",
+        "quote": "Winter always turns to spring.",
+        "interpretation": "It will pass.",
+        "practice": "Take a walk.",
+        "closing": "You've got this.",
+    }
+    html = build_html_email(data, "Shivali")
+    assert "Winter always turns to spring" in html
+    assert "The Lotus Lane" in html
+    # No dangling attribution dash when source is absent
+    assert "- </p>" not in html
+
+    # Completely empty dict must still render a valid email shell, not raise
+    html2 = build_html_email({}, "Friend")
+    assert isinstance(html2, str)
+    assert "The Lotus Lane" in html2
+    assert "Today's Practice" in html2
+
+
 # ---------------------------------------------------------------------------
 # Welcome Sequence Tests
 # ---------------------------------------------------------------------------
