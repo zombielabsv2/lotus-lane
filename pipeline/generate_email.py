@@ -30,6 +30,11 @@ SUPABASE_SERVICE_KEY = os.environ.get("SUPABASE_SERVICE_KEY", "")
 ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
 RESEND_API_KEY = os.environ.get("RESEND_API_KEY", "")
 
+# Where same-day send-failure digests go. The +claude plus-address routes into
+# the inbox agent so failures are surfaced in its regular runs instead of
+# waiting for the weekly traffic digest. Override with FAILURE_NOTIFY_EMAIL.
+FAILURE_NOTIFY_EMAIL = os.environ.get("FAILURE_NOTIFY_EMAIL", "jindal.rahul+claude@gmail.com")
+
 # Path to knowledge base — in CI this is cloned alongside the repo
 CHUNKS_PATH = os.environ.get(
     "CHUNKS_PATH",
@@ -1425,6 +1430,107 @@ def send_welcome_single(email: str, dry_run: bool = False) -> bool:
     return process_welcome_subscriber(sub)
 
 
+# ---------------------------------------------------------------------------
+# Same-day failure notification
+# ---------------------------------------------------------------------------
+
+def query_run_failures(run_start: datetime) -> list[dict]:
+    """Fetch daimoku_email_log rows logged since run_start with status != 'sent',
+    enriched with the subscriber's email + name. Authoritative source for which
+    subscribers did NOT get an email this run."""
+    try:
+        rows = supabase_get("daimoku_email_log", {
+            "sent_at": f"gte.{run_start.isoformat()}",
+            "status": "neq.sent",
+            "select": "subscriber_id,challenge_category,status,subject,sent_at",
+            "order": "sent_at.desc",
+        })
+    except Exception as e:
+        print(f"  [WARN] could not query run failures: {e}")
+        return []
+
+    if not rows:
+        return []
+
+    # Resolve subscriber email/name in one batched lookup.
+    sub_ids = sorted({r["subscriber_id"] for r in rows if r.get("subscriber_id")})
+    sub_map = {}
+    if sub_ids:
+        try:
+            subs = supabase_get("daimoku_subscribers", {
+                "id": f"in.({','.join(sub_ids)})",
+                "select": "id,email,name",
+            })
+            sub_map = {s["id"]: s for s in subs}
+        except Exception as e:
+            print(f"  [WARN] could not resolve subscribers for failures: {e}")
+
+    for r in rows:
+        s = sub_map.get(r.get("subscriber_id"), {})
+        r["email"] = s.get("email", "(unknown)")
+        r["name"] = s.get("name", "(unknown)")
+    return rows
+
+
+def send_failure_digest(failures: list[dict]) -> bool:
+    """Email a same-day digest of failed sends to FAILURE_NOTIFY_EMAIL.
+    Returns True if the alert was sent."""
+    if not failures:
+        return False
+    if not RESEND_API_KEY:
+        print("  [SKIP] RESEND_API_KEY not set — cannot send failure digest")
+        return False
+
+    rows_html = ""
+    for f in failures:
+        detail = (f.get("subject") or "").strip()
+        rows_html += (
+            "<tr>"
+            f"<td style='padding:6px 12px 6px 0;'>{f.get('name', '?')} &lt;{f.get('email', '?')}&gt;</td>"
+            f"<td style='padding:6px 12px 6px 0;'>{f.get('challenge_category', '?')}</td>"
+            f"<td style='padding:6px 12px 6px 0;color:#c33;'>{f.get('status', '?')}</td>"
+            f"<td style='padding:6px 0;color:#777;'>{detail}</td>"
+            "</tr>"
+        )
+
+    n = len(failures)
+    plural = "s" if n != 1 else ""
+    subject = f"[Lotus Lane] {n} Daily Lotus email failure{plural} — needs attention"
+    html = (
+        f"<h3>Daily Lotus — {n} send failure{plural} this run</h3>"
+        "<p>These subscribers did <b>not</b> get today's email. Each row is a "
+        "<code>daimoku_email_log</code> entry with status != 'sent'.</p>"
+        "<table style='border-collapse:collapse;font-family:sans-serif;font-size:13px;'>"
+        "<thead><tr style='text-align:left;color:#999;'>"
+        "<th style='padding-right:12px;'>Subscriber</th><th style='padding-right:12px;'>Challenge</th>"
+        "<th style='padding-right:12px;'>Status</th><th>Detail</th></tr></thead>"
+        f"<tbody>{rows_html}</tbody></table>"
+        "<p style='color:#777;font-size:12px;margin-top:16px;'>"
+        "<b>generation_failed</b> = exception while building the email (Detail = the error). "
+        "<b>send_failed</b> = Resend rejected the send. "
+        "Emitted by pipeline/generate_email.py at end of run.</p>"
+    )
+
+    try:
+        resp = httpx.post(
+            "https://api.resend.com/emails",
+            headers={"Authorization": f"Bearer {RESEND_API_KEY}"},
+            json={
+                "from": "Lotus Lane Bot <notifications@rxjapps.in>",
+                "to": [FAILURE_NOTIFY_EMAIL],
+                "subject": subject,
+                "html": html,
+            },
+            timeout=30,
+        )
+        ok = resp.status_code == 200
+        print(f"  [failure-digest] {'sent' if ok else 'FAILED'} to {FAILURE_NOTIFY_EMAIL} ({resp.status_code})")
+        return ok
+    except Exception as e:
+        print(f"  [failure-digest] error: {e}")
+        return False
+
+
 def main():
     """
     Main entry point.
@@ -1441,6 +1547,10 @@ def main():
     import sys
 
     print(f"=== Daimoku Daily — {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')} ===")
+
+    # Marker for the same-day failure digest: any log row written after this is
+    # attributable to the current run.
+    run_start = datetime.now(timezone.utc)
 
     force = "--force" in sys.argv
     dry_run = "--dry-run" in sys.argv
@@ -1555,6 +1665,15 @@ def main():
                         total_fail += 1
 
     print(f"\n=== Done: {total_sent} sent, {total_fail} failed ===")
+
+    # Same-day failure notification — email the inbox agent so failures surface
+    # in its regular runs instead of waiting for the weekly traffic digest.
+    if total_fail > 0 and not dry_run:
+        failures = query_run_failures(run_start)
+        if failures:
+            send_failure_digest(failures)
+        else:
+            print("  [failure-digest] total_fail>0 but no matching log rows found — skipping")
 
     # Empire heartbeat — only on a clean LIVE run. The post-push verifier
     # also calls main() in --dry-run; if that updated the heartbeat, a

@@ -473,6 +473,78 @@ def test_process_welcome_subscriber_mocked():
         assert log_data["status"] == "sent"
 
 
+# ---------------------------------------------------------------------------
+# Same-day failure digest
+# ---------------------------------------------------------------------------
+
+def test_failure_digest_noop_when_empty():
+    """No failures => no email attempt, returns False."""
+    from pipeline.generate_email import send_failure_digest
+    assert send_failure_digest([]) is False
+
+
+def test_query_run_failures_enriches(monkeypatch):
+    """Failed log rows get joined to subscriber email/name via batched lookup."""
+    from datetime import datetime, timezone
+    import pipeline.generate_email as mod
+
+    calls = []
+
+    def fake_get(endpoint, params=None):
+        calls.append(endpoint)
+        if endpoint == "daimoku_email_log":
+            return [{
+                "subscriber_id": "sub-1",
+                "challenge_category": "self-doubt",
+                "status": "generation_failed",
+                "subject": "'quote_source'",
+                "sent_at": "2026-05-22T08:38:27+00:00",
+            }]
+        if endpoint == "daimoku_subscribers":
+            return [{"id": "sub-1", "email": "shivali@test.com", "name": "Shivali"}]
+        return []
+
+    monkeypatch.setattr(mod, "supabase_get", fake_get)
+    failures = mod.query_run_failures(datetime(2026, 5, 22, tzinfo=timezone.utc))
+    assert len(failures) == 1
+    assert failures[0]["email"] == "shivali@test.com"
+    assert failures[0]["name"] == "Shivali"
+    assert failures[0]["status"] == "generation_failed"
+    assert "daimoku_subscribers" in calls
+
+
+def test_send_failure_digest_posts(monkeypatch):
+    """A non-empty failure list triggers exactly one Resend POST to the
+    configured notify address."""
+    import pipeline.generate_email as mod
+
+    monkeypatch.setattr(mod, "RESEND_API_KEY", "test-key")
+    monkeypatch.setattr(mod, "FAILURE_NOTIFY_EMAIL", "jindal.rahul+claude@gmail.com")
+
+    captured = {}
+
+    class FakeResp:
+        status_code = 200
+
+    def fake_post(url, headers=None, json=None, timeout=None):
+        captured["url"] = url
+        captured["json"] = json
+        return FakeResp()
+
+    monkeypatch.setattr(mod.httpx, "post", fake_post)
+
+    ok = mod.send_failure_digest([{
+        "name": "Shivali", "email": "shivali@test.com",
+        "challenge_category": "self-doubt", "status": "generation_failed",
+        "subject": "'quote_source'",
+    }])
+    assert ok is True
+    assert captured["url"] == "https://api.resend.com/emails"
+    assert captured["json"]["to"] == ["jindal.rahul+claude@gmail.com"]
+    assert "1 Daily Lotus email failure" in captured["json"]["subject"]
+    assert "shivali@test.com" in captured["json"]["html"]
+
+
 if __name__ == "__main__":
     test_import_generate_email()
     print("PASS: test_import_generate_email")
