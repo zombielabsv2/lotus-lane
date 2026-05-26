@@ -1939,5 +1939,44 @@
       "starting-over",
       "burnout-recovery"
     ]
+  },
+  {
+    "date": "2026-05-26",
+    "title": "Your Prayers Feel Empty and Hollow? 5 Truths About What Real Faith Actually Requires",
+    "theme": "prayer-faith",
+    "theme_name": "Prayer & Faith",
+    "image": "listicles/2026-05-26.png",
+    "items": [
+      {
+        "quote": "Prayer is the courage to persevere. It is the struggle to overcome our own weakness and lack of confidence in ourselves.",
+        "source": "For Today and Tomorrow",
+        "explanation": "When you feel too broken or small to keep going, prayer is not a gentle comfort - it is an act of fighting back against your own doubt."
+      },
+      {
+        "quote": "A powerful prayer - one that is the roar of a lion - can change anything, any situation, no matter how difficult or seemingly impossible.",
+        "source": "The New Human Revolution, Vol. 3",
+        "explanation": "That problem at work, that broken relationship, that diagnosis - nothing is too heavy or too far gone to be reached by sincere, fierce prayer."
+      },
+      {
+        "quote": "Buddhism teaches that prayer without action is just wishful thinking, and action without prayer lacks the power to break through fundamental darkness.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "Real change happens when your deepest inner resolve and your daily outer effort move together like two wheels on the same road."
+      },
+      {
+        "quote": "Do not let your prayer become a mere formality. Infuse it with your deepest desires and your sincerest determination.",
+        "source": "For Today and Tomorrow",
+        "explanation": "Going through the motions every morning changes nothing - the shift happens when you bring your actual pain, your actual hope, and your actual self to it."
+      },
+      {
+        "quote": "The purpose of faith is to become happy - not to become a slave to rigid rules or formalities.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "If your spiritual practice is making you feel more guilty and less free, something has gone wrong - faith is supposed to build your life, not shrink it."
+      }
+    ],
+    "struggles": [
+      "depression-fog",
+      "anxiety-insomnia",
+      "feeling-like-a-failure"
+    ]
   }
 ]
