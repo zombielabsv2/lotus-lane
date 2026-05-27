@@ -1978,5 +1978,44 @@
       "anxiety-insomnia",
       "feeling-like-a-failure"
     ]
+  },
+  {
+    "date": "2026-05-27",
+    "title": "Had a Mentor Who Changed Your Life? 5 Truths About That Bond You Need to Hold Onto",
+    "theme": "mentor-disciple",
+    "theme_name": "Mentor & Disciple",
+    "image": "listicles/2026-05-27.png",
+    "items": [
+      {
+        "quote": "A mentor does not exist to create followers. A mentor exists to create leaders.",
+        "source": "Discussions on Youth",
+        "explanation": "The best guidance you ever received was never about making you dependent - it was about awakening the strength already inside you."
+      },
+      {
+        "quote": "The path of mentor and disciple is the path of shared struggle. It is not about hierarchy - it is about sharing the same commitment, the same vision, the same heart.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "The most powerful relationships in your life are built not on rank or status, but on two people fighting for the same thing together."
+      },
+      {
+        "quote": "A disciple's mission is not to follow the mentor blindly, but to realize the mentor's vision - even surpassing the mentor.",
+        "source": "Discussions on Youth",
+        "explanation": "Honoring someone who believed in you means going further than they imagined possible, not simply repeating what they taught you."
+      },
+      {
+        "quote": "The true disciple is one who carries on the mentor's spirit. Not as a copy, but as a creative continuation.",
+        "source": "The New Human Revolution, Vol. 6",
+        "explanation": "When someone who shaped you is gone, the truest tribute is living their values in your own original and courageous way."
+      },
+      {
+        "quote": "When the disciple truly stands up with the same spirit as the mentor, the power to change the world emerges.",
+        "source": "The New Human Revolution, Vol. 18",
+        "explanation": "The moment you stop waiting to feel ready and act on everything you were taught, something larger than yourself begins to move."
+      }
+    ],
+    "struggles": [
+      "feeling-like-a-failure",
+      "overcoming-imposter-syndrome",
+      "starting-over"
+    ]
   }
 ]
