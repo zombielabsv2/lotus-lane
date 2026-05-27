@@ -7,6 +7,14 @@
     <language>en</language>
     <atom:link href="https://thelotuslane.in/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>I Love What I Do and I Can't Afford Curd Rice</title>
+      <link>https://thelotuslane.in/strips/2026-05-27.html</link>
+      <description>When your passion pays less than your practicality, it's easy to read the pay gap as a verdict on your choices. But the worth of your work isn't always settled in this month's bank statement — sometimes it's being built in you, slowly and for real.</description>
+      <pubDate>Wed, 27 May 2026 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-05-27.html</guid>
+      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-05-27.png" type="image/png" />
+    </item>
+    <item>
       <title>His Birthday Came and I Forgot to Be Sad Until 11 PM</title>
       <link>https://thelotuslane.in/strips/2026-05-25.html</link>
       <description>Grieving a parent you lost too soon doesn't follow a schedule — it shows up when it wants. The real work isn't stopping the grief from arriving, it's learning not to be swallowed whole by it.</description>
@@ -397,14 +405,6 @@
       <pubDate>Wed, 11 Feb 2026 00:00:00 +0000</pubDate>
       <guid isPermaLink="true">https://thelotuslane.in/strips/2026-02-11.html</guid>
       <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-02-11.png" type="image/png" />
-    </item>
-    <item>
-      <title>The Promotion That Never Came</title>
-      <link>https://thelotuslane.in/strips/2026-02-09.html</link>
-      <description>Career frustration isn't something to overcome but energy to transform - our deepest desires for growth can become the very force that propels us forward.</description>
-      <pubDate>Mon, 09 Feb 2026 00:00:00 +0000</pubDate>
-      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-02-09.html</guid>
-      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-02-09.png" type="image/png" />
     </item>
   </channel>
 </rss>
