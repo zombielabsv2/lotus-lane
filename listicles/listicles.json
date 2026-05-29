@@ -2056,5 +2056,44 @@
       "feeling-like-a-failure",
       "overcoming-imposter-syndrome"
     ]
+  },
+  {
+    "date": "2026-05-29",
+    "title": "Nobody Is Listening to Anyone Anymore - 5 Truths About Why One Real Conversation Changes Everything",
+    "theme": "dialogue",
+    "theme_name": "Dialogue",
+    "image": "listicles/2026-05-29.png",
+    "items": [
+      {
+        "quote": "Dialogue starts with listening. Truly listening - not just waiting for your turn to speak - but genuinely trying to understand another person's heart.",
+        "source": "Discussions on Youth",
+        "explanation": "Most arguments at home or work explode not from disagreement but from two people who stopped actually hearing each other."
+      },
+      {
+        "quote": "When we engage in dialogue with sincerity and respect, the walls of misunderstanding crumble. Even the most hardened hearts can be opened.",
+        "source": "The New Human Revolution, Vol. 7",
+        "explanation": "That person you've written off as impossible to reach may only be waiting for someone to approach them without an agenda."
+      },
+      {
+        "quote": "We must not fear those who are different from us. Difference is not a reason for conflict - it is an invitation for dialogue.",
+        "source": "For Today and Tomorrow",
+        "explanation": "The discomfort you feel around someone who thinks differently is actually a sign that a meaningful conversation is waiting to happen."
+      },
+      {
+        "quote": "One sincere conversation can accomplish more than a hundred speeches or a thousand emails.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "If a relationship or situation in your life has felt stuck for months, one honest face-to-face talk may be all it needs."
+      },
+      {
+        "quote": "The greatest tool for peace is not weapons or technology. It is the simple act of two human beings sitting down and talking to each other.",
+        "source": "A New Era of Dialogue (Peace Proposal)",
+        "explanation": "Whether it is a family feud or a workplace war, the solution almost always starts with two people willing to sit in the same room."
+      }
+    ],
+    "struggles": [
+      "relationship-falling-apart",
+      "anger-you-cant-control",
+      "how-to-forgive"
+    ]
   }
 ]
