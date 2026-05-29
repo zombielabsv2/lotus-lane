@@ -7,6 +7,14 @@
     <language>en</language>
     <atom:link href="https://thelotuslane.in/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Sunday Afternoon and I Have Nobody to Call</title>
+      <link>https://thelotuslane.in/strips/2026-05-29.html</link>
+      <description>Feeling lonely doesn't mean you've lost your ability to connect — it means that ability is still fully alive in you. The ache is the proof, not the problem.</description>
+      <pubDate>Fri, 29 May 2026 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-05-29.html</guid>
+      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-05-29.png" type="image/png" />
+    </item>
+    <item>
       <title>I Love What I Do and I Can't Afford Curd Rice</title>
       <link>https://thelotuslane.in/strips/2026-05-27.html</link>
       <description>When your passion pays less than your practicality, it's easy to read the pay gap as a verdict on your choices. But the worth of your work isn't always settled in this month's bank statement — sometimes it's being built in you, slowly and for real.</description>
@@ -397,14 +405,6 @@
       <pubDate>Fri, 13 Feb 2026 00:00:00 +0000</pubDate>
       <guid isPermaLink="true">https://thelotuslane.in/strips/2026-02-13.html</guid>
       <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-02-13.png" type="image/png" />
-    </item>
-    <item>
-      <title>The 3 AM Email</title>
-      <link>https://thelotuslane.in/strips/2026-02-11.html</link>
-      <description>True dedication to our loved ones includes taking care of ourselves - the Buddha nature works through both our efforts and our rest.</description>
-      <pubDate>Wed, 11 Feb 2026 00:00:00 +0000</pubDate>
-      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-02-11.html</guid>
-      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-02-11.png" type="image/png" />
     </item>
   </channel>
 </rss>

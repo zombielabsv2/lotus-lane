@@ -1591,5 +1591,24 @@
     },
     "youtube_views": 121,
     "youtube_views_updated_at": "2026-05-29T06:20:43Z"
+  },
+  {
+    "date": "2026-05-29",
+    "title": "Sunday Afternoon and I Have Nobody to Call",
+    "image": "https://zombielabsv2.github.io/lotus-lane-assets/2026-05-29.png",
+    "message": "Feeling lonely doesn't mean you've lost your ability to connect — it means that ability is still fully alive in you. The ache is the proof, not the problem.",
+    "quote": "Loneliness is the price of a rich inner life — it means you have the capacity to love, and that capacity has not yet found its full home. Do not mistake it for emptiness. It is, in truth, a form of fullness waiting.",
+    "source": "Daisaku Ikeda, The Wisdom for Creating Happiness and Peace, Part 1",
+    "tags": [
+      "relationships",
+      "loneliness",
+      "single-parenting"
+    ],
+    "category": "relationships",
+    "topic": "loneliness",
+    "characters": [
+      "vikram",
+      "meera"
+    ]
   }
 ]
