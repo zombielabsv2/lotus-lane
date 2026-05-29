@@ -24,8 +24,22 @@
     <itunes:category text="Religion &amp; Spirituality">
       <itunes:category text="Buddhism" />
     </itunes:category>
-    <pubDate>Thu, 28 May 2026 09:03:26 +0000</pubDate>
-    <lastBuildDate>Thu, 28 May 2026 09:03:26 +0000</lastBuildDate>
+    <pubDate>Fri, 29 May 2026 08:59:53 +0000</pubDate>
+    <lastBuildDate>Fri, 29 May 2026 08:59:53 +0000</lastBuildDate>
+    <item>
+      <title>Watching Your Parents Grow Old</title>
+      <link>https://thelotuslane.in/wisdom/aging-parents.html</link>
+      <guid isPermaLink="false">https://storage.googleapis.com/lotus-lane-podcast/aging-parents.mp3</guid>
+      <pubDate>Fri, 29 May 2026 08:59:52 +0000</pubDate>
+      <description>The people who took care of you now need care. The role reversal is quietly breaking your heart. You are not failing them.</description>
+      <itunes:summary>The people who took care of you now need care. The role reversal is quietly breaking your heart. You are not failing them.</itunes:summary>
+      <itunes:author>The Lotus Lane</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:duration>10:57</itunes:duration>
+      <itunes:episode>32</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <enclosure url="https://storage.googleapis.com/lotus-lane-podcast/aging-parents.mp3" length="9070893" type="audio/mpeg" />
+    </item>
     <item>
       <title>Grieving an Aging Body</title>
       <link>https://thelotuslane.in/wisdom/aging-body-grief.html</link>
