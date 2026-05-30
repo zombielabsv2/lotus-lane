@@ -6,11 +6,15 @@
 //
 // Flow:
 //   GET  /unsubscribe-handler?e=<b64url_email>&t=<hmac_hex>
-//     → verify HMAC, flip daimoku_subscribers.active=false,
+//     → verify HMAC, HARD-DELETE the subscriber from daimoku_subscribers
+//       (+ content_subscribers); daimoku_email_log cascades via FK,
 //       redirect 302 to https://thelotuslane.in/unsubscribe.html?ok=1
 //   POST (same URL) → 200 JSON (what Gmail one-click expects)
 //
-// Idempotent: already-inactive and unknown emails still return success
+// Unsubscribe = COMPLETE removal from the database (Rahul, 2026-05-31), not a
+// soft active=false flag. HMAC over the email authorises the delete.
+//
+// Idempotent: already-deleted and unknown emails still return success
 // (no enumeration leak).
 //
 // HMAC key source: public.pipeline_secrets row with key='lotus_lane_unsubscribe_hmac'.
@@ -126,37 +130,35 @@ Deno.serve(async (req: Request) => {
     return new Response("invalid_signature", { status: 403, headers: CORS });
   }
 
-  const patchResp = await fetch(
+  const delResp = await fetch(
     `${SUPABASE_URL}/rest/v1/daimoku_subscribers?email=eq.${encodeURIComponent(email)}`,
     {
-      method: "PATCH",
+      method: "DELETE",
       headers: {
         apikey: SERVICE_KEY,
         Authorization: `Bearer ${SERVICE_KEY}`,
         "Content-Type": "application/json",
         Prefer: "return=minimal",
       },
-      body: JSON.stringify({ active: false }),
     },
   );
-  if (!patchResp.ok) {
-    console.error("daimoku_subscribers PATCH failed:", patchResp.status, await patchResp.text());
+  if (!delResp.ok) {
+    console.error("daimoku_subscribers DELETE failed:", delResp.status, await delResp.text());
     return new Response("db_error", { status: 500, headers: CORS });
   }
 
-  // Also flag content_subscribers if present (older new-strip notification list)
+  // Also remove from content_subscribers if present (older new-strip notification list)
   try {
     await fetch(
       `${SUPABASE_URL}/rest/v1/content_subscribers?email=eq.${encodeURIComponent(email)}`,
       {
-        method: "PATCH",
+        method: "DELETE",
         headers: {
           apikey: SERVICE_KEY,
           Authorization: `Bearer ${SERVICE_KEY}`,
           "Content-Type": "application/json",
           Prefer: "return=minimal",
         },
-        body: JSON.stringify({ active: false }),
       },
     );
   } catch (_) {
