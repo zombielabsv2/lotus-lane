@@ -24,8 +24,22 @@
     <itunes:category text="Religion &amp; Spirituality">
       <itunes:category text="Buddhism" />
     </itunes:category>
-    <pubDate>Sat, 30 May 2026 08:06:36 +0000</pubDate>
-    <lastBuildDate>Sat, 30 May 2026 08:06:36 +0000</lastBuildDate>
+    <pubDate>Sun, 31 May 2026 08:31:24 +0000</pubDate>
+    <lastBuildDate>Sun, 31 May 2026 08:31:24 +0000</lastBuildDate>
+    <item>
+      <title>Always Starting Over on Monday</title>
+      <link>https://thelotuslane.in/wisdom/always-starting-over-on-monday.html</link>
+      <guid isPermaLink="false">https://storage.googleapis.com/lotus-lane-podcast/always-starting-over-on-monday.mp3</guid>
+      <pubDate>Sun, 31 May 2026 08:31:24 +0000</pubDate>
+      <description>You know that feeling when Wednesday or Thursday hits and you've already slipped off whatever plan you set on Sunday night, and your brain quietly files the...</description>
+      <itunes:summary>You know that feeling when Wednesday or Thursday hits and you've already slipped off whatever plan you set on Sunday night, and your brain quietly files the...</itunes:summary>
+      <itunes:author>The Lotus Lane</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:duration>10:26</itunes:duration>
+      <itunes:episode>34</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <enclosure url="https://storage.googleapis.com/lotus-lane-podcast/always-starting-over-on-monday.mp3" length="8644269" type="audio/mpeg" />
+    </item>
     <item>
       <title>Always On Call, Never Off</title>
       <link>https://thelotuslane.in/wisdom/always-on-call.html</link>
