@@ -7,6 +7,14 @@
     <language>en</language>
     <atom:link href="https://thelotuslane.in/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>They Called It 'Restructuring' and Now I Can't Stop Refreshing My Email</title>
+      <link>https://thelotuslane.in/strips/2026-06-01.html</link>
+      <description>When a layoff wave hits and your future feels like standing water, the instinct is to freeze or spiral. This strip holds a quieter idea: the hard moment isn't proof you're done — it's the exact place where something new gets built, if you don't hand the wheel over to fear.</description>
+      <pubDate>Mon, 01 Jun 2026 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-06-01.html</guid>
+      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-06-01.png" type="image/png" />
+    </item>
+    <item>
       <title>Sunday Afternoon and I Have Nobody to Call</title>
       <link>https://thelotuslane.in/strips/2026-05-29.html</link>
       <description>Feeling lonely doesn't mean you've lost your ability to connect — it means that ability is still fully alive in you. The ache is the proof, not the problem.</description>
@@ -397,14 +405,6 @@
       <pubDate>Mon, 16 Feb 2026 00:00:00 +0000</pubDate>
       <guid isPermaLink="true">https://thelotuslane.in/strips/2026-02-16.html</guid>
       <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-02-16.png" type="image/png" />
-    </item>
-    <item>
-      <title>The Last Hour</title>
-      <link>https://thelotuslane.in/strips/2026-02-13.html</link>
-      <description>True resilience comes not from avoiding life's pressures, but from accepting them while maintaining inner equilibrium and continuing to move forward.</description>
-      <pubDate>Fri, 13 Feb 2026 00:00:00 +0000</pubDate>
-      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-02-13.html</guid>
-      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-02-13.png" type="image/png" />
     </item>
   </channel>
 </rss>
