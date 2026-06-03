@@ -7,6 +7,14 @@
     <language>en</language>
     <atom:link href="https://thelotuslane.in/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>All My Friends Got Married and I Got a Group Chat That Nobody Opens Anymore</title>
+      <link>https://thelotuslane.in/strips/2026-06-03.html</link>
+      <description>Losing a friend group in your 30s doesn't mean something went wrong — it often means you're in a stretch of life that's reshaping you in ways easy comfort never could. The loneliness is real, and so is what you're quietly building inside it.</description>
+      <pubDate>Wed, 03 Jun 2026 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-06-03.html</guid>
+      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-06-03.png" type="image/png" />
+    </item>
+    <item>
       <title>They Called It 'Restructuring' and Now I Can't Stop Refreshing My Email</title>
       <link>https://thelotuslane.in/strips/2026-06-01.html</link>
       <description>When a layoff wave hits and your future feels like standing water, the instinct is to freeze or spiral. This strip holds a quieter idea: the hard moment isn't proof you're done — it's the exact place where something new gets built, if you don't hand the wheel over to fear.</description>
@@ -397,14 +405,6 @@
       <pubDate>Wed, 18 Feb 2026 00:00:00 +0000</pubDate>
       <guid isPermaLink="true">https://thelotuslane.in/strips/2026-02-18.html</guid>
       <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-02-18.png" type="image/png" />
-    </item>
-    <item>
-      <title>The Demo Day Disaster</title>
-      <link>https://thelotuslane.in/strips/2026-02-16.html</link>
-      <description>True confidence comes not from external validation but from deep conviction in our inherent capabilities - our own Buddha nature.</description>
-      <pubDate>Mon, 16 Feb 2026 00:00:00 +0000</pubDate>
-      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-02-16.html</guid>
-      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-02-16.png" type="image/png" />
     </item>
   </channel>
 </rss>
