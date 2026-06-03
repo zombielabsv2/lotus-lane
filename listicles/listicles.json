@@ -2251,5 +2251,44 @@
       "loneliness-despite-everything",
       "when-grief-wont-stop"
     ]
+  },
+  {
+    "date": "2026-06-03",
+    "title": "Lost All Hope and Don't Know How to Get It Back? 5 Truths That Will Remind You Spring Is Coming",
+    "theme": "hope",
+    "theme_name": "Hope",
+    "image": "listicles/2026-06-03.png",
+    "items": [
+      {
+        "quote": "Winter always turns to spring. Never, from ancient times on, has anyone heard or seen of winter turning back to autumn.",
+        "source": "The Writings of Nichiren Daishonin (referenced in guidance)",
+        "explanation": "Whatever painful season you are living through right now, history promises it has only one direction - forward into something warmer."
+      },
+      {
+        "quote": "Hope is not a matter of ability; it is a matter of decision.",
+        "source": "Discussions on Youth",
+        "explanation": "You don't have to feel ready or strong to choose hope - it's a decision available to you even on your worst days."
+      },
+      {
+        "quote": "No matter how hopeless or bleak things appear, the moment you resolve to never give up, every nerve and fiber in your being will orient itself toward your success.",
+        "source": "Faith Into Action",
+        "explanation": "Something shifts inside you the moment you draw a line and decide this is not where your story ends."
+      },
+      {
+        "quote": "No one can make you feel hopeless unless you allow them to. Hope resides in the heart. It is something you create.",
+        "source": "Discussions on Youth",
+        "explanation": "The circumstances around you - the bad news, the setbacks, the people who doubt you - do not hold the key to your inner fire."
+      },
+      {
+        "quote": "Each morning we are born again. What we do today is what matters most.",
+        "source": "For Today and Tomorrow",
+        "explanation": "When yesterday feels like too much weight to carry, the morning quietly offers you a smaller, more manageable question - just today, what will you do?"
+      }
+    ],
+    "struggles": [
+      "depression-fog",
+      "starting-over",
+      "anxiety-insomnia"
+    ]
   }
 ]
