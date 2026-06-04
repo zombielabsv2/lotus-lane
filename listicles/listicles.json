@@ -2290,5 +2290,44 @@
       "starting-over",
       "anxiety-insomnia"
     ]
+  },
+  {
+    "date": "2026-06-04",
+    "title": "Shaking at the Knees but Still Showing Up? 5 Truths About Courage That Hit Different",
+    "theme": "courage",
+    "theme_name": "Courage",
+    "image": "listicles/2026-06-04.png",
+    "items": [
+      {
+        "quote": "Courage is not the absence of fear. Courage is feeling fear, recognizing fear, and still taking action.",
+        "source": "Discussions on Youth",
+        "explanation": "The next time anxiety stops you cold, remember that moving forward while scared is the whole point - not moving forward without it."
+      },
+      {
+        "quote": "Having courage does not mean that we are unafraid. Having courage and showing courage means we face our fears.",
+        "source": "Discussions on Youth",
+        "explanation": "You don't need to feel ready or calm to make that hard call, have that honest conversation, or take that terrifying first step."
+      },
+      {
+        "quote": "No matter what happens, I will not be defeated. I will not run away. I will not complain. I will not be negative. I will keep advancing.",
+        "source": "The New Human Revolution, Vol. 1",
+        "explanation": "On the days when everything feels stacked against you, this kind of quiet, stubborn resolve is the most powerful decision you can make."
+      },
+      {
+        "quote": "Be the kind of person who, when your feet hit the floor in the morning, makes the devil say, 'Oh no, they're up!'",
+        "source": "Youth and the Writings of Nichiren Daishonin",
+        "explanation": "Getting out of bed with intention and fire, especially when life is hard, is a form of resistance that nothing can easily break down."
+      },
+      {
+        "quote": "The true hero is one who conquers his own anger and hatred.",
+        "source": "For Today and Tomorrow",
+        "explanation": "Real strength is not how loud or fierce you are outwardly - it is how well you refuse to let bitterness win inside you."
+      }
+    ],
+    "struggles": [
+      "anxiety-insomnia",
+      "burnout-recovery",
+      "feeling-like-a-failure"
+    ]
   }
 ]
