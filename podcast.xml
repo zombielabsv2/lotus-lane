@@ -24,8 +24,22 @@
     <itunes:category text="Religion &amp; Spirituality">
       <itunes:category text="Buddhism" />
     </itunes:category>
-    <pubDate>Thu, 04 Jun 2026 09:37:45 +0000</pubDate>
-    <lastBuildDate>Thu, 04 Jun 2026 09:37:45 +0000</lastBuildDate>
+    <pubDate>Fri, 05 Jun 2026 09:00:00 +0000</pubDate>
+    <lastBuildDate>Fri, 05 Jun 2026 09:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Being the Friend Who Always Reaches Out</title>
+      <link>https://thelotuslane.in/wisdom/being-the-friend-who-always-reaches-out.html</link>
+      <guid isPermaLink="false">https://storage.googleapis.com/lotus-lane-podcast/being-the-friend-who-always-reaches-out.mp3</guid>
+      <pubDate>Fri, 05 Jun 2026 08:59:59 +0000</pubDate>
+      <description>You know that feeling when you're the one who always texts first? When you're the one who suggests plans, follows up, checks in -- and when you stop, you...</description>
+      <itunes:summary>You know that feeling when you're the one who always texts first? When you're the one who suggests plans, follows up, checks in -- and when you stop, you...</itunes:summary>
+      <itunes:author>The Lotus Lane</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:duration>9:47</itunes:duration>
+      <itunes:episode>39</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <enclosure url="https://storage.googleapis.com/lotus-lane-podcast/being-the-friend-who-always-reaches-out.mp3" length="8136237" type="audio/mpeg" />
+    </item>
     <item>
       <title>When You Become the Parent to Your Own Parents</title>
       <link>https://thelotuslane.in/wisdom/becoming-parent-to-your-parents.html</link>
