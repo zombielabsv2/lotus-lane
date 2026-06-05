@@ -2329,5 +2329,44 @@
       "burnout-recovery",
       "feeling-like-a-failure"
     ]
+  },
+  {
+    "date": "2026-06-05",
+    "title": "Tired of Being the Same Person Who Keeps Getting Hurt? 5 Truths About the Only Change That Actually Fixes Things",
+    "theme": "human-revolution",
+    "theme_name": "Human Revolution",
+    "image": "listicles/2026-06-05.png",
+    "items": [
+      {
+        "quote": "Changing ourselves is the most difficult revolution of all. But it is the most important revolution.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "Every hard thing you have tried to fix outside yourself finally makes sense when you realize the real work starts within."
+      },
+      {
+        "quote": "A great human revolution in just a single individual will help achieve a change in the destiny of a nation and, further, will enable a change in the destiny of all humankind.",
+        "source": "The Human Revolution",
+        "explanation": "Your personal growth is never just personal - the better you become, the more your life quietly lifts the people around you."
+      },
+      {
+        "quote": "When you change, the world around you will change. Everything begins with your own human revolution.",
+        "source": "Discussions on Youth",
+        "explanation": "The relationship, the job, the situation that feels impossible - it often starts shifting the moment you do."
+      },
+      {
+        "quote": "Human revolution is not something special or out of the ordinary. It is the process of transforming our lives, one challenge at a time.",
+        "source": "Discussions on Youth",
+        "explanation": "You do not need a dramatic breakthrough - every single hard day you push through is already changing who you are becoming."
+      },
+      {
+        "quote": "Our lives are like gardens. We can grow flowers or we can grow weeds. It all depends on what we plant and how we tend our garden.",
+        "source": "For Today and Tomorrow",
+        "explanation": "The thoughts you repeat, the habits you protect, and the people you spend time with are quietly deciding the life you will live next year."
+      }
+    ],
+    "struggles": [
+      "feeling-like-a-failure",
+      "starting-over",
+      "burnout-recovery"
+    ]
   }
 ]
