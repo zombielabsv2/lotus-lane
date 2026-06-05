@@ -7,6 +7,14 @@
     <language>en</language>
     <atom:link href="https://thelotuslane.in/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>I Have Been Watering This Plant for Six Months and It Still Looks Dead</title>
+      <link>https://thelotuslane.in/strips/2026-06-05.html</link>
+      <description>When effort produces no visible results, it's easy to believe you're failing — but the work itself is changing you in ways the spreadsheet can't measure. Keep going. The invisible days are part of it too.</description>
+      <pubDate>Fri, 05 Jun 2026 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-06-05.html</guid>
+      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-06-05.png" type="image/png" />
+    </item>
+    <item>
       <title>All My Friends Got Married and I Got a Group Chat That Nobody Opens Anymore</title>
       <link>https://thelotuslane.in/strips/2026-06-03.html</link>
       <description>Losing a friend group in your 30s doesn't mean something went wrong — it often means you're in a stretch of life that's reshaping you in ways easy comfort never could. The loneliness is real, and so is what you're quietly building inside it.</description>
@@ -397,14 +405,6 @@
       <pubDate>Fri, 20 Feb 2026 00:00:00 +0000</pubDate>
       <guid isPermaLink="true">https://thelotuslane.in/strips/2026-02-20.html</guid>
       <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-02-20.png" type="image/png" />
-    </item>
-    <item>
-      <title>Weathering the Storm</title>
-      <link>https://thelotuslane.in/strips/2026-02-18.html</link>
-      <description>Even in our darkest moments of uncertainty, we can find strength in knowing that no difficult period lasts forever - change is the only constant.</description>
-      <pubDate>Wed, 18 Feb 2026 00:00:00 +0000</pubDate>
-      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-02-18.html</guid>
-      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-02-18.png" type="image/png" />
     </item>
   </channel>
 </rss>
