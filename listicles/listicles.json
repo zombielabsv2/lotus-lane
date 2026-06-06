@@ -2368,5 +2368,44 @@
       "starting-over",
       "burnout-recovery"
     ]
+  },
+  {
+    "date": "2026-06-06",
+    "title": "Your Prayers Feel Like Talking to a Wall? 5 Truths That Will Change How You Pray Forever",
+    "theme": "prayer-faith",
+    "theme_name": "Prayer & Faith",
+    "image": "listicles/2026-06-06.png",
+    "items": [
+      {
+        "quote": "Prayer is the courage to persevere. It is the struggle to overcome our own weakness and lack of confidence in ourselves.",
+        "source": "For Today and Tomorrow",
+        "explanation": "When you feel too broken to keep going, prayer is not passive - it is the daily act of fighting your own doubt."
+      },
+      {
+        "quote": "A powerful prayer - one that is the roar of a lion - can change anything, any situation, no matter how difficult or seemingly impossible.",
+        "source": "The New Human Revolution, Vol. 3",
+        "explanation": "Whatever wall you are staring at right now - your finances, your health, your relationships - nothing is actually fixed or final."
+      },
+      {
+        "quote": "Buddhism teaches that prayer without action is just wishful thinking, and action without prayer lacks the power to break through fundamental darkness.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "Real change happens when what you chant for and what you do in your day finally start pointing in the same direction."
+      },
+      {
+        "quote": "Do not let your prayer become a mere formality. Infuse it with your deepest desires and your sincerest determination.",
+        "source": "For Today and Tomorrow",
+        "explanation": "Going through the motions every morning is not faith - the moment you get honest about what you actually want is when things shift."
+      },
+      {
+        "quote": "The purpose of faith is to become happy - not to become a slave to rigid rules or formalities.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "If your spiritual practice is making you feel guilty and small instead of alive and capable, something has gone wrong."
+      }
+    ],
+    "struggles": [
+      "anxiety-insomnia",
+      "depression-fog",
+      "feeling-like-a-failure"
+    ]
   }
 ]
