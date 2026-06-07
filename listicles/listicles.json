@@ -2407,5 +2407,44 @@
       "depression-fog",
       "feeling-like-a-failure"
     ]
+  },
+  {
+    "date": "2026-06-07",
+    "title": "Nobody Taught You This in School: 5 Truths About the Relationship That Will Shape Who You Become",
+    "theme": "mentor-disciple",
+    "theme_name": "Mentor & Disciple",
+    "image": "listicles/2026-06-07.png",
+    "items": [
+      {
+        "quote": "A mentor does not exist to create followers. A mentor exists to create leaders.",
+        "source": "Discussions on Youth",
+        "explanation": "The right guide in your life is not pulling you closer to them - they are pushing you toward your own greatness."
+      },
+      {
+        "quote": "A disciple's mission is not to follow the mentor blindly, but to realize the mentor's vision - even surpassing the mentor.",
+        "source": "Discussions on Youth",
+        "explanation": "Honoring someone who believed in you means outgrowing the ceiling they set, not staying safely beneath it."
+      },
+      {
+        "quote": "The true disciple is one who carries on the mentor's spirit. Not as a copy, but as a creative continuation.",
+        "source": "The New Human Revolution, Vol. 6",
+        "explanation": "You do not honor a teacher by imitating them - you honor them by taking what they gave you and making it your own."
+      },
+      {
+        "quote": "The path of mentor and disciple is the path of shared struggle. It is not about hierarchy - it is about sharing the same commitment, the same vision, the same heart.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "The most powerful relationships in life are not built on rank or admiration but on two people fighting for the same thing together."
+      },
+      {
+        "quote": "When the disciple truly stands up with the same spirit as the mentor, the power to change the world emerges.",
+        "source": "The New Human Revolution, Vol. 18",
+        "explanation": "The moment you stop waiting for permission and carry forward what you were taught, something in you shifts permanently."
+      }
+    ],
+    "struggles": [
+      "feeling-like-a-failure",
+      "overcoming-imposter-syndrome",
+      "starting-over"
+    ]
   }
 ]
