@@ -100,6 +100,54 @@ def collect_subscribers() -> dict:
     return out
 
 
+def collect_subscriber_roster() -> dict:
+    """Full roster (name/email/challenges/join date) for the weekly report.
+
+    Internal-only: this digest goes to NOTIFY_EMAIL (Rahul), so subscriber PII
+    is fine here. Never expose this in any subscriber-facing surface.
+    """
+    out = {"daimoku": [], "content": [], "source_error": None}
+    url = os.environ.get("SUPABASE_URL", "")
+    if not url:
+        out["source_error"] = "SUPABASE_URL not set"
+        return out
+    h = _supabase_headers()
+    try:
+        r = httpx.get(
+            f"{url}/rest/v1/daimoku_subscribers",
+            headers=h,
+            params={
+                "active": "eq.true",
+                "confirmed": "eq.true",
+                "order": "subscribed_at.asc",
+                "select": "name,email,challenges,frequency,subscribed_at",
+            },
+            timeout=30,
+        )
+        r.raise_for_status()
+        out["daimoku"] = r.json()
+    except Exception as e:
+        out["source_error"] = f"daimoku: {type(e).__name__}: {e}"
+    try:
+        r = httpx.get(
+            f"{url}/rest/v1/content_subscribers",
+            headers=h,
+            params={
+                "active": "eq.true",
+                "order": "subscribed_at.asc",
+                "select": "email,subscribed_at",
+            },
+            timeout=30,
+        )
+        r.raise_for_status()
+        out["content"] = r.json()
+    except Exception as e:
+        out["source_error"] = (
+            (out["source_error"] + "; ") if out["source_error"] else ""
+        ) + f"content: {type(e).__name__}: {e}"
+    return out
+
+
 # ---------------------------------------------------------------------------
 # YouTube — channel stats + per-video views
 # ---------------------------------------------------------------------------
@@ -467,7 +515,88 @@ def _ga4_section(ga4: dict) -> str:
   """
 
 
-def build_html(subs: dict, yt: dict, strips: dict, ga4: dict) -> str:
+def _roster_section(roster: dict) -> str:
+    daimoku = roster.get("daimoku") or []
+    content = roster.get("content") or []
+    if not daimoku and not content:
+        if roster.get("source_error"):
+            return f"""
+  <div style="margin-bottom:28px;padding:14px 16px;background:#fff8e1;border-left:3px solid #f5a623;">
+    <div style="font-size:14px;color:#555;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Subscriber Roster</div>
+    <p style="margin:6px 0 0;color:#8a5a00;">Unavailable: {roster['source_error']}</p>
+  </div>
+  """
+        return ""
+
+    def _esc(s: str) -> str:
+        return (s or "").replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+
+    def _join_date(iso: str) -> str:
+        try:
+            return datetime.fromisoformat(iso.replace("Z", "+00:00")).strftime("%b %d, %Y")
+        except Exception:
+            return (iso or "")[:10]
+
+    d_rows = ""
+    for s in daimoku:
+        challenges = ", ".join(s.get("challenges") or []) or "—"
+        d_rows += f"""
+        <tr>
+          <td style="padding:6px 12px 6px 0;color:#111;font-size:13px;white-space:nowrap;">{_esc(s.get('name') or '—')}</td>
+          <td style="padding:6px 12px 6px 0;color:#555;font-size:12px;">{_esc(s.get('email') or '')}</td>
+          <td style="padding:6px 12px 6px 0;color:#555;font-size:12px;">{_esc(challenges)}</td>
+          <td style="padding:6px 12px 6px 0;color:#999;font-size:12px;white-space:nowrap;">{_esc(s.get('frequency') or '')}</td>
+          <td style="padding:6px 0;color:#999;font-size:12px;white-space:nowrap;text-align:right;">{_join_date(s.get('subscribed_at') or '')}</td>
+        </tr>
+        """
+    daimoku_table = f"""
+        <div style="font-size:12px;color:#999;text-transform:uppercase;letter-spacing:0.5px;margin:4px 0;">Daily Lotus ({len(daimoku)})</div>
+        <table style="width:100%;border-collapse:collapse;border-top:1px solid #eee;">
+          <thead><tr style="color:#999;font-size:11px;text-transform:uppercase;letter-spacing:0.5px;">
+            <th style="padding:4px 12px 4px 0;text-align:left;font-weight:500;">Name</th>
+            <th style="padding:4px 12px 4px 0;text-align:left;font-weight:500;">Email</th>
+            <th style="padding:4px 12px 4px 0;text-align:left;font-weight:500;">Challenges</th>
+            <th style="padding:4px 12px 4px 0;text-align:left;font-weight:500;">Freq</th>
+            <th style="padding:4px 0;text-align:right;font-weight:500;">Joined</th>
+          </tr></thead>
+          <tbody>{d_rows}</tbody>
+        </table>
+    """ if daimoku else ""
+
+    c_rows = ""
+    for s in content:
+        c_rows += f"""
+        <tr>
+          <td style="padding:6px 12px 6px 0;color:#555;font-size:12px;">{_esc(s.get('email') or '')}</td>
+          <td style="padding:6px 0;color:#999;font-size:12px;white-space:nowrap;text-align:right;">{_join_date(s.get('subscribed_at') or '')}</td>
+        </tr>
+        """
+    content_table = f"""
+        <div style="font-size:12px;color:#999;text-transform:uppercase;letter-spacing:0.5px;margin:16px 0 4px;">New-strip notifications ({len(content)})</div>
+        <table style="width:100%;border-collapse:collapse;border-top:1px solid #eee;">
+          <thead><tr style="color:#999;font-size:11px;text-transform:uppercase;letter-spacing:0.5px;">
+            <th style="padding:4px 12px 4px 0;text-align:left;font-weight:500;">Email</th>
+            <th style="padding:4px 0;text-align:right;font-weight:500;">Joined</th>
+          </tr></thead>
+          <tbody>{c_rows}</tbody>
+        </table>
+    """ if content else ""
+
+    err = ""
+    if roster.get("source_error"):
+        err = f"<p style='margin:8px 0 0;color:#c33;font-size:12px;'>Partial: {roster['source_error']}</p>"
+
+    return f"""
+  <div style="margin-bottom:28px;">
+    <div style="font-size:14px;color:#999;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">Subscriber Roster</div>
+    {daimoku_table}
+    {content_table}
+    {err}
+  </div>
+  """
+
+
+def build_html(subs: dict, yt: dict, strips: dict, ga4: dict, roster: dict | None = None) -> str:
     today = datetime.now(timezone.utc).strftime("%b %d, %Y")
     week_start = (datetime.now(timezone.utc) - timedelta(days=7)).strftime("%b %d")
     week_end = datetime.now(timezone.utc).strftime("%b %d")
@@ -579,6 +708,8 @@ def build_html(subs: dict, yt: dict, strips: dict, ga4: dict) -> str:
     </table>
   </div>
 
+  {_roster_section(roster or {})}
+
   {_ga4_section(ga4)}
 
   <div style="margin-bottom:28px;">
@@ -660,9 +791,10 @@ def main() -> None:
     strips_signal = collect_strips_signal()
     yt = collect_youtube(strips_signal["recent_video_ids"])
     subs = collect_subscribers()
+    roster = collect_subscriber_roster()
     ga4 = collect_ga4()
 
-    html = build_html(subs, yt, strips_signal, ga4)
+    html = build_html(subs, yt, strips_signal, ga4, roster)
 
     today = datetime.now(timezone.utc).strftime("%b %d")
     ch = yt.get("channel") or {}
