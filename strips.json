@@ -1711,5 +1711,21 @@
     },
     "youtube_views": 4,
     "youtube_views_updated_at": "2026-06-08T06:51:56Z"
+  },
+  {
+    "date": "2026-06-08",
+    "title": "3 AM and My Brain Won't Shut Up",
+    "image": "https://zombielabsv2.github.io/lotus-lane-assets/2026-06-08.png",
+    "message": "When insomnia hits and your brain won't stop, the hardest thing to believe is that this restless night will actually end — not because you solved anything, but because it simply will.",
+    "quote": "Winter always turns to spring. Never has there been a winter that failed to turn to spring.",
+    "source": "Daisaku Ikeda, For Today and Tomorrow",
+    "tags": [
+      "health",
+      "anxiety",
+      "sleeplessness"
+    ],
+    "category": "health",
+    "topic": "insomnia",
+    "characters": []
   }
 ]

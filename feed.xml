@@ -7,6 +7,14 @@
     <language>en</language>
     <atom:link href="https://thelotuslane.in/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>3 AM and My Brain Won't Shut Up</title>
+      <link>https://thelotuslane.in/strips/2026-06-08.html</link>
+      <description>When insomnia hits and your brain won't stop, the hardest thing to believe is that this restless night will actually end — not because you solved anything, but because it simply will.</description>
+      <pubDate>Mon, 08 Jun 2026 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-06-08.html</guid>
+      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-06-08.png" type="image/png" />
+    </item>
+    <item>
       <title>I Have Been Watering This Plant for Six Months and It Still Looks Dead</title>
       <link>https://thelotuslane.in/strips/2026-06-05.html</link>
       <description>When effort produces no visible results, it's easy to believe you're failing — but the work itself is changing you in ways the spreadsheet can't measure. Keep going. The invisible days are part of it too.</description>
@@ -397,14 +405,6 @@
       <pubDate>Mon, 23 Feb 2026 00:00:00 +0000</pubDate>
       <guid isPermaLink="true">https://thelotuslane.in/strips/2026-02-23.html</guid>
       <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-02-23.png" type="image/png" />
-    </item>
-    <item>
-      <title>The Group Chat Got a New Group Chat</title>
-      <link>https://thelotuslane.in/strips/2026-02-20.html</link>
-      <description>Some friendships quietly grow up without you. The grief is real. So is the empty space they leave - which is exactly the room you needed to invite the right people in.</description>
-      <pubDate>Fri, 20 Feb 2026 00:00:00 +0000</pubDate>
-      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-02-20.html</guid>
-      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-02-20.png" type="image/png" />
     </item>
   </channel>
 </rss>
