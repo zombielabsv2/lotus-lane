@@ -24,8 +24,22 @@
     <itunes:category text="Religion &amp; Spirituality">
       <itunes:category text="Buddhism" />
     </itunes:category>
-    <pubDate>Tue, 09 Jun 2026 08:50:30 +0000</pubDate>
-    <lastBuildDate>Tue, 09 Jun 2026 08:50:30 +0000</lastBuildDate>
+    <pubDate>Wed, 10 Jun 2026 09:08:35 +0000</pubDate>
+    <lastBuildDate>Wed, 10 Jun 2026 09:08:35 +0000</lastBuildDate>
+    <item>
+      <title>Borrowing Just to Get By</title>
+      <link>https://thelotuslane.in/wisdom/borrowing-just-to-get-by.html</link>
+      <guid isPermaLink="false">https://storage.googleapis.com/lotus-lane-podcast/borrowing-just-to-get-by.mp3</guid>
+      <pubDate>Wed, 10 Jun 2026 09:08:34 +0000</pubDate>
+      <description>You know that feeling when you check your bank account before buying groceries, not because you're curious but because you're scared?</description>
+      <itunes:summary>You know that feeling when you check your bank account before buying groceries, not because you're curious but because you're scared?</itunes:summary>
+      <itunes:author>The Lotus Lane</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:duration>10:18</itunes:duration>
+      <itunes:episode>44</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <enclosure url="https://storage.googleapis.com/lotus-lane-podcast/borrowing-just-to-get-by.mp3" length="8547885" type="audio/mpeg" />
+    </item>
     <item>
       <title>At War With Your Own Reflection</title>
       <link>https://thelotuslane.in/wisdom/body-image-struggles.html</link>
