@@ -2524,5 +2524,44 @@
       "anger-you-cant-control",
       "how-to-forgive"
     ]
+  },
+  {
+    "date": "2026-06-10",
+    "title": "Watching the World Fall Apart and Feeling Helpless? 5 Truths About the Peace Only You Can Build",
+    "theme": "peace",
+    "theme_name": "Peace",
+    "image": "listicles/2026-06-10.png",
+    "items": [
+      {
+        "quote": "A person who can build peace within their own heart can contribute to building peace in the world.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "The anger you carry into your home, your office, and your relationships is quietly shaping the world around you every single day."
+      },
+      {
+        "quote": "The most powerful force for peace is not a government, not an army, not a treaty. It is the awakened awareness of individual human beings.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "You are not too small or too ordinary to matter - your choice to wake up and act with awareness is exactly the force the world is waiting for."
+      },
+      {
+        "quote": "There is no enemy in Buddhism. There is only delusion to be overcome. When we see others as enemies, we have already lost the battle for peace.",
+        "source": "The New Human Revolution, Vol. 6",
+        "explanation": "That person you've written off as your enemy - at work, in your family, online - is the exact place where your own peace is being tested and lost."
+      },
+      {
+        "quote": "As long as we continue to demonize others, peace will remain a dream. Peace begins the moment we recognize the humanity in every person.",
+        "source": "For Today and Tomorrow",
+        "explanation": "The next time you reduce someone to a label or a side, notice how quickly your own inner life becomes smaller and more fearful."
+      },
+      {
+        "quote": "The people - the ordinary citizens of the world - are the true protagonists of peace. Not politicians, not leaders, but everyday people with the courage to connect.",
+        "source": "For Today and Tomorrow",
+        "explanation": "One honest conversation with a neighbor, a stranger, or someone you disagree with is a more real act of peacemaking than anything you'll see on the news."
+      }
+    ],
+    "struggles": [
+      "anger-you-cant-control",
+      "how-to-forgive",
+      "loneliness-despite-everything"
+    ]
   }
 ]
