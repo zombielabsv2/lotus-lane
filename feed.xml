@@ -7,6 +7,14 @@
     <language>en</language>
     <atom:link href="https://thelotuslane.in/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>I Yelled at My Kid and He Just Quietly Went Back to His Room</title>
+      <link>https://thelotuslane.in/strips/2026-06-10.html</link>
+      <description>When you snap at someone you love, the real pain isn't the outburst — it's knowing you're better than that moment. You don't need a perfect apology. You just need to knock on the door.</description>
+      <pubDate>Wed, 10 Jun 2026 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-06-10.html</guid>
+      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-06-10.png" type="image/png" />
+    </item>
+    <item>
       <title>3 AM and My Brain Won't Shut Up</title>
       <link>https://thelotuslane.in/strips/2026-06-08.html</link>
       <description>When insomnia hits and your brain won't stop, the hardest thing to believe is that this restless night will actually end — not because you solved anything, but because it simply will.</description>
@@ -397,14 +405,6 @@
       <pubDate>Wed, 25 Feb 2026 00:00:00 +0000</pubDate>
       <guid isPermaLink="true">https://thelotuslane.in/strips/2026-02-25.html</guid>
       <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-02-25.png" type="image/png" />
-    </item>
-    <item>
-      <title>The Silent Treatment</title>
-      <link>https://thelotuslane.in/strips/2026-02-23.html</link>
-      <description>True communication happens when we share our authentic selves, not just our decisions.</description>
-      <pubDate>Mon, 23 Feb 2026 00:00:00 +0000</pubDate>
-      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-02-23.html</guid>
-      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-02-23.png" type="image/png" />
     </item>
   </channel>
 </rss>
