@@ -24,8 +24,22 @@
     <itunes:category text="Religion &amp; Spirituality">
       <itunes:category text="Buddhism" />
     </itunes:category>
-    <pubDate>Wed, 10 Jun 2026 09:08:35 +0000</pubDate>
-    <lastBuildDate>Wed, 10 Jun 2026 09:08:35 +0000</lastBuildDate>
+    <pubDate>Thu, 11 Jun 2026 09:54:43 +0000</pubDate>
+    <lastBuildDate>Thu, 11 Jun 2026 09:54:43 +0000</lastBuildDate>
+    <item>
+      <title>The Weight of Being the Breadwinner</title>
+      <link>https://thelotuslane.in/wisdom/breadwinner-pressure.html</link>
+      <guid isPermaLink="false">https://storage.googleapis.com/lotus-lane-podcast/breadwinner-pressure.mp3</guid>
+      <pubDate>Thu, 11 Jun 2026 09:54:42 +0000</pubDate>
+      <description>You know that feeling when the house is finally quiet, everyone is asleep, and you are the only one still awake because you are the only one carrying it?</description>
+      <itunes:summary>You know that feeling when the house is finally quiet, everyone is asleep, and you are the only one still awake because you are the only one carrying it?</itunes:summary>
+      <itunes:author>The Lotus Lane</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:duration>8:52</itunes:duration>
+      <itunes:episode>45</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <enclosure url="https://storage.googleapis.com/lotus-lane-podcast/breadwinner-pressure.mp3" length="7295661" type="audio/mpeg" />
+    </item>
     <item>
       <title>Borrowing Just to Get By</title>
       <link>https://thelotuslane.in/wisdom/borrowing-just-to-get-by.html</link>
