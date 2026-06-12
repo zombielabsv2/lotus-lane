@@ -24,8 +24,22 @@
     <itunes:category text="Religion &amp; Spirituality">
       <itunes:category text="Buddhism" />
     </itunes:category>
-    <pubDate>Thu, 11 Jun 2026 09:54:43 +0000</pubDate>
-    <lastBuildDate>Thu, 11 Jun 2026 09:54:43 +0000</lastBuildDate>
+    <pubDate>Fri, 12 Jun 2026 09:48:38 +0000</pubDate>
+    <lastBuildDate>Fri, 12 Jun 2026 09:48:38 +0000</lastBuildDate>
+    <item>
+      <title>Breaking a Bad Habit</title>
+      <link>https://thelotuslane.in/wisdom/breaking-a-bad-habit.html</link>
+      <guid isPermaLink="false">https://storage.googleapis.com/lotus-lane-podcast/breaking-a-bad-habit.mp3</guid>
+      <pubDate>Fri, 12 Jun 2026 09:48:37 +0000</pubDate>
+      <description>You know that feeling when you wake up and the first thing your brain does is reach for the thing you told yourself you were done with? The phone.</description>
+      <itunes:summary>You know that feeling when you wake up and the first thing your brain does is reach for the thing you told yourself you were done with? The phone.</itunes:summary>
+      <itunes:author>The Lotus Lane</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:duration>10:23</itunes:duration>
+      <itunes:episode>46</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <enclosure url="https://storage.googleapis.com/lotus-lane-podcast/breaking-a-bad-habit.mp3" length="8622381" type="audio/mpeg" />
+    </item>
     <item>
       <title>The Weight of Being the Breadwinner</title>
       <link>https://thelotuslane.in/wisdom/breadwinner-pressure.html</link>
