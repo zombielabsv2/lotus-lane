@@ -43,17 +43,17 @@ jobs:
 
     steps:
       - name: Checkout lotus-lane
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Checkout nichiren-chatbot (knowledge base for emails)
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           repository: zombielabsv2/nichiren-chatbot
           path: nichiren-chatbot
           token: ${{ secrets.GH_PAT }}
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: '3.12'
 
