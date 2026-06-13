@@ -2641,5 +2641,44 @@
       "overcoming-imposter-syndrome",
       "starting-over"
     ]
+  },
+  {
+    "date": "2026-06-13",
+    "title": "Caring for Someone Who Is Suffering? 5 Truths About What Real Compassion Actually Requires",
+    "theme": "compassion",
+    "theme_name": "Compassion",
+    "image": "listicles/2026-06-13.png",
+    "items": [
+      {
+        "quote": "Compassion is not about feeling pity for others. It is about sharing their suffering and working together to overcome it.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "When someone you love is hurting, showing up beside them matters far more than feeling sorry from a distance."
+      },
+      {
+        "quote": "True compassion is not soft or weak. It takes great strength to truly care about others, to shoulder their pain.",
+        "source": "Discussions on Youth",
+        "explanation": "Choosing to stay present with someone in pain, when it would be easier to look away, is one of the hardest things a person can do."
+      },
+      {
+        "quote": "A single warm word can give someone the courage to go on living. Never underestimate the power of your compassion.",
+        "source": "For Today and Tomorrow",
+        "explanation": "You may never know how much a small, genuine act of kindness meant to someone who was barely holding on that day."
+      },
+      {
+        "quote": "Genuine compassion means not only sharing another's suffering, but also helping them to realize their own strength.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "The deepest way to support someone is not to carry everything for them, but to help them remember they can carry it themselves."
+      },
+      {
+        "quote": "Buddhism teaches that compassion without wisdom is sentimentality, and wisdom without compassion is cold and heartless. We need both.",
+        "source": "Discussions on Youth",
+        "explanation": "Truly helping someone means caring deeply about their pain while also thinking clearly about what will actually make things better."
+      }
+    ],
+    "struggles": [
+      "caregiver-burden",
+      "when-grief-wont-stop",
+      "loneliness-despite-everything"
+    ]
   }
 ]
