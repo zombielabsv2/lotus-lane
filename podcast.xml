@@ -24,8 +24,22 @@
     <itunes:category text="Religion &amp; Spirituality">
       <itunes:category text="Buddhism" />
     </itunes:category>
-    <pubDate>Sat, 13 Jun 2026 08:41:19 +0000</pubDate>
-    <lastBuildDate>Sat, 13 Jun 2026 08:41:19 +0000</lastBuildDate>
+    <pubDate>Sun, 14 Jun 2026 08:57:17 +0000</pubDate>
+    <lastBuildDate>Sun, 14 Jun 2026 08:57:17 +0000</lastBuildDate>
+    <item>
+      <title>When You Can't Stick to Anything</title>
+      <link>https://thelotuslane.in/wisdom/cant-stick-to-anything.html</link>
+      <guid isPermaLink="false">https://storage.googleapis.com/lotus-lane-podcast/cant-stick-to-anything.mp3</guid>
+      <pubDate>Sun, 14 Jun 2026 08:57:16 +0000</pubDate>
+      <description>You know that feeling when you're three weeks into something - the gym, the journaling, the new diet, learning the guitar - and the initial energy has...</description>
+      <itunes:summary>You know that feeling when you're three weeks into something - the gym, the journaling, the new diet, learning the guitar - and the initial energy has...</itunes:summary>
+      <itunes:author>The Lotus Lane</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:duration>10:28</itunes:duration>
+      <itunes:episode>48</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <enclosure url="https://storage.googleapis.com/lotus-lane-podcast/cant-stick-to-anything.mp3" length="8716845" type="audio/mpeg" />
+    </item>
     <item>
       <title>Being Bullied at Work</title>
       <link>https://thelotuslane.in/wisdom/bullied-at-work.html</link>
