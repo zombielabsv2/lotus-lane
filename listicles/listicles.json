@@ -2680,5 +2680,44 @@
       "when-grief-wont-stop",
       "loneliness-despite-everything"
     ]
+  },
+  {
+    "date": "2026-06-14",
+    "title": "Can't See a Way Out? 5 Reminders That Darkness Has Never Once Beaten the Dawn",
+    "theme": "hope",
+    "theme_name": "Hope",
+    "image": "listicles/2026-06-14.png",
+    "items": [
+      {
+        "quote": "Winter always turns to spring. Never, from ancient times on, has anyone heard or seen of winter turning back to autumn.",
+        "source": "The Writings of Nichiren Daishonin (referenced in guidance)",
+        "explanation": "Whatever painful season you are stuck in right now, history promises it has only one direction - forward into something warmer."
+      },
+      {
+        "quote": "Hope is not a matter of ability; it is a matter of decision.",
+        "source": "Discussions on Youth",
+        "explanation": "You do not need to feel ready or capable - you only need to make the choice, right now, to keep believing something better is possible."
+      },
+      {
+        "quote": "No matter how hopeless or bleak things appear, the moment you resolve to never give up, every nerve and fiber in your being will orient itself toward your success.",
+        "source": "Faith Into Action",
+        "explanation": "That one stubborn decision to keep going actually rewires how you see problems, find resources, and take the next small step."
+      },
+      {
+        "quote": "No one can make you feel hopeless unless you allow them to. Hope resides in the heart. It is something you create.",
+        "source": "Discussions on Youth",
+        "explanation": "When life or other people have stripped everything away, this one thing - the ability to generate hope - remains entirely yours to protect."
+      },
+      {
+        "quote": "Each morning we are born again. What we do today is what matters most.",
+        "source": "For Today and Tomorrow",
+        "explanation": "Yesterday's failures and tomorrow's fears lose their grip the moment you treat this morning as a genuine, clean starting point."
+      }
+    ],
+    "struggles": [
+      "depression-fog",
+      "starting-over",
+      "feeling-like-a-failure"
+    ]
   }
 ]
