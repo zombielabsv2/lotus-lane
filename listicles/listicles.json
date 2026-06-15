@@ -2719,5 +2719,44 @@
       "starting-over",
       "feeling-like-a-failure"
     ]
+  },
+  {
+    "date": "2026-06-15",
+    "title": "Too Scared to Move? 5 Truths About Courage That Will Get You Off the Floor",
+    "theme": "courage",
+    "theme_name": "Courage",
+    "image": "listicles/2026-06-15.png",
+    "items": [
+      {
+        "quote": "Courage is not the absence of fear. Courage is feeling fear, recognizing fear, and still taking action.",
+        "source": "Discussions on Youth",
+        "explanation": "You don't have to stop being afraid - you just have to do the thing anyway, and that is enough."
+      },
+      {
+        "quote": "Having courage does not mean that we are unafraid. Having courage and showing courage means we face our fears.",
+        "source": "Discussions on Youth",
+        "explanation": "The shaking hands, the racing heart, the dry mouth - all of that can stay, and you can still walk through the door."
+      },
+      {
+        "quote": "No matter what happens, I will not be defeated. I will not run away. I will not complain. I will not be negative. I will keep advancing.",
+        "source": "The New Human Revolution, Vol. 1",
+        "explanation": "When everything is falling apart, this single decision - to keep moving forward - becomes the most powerful thing you own."
+      },
+      {
+        "quote": "Be the kind of person who, when your feet hit the floor in the morning, makes the devil say, 'Oh no, they're up!'",
+        "source": "Youth and the Writings of Nichiren Daishonin",
+        "explanation": "Your willingness to simply get up and try again today is a force that your obstacles were not counting on."
+      },
+      {
+        "quote": "The true hero is one who conquers his own anger and hatred.",
+        "source": "For Today and Tomorrow",
+        "explanation": "The hardest battle you will ever fight is the one happening inside you - and winning it changes everything outside you too."
+      }
+    ],
+    "struggles": [
+      "anxiety-insomnia",
+      "feeling-like-a-failure",
+      "starting-over"
+    ]
   }
 ]
