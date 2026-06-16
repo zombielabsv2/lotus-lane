@@ -24,8 +24,22 @@
     <itunes:category text="Religion &amp; Spirituality">
       <itunes:category text="Buddhism" />
     </itunes:category>
-    <pubDate>Mon, 15 Jun 2026 11:34:06 +0000</pubDate>
-    <lastBuildDate>Mon, 15 Jun 2026 11:34:06 +0000</lastBuildDate>
+    <pubDate>Tue, 16 Jun 2026 10:29:54 +0000</pubDate>
+    <lastBuildDate>Tue, 16 Jun 2026 10:29:54 +0000</lastBuildDate>
+    <item>
+      <title>When Your Career Feels Stuck</title>
+      <link>https://thelotuslane.in/wisdom/career-plateau.html</link>
+      <guid isPermaLink="false">https://storage.googleapis.com/lotus-lane-podcast/career-plateau.mp3</guid>
+      <pubDate>Tue, 16 Jun 2026 10:29:54 +0000</pubDate>
+      <description>You know that feeling when you look at your career and realize you have been standing in the same spot for a while?</description>
+      <itunes:summary>You know that feeling when you look at your career and realize you have been standing in the same spot for a while?</itunes:summary>
+      <itunes:author>The Lotus Lane</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:duration>9:19</itunes:duration>
+      <itunes:episode>50</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <enclosure url="https://storage.googleapis.com/lotus-lane-podcast/career-plateau.mp3" length="7716909" type="audio/mpeg" />
+    </item>
     <item>
       <title>Changing Careers in Your 40s</title>
       <link>https://thelotuslane.in/wisdom/career-change-at-40.html</link>
