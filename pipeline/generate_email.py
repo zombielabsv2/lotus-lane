@@ -157,6 +157,27 @@ CHALLENGE_KEYWORDS = {
         "start over", "begin again", "reset", "new chapter", "fresh",
         "rebuild", "courage", "persevere", "winter", "spring",
     ],
+    # --- Jun 2026: completed 1:1 with the 21 /wisdom/ struggle hubs ----------
+    "anger": [
+        "anger", "rage", "fury", "patience", "restraint", "calm",
+        "compassion", "ego", "self-control", "forbearance",
+    ],
+    "comparison": [
+        "comparison", "envy", "behind", "ahead", "others", "enough",
+        "your own", "mission", "unique", "self-worth",
+    ],
+    "jealousy": [
+        "jealousy", "envy", "covet", "resentment", "comparison",
+        "contentment", "gratitude", "abundance", "heart", "rejoice",
+    ],
+    "failure": [
+        "failure", "fall short", "not good enough", "self-worth", "value",
+        "worthy", "buddha nature", "victory", "perseverance", "begin again",
+    ],
+    "rejection": [
+        "rejection", "rejected", "not chosen", "overlooked", "worth",
+        "belong", "self-worth", "courage", "resilience", "move forward",
+    ],
 }
 
 # ---------------------------------------------------------------------------
@@ -198,6 +219,12 @@ CHALLENGE_THEME_MAP = {
     "anxiety": ["courage", "hope"],
     "loneliness": ["friendship", "compassion"],
     "starting-over": ["perseverance", "courage"],
+    # Jun 2026: completing the 21
+    "anger": ["wisdom", "compassion"],
+    "comparison": ["human-revolution", "happiness"],
+    "jealousy": ["happiness", "gratitude"],
+    "failure": ["courage", "victory"],
+    "rejection": ["courage", "human-revolution"],
 }
 
 CHALLENGE_LABELS = {
@@ -226,6 +253,12 @@ CHALLENGE_LABELS = {
     "anxiety": "a mind that won't stop",
     "loneliness": "loneliness even in a crowd",
     "starting-over": "starting over",
+    # Jun 2026: completing the 21
+    "anger": "anger you can't control",
+    "comparison": "feeling like everyone else is ahead",
+    "jealousy": "jealousy you can't shake",
+    "failure": "feeling like a failure",
+    "rejection": "the sting of not being chosen",
 }
 
 # When a narrow-bucket subscriber hits the welcome-email step 2 (chanting tips),
@@ -246,6 +279,12 @@ LEGACY_CHANTING_FALLBACK = {
     "anxiety": "self-doubt",
     "loneliness": "relationships",
     "starting-over": "perseverance",
+    # Jun 2026: completing the 21
+    "anger": "self-doubt",
+    "comparison": "self-doubt",
+    "jealousy": "relationships",
+    "failure": "self-doubt",
+    "rejection": "relationships",
 }
 
 FREQUENCY_LABELS = {
@@ -1039,6 +1078,12 @@ def generate_email_content(subscriber: dict, challenge: str, passages: list[dict
         "anxiety": "anxiety and a mind that will not stop, especially at night",
         "loneliness": "loneliness even in a crowd",
         "starting-over": "starting over after a life change",
+        # Jun 2026: completing the 21
+        "anger": "anger they can't seem to control",
+        "comparison": "feeling like everyone else is ahead of them",
+        "jealousy": "jealousy and envy they can't shake",
+        "failure": "feeling like a failure",
+        "rejection": "the pain of being rejected, of not being chosen",
     }
     challenge_desc = challenge_labels.get(challenge, challenge)
 

@@ -434,18 +434,16 @@
         const resp = await fetch('content_struggles.json');
         const cs = await resp.json();
         const grid = document.getElementById('emotionGrid');
-        // Pick the 12 most universal struggles for the panel
-        const featured = [
-          'burnout-recovery', 'loneliness-despite-everything', 'comparison-trap',
-          'when-grief-wont-stop', 'overcoming-imposter-syndrome', 'anxiety-insomnia',
-          'parenting-is-breaking-me', 'feeling-like-a-failure', 'relationship-falling-apart',
-          'financial-anxiety', 'how-to-forgive', 'starting-over'
-        ];
-        featured.forEach(slug => {
+        // Single source of truth: render every struggle in the shared picker_order.
+        // Same list + labels as the subscribe.html picker (content_struggles.json).
+        const order = cs.picker_order || cs.struggles || [];
+        order.forEach(slug => {
           const a = document.createElement('a');
           a.className = 'emotion-card';
           a.href = `wisdom/${slug}.html`;
-          a.textContent = cs.struggle_short_labels[slug] || slug;
+          const emoji = (cs.struggle_emoji || {})[slug];
+          const label = (cs.struggle_short_labels || {})[slug] || slug;
+          a.textContent = emoji ? `${emoji}  ${label}` : label;
           grid.appendChild(a);
         });
       } catch (e) { console.warn('content_struggles.json fetch failed', e); }

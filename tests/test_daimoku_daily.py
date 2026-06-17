@@ -57,12 +57,40 @@ def test_challenge_keywords_coverage():
         "burnout", "toxic-workplace", "sidelined", "imposter", "relationship-conflict",
         "divorce", "parenting", "caregiving", "forgiveness", "money",
         "chronic-illness", "depression", "anxiety", "loneliness", "starting-over",
+        # Jun 2026: completed 1:1 with the 21 /wisdom/ struggle hubs
+        "anger", "comparison", "jealousy", "failure", "rejection",
     }
     expected = legacy | narrow
     assert set(CHALLENGE_KEYWORDS.keys()) == expected
 
     for category, keywords in CHALLENGE_KEYWORDS.items():
         assert len(keywords) >= 5, f"{category} has too few keywords ({len(keywords)})"
+
+
+def test_pickers_share_content_struggles_taxonomy():
+    """The two struggle pickers (index.html + subscribe.html) draw from one
+    source: content_struggles.json. Every challenge_code it defines must be a
+    real bucket in generate_email.py, or those subscribers get no tailored email."""
+    import json
+    from pathlib import Path
+    from pipeline.generate_email import (
+        CHALLENGE_KEYWORDS, CHALLENGE_THEME_MAP, CHALLENGE_LABELS,
+    )
+
+    cs = json.loads((Path(__file__).parent.parent / "content_struggles.json").read_text(encoding="utf-8"))
+    order = cs["picker_order"]
+    assert set(order) == set(cs["struggles"]), "picker_order must cover all 21 canonical struggles"
+
+    codes = [cs["struggle_challenge_code"][slug] for slug in order]
+    assert len(set(codes)) == len(codes), "duplicate challenge codes"
+    for slug in order:
+        assert slug in cs["struggle_emoji"], f"missing emoji for {slug}"
+        assert slug in cs["struggle_short_labels"], f"missing short label for {slug}"
+
+    for code in codes:
+        assert code in CHALLENGE_KEYWORDS, f"{code} missing from CHALLENGE_KEYWORDS"
+        assert code in CHALLENGE_THEME_MAP, f"{code} missing from CHALLENGE_THEME_MAP"
+        assert code in CHALLENGE_LABELS, f"{code} missing from CHALLENGE_LABELS"
 
 
 @pytest.mark.skipif(not _has_chunks, reason="chunks.json not available in CI")

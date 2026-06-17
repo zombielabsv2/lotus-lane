@@ -20,6 +20,8 @@ const VALID_FREQUENCIES = new Set(["daily", "thrice_weekly", "weekly"]);
 // (career/health/relationships/family/finances/self-doubt/perseverance) were
 // retired from signup Apr 2026; existing subscribers still carry them and the
 // email pipeline resolves them via fallback maps.
+// Must stay in sync with content_struggles.json -> struggle_challenge_code
+// (the 21 struggle hubs shown in both pickers).
 const VALID_CHALLENGES = new Set([
   "burnout", "toxic-workplace", "sidelined", "imposter",
   "relationship-conflict", "divorce",
@@ -27,6 +29,8 @@ const VALID_CHALLENGES = new Set([
   "money",
   "chronic-illness", "depression", "anxiety",
   "grief", "loneliness", "starting-over",
+  // Jun 2026: completing the 21
+  "anger", "comparison", "jealousy", "failure", "rejection",
 ]);
 
 // Disposable / throwaway email domains. Not exhaustive — just the common ones.
