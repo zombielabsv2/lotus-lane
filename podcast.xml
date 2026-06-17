@@ -24,8 +24,22 @@
     <itunes:category text="Religion &amp; Spirituality">
       <itunes:category text="Buddhism" />
     </itunes:category>
-    <pubDate>Tue, 16 Jun 2026 10:29:54 +0000</pubDate>
-    <lastBuildDate>Tue, 16 Jun 2026 10:29:54 +0000</lastBuildDate>
+    <pubDate>Wed, 17 Jun 2026 10:18:38 +0000</pubDate>
+    <lastBuildDate>Wed, 17 Jun 2026 10:18:38 +0000</lastBuildDate>
+    <item>
+      <title>Caring for a Dying Parent</title>
+      <link>https://thelotuslane.in/wisdom/caring-for-dying-parent.html</link>
+      <guid isPermaLink="false">https://storage.googleapis.com/lotus-lane-podcast/caring-for-dying-parent.mp3</guid>
+      <pubDate>Wed, 17 Jun 2026 10:18:38 +0000</pubDate>
+      <description>You know that feeling when you walk out of the hospital room into a hallway with bad lighting, and you stand there for a second because you do not know what your body is supposed to do next?</description>
+      <itunes:summary>You know that feeling when you walk out of the hospital room into a hallway with bad lighting, and you stand there for a second because you do not know what your body is supposed to do next?</itunes:summary>
+      <itunes:author>The Lotus Lane</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:duration>8:38</itunes:duration>
+      <itunes:episode>51</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <enclosure url="https://storage.googleapis.com/lotus-lane-podcast/caring-for-dying-parent.mp3" length="7163181" type="audio/mpeg" />
+    </item>
     <item>
       <title>When Your Career Feels Stuck</title>
       <link>https://thelotuslane.in/wisdom/career-plateau.html</link>
