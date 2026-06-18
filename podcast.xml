@@ -24,8 +24,22 @@
     <itunes:category text="Religion &amp; Spirituality">
       <itunes:category text="Buddhism" />
     </itunes:category>
-    <pubDate>Wed, 17 Jun 2026 10:18:38 +0000</pubDate>
-    <lastBuildDate>Wed, 17 Jun 2026 10:18:38 +0000</lastBuildDate>
+    <pubDate>Thu, 18 Jun 2026 09:59:16 +0000</pubDate>
+    <lastBuildDate>Thu, 18 Jun 2026 09:59:16 +0000</lastBuildDate>
+    <item>
+      <title>Living With Chronic Fatigue</title>
+      <link>https://thelotuslane.in/wisdom/chronic-fatigue.html</link>
+      <guid isPermaLink="false">https://storage.googleapis.com/lotus-lane-podcast/chronic-fatigue.mp3</guid>
+      <pubDate>Thu, 18 Jun 2026 09:59:16 +0000</pubDate>
+      <description>You know that feeling when you wake up after eight, nine, ten hours of sleep and your body feels like it never rested at all?</description>
+      <itunes:summary>You know that feeling when you wake up after eight, nine, ten hours of sleep and your body feels like it never rested at all?</itunes:summary>
+      <itunes:author>The Lotus Lane</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:duration>9:21</itunes:duration>
+      <itunes:episode>52</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <enclosure url="https://storage.googleapis.com/lotus-lane-podcast/chronic-fatigue.mp3" length="7730733" type="audio/mpeg" />
+    </item>
     <item>
       <title>Caring for a Dying Parent</title>
       <link>https://thelotuslane.in/wisdom/caring-for-dying-parent.html</link>
