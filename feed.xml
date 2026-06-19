@@ -7,6 +7,14 @@
     <language>en</language>
     <atom:link href="https://thelotuslane.in/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>I Bought the Cake Before I Remembered He Wasn't Coming</title>
+      <link>https://thelotuslane.in/strips/2026-06-19.html</link>
+      <description>When grief catches you off guard on an anniversary, it is not weakness — it is years of love still moving through you, looking for the person it was made for. You do not have to fix that. You can just sit with it and eat the cake.</description>
+      <pubDate>Fri, 19 Jun 2026 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-06-19.html</guid>
+      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-06-19.png" type="image/png" />
+    </item>
+    <item>
       <title>She Called My Son 'Beta' and I Wanted to Scream</title>
       <link>https://thelotuslane.in/strips/2026-06-17.html</link>
       <description>When someone new enters your child's life, protectiveness can quietly become a wall. Sometimes the bravest thing is not to guard harder but to get curious first.</description>
@@ -397,14 +405,6 @@
       <pubDate>Fri, 06 Mar 2026 00:00:00 +0000</pubDate>
       <guid isPermaLink="true">https://thelotuslane.in/strips/2026-03-06.html</guid>
       <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-03-06.png" type="image/png" />
-    </item>
-    <item>
-      <title>The Empty House</title>
-      <link>https://thelotuslane.in/strips/2026-03-04.html</link>
-      <description>Even in our most difficult transitions, we can find our Buddha nature not by escaping our circumstances, but by fully embracing our present reality.</description>
-      <pubDate>Wed, 04 Mar 2026 00:00:00 +0000</pubDate>
-      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-03-04.html</guid>
-      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-03-04.png" type="image/png" />
     </item>
   </channel>
 </rss>
