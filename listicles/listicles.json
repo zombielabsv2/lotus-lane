@@ -2875,5 +2875,44 @@
       "overcoming-imposter-syndrome",
       "loneliness-despite-everything"
     ]
+  },
+  {
+    "date": "2026-06-19",
+    "title": "Feeling Like Your Best Years Are Slipping By? 5 Truths Every Young Person Needs to Hear Right Now",
+    "theme": "youth",
+    "theme_name": "Youth",
+    "image": "listicles/2026-06-19.png",
+    "items": [
+      {
+        "quote": "Nothing is more precious than youth. Do not waste a single day. Challenge yourselves! Grow! There is no time to be idle.",
+        "source": "For Today and Tomorrow",
+        "explanation": "When scrolling feels easier than striving, this is the reminder that your time right now is the most valuable currency you will ever spend."
+      },
+      {
+        "quote": "Youth is not a time of life - it is a state of mind. As long as you have a dream, as long as you have a fighting spirit, you are forever young.",
+        "source": "Discussions on Youth",
+        "explanation": "If you have ever felt too old to start over or too young to be taken seriously, this truth cuts through both lies at once."
+      },
+      {
+        "quote": "Young people, be philosophers, be thinkers, be global citizens. The future of humanity depends on the inner strength of the young.",
+        "source": "Discussions on Youth",
+        "explanation": "Your generation is not just inheriting the world - it is being called to rebuild it from the inside out, starting with who you choose to become."
+      },
+      {
+        "quote": "The voice of a single young person, if it rings with truth and conviction, can change the world.",
+        "source": "The New Human Revolution, Vol. 11",
+        "explanation": "On the days when you wonder if your opinion matters or your actions make any difference, remember that every movement in history started with one voice."
+      },
+      {
+        "quote": "Be a person of substance, not merely of surface. The depth of your character will determine your influence in the world.",
+        "source": "For Today and Tomorrow",
+        "explanation": "In a world that rewards followers and likes, building real character is the quiet, radical act that will outlast every trend and title."
+      }
+    ],
+    "struggles": [
+      "feeling-like-a-failure",
+      "overcoming-imposter-syndrome",
+      "starting-over"
+    ]
   }
 ]
