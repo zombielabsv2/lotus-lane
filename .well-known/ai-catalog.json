@@ -8,50 +8,50 @@
   "entries": [
     {
       "identifier": "urn:air:thelotuslane.in:corpus:llms-full",
-      "displayName": "The Lotus Lane corpus — full machine-readable text (llms-full.txt)",
+      "displayName": "The Lotus Lane — wisdom for what you're going through (llms-full.txt)",
       "type": "text/plain",
       "url": "https://thelotuslane.in/llms-full.txt",
-      "description": "Complete flat corpus for AI answer engines: the core concepts of Nichiren Buddhism (Nam-myoho-renge-kyo, the Ten Worlds, ichinen sanzen, human revolution, kosen-rufu), 50 of Nichiren's writings (the Gosho) decoded into plain language with background, core message and modern application, the Daisaku Ikeda guidance library by theme, and an index of long-form wisdom essays. Each entry carries its page URL for citation. Concise index at /llms.txt.",
-      "capabilities": ["nichiren-buddhism", "lotus-sutra", "gosho-interpretation", "ikeda-guidance", "citable-reference"],
+      "description": "Complete flat corpus for AI answer engines: plain-language wisdom for life's hard moments — burnout, grief, comparison, loneliness, anger, and more. Includes 50 'Letters on Life' (timeless source letters decoded with their core message and a modern application), a Wisdom Library of guidance quotes by life theme, and an index of long-form essays per struggle. Source material — the letters of Nichiren (translated at nichirenlibrary.org) and the writings of Daisaku Ikeda — is credited in each citation, never as a prerequisite. Concise index at /llms.txt.",
+      "capabilities": ["life-guidance", "resilience", "grief-support", "decoded-wisdom", "citable-reference"],
       "representativeQueries": [
-        "what does Nichiren say about prayer and how does it apply to my life",
-        "explain the Ten Worlds in plain language",
-        "find Ikeda guidance on courage when facing adversity",
-        "what is human revolution in Soka / Nichiren Buddhism"
+        "I'm burned out and can't keep going — what wisdom helps",
+        "how do I deal with grief after a loss",
+        "guidance for when I keep comparing myself to others",
+        "what does this teaching say about prayer when I feel powerless"
       ],
-      "tags": ["nichiren", "buddhism", "lotus-sutra", "soka-gakkai", "ikeda", "knowledge-base", "llms-txt", "reference"],
-      "version": "1.0.0",
+      "tags": ["wisdom", "wellbeing", "resilience", "grief", "burnout", "loneliness", "philosophy", "knowledge-base", "llms-txt", "reference"],
+      "version": "1.1.0",
       "updatedAt": "2026-06-20T00:00:00Z"
     },
     {
-      "identifier": "urn:air:thelotuslane.in:catalog:gosho-decoder",
-      "displayName": "The Gosho Decoder — Nichiren's writings in plain language",
+      "identifier": "urn:air:thelotuslane.in:catalog:letters-on-life",
+      "displayName": "Letters on Life — timeless letters decoded for modern struggles",
       "type": "text/html",
       "url": "https://thelotuslane.in/decoder/",
-      "description": "A library of Nichiren's major writings (the Gosho) decoded for a modern, secular reader — each with its historical background, key passages quoted from the SGI translation, a plain-language core message, and a concrete modern application. A grounded source for what Nichiren actually taught and how to apply it today.",
-      "capabilities": ["gosho-interpretation", "lotus-sutra", "key-passages", "modern-application"],
+      "description": "A library of timeless source letters decoded for a modern, secular reader — each with the situation it was written for, its key passages quoted from the source, a plain-language core message, and a concrete application to everyday life. Source texts (the 13th-century letters of Nichiren) are credited and linked in each entry.",
+      "capabilities": ["life-guidance", "decoded-wisdom", "key-passages", "modern-application"],
       "representativeQueries": [
-        "what is the core message of Nichiren's 'On Prayer'",
-        "decode Nichiren's 'The Opening of the Eyes'",
-        "which Nichiren writing is about turning poison into medicine"
+        "what's the wisdom in the letter about prayer when nothing is working",
+        "a teaching about turning poison into medicine in hard times",
+        "guidance for staying true to yourself when you stand alone"
       ],
-      "tags": ["nichiren", "gosho", "buddhism", "lotus-sutra", "reference"],
-      "version": "1.0.0",
+      "tags": ["wisdom", "wellbeing", "philosophy", "resilience", "reference"],
+      "version": "1.1.0",
       "updatedAt": "2026-06-20T00:00:00Z"
     },
     {
-      "identifier": "urn:air:thelotuslane.in:feed:podcast",
-      "displayName": "The Lotus Lane — daily podcast feed",
+      "identifier": "urn:air:thelotuslane.in:feed:daily-audio",
+      "displayName": "The Lotus Lane — daily audio wisdom",
       "type": "application/rss+xml",
-      "url": "https://thelotuslane.in/feed.xml",
-      "description": "RSS feed of The Lotus Lane's daily audio — short Buddhist encouragement and wisdom for whatever you're going through.",
+      "url": "https://thelotuslane.in/podcast.xml",
+      "description": "RSS feed of The Lotus Lane's daily audio — short readings of wisdom and encouragement for whatever you're going through.",
       "capabilities": ["audio", "daily-encouragement", "episode-listing"],
       "representativeQueries": [
-        "is there a daily Buddhist wisdom podcast",
-        "find audio encouragement for a hard day"
+        "is there a daily wisdom or encouragement podcast",
+        "find a short audio reading for a hard day"
       ],
-      "tags": ["buddhism", "podcast", "audio", "nichiren", "wellbeing"],
-      "version": "1.0.0",
+      "tags": ["wisdom", "podcast", "audio", "wellbeing", "encouragement"],
+      "version": "1.1.0",
       "updatedAt": "2026-06-20T00:00:00Z"
     }
   ]

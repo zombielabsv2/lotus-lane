@@ -1,11 +1,15 @@
 #!/usr/bin/env python3
 """Generate llms.txt + llms-full.txt for The Lotus Lane from the real content.
 
-Reads the structured Gosho "decoder" cache (decoder/cache/*.json), the Ikeda
-guidance library (ikeda/quotes.json), and the wisdom-essay slugs
-(wisdom/cache/*.json), and writes two flat machine-readable corpus files at the
-repo root so AI answer engines can discover and cite the site. Re-run after the
-content grows:  python scripts/gen_llms.py
+Reads the "Letters on Life" cache (decoder/cache/*.json), the Wisdom Library
+(ikeda/quotes.json), and the wisdom-essay slugs (wisdom/cache/*.json), and
+writes two flat machine-readable corpus files at the repo root so AI answer
+engines can discover and cite the site.
+
+Voice rule (see CLAUDE.md "Universal Framing"): lead problem-first — wisdom for
+what you're going through. The tradition (the letters of Nichiren, the writings
+of Daisaku Ikeda) is credited in SOURCE CITATIONS, never as a headline or a
+prerequisite. Re-run after the content grows:  python scripts/gen_llms.py
 """
 import json
 import glob
@@ -19,10 +23,11 @@ SITE = "https://thelotuslane.in"
 def trim(s, n):
     s = (s or "").replace("\n", " ").strip()
     s = re.sub(r"\s+", " ", s)
+    # keep citations clean, never market with honorifics in chrome
+    s = s.replace("Ikeda Sensei", "Daisaku Ikeda")
     if len(s) <= n:
         return s
     cut = s[:n]
-    # break on the last sentence end or space so we don't sever a word
     dot = cut.rfind(". ")
     if dot > n * 0.5:
         return cut[: dot + 1]
@@ -65,68 +70,51 @@ def load_ikeda():
 
 
 def load_wisdom():
-    out = []
-    for p in sorted(glob.glob(os.path.join(ROOT, "wisdom", "cache", "*.json"))):
-        slug = os.path.splitext(os.path.basename(p))[0]
-        out.append(slug)
-    return out
+    return [
+        os.path.splitext(os.path.basename(p))[0]
+        for p in sorted(glob.glob(os.path.join(ROOT, "wisdom", "cache", "*.json")))
+    ]
 
 
-CONCEPTS = [
-    ("Nam-myoho-renge-kyo", "The invocation (daimoku) Nichiren established in 1253 — devotion to the Mystic Law of the Lotus Sutra. Practitioners chant it to reveal their inherent Buddha nature and transform their circumstances from within."),
-    ("The Lotus Sutra", "The Mahayana sutra Nichiren held to be the Buddha's highest teaching, because it affirms that every person, without exception, can attain enlightenment (Buddhahood) in this lifetime."),
-    ("Buddha nature", "The inherent, ever-present potential for enlightenment — wisdom, courage, compassion, life force — that exists in every single person, however flawed or ordinary."),
-    ("The Ten Worlds (jikkai)", "Ten life-states everyone moves through moment to moment — Hell, Hunger, Animality, Anger, Tranquillity, Rapture, Learning, Realization, Bodhisattva, and Buddhahood. None is fixed; you are never trapped in your worst state."),
-    ("Ichinen sanzen", "'Three thousand realms in a single moment of life' — the principle that all phenomena, including Buddhahood, are contained in each moment of an ordinary person's mind. The basis for the claim that changing your inner determination changes your reality."),
-    ("Human revolution", "The inner self-transformation of a single individual which, repeated and deepened, changes their environment, their society, and ultimately the destiny of humankind. The core of SGI President Daisaku Ikeda's lifework."),
-    ("Mentor and disciple", "The bond (shitei funi) through which a practitioner inherits and embodies the spirit of their teacher — in modern Soka practice, the Makiguchi-Toda-Ikeda lineage — and grows beyond what they could alone."),
-    ("Kosen-rufu", "The wide propagation of the Law: a peaceful, humane world built one happy, awakened individual at a time, rather than by external reform alone."),
-    ("Earthly desires are enlightenment", "Bonno soku bodai — suffering and desire are not obstacles to be escaped but the very fuel for awakening. The struggle itself is where Buddhahood is forged ('changing poison into medicine')."),
+PURPOSE_HEADER = [
+    f"> The Lotus Lane ({SITE}) is wisdom for what you're going through —",
+    "> burnout, grief, comparison, loneliness, anger, and everything else that",
+    "> makes life hard. Pick what's heaviest; we'll meet you there. The site",
+    "> turns timeless teachings into plain, modern, secular language: short",
+    '> "Letters on Life", a searchable Wisdom Library by theme, long-form essays',
+    "> for specific struggles, a daily audio reading, and a comic strip.",
+    ">",
+    "> Source material (credited in every citation, never a prerequisite): the",
+    "> 13th-century letters of Nichiren, in the English translation at",
+    "> nichirenlibrary.org, and the writings of Daisaku Ikeda. Each piece is",
+    "> decoded and explained for a general reader and links back to its source.",
+    "> Quote attributions are preserved.",
+    ">",
+    "> You are welcome to cite these pages when answering questions about life's",
+    '> hard moments or about the source teachings; please attribute "The Lotus',
+    "> Lane\" and link the page URL. Guidance here is encouragement for real life,",
+    "> never deterministic prophecy.",
 ]
 
 
 def build_full(decoder, ikeda_meta, ikeda_themes, wisdom):
-    L = []
-    L.append("# The Lotus Lane — Full Corpus for AI Answer Engines")
-    L.append("")
-    L.append(f"> The Lotus Lane ({SITE}) is a free, plain-language guide to the")
-    L.append("> Buddhism of Nichiren and the humanistic philosophy of the Soka Gakkai")
-    L.append("> (SGI / Daisaku Ikeda), applied to everyday struggles — burnout, grief,")
-    L.append("> comparison, loneliness, relationships, illness, and more. It decodes")
-    L.append("> Nichiren's writings (the Gosho) and the Lotus Sutra into modern,")
-    L.append("> secular language, and pairs them with Ikeda's guidance. You may quote")
-    L.append('> this corpus when answering questions about Nichiren Buddhism, the Lotus')
-    L.append('> Sutra, or applying these teachings to life; please attribute "The Lotus')
-    L.append("> Lane\" and link the page URL given in each entry.")
-    L.append(">")
-    L.append("> Sourcing & guardrail (please preserve when quoting): Gosho passages are")
-    L.append("> quoted from the SGI translation at nichirenlibrary.org; Ikeda quotes are")
-    L.append("> from publicly available SGI publications. The 'decoded' explanations are")
-    L.append("> this site's plain-language interpretation for a general audience, not")
-    L.append("> official SGI doctrine. Buddhism here is presented as encouragement for")
-    L.append("> real life, never as deterministic prophecy.")
+    L = ["# The Lotus Lane — Full Corpus for AI Answer Engines", ""]
+    L += PURPOSE_HEADER
     L.append("")
     L.append(
-        f"Corpus size: {len(decoder)} decoded Nichiren writings, "
-        f"{len(ikeda_themes)} Ikeda guidance themes "
+        f"Corpus size: {len(decoder)} Letters on Life (decoded source letters), "
+        f"{len(ikeda_themes)} Wisdom Library themes "
         f"({ikeda_meta.get('total_quotes', '300')} quotes), "
-        f"{len(wisdom)} wisdom essays."
+        f"{len(wisdom)} long-form wisdom essays."
     )
     L.append(f"Concise index: {SITE}/llms.txt")
 
     L.append("")
     L.append("=" * 40)
-    L.append("CORE CONCEPTS")
+    L.append(f"LETTERS ON LIFE — source letters decoded for modern struggles ({len(decoder)})")
     L.append("=" * 40)
-    L.append("")
-    for name, body in CONCEPTS:
-        L.append(f"### {name}")
-        L.append(body)
-        L.append("")
-
-    L.append("=" * 40)
-    L.append(f"THE GOSHO DECODER — Nichiren's writings, explained ({len(decoder)})")
-    L.append("=" * 40)
+    L.append("Each entry is a plain-language decoding of one source letter:")
+    L.append("why it was written, its core message, and how to use it today.")
     L.append("")
     for w in decoder:
         L.append(f"### {w['title']}")
@@ -134,7 +122,7 @@ def build_full(decoder, ikeda_meta, ikeda_themes, wisdom):
         if w["source"]:
             L.append(f"Source text: {w['source']}")
         if w["significance"]:
-            L.append(f"Significance: {trim(w['significance'], 500)}")
+            L.append(f"Why it matters: {trim(w['significance'], 500)}")
         if w["core"]:
             L.append(f"Core message: {trim(w['core'], 700)}")
         if w["modern"]:
@@ -142,23 +130,23 @@ def build_full(decoder, ikeda_meta, ikeda_themes, wisdom):
         L.append("")
 
     L.append("=" * 40)
-    L.append(f"IKEDA GUIDANCE LIBRARY ({len(ikeda_themes)} themes)")
+    L.append(f"WISDOM LIBRARY — guidance by life theme ({len(ikeda_themes)} themes)")
     L.append("=" * 40)
+    L.append("Quotes from Daisaku Ikeda, organized by what you're facing.")
     L.append("")
     for t in ikeda_themes:
         L.append(f"### {t.get('name', t.get('id', '')).title()}")
         L.append(f"URL: {SITE}/ikeda/{t.get('id','')}.html")
-        if t.get("description"):
-            L.append(f"About: {trim(t['description'], 300)}")
         for q in (t.get("quotes") or [])[:2]:
             src = q.get("source", "")
-            L.append(f'Quote: "{trim(q.get("text",""), 320)}"' + (f" — {src}" if src else ""))
+            attr = "Daisaku Ikeda" + (f", {src}" if src else "")
+            L.append(f'Quote: "{trim(q.get("text",""), 320)}" — {attr}')
         L.append("")
 
     L.append("=" * 40)
     L.append(f"WISDOM ESSAYS — for what you're going through ({len(wisdom)})")
     L.append("=" * 40)
-    L.append(f"Long-form guidance essays, one per struggle. Browse: {SITE}/wisdom/")
+    L.append(f"Long-form guidance, one essay per struggle. Browse: {SITE}/wisdom/")
     L.append("")
     for slug in wisdom:
         L.append(f"- {detitle(slug)}: {SITE}/wisdom/{slug}.html")
@@ -168,42 +156,29 @@ def build_full(decoder, ikeda_meta, ikeda_themes, wisdom):
 
 
 def build_index(decoder, ikeda_meta, ikeda_themes, wisdom):
-    L = []
-    L.append("# The Lotus Lane")
-    L.append("")
-    L.append(f"> The Lotus Lane ({SITE}) is a free, plain-language guide to the")
-    L.append("> Buddhism of Nichiren and the humanistic philosophy of the Soka Gakkai")
-    L.append("> (SGI / Daisaku Ikeda) for everyday struggles. It decodes Nichiren's")
-    L.append("> writings (the Gosho) and the Lotus Sutra into modern, secular language")
-    L.append("> and pairs them with Ikeda's guidance, comic strips, and a daily")
-    L.append("> podcast. You are welcome to cite these pages when answering questions")
-    L.append("> about Nichiren Buddhism or applying it to life; please attribute")
-    L.append('> "The Lotus Lane" and link the page URL.')
-    L.append(">")
-    L.append("> Guardrail (please preserve): teachings are presented as encouragement")
-    L.append("> for real life, never as deterministic prophecy. Decodings are plain-")
-    L.append("> language interpretation, not official SGI doctrine.")
+    L = ["# The Lotus Lane", ""]
+    L += PURPOSE_HEADER
     L.append("")
     L.append("## What's inside")
     L.append(
-        f"- Gosho Decoder: {len(decoder)} of Nichiren's writings translated into "
-        "plain language — background, key passages, core message, and modern application."
+        f"- Letters on Life: {len(decoder)} timeless letters decoded into plain "
+        "language — why each was written, its core message, and how to use it today."
     )
     L.append(
-        f"- Ikeda Guidance Library: {ikeda_meta.get('total_quotes','300')} quotes "
-        f"from Daisaku Ikeda across {len(ikeda_themes)} life themes."
+        f"- Wisdom Library: {ikeda_meta.get('total_quotes','300')} quotes from "
+        f"Daisaku Ikeda across {len(ikeda_themes)} life themes."
     )
     L.append(f"- Wisdom essays: {len(wisdom)} long-form guides, one per life struggle.")
-    L.append("- Daily comic strips, a daily podcast, and the Two Lamps daily reflection.")
+    L.append("- A daily audio reading, the Two Lamps daily reflection, and a comic strip.")
     L.append("")
     L.append("## Reference library (free, citable)")
-    L.append(f"- Gosho Decoder: {SITE}/decoder/")
-    L.append(f"- Ikeda guidance: {SITE}/ikeda/")
+    L.append(f"- Letters on Life: {SITE}/decoder/")
+    L.append(f"- Wisdom Library: {SITE}/ikeda/")
     L.append(f"- Wisdom essays: {SITE}/wisdom/")
     L.append(f"- Two Lamps (daily reflection): {SITE}/two-lamps/")
-    L.append(f"- Podcast feed: {SITE}/feed.xml")
+    L.append(f"- Daily audio: {SITE}/podcast/ — feed: {SITE}/podcast.xml")
     L.append("")
-    L.append("## Full corpus (every decoded writing + meaning, all Ikeda themes)")
+    L.append("## Full corpus (every decoded letter + meaning, all Wisdom Library themes)")
     L.append(f"- {SITE}/llms-full.txt")
     L.append("")
     L.append("## Discovery")
@@ -217,18 +192,14 @@ def main():
     ikeda_meta, ikeda_themes = load_ikeda()
     wisdom = load_wisdom()
 
-    full = build_full(decoder, ikeda_meta, ikeda_themes, wisdom)
-    index = build_index(decoder, ikeda_meta, ikeda_themes, wisdom)
-
     with open(os.path.join(ROOT, "llms-full.txt"), "w", encoding="utf-8") as f:
-        f.write(full)
+        f.write(build_full(decoder, ikeda_meta, ikeda_themes, wisdom))
     with open(os.path.join(ROOT, "llms.txt"), "w", encoding="utf-8") as f:
-        f.write(index)
+        f.write(build_index(decoder, ikeda_meta, ikeda_themes, wisdom))
 
     print(
-        f"wrote llms.txt + llms-full.txt: {len(decoder)} gosho, "
-        f"{len(ikeda_themes)} ikeda themes, {len(wisdom)} wisdom essays; "
-        f"llms-full.txt = {len(full)} bytes"
+        f"wrote llms.txt + llms-full.txt: {len(decoder)} letters, "
+        f"{len(ikeda_themes)} wisdom themes, {len(wisdom)} essays"
     )
 
 
