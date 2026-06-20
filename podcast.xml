@@ -24,8 +24,22 @@
     <itunes:category text="Religion &amp; Spirituality">
       <itunes:category text="Buddhism" />
     </itunes:category>
-    <pubDate>Fri, 19 Jun 2026 10:05:10 +0000</pubDate>
-    <lastBuildDate>Fri, 19 Jun 2026 10:05:10 +0000</lastBuildDate>
+    <pubDate>Sat, 20 Jun 2026 08:36:27 +0000</pubDate>
+    <lastBuildDate>Sat, 20 Jun 2026 08:36:27 +0000</lastBuildDate>
+    <item>
+      <title>Living With Chronic Pain</title>
+      <link>https://thelotuslane.in/wisdom/chronic-pain.html</link>
+      <guid isPermaLink="false">https://storage.googleapis.com/lotus-lane-podcast/chronic-pain.mp3</guid>
+      <pubDate>Sat, 20 Jun 2026 08:36:26 +0000</pubDate>
+      <description>You know that feeling when you wake up and the first thing you do, before your eyes are even open, is run a quiet inventory of your own body?</description>
+      <itunes:summary>You know that feeling when you wake up and the first thing you do, before your eyes are even open, is run a quiet inventory of your own body?</itunes:summary>
+      <itunes:author>The Lotus Lane</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:duration>9:11</itunes:duration>
+      <itunes:episode>54</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <enclosure url="https://storage.googleapis.com/lotus-lane-podcast/chronic-pain.mp3" length="7595949" type="audio/mpeg" />
+    </item>
     <item>
       <title>When You Can't Stop Overthinking</title>
       <link>https://thelotuslane.in/wisdom/chronic-overthinking.html</link>
