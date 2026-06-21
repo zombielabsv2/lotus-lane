@@ -2953,5 +2953,44 @@
       "anger-you-cant-control",
       "how-to-forgive"
     ]
+  },
+  {
+    "date": "2026-06-21",
+    "title": "Tired of Feeling Like the World Is Broken and You Can't Fix It? 5 Truths About Where Peace Actually Starts",
+    "theme": "peace",
+    "theme_name": "Peace",
+    "image": "listicles/2026-06-21.png",
+    "items": [
+      {
+        "quote": "A person who can build peace within their own heart can contribute to building peace in the world.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "The arguments you keep having with people around you often trace back to a conflict you haven't yet resolved inside yourself."
+      },
+      {
+        "quote": "The most powerful force for peace is not a government, not an army, not a treaty. It is the awakened awareness of individual human beings.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "When you choose to pause before reacting with anger, you are doing something more powerful than any law passed in a capital city."
+      },
+      {
+        "quote": "The people - the ordinary citizens of the world - are the true protagonists of peace. Not politicians, not leaders, but everyday people with the courage to connect.",
+        "source": "For Today and Tomorrow",
+        "explanation": "The single conversation you have today with someone who feels unseen matters more than you think - ordinary courage is what holds the world together."
+      },
+      {
+        "quote": "As long as we continue to demonize others, peace will remain a dream. Peace begins the moment we recognize the humanity in every person.",
+        "source": "For Today and Tomorrow",
+        "explanation": "The moment you stop reducing someone to their worst trait - at work, at home, online - you make real peace possible in that relationship."
+      },
+      {
+        "quote": "There is no enemy in Buddhism. There is only delusion to be overcome. When we see others as enemies, we have already lost the battle for peace.",
+        "source": "The New Human Revolution, Vol. 6",
+        "explanation": "Treating someone as your enemy locks both of you in a cycle that drains your energy and guarantees nothing ever actually changes between you."
+      }
+    ],
+    "struggles": [
+      "anger-you-cant-control",
+      "how-to-forgive",
+      "loneliness-despite-everything"
+    ]
   }
 ]
