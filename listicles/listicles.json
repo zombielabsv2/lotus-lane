@@ -2992,5 +2992,44 @@
       "how-to-forgive",
       "loneliness-despite-everything"
     ]
+  },
+  {
+    "date": "2026-06-22",
+    "title": "Feel Like You Keep Losing at Life? 5 Truths About What It Actually Means to Win",
+    "theme": "victory",
+    "theme_name": "Victory",
+    "image": "listicles/2026-06-22.png",
+    "items": [
+      {
+        "quote": "True victory is not about defeating others. It is about overcoming your own weakness, your own negativity, your own despair.",
+        "source": "Discussions on Youth",
+        "explanation": "When you feel like you're losing, the real competition has always been with your own doubt and self-sabotage, not anyone else."
+      },
+      {
+        "quote": "Never accept defeat. Even if you fall, even if you fail, as long as you stand up again, you have not been defeated.",
+        "source": "The New Human Revolution, Vol. 5",
+        "explanation": "That moment you get back up after a setback - no matter how small - is the exact moment you start winning again."
+      },
+      {
+        "quote": "In life, we are victorious when we are growing, developing, and challenging ourselves. We are defeated when we stop trying.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "You haven't failed at life - you've only failed the day you decided your situation was permanent and stopped pushing forward."
+      },
+      {
+        "quote": "Those who win in the end are those who never gave up. Victory belongs to the persistent.",
+        "source": "For Today and Tomorrow",
+        "explanation": "Consistency over time, not talent or luck, is what separates the people who get where they want to be from those who don't."
+      },
+      {
+        "quote": "Victory in life is not determined by wealth, status, or power. It is determined by the state of your heart - whether you have lived with courage and compassion.",
+        "source": "Discussions on Youth",
+        "explanation": "If you've been measuring your success by what you own or where you rank, this is a reminder that you may already be winning in ways that matter far more."
+      }
+    ],
+    "struggles": [
+      "feeling-like-a-failure",
+      "burnout-recovery",
+      "starting-over"
+    ]
   }
 ]
