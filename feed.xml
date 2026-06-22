@@ -7,6 +7,14 @@
     <language>en</language>
     <atom:link href="https://thelotuslane.in/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>I Built Something Real and Now I Owe Everyone I Love</title>
+      <link>https://thelotuslane.in/strips/2026-06-22.html</link>
+      <description>Failing at something you built with courage is not proof that you were wrong to try — it is proof you had enough fight to begin. The question after a startup collapses is not whether you were brave enough, but whether you are willing to pick that same bravery back up.</description>
+      <pubDate>Mon, 22 Jun 2026 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-06-22.html</guid>
+      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-06-22.png" type="image/png" />
+    </item>
+    <item>
       <title>I Bought the Cake Before I Remembered He Wasn't Coming</title>
       <link>https://thelotuslane.in/strips/2026-06-19.html</link>
       <description>When grief catches you off guard on an anniversary, it is not weakness — it is years of love still moving through you, looking for the person it was made for. You do not have to fix that. You can just sit with it and eat the cake.</description>
@@ -397,14 +405,6 @@
       <pubDate>Mon, 09 Mar 2026 00:00:00 +0000</pubDate>
       <guid isPermaLink="true">https://thelotuslane.in/strips/2026-03-09.html</guid>
       <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-03-09.png" type="image/png" />
-    </item>
-    <item>
-      <title>Charlie's Last Walk</title>
-      <link>https://thelotuslane.in/strips/2026-03-06.html</link>
-      <description>Love transcends physical form, continuing as an eternal function of life itself, transforming grief into gratitude and future compassion.</description>
-      <pubDate>Fri, 06 Mar 2026 00:00:00 +0000</pubDate>
-      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-03-06.html</guid>
-      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-03-06.png" type="image/png" />
     </item>
   </channel>
 </rss>
