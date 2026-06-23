@@ -3031,5 +3031,44 @@
       "burnout-recovery",
       "starting-over"
     ]
+  },
+  {
+    "date": "2026-06-23",
+    "title": "Got Good Grades But Feel Completely Unprepared for Real Life? 5 Truths About What Education Actually Does to You",
+    "theme": "education",
+    "theme_name": "Education",
+    "image": "listicles/2026-06-23.png",
+    "items": [
+      {
+        "quote": "Education is not the filling of a pail, but the lighting of a fire. The purpose of education is to cultivate the wisdom and compassion to create value in any situation.",
+        "source": "Soka Education",
+        "explanation": "Real learning is not about how much you store in your head - it is about whether you can show up and make something good happen when life gets hard."
+      },
+      {
+        "quote": "A truly educated person is not someone who has memorized facts, but someone who can think critically, feel compassionately, and act courageously.",
+        "source": "Discussions on Youth",
+        "explanation": "If your education taught you to pass tests but left you frozen in real moments, something important was left out of the classroom."
+      },
+      {
+        "quote": "Education that does not teach people how to live, how to face suffering, and how to create meaning - such education is incomplete.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "The gap between what school taught you and what life actually demands is not your failure - it is a sign of what education still needs to become."
+      },
+      {
+        "quote": "A person who has learned to think for themselves - that is the greatest product of education.",
+        "source": "Discussions on Youth",
+        "explanation": "In a world full of noise, opinions, and pressure to conform, the ability to trust your own thinking is the most powerful thing learning can give you."
+      },
+      {
+        "quote": "The teacher who truly cares about their students does not just impart knowledge - they ignite a lifelong passion for learning.",
+        "source": "Soka Education",
+        "explanation": "If you had one person in your life who believed in you and made you curious, you already know the difference between being taught and being changed."
+      }
+    ],
+    "struggles": [
+      "feeling-like-a-failure",
+      "overcoming-imposter-syndrome",
+      "starting-over"
+    ]
   }
 ]
