@@ -7,6 +7,14 @@
     <language>en</language>
     <atom:link href="https://thelotuslane.in/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>I Don't Know What I'm For Anymore</title>
+      <link>https://thelotuslane.in/strips/2026-06-24.html</link>
+      <description>When you've spent years being useful to everyone else, losing your sense of purpose doesn't mean you failed — it means you forgot you're a person, not a role. Getting that back starts smaller than you think.</description>
+      <pubDate>Wed, 24 Jun 2026 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-06-24.html</guid>
+      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-06-24.png" type="image/png" />
+    </item>
+    <item>
       <title>I Built Something Real and Now I Owe Everyone I Love</title>
       <link>https://thelotuslane.in/strips/2026-06-22.html</link>
       <description>Failing at something you built with courage is not proof that you were wrong to try — it is proof you had enough fight to begin. The question after a startup collapses is not whether you were brave enough, but whether you are willing to pick that same bravery back up.</description>
@@ -397,14 +405,6 @@
       <pubDate>Wed, 11 Mar 2026 00:00:00 +0000</pubDate>
       <guid isPermaLink="true">https://thelotuslane.in/strips/2026-03-11.html</guid>
       <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-03-11.png" type="image/png" />
-    </item>
-    <item>
-      <title>The Long Build</title>
-      <link>https://thelotuslane.in/strips/2026-03-09.html</link>
-      <description>When we're stuck waiting for results, maintaining faith through uncertainty helps us see opportunities we might have missed in our frustration.</description>
-      <pubDate>Mon, 09 Mar 2026 00:00:00 +0000</pubDate>
-      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-03-09.html</guid>
-      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-03-09.png" type="image/png" />
     </item>
   </channel>
 </rss>

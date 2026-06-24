@@ -1901,5 +1901,25 @@
     },
     "youtube_views": 4,
     "youtube_views_updated_at": "2026-06-24T06:12:35Z"
+  },
+  {
+    "date": "2026-06-24",
+    "title": "I Don't Know What I'm For Anymore",
+    "image": "https://zombielabsv2.github.io/lotus-lane-assets/2026-06-24.png",
+    "message": "When you've spent years being useful to everyone else, losing your sense of purpose doesn't mean you failed — it means you forgot you're a person, not a role. Getting that back starts smaller than you think.",
+    "quote": "A person who lives for others may seem to be sacrificing themselves, but in fact they are the ones who burn most brightly, who live most fully.",
+    "source": "Daisaku Ikeda, The Wisdom for Creating Happiness and Peace, Part 1",
+    "tags": [
+      "self-doubt",
+      "purpose and meaning",
+      "empty nest",
+      "single parent"
+    ],
+    "category": "self-doubt",
+    "topic": "purpose and meaning",
+    "characters": [
+      "sudha",
+      "vikram"
+    ]
   }
 ]
