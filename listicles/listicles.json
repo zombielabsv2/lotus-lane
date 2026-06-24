@@ -3070,5 +3070,44 @@
       "overcoming-imposter-syndrome",
       "starting-over"
     ]
+  },
+  {
+    "date": "2026-06-24",
+    "title": "Watching Someone You Love Suffer and Not Knowing What to Do? 5 Truths About What Compassion Actually Is",
+    "theme": "compassion",
+    "theme_name": "Compassion",
+    "image": "listicles/2026-06-24.png",
+    "items": [
+      {
+        "quote": "Compassion is not about feeling pity for others. It is about sharing their suffering and working together to overcome it.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "Pity keeps you at a distance, but real compassion pulls up a chair and says 'I'm in this with you.'"
+      },
+      {
+        "quote": "True compassion is not soft or weak. It takes great strength to truly care about others, to shoulder their pain.",
+        "source": "Discussions on Youth",
+        "explanation": "Choosing to stay present with someone's pain instead of walking away is one of the hardest and most courageous things a person can do."
+      },
+      {
+        "quote": "A single warm word can give someone the courage to go on living. Never underestimate the power of your compassion.",
+        "source": "For Today and Tomorrow",
+        "explanation": "You may never know how much your small act of kindness meant to someone who was quietly falling apart that day."
+      },
+      {
+        "quote": "Genuine compassion means not only sharing another's suffering, but also helping them to realize their own strength.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "The deepest form of care is not rescuing someone from their struggle, but helping them discover they can survive it themselves."
+      },
+      {
+        "quote": "Buddhism teaches that compassion without wisdom is sentimentality, and wisdom without compassion is cold and heartless. We need both.",
+        "source": "Discussions on Youth",
+        "explanation": "Caring deeply about someone also means thinking clearly about what they actually need, not just what feels good to give."
+      }
+    ],
+    "struggles": [
+      "caregiver-burden",
+      "loneliness-despite-everything",
+      "how-to-forgive"
+    ]
   }
 ]
