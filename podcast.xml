@@ -24,8 +24,22 @@
     <itunes:category text="Religion &amp; Spirituality">
       <itunes:category text="Buddhism" />
     </itunes:category>
-    <pubDate>Tue, 23 Jun 2026 08:48:44 +0000</pubDate>
-    <lastBuildDate>Tue, 23 Jun 2026 08:48:44 +0000</lastBuildDate>
+    <pubDate>Wed, 24 Jun 2026 08:42:21 +0000</pubDate>
+    <lastBuildDate>Wed, 24 Jun 2026 08:42:21 +0000</lastBuildDate>
+    <item>
+      <title>When a Coworker Takes the Credit</title>
+      <link>https://thelotuslane.in/wisdom/coworker-takes-credit.html</link>
+      <guid isPermaLink="false">https://storage.googleapis.com/lotus-lane-podcast/coworker-takes-credit.mp3</guid>
+      <pubDate>Wed, 24 Jun 2026 08:42:21 +0000</pubDate>
+      <description>You know that feeling when you are sitting in a meeting and someone presents your idea as their own?</description>
+      <itunes:summary>You know that feeling when you are sitting in a meeting and someone presents your idea as their own?</itunes:summary>
+      <itunes:author>The Lotus Lane</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:duration>8:26</itunes:duration>
+      <itunes:episode>58</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <enclosure url="https://storage.googleapis.com/lotus-lane-podcast/coworker-takes-credit.mp3" length="6969645" type="audio/mpeg" />
+    </item>
     <item>
       <title>When You and Your Partner Argue About Everything</title>
       <link>https://thelotuslane.in/wisdom/constant-arguing.html</link>
