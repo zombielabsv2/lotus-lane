@@ -3109,5 +3109,44 @@
       "loneliness-despite-everything",
       "how-to-forgive"
     ]
+  },
+  {
+    "date": "2026-06-25",
+    "title": "Lost All Hope and Don't Know Where to Start? 5 Truths That Will Change How You See Tomorrow",
+    "theme": "hope",
+    "theme_name": "Hope",
+    "image": "listicles/2026-06-25.png",
+    "items": [
+      {
+        "quote": "Winter always turns to spring. Never, from ancient times on, has anyone heard or seen of winter turning back to autumn.",
+        "source": "The Writings of Nichiren Daishonin (referenced in guidance)",
+        "explanation": "When life feels frozen and stuck, this is the reminder that your hard season has a direction - and it is always forward."
+      },
+      {
+        "quote": "Hope is not a matter of ability; it is a matter of decision.",
+        "source": "Discussions on Youth",
+        "explanation": "You do not have to feel hopeful right now - you just have to decide to keep going, and that decision is enough."
+      },
+      {
+        "quote": "No matter how hopeless or bleak things appear, the moment you resolve to never give up, every nerve and fiber in your being will orient itself toward your success.",
+        "source": "Faith Into Action",
+        "explanation": "The simple act of refusing to quit rewires how you see problems - suddenly obstacles start looking like options."
+      },
+      {
+        "quote": "No one can make you feel hopeless unless you allow them to. Hope resides in the heart. It is something you create.",
+        "source": "Discussions on Youth",
+        "explanation": "Other people's doubts, bad news, and hard circumstances cannot touch the hope you choose to build inside yourself."
+      },
+      {
+        "quote": "Each morning we are born again. What we do today is what matters most.",
+        "source": "For Today and Tomorrow",
+        "explanation": "Yesterday's failures do not carry over - every single morning gives you a clean slate to start differently than you did before."
+      }
+    ],
+    "struggles": [
+      "depression-fog",
+      "anxiety-insomnia",
+      "starting-over"
+    ]
   }
 ]
