@@ -3187,5 +3187,44 @@
       "feeling-like-a-failure",
       "burnout-recovery"
     ]
+  },
+  {
+    "date": "2026-06-27",
+    "title": "Feel Like You're Too Small to Change Anything? 5 Truths About the Biggest Revolution of All",
+    "theme": "human-revolution",
+    "theme_name": "Human Revolution",
+    "image": "listicles/2026-06-27.png",
+    "items": [
+      {
+        "quote": "A great human revolution in just a single individual will help achieve a change in the destiny of a nation and, further, will enable a change in the destiny of all humankind.",
+        "source": "The Human Revolution",
+        "explanation": "When you feel powerless against the world's problems, remember that one person doing the inner work can ripple outward further than any headline ever will."
+      },
+      {
+        "quote": "Changing ourselves is the most difficult revolution of all. But it is the most important revolution.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "It is far easier to rearrange your circumstances than to face what is happening inside you - but only one of those changes actually lasts."
+      },
+      {
+        "quote": "Human revolution is not something special or out of the ordinary. It is the process of transforming our lives, one challenge at a time.",
+        "source": "Discussions on Youth",
+        "explanation": "You do not need a dramatic breakthrough moment - every hard day you push through is already the revolution happening in real time."
+      },
+      {
+        "quote": "When you change, the world around you will change. Everything begins with your own human revolution.",
+        "source": "Discussions on Youth",
+        "explanation": "The relationship that feels stuck, the job that feels suffocating, the life that feels small - all of it starts to shift when you do."
+      },
+      {
+        "quote": "Our lives are like gardens. We can grow flowers or we can grow weeds. It all depends on what we plant and how we tend our garden.",
+        "source": "For Today and Tomorrow",
+        "explanation": "The thoughts you return to every day, the habits you keep feeding - they are quietly deciding what kind of life grows around you."
+      }
+    ],
+    "struggles": [
+      "feeling-like-a-failure",
+      "starting-over",
+      "depression-fog"
+    ]
   }
 ]
