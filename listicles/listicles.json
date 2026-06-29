@@ -3265,5 +3265,44 @@
       "depression-fog",
       "burnout-recovery"
     ]
+  },
+  {
+    "date": "2026-06-29",
+    "title": "Had a Mentor Who Changed Your Life? 5 Truths About What You Owe Them",
+    "theme": "mentor-disciple",
+    "theme_name": "Mentor & Disciple",
+    "image": "listicles/2026-06-29.png",
+    "items": [
+      {
+        "quote": "A mentor does not exist to create followers. A mentor exists to create leaders.",
+        "source": "Discussions on Youth",
+        "explanation": "The best guidance you ever received was never meant to make you dependent - it was meant to make you dangerous in the best possible way."
+      },
+      {
+        "quote": "A disciple's mission is not to follow the mentor blindly, but to realize the mentor's vision - even surpassing the mentor.",
+        "source": "Discussions on Youth",
+        "explanation": "Honoring someone who believed in you doesn't mean copying them - it means building something bigger than either of you imagined."
+      },
+      {
+        "quote": "The true disciple is one who carries on the mentor's spirit. Not as a copy, but as a creative continuation.",
+        "source": "The New Human Revolution, Vol. 6",
+        "explanation": "The greatest tribute to a teacher, a parent, or a coach is doing what they taught you in a way that is completely and uniquely yours."
+      },
+      {
+        "quote": "The path of mentor and disciple is the path of shared struggle. It is not about hierarchy - it is about sharing the same commitment, the same vision, the same heart.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "Real mentorship isn't about power or status - it's two people equally committed to something that matters more than both of them."
+      },
+      {
+        "quote": "When the disciple truly stands up with the same spirit as the mentor, the power to change the world emerges.",
+        "source": "The New Human Revolution, Vol. 18",
+        "explanation": "The moment you stop waiting for permission and actually act on what you were taught, something shifts - in you and in everything around you."
+      }
+    ],
+    "struggles": [
+      "feeling-like-a-failure",
+      "overcoming-imposter-syndrome",
+      "starting-over"
+    ]
   }
 ]
