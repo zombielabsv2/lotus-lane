@@ -3304,5 +3304,44 @@
       "overcoming-imposter-syndrome",
       "starting-over"
     ]
+  },
+  {
+    "date": "2026-06-30",
+    "title": "Feeling Like You Haven't Done Enough With Your Life Yet? 5 Truths for Anyone Who Still Has Time",
+    "theme": "youth",
+    "theme_name": "Youth",
+    "image": "listicles/2026-06-30.png",
+    "items": [
+      {
+        "quote": "Nothing is more precious than youth. Do not waste a single day. Challenge yourselves! Grow! There is no time to be idle.",
+        "source": "For Today and Tomorrow",
+        "explanation": "Every day you choose comfort over growth is a day you quietly trade your future for temporary ease."
+      },
+      {
+        "quote": "Youth is not a time of life - it is a state of mind. As long as you have a dream, as long as you have a fighting spirit, you are forever young.",
+        "source": "Discussions on Youth",
+        "explanation": "No matter your age or circumstance, the moment you refuse to give up on a dream, something vital in you comes alive again."
+      },
+      {
+        "quote": "The voice of a single young person, if it rings with truth and conviction, can change the world.",
+        "source": "The New Human Revolution, Vol. 11",
+        "explanation": "When you speak up honestly - in a meeting, at home, or online - you have no idea whose life you quietly redirect."
+      },
+      {
+        "quote": "In youth, you should aim for the highest goals. Dream big. And then do everything in your power to make those dreams a reality.",
+        "source": "Youth and the Writings of Nichiren Daishonin",
+        "explanation": "Small, safe goals protect your ego but starve your potential - the dream worth chasing is always the one that scares you a little."
+      },
+      {
+        "quote": "Be a person of substance, not merely of surface. The depth of your character will determine your influence in the world.",
+        "source": "For Today and Tomorrow",
+        "explanation": "In a world obsessed with appearance and followers, the person who builds real inner depth is the one who actually lasts."
+      }
+    ],
+    "struggles": [
+      "feeling-like-a-failure",
+      "comparison-trap",
+      "overcoming-imposter-syndrome"
+    ]
   }
 ]
