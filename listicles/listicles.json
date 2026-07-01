@@ -3343,5 +3343,44 @@
       "comparison-trap",
       "overcoming-imposter-syndrome"
     ]
+  },
+  {
+    "date": "2026-07-01",
+    "title": "Can't Get Through to Someone You Love? 5 Truths About What Actually Opens a Closed Heart",
+    "theme": "dialogue",
+    "theme_name": "Dialogue",
+    "image": "listicles/2026-07-01.png",
+    "items": [
+      {
+        "quote": "When we engage in dialogue with sincerity and respect, the walls of misunderstanding crumble. Even the most hardened hearts can be opened.",
+        "source": "The New Human Revolution, Vol. 7",
+        "explanation": "That person who seems impossible to reach isn't a lost cause - sincerity is the key that no silence or argument can replace."
+      },
+      {
+        "quote": "Dialogue starts with listening. Truly listening - not just waiting for your turn to speak - but genuinely trying to understand another person's heart.",
+        "source": "Discussions on Youth",
+        "explanation": "Most arguments last longer than they should because both people are preparing rebuttals instead of actually hearing what the other person needs."
+      },
+      {
+        "quote": "One sincere conversation can accomplish more than a hundred speeches or a thousand emails.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "If a relationship or situation feels stuck, one honest, face-to-face conversation often does what months of texting back and forth never could."
+      },
+      {
+        "quote": "We must not fear those who are different from us. Difference is not a reason for conflict - it is an invitation for dialogue.",
+        "source": "For Today and Tomorrow",
+        "explanation": "The tension you feel around someone who thinks differently than you is not a warning sign - it is actually a chance to understand something you couldn't see alone."
+      },
+      {
+        "quote": "The greatest tool for peace is not weapons or technology. It is the simple act of two human beings sitting down and talking to each other.",
+        "source": "A New Era of Dialogue (Peace Proposal)",
+        "explanation": "Whether it's a family feud or a friendship falling apart, the solution is almost always simpler and more human than we make it."
+      }
+    ],
+    "struggles": [
+      "relationship-falling-apart",
+      "how-to-forgive",
+      "anger-you-cant-control"
+    ]
   }
 ]
