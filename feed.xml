@@ -7,6 +7,14 @@
     <language>en</language>
     <atom:link href="https://thelotuslane.in/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>I Talked for Two Hours and Nobody Asked a Single Question About Me</title>
+      <link>https://thelotuslane.in/strips/2026-07-01.html</link>
+      <description>Feeling unseen doesn't mean you don't exist fully — it often means your depth hasn't found the right room yet. The life you're quietly building in yourself is real, even before anyone else notices it.</description>
+      <pubDate>Wed, 01 Jul 2026 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-07-01.html</guid>
+      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-07-01.png" type="image/png" />
+    </item>
+    <item>
       <title>She Got the Cake, the Balloons, and the Corner Office. I Got a Forwarded WhatsApp.</title>
       <link>https://thelotuslane.in/strips/2026-06-29.html</link>
       <description>When a friend gets what you wanted, the sting is real — and it's not about being a bad person. But the moment you stop measuring your story against someone else's, you get your own story back. That's where the actual work begins.</description>
@@ -397,14 +405,6 @@
       <pubDate>Wed, 18 Mar 2026 00:00:00 +0000</pubDate>
       <guid isPermaLink="true">https://thelotuslane.in/strips/2026-03-18.html</guid>
       <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-03-18.png" type="image/png" />
-    </item>
-    <item>
-      <title>The Recipe Book</title>
-      <link>https://thelotuslane.in/strips/2026-03-16.html</link>
-      <description>A dream deferred isn't a dream destroyed - sometimes we need different soil, a different season, or simply more preparation before our seeds can grow.</description>
-      <pubDate>Mon, 16 Mar 2026 00:00:00 +0000</pubDate>
-      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-03-16.html</guid>
-      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-03-16.png" type="image/png" />
     </item>
   </channel>
 </rss>
