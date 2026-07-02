@@ -3382,5 +3382,44 @@
       "how-to-forgive",
       "anger-you-cant-control"
     ]
+  },
+  {
+    "date": "2026-07-02",
+    "title": "Feel Like the World Is Too Broken to Fix? 5 Truths About Where Peace Actually Comes From",
+    "theme": "peace",
+    "theme_name": "Peace",
+    "image": "listicles/2026-07-02.png",
+    "items": [
+      {
+        "quote": "A person who can build peace within their own heart can contribute to building peace in the world.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "The calm you build inside yourself today is not a small thing - it ripples outward and changes the people around you."
+      },
+      {
+        "quote": "The most powerful force for peace is not a government, not an army, not a treaty. It is the awakened awareness of individual human beings.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "When you choose to stop and truly see another person, you are already doing something more powerful than any policy ever could."
+      },
+      {
+        "quote": "The people - the ordinary citizens of the world - are the true protagonists of peace. Not politicians, not leaders, but everyday people with the courage to connect.",
+        "source": "For Today and Tomorrow",
+        "explanation": "You do not need a title or a platform to matter - your everyday choice to reach out to someone is the act that history is built on."
+      },
+      {
+        "quote": "As long as we continue to demonize others, peace will remain a dream. Peace begins the moment we recognize the humanity in every person.",
+        "source": "For Today and Tomorrow",
+        "explanation": "That person who drives you crazy at work or online is still a full human being, and remembering that is where real change starts."
+      },
+      {
+        "quote": "There is no enemy in Buddhism. There is only delusion to be overcome. When we see others as enemies, we have already lost the battle for peace.",
+        "source": "The New Human Revolution, Vol. 6",
+        "explanation": "The anger you feel toward someone is worth examining closely - because the real obstacle to your peace is often a story, not a person."
+      }
+    ],
+    "struggles": [
+      "anger-you-cant-control",
+      "how-to-forgive",
+      "loneliness-despite-everything"
+    ]
   }
 ]
