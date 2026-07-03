@@ -7,6 +7,14 @@
     <language>en</language>
     <atom:link href="https://thelotuslane.in/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>We Talked for 40 Minutes and I Still Felt Like He Wasn't There</title>
+      <link>https://thelotuslane.in/strips/2026-07-03.html</link>
+      <description>When a long-distance relationship starts to feel like a status update exchange, the fix isn't more calls — it's one honest question asked like you actually want the answer. Presence is a choice you make inside the conversation, not a function of geography.</description>
+      <pubDate>Fri, 03 Jul 2026 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-07-03.html</guid>
+      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-07-03.png" type="image/png" />
+    </item>
+    <item>
       <title>I Talked for Two Hours and Nobody Asked a Single Question About Me</title>
       <link>https://thelotuslane.in/strips/2026-07-01.html</link>
       <description>Feeling unseen doesn't mean you don't exist fully — it often means your depth hasn't found the right room yet. The life you're quietly building in yourself is real, even before anyone else notices it.</description>
@@ -397,14 +405,6 @@
       <pubDate>Fri, 20 Mar 2026 00:00:00 +0000</pubDate>
       <guid isPermaLink="true">https://thelotuslane.in/strips/2026-03-20.html</guid>
       <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-03-20.png" type="image/png" />
-    </item>
-    <item>
-      <title>The Weight of Silence</title>
-      <link>https://thelotuslane.in/strips/2026-03-18.html</link>
-      <description>Grief honors the preciousness of what was lost, and even brief life holds immeasurable value that remains with us.</description>
-      <pubDate>Wed, 18 Mar 2026 00:00:00 +0000</pubDate>
-      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-03-18.html</guid>
-      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-03-18.png" type="image/png" />
     </item>
   </channel>
 </rss>
