@@ -427,9 +427,14 @@ def build_video_metadata(strip):
     The algorithm surfaces Shorts based on interest, not subscribers — universal
     framing reaches the billions who search for help, not just practitioners.
     """
+    # YouTube hard-limits titles to 100 chars; a 101+ char title is rejected
+    # with a 400 invalidTitle (empty-or-invalid). Reserve exact room for the
+    # branded suffix so the truncation can never overshoot.
     title = f"{strip['title']} | The Lotus Lane"
     if len(title) > 100:
-        title = f"{strip['title'][:90]} | Lotus Lane"
+        short_suffix = " | Lotus Lane"
+        budget = 100 - len(short_suffix)
+        title = f"{strip['title'][:budget].rstrip()}{short_suffix}"
 
     category = strip.get("category", "")
     topic = strip.get("topic", "")
