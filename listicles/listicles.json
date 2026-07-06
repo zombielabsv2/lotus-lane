@@ -3538,5 +3538,44 @@
       "loneliness-despite-everything",
       "when-grief-wont-stop"
     ]
+  },
+  {
+    "date": "2026-07-06",
+    "title": "Can't See a Way Out? 5 Reminders That Darkness Never Gets the Last Word",
+    "theme": "hope",
+    "theme_name": "Hope",
+    "image": "listicles/2026-07-06.png",
+    "items": [
+      {
+        "quote": "Winter always turns to spring. Never, from ancient times on, has anyone heard or seen of winter turning back to autumn.",
+        "source": "The Writings of Nichiren Daishonin (referenced in guidance)",
+        "explanation": "When your hardest season feels permanent, nature itself is proof that forward is the only direction life moves."
+      },
+      {
+        "quote": "Hope is not a matter of ability; it is a matter of decision.",
+        "source": "Discussions on Youth",
+        "explanation": "You don't have to feel strong or certain - you just have to make the quiet choice to keep believing one more day."
+      },
+      {
+        "quote": "No matter how hopeless or bleak things appear, the moment you resolve to never give up, every nerve and fiber in your being will orient itself toward your success.",
+        "source": "Faith Into Action",
+        "explanation": "That one stubborn decision to keep going - even through tears - is what unlocks the part of you that knows how to survive."
+      },
+      {
+        "quote": "No one can make you feel hopeless unless you allow them to. Hope resides in the heart. It is something you create.",
+        "source": "Discussions on Youth",
+        "explanation": "The circumstances around you don't own your inner world - what you choose to build inside yourself is yours alone."
+      },
+      {
+        "quote": "Each morning we are born again. What we do today is what matters most.",
+        "source": "For Today and Tomorrow",
+        "explanation": "Yesterday's failures don't have to follow you into today - every morning is a real, honest chance to start fresh."
+      }
+    ],
+    "struggles": [
+      "depression-fog",
+      "starting-over",
+      "anxiety-insomnia"
+    ]
   }
 ]
