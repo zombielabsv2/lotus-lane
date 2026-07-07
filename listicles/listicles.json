@@ -3577,5 +3577,44 @@
       "starting-over",
       "anxiety-insomnia"
     ]
+  },
+  {
+    "date": "2026-07-07",
+    "title": "Scared But Still Standing? 5 Truths for Anyone Who Refuses to Back Down",
+    "theme": "courage",
+    "theme_name": "Courage",
+    "image": "listicles/2026-07-07.png",
+    "items": [
+      {
+        "quote": "Courage is not the absence of fear. Courage is feeling fear, recognizing fear, and still taking action.",
+        "source": "Discussions on Youth",
+        "explanation": "You don't need to stop feeling afraid - you just need to move forward while the fear is still there."
+      },
+      {
+        "quote": "No matter what happens, I will not be defeated. I will not run away. I will not complain. I will not be negative. I will keep advancing.",
+        "source": "The New Human Revolution, Vol. 1",
+        "explanation": "When life keeps hitting you, this single declaration can become the daily anchor that stops you from giving up."
+      },
+      {
+        "quote": "The true hero is one who conquers his own anger and hatred.",
+        "source": "For Today and Tomorrow",
+        "explanation": "The hardest battle isn't with the person who hurt you - it's with the bitterness that tries to take root inside you."
+      },
+      {
+        "quote": "Be the kind of person who, when your feet hit the floor in the morning, makes the devil say, 'Oh no, they're up!'",
+        "source": "Youth and the Writings of Nichiren Daishonin",
+        "explanation": "Every morning you choose to show up despite everything is a quiet act of resistance that your obstacles never saw coming."
+      },
+      {
+        "quote": "Buddhism is about winning. It is about the courage to overcome obstacles, to triumph over anything that stands in the way of our happiness.",
+        "source": "Faith Into Action",
+        "explanation": "Spiritual practice isn't about being calm and passive - it's about fighting hard for the life and happiness you deserve."
+      }
+    ],
+    "struggles": [
+      "anxiety-insomnia",
+      "feeling-like-a-failure",
+      "burnout-recovery"
+    ]
   }
 ]
