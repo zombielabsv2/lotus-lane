@@ -235,6 +235,54 @@ def collect_youtube(recent_video_ids: list[str]) -> dict:
     return out
 
 
+def collect_youtube_subscribers(max_results: int = 200) -> dict:
+    """List the channel's PUBLIC subscribers (subscriberSnippet via subscriptions.list).
+
+    YouTube only exposes subscribers whose subscription visibility is set to
+    public, so this list is almost always SMALLER than the channel's headline
+    subscriber count — the rest keep their subscription private and no API can
+    surface them. We show who we can and flag how many are hidden.
+    """
+    out = {"subscribers": [], "public_count": 0, "source_error": None}
+    token = _youtube_access_token()
+    if not token:
+        out["source_error"] = "missing YouTube OAuth creds (or refresh failed)"
+        return out
+
+    headers = {"Authorization": f"Bearer {token}"}
+    page_token = None
+    try:
+        while True:
+            params = {
+                "part": "subscriberSnippet",
+                "mySubscribers": "true",
+                "maxResults": 50,
+            }
+            if page_token:
+                params["pageToken"] = page_token
+            r = httpx.get(
+                f"{YT_API}/subscriptions", headers=headers, params=params, timeout=30
+            )
+            r.raise_for_status()
+            data = r.json()
+            for it in data.get("items") or []:
+                snip = it.get("subscriberSnippet") or {}
+                cid = snip.get("channelId", "")
+                out["subscribers"].append({
+                    "title": snip.get("title", ""),
+                    "channel_id": cid,
+                    "channel_url": f"https://www.youtube.com/channel/{cid}" if cid else "",
+                })
+            page_token = data.get("nextPageToken")
+            if not page_token or len(out["subscribers"]) >= max_results:
+                break
+        out["public_count"] = len(out["subscribers"])
+    except Exception as e:
+        out["source_error"] = f"{type(e).__name__}: {e}"
+
+    return out
+
+
 # ---------------------------------------------------------------------------
 # GA4 — sessions, top pages, top referrers, device mix
 # ---------------------------------------------------------------------------
@@ -596,7 +644,66 @@ def _roster_section(roster: dict) -> str:
   """
 
 
-def build_html(subs: dict, yt: dict, strips: dict, ga4: dict, roster: dict | None = None) -> str:
+def _yt_subscribers_section(yt_subs: dict, channel_total: int | None) -> str:
+    """Roster of the channel's public YouTube subscribers + a hidden-count note."""
+    def _esc(s: str) -> str:
+        return (s or "").replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+
+    subs = yt_subs.get("subscribers") or []
+    public_count = yt_subs.get("public_count", 0)
+
+    if not subs:
+        if yt_subs.get("source_error"):
+            note = f"Unavailable: {_esc(yt_subs['source_error'])}"
+        else:
+            note = (
+                "No subscribers have made their subscription public — YouTube only "
+                "exposes subscribers who set their subscription visibility to public."
+            )
+        return f"""
+  <div style="margin-bottom:28px;">
+    <div style="font-size:14px;color:#999;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">YouTube Subscribers</div>
+    <p style="margin:6px 0 0;color:#8a5a00;">{note}</p>
+  </div>
+  """
+
+    rows = ""
+    for s in subs:
+        name = _esc(s.get("title") or "—")
+        url = s.get("channel_url") or ""
+        name_html = (
+            f'<a href="{url}" style="color:#111;text-decoration:none;">{name}</a>'
+            if url else name
+        )
+        rows += f"""
+        <tr>
+          <td style="padding:6px 12px 6px 0;color:#111;font-size:13px;">{name_html}</td>
+          <td style="padding:6px 0;text-align:right;"><a href="{url}" style="color:#999;font-size:12px;text-decoration:none;">channel →</a></td>
+        </tr>
+        """
+
+    hidden_note = ""
+    if channel_total is not None and channel_total > public_count:
+        hidden_n = channel_total - public_count
+        hidden_note = (
+            f"<p style='margin:8px 0 0;color:#999;font-size:12px;'>"
+            f"{public_count} of {channel_total} subscribers are shown — the other "
+            f"{hidden_n} keep their subscription private, which no YouTube API can surface.</p>"
+        )
+
+    return f"""
+  <div style="margin-bottom:28px;">
+    <div style="font-size:14px;color:#999;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">YouTube Subscribers (public, {public_count})</div>
+    <table style="width:100%;border-collapse:collapse;border-top:1px solid #eee;">
+      <tbody>{rows}</tbody>
+    </table>
+    {hidden_note}
+  </div>
+  """
+
+
+def build_html(subs: dict, yt: dict, strips: dict, ga4: dict, roster: dict | None = None,
+               yt_subs: dict | None = None) -> str:
     today = datetime.now(timezone.utc).strftime("%b %d, %Y")
     week_start = (datetime.now(timezone.utc) - timedelta(days=7)).strftime("%b %d")
     week_end = datetime.now(timezone.utc).strftime("%b %d")
@@ -717,6 +824,8 @@ def build_html(subs: dict, yt: dict, strips: dict, ga4: dict, roster: dict | Non
     {ch_rows}
   </div>
 
+  {_yt_subscribers_section(yt_subs or {}, (yt.get("channel") or {}).get("subscribers"))}
+
   <div style="margin-bottom:28px;">
     <div style="font-size:14px;color:#999;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">This Week's Strips</div>
     <table style="width:100%;border-collapse:collapse;border-top:1px solid #eee;">
@@ -790,11 +899,12 @@ def main() -> None:
 
     strips_signal = collect_strips_signal()
     yt = collect_youtube(strips_signal["recent_video_ids"])
+    yt_subs = collect_youtube_subscribers()
     subs = collect_subscribers()
     roster = collect_subscriber_roster()
     ga4 = collect_ga4()
 
-    html = build_html(subs, yt, strips_signal, ga4, roster)
+    html = build_html(subs, yt, strips_signal, ga4, roster, yt_subs)
 
     today = datetime.now(timezone.utc).strftime("%b %d")
     ch = yt.get("channel") or {}
