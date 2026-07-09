@@ -3655,5 +3655,44 @@
       "starting-over",
       "burnout-recovery"
     ]
+  },
+  {
+    "date": "2026-07-09",
+    "title": "Praying Hard But Still Stuck? 5 Truths About What Your Faith Is Actually Capable Of",
+    "theme": "prayer-faith",
+    "theme_name": "Prayer & Faith",
+    "image": "listicles/2026-07-09.png",
+    "items": [
+      {
+        "quote": "A powerful prayer - one that is the roar of a lion - can change anything, any situation, no matter how difficult or seemingly impossible.",
+        "source": "The New Human Revolution, Vol. 3",
+        "explanation": "When your situation feels completely out of your hands, this is a reminder that sincere prayer carries a force that defies what logic says is possible."
+      },
+      {
+        "quote": "Prayer is the courage to persevere. It is the struggle to overcome our own weakness and lack of confidence in ourselves.",
+        "source": "For Today and Tomorrow",
+        "explanation": "Prayer is not passive waiting - it is the daily act of fighting your own doubt when nothing around you has changed yet."
+      },
+      {
+        "quote": "Buddhism teaches that prayer without action is just wishful thinking, and action without prayer lacks the power to break through fundamental darkness.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "If you feel stuck no matter how hard you try, it may be that effort and prayer need to work together rather than separately."
+      },
+      {
+        "quote": "Do not let your prayer become a mere formality. Infuse it with your deepest desires and your sincerest determination.",
+        "source": "For Today and Tomorrow",
+        "explanation": "Going through the motions each morning keeps you safe but small - real change starts when you bring your actual life, fears, and wants to your practice."
+      },
+      {
+        "quote": "The purpose of faith is to become happy - not to become a slave to rigid rules or formalities.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "If your spiritual practice has started to feel like a burden or a performance, this is your permission to reconnect with the only reason it exists."
+      }
+    ],
+    "struggles": [
+      "anxiety-insomnia",
+      "feeling-like-a-failure",
+      "burnout-recovery"
+    ]
   }
 ]
