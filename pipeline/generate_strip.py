@@ -230,6 +230,20 @@ Return ONLY the JSON, no other text."""
         raise ValueError(f"Claude returned invalid JSON: {content[:200]}...")
 
 
+def _log_openai_image(n: int = 1) -> None:
+    """Record this image generation in api_usage_log so OpenAI spend splits by app."""
+    try:
+        import sys as _s, pathlib as _p
+        _s.path.insert(0, str(_p.Path(__file__).parent.parent))
+        from usage_logger import log_usage, openai_image_cost
+        log_usage(app="lotus_lane", action="strip_panel", model="openai:gpt-image-1",
+                  cost_usd=openai_image_cost("gpt-image-1", "medium", n),
+                  metadata={"images": n, "quality": "medium", "size": "1024x1024"})
+    except Exception as _e:
+        import sys as _s
+        print(f"[lotus_lane] usage_logger failed: {type(_e).__name__}: {_e}", file=_s.stderr)
+
+
 def generate_panel_image(panel, characters, strip_title, panel_num):
     """Use GPT-4o to generate a single panel image."""
     api_key = get_openai_key()
@@ -284,6 +298,7 @@ CRITICAL RULES:
     )
     response.raise_for_status()
     result = response.json()
+    _log_openai_image()
 
     # Download the image
     image_data = result["data"][0]

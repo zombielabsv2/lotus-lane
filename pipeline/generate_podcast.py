@@ -259,6 +259,20 @@ def _chunk_text(text: str, limit: int = TTS_CHUNK_LIMIT) -> list[str]:
     return chunks
 
 
+def _log_openai_tts(chars: int) -> None:
+    """Record this TTS call in api_usage_log so OpenAI spend can be split by app.
+    Charged per successful synthesis; retried failures don't bill. Non-fatal."""
+    try:
+        sys.path.insert(0, str(Path(__file__).parent.parent))
+        from usage_logger import log_usage, openai_tts_cost
+        log_usage(
+            app="lotus_lane", action="podcast_tts", model="openai:tts-1-hd",
+            cost_usd=openai_tts_cost("tts-1-hd", chars), metadata={"chars": chars},
+        )
+    except Exception as e:  # telemetry must never break the episode
+        print(f"[lotus_lane] usage_logger failed: {type(e).__name__}: {e}", file=sys.stderr)
+
+
 def _tts_one(text: str, out_path: Path, *, attempts: int = 3) -> None:
     """Synthesize one chunk. Retries transient timeouts / 5xx — a single
     OpenAI read timeout should not kill a whole multi-chunk episode."""
@@ -284,6 +298,7 @@ def _tts_one(text: str, out_path: Path, *, attempts: int = 3) -> None:
         else:
             if r.status_code < 400:
                 out_path.write_bytes(r.content)
+                _log_openai_tts(len(text))
                 return
             if r.status_code < 500:  # 4xx is a hard error — don't retry
                 raise RuntimeError(f"OpenAI TTS {r.status_code}: {r.text[:300]}")

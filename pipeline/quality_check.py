@@ -18,6 +18,22 @@ from PIL import Image, ImageStat
 
 # --- Tier 1: Pillow-based checks (instant, free) ---
 
+def _log_openai_vision(usage):
+    """Record this vision QC call in api_usage_log so OpenAI spend splits by app."""
+    try:
+        import sys as _s, pathlib as _p
+        _s.path.insert(0, str(_p.Path(__file__).parent.parent))
+        from usage_logger import log_usage, openai_token_cost
+        pt = usage.get("prompt_tokens", 0)
+        ct = usage.get("completion_tokens", 0)
+        log_usage(app="lotus_lane", action="panel_qc_vision", model="openai:gpt-4o-mini",
+                  input_tokens=pt, output_tokens=ct,
+                  cost_usd=openai_token_cost("gpt-4o-mini", pt, ct))
+    except Exception as _e:
+        import sys as _s
+        print(f"[lotus_lane] usage_logger failed: {type(_e).__name__}: {_e}", file=_s.stderr)
+
+
 def check_resolution(img, min_size=256):
     """Reject images that are too small."""
     if img.width < min_size or img.height < min_size:
@@ -130,7 +146,9 @@ def check_text_in_image(img, openai_api_key):
         timeout=30,
     )
     response.raise_for_status()
-    answer = response.json()["choices"][0]["message"]["content"].strip().upper()
+    payload = response.json()
+    _log_openai_vision(payload.get("usage", {}))
+    answer = payload["choices"][0]["message"]["content"].strip().upper()
 
     has_text = "YES" in answer
     return has_text, answer

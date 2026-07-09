@@ -441,6 +441,19 @@ def render_cta_frame(progress):
 # TTS Audio — OpenAI tts-1-hd
 # ---------------------------------------------------------------------------
 
+def _log_openai_tts(chars):
+    """Record this TTS call in api_usage_log so OpenAI spend splits by app."""
+    try:
+        import sys as _s, pathlib as _p
+        _s.path.insert(0, str(_p.Path(__file__).parent.parent))
+        from usage_logger import log_usage, openai_tts_cost
+        log_usage(app="lotus_lane", action="hook_reel_tts", model=f"openai:{TTS_MODEL}",
+                  cost_usd=openai_tts_cost(TTS_MODEL, chars), metadata={"chars": chars})
+    except Exception as _e:
+        import sys as _s
+        print(f"[lotus_lane] usage_logger failed: {type(_e).__name__}: {_e}", file=_s.stderr)
+
+
 def generate_tts(text, output_path, voice=TTS_VOICE, speed=TTS_SPEED):
     """Generate TTS audio using OpenAI's tts-1-hd. Returns True on success."""
     api_key = os.environ.get("OPENAI_API_KEY", "")
@@ -466,6 +479,7 @@ def generate_tts(text, output_path, voice=TTS_VOICE, speed=TTS_SPEED):
         response.raise_for_status()
         with open(output_path, "wb") as f:
             f.write(response.content)
+        _log_openai_tts(len(text))
         return True
     except Exception as e:
         print(f"  TTS error: {e}")
