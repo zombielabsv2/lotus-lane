@@ -3733,5 +3733,44 @@
       "overcoming-imposter-syndrome",
       "starting-over"
     ]
+  },
+  {
+    "date": "2026-07-11",
+    "title": "Feeling Like Your Best Years Are Slipping Away? 5 Truths About What Youth Actually Means",
+    "theme": "youth",
+    "theme_name": "Youth",
+    "image": "listicles/2026-07-11.png",
+    "items": [
+      {
+        "quote": "Youth is not a time of life - it is a state of mind. As long as you have a dream, as long as you have a fighting spirit, you are forever young.",
+        "source": "Discussions on Youth",
+        "explanation": "If you still have something you care about and are willing to fight for it, you have not missed your window."
+      },
+      {
+        "quote": "Nothing is more precious than youth. Do not waste a single day. Challenge yourselves! Grow! There is no time to be idle.",
+        "source": "For Today and Tomorrow",
+        "explanation": "The ordinary Tuesday you let pass without effort is the exact day your future self will wish they had back."
+      },
+      {
+        "quote": "In youth, you should aim for the highest goals. Dream big. And then do everything in your power to make those dreams a reality.",
+        "source": "Youth and the Writings of Nichiren Daishonin",
+        "explanation": "A smaller, safer dream is not more realistic - it is just a way of protecting yourself from disappointment before you even begin."
+      },
+      {
+        "quote": "The voice of a single young person, if it rings with truth and conviction, can change the world.",
+        "source": "The New Human Revolution, Vol. 11",
+        "explanation": "The one honest thing you say in a room full of people agreeing with each other might be the thing that shifts everything."
+      },
+      {
+        "quote": "Be a person of substance, not merely of surface. The depth of your character will determine your influence in the world.",
+        "source": "For Today and Tomorrow",
+        "explanation": "In a world obsessed with how things look, the person who does the real inner work becomes the one people actually turn to."
+      }
+    ],
+    "struggles": [
+      "feeling-like-a-failure",
+      "overcoming-imposter-syndrome",
+      "starting-over"
+    ]
   }
 ]
