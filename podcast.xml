@@ -24,8 +24,22 @@
     <itunes:category text="Religion &amp; Spirituality">
       <itunes:category text="Buddhism" />
     </itunes:category>
-    <pubDate>Fri, 10 Jul 2026 08:50:33 +0000</pubDate>
-    <lastBuildDate>Fri, 10 Jul 2026 08:50:33 +0000</lastBuildDate>
+    <pubDate>Mon, 13 Jul 2026 08:34:26 +0000</pubDate>
+    <lastBuildDate>Mon, 13 Jul 2026 08:34:26 +0000</lastBuildDate>
+    <item>
+      <title>When You Dread Every Monday Morning</title>
+      <link>https://thelotuslane.in/wisdom/dreading-monday.html</link>
+      <guid isPermaLink="false">https://storage.googleapis.com/lotus-lane-podcast/dreading-monday.mp3</guid>
+      <pubDate>Mon, 13 Jul 2026 08:34:25 +0000</pubDate>
+      <description>You know that feeling when it is Sunday afternoon and the day is still good, but you can already feel it ending?</description>
+      <itunes:summary>You know that feeling when it is Sunday afternoon and the day is still good, but you can already feel it ending?</itunes:summary>
+      <itunes:author>The Lotus Lane</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:duration>9:22</itunes:duration>
+      <itunes:episode>68</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <enclosure url="https://storage.googleapis.com/lotus-lane-podcast/dreading-monday.mp3" length="7728813" type="audio/mpeg" />
+    </item>
     <item>
       <title>Doing All the Emotional Labor</title>
       <link>https://thelotuslane.in/wisdom/doing-all-the-emotional-labor.html</link>
