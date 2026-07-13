@@ -7,6 +7,14 @@
     <language>en</language>
     <atom:link href="https://thelotuslane.in/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>I Got the Job I Spent Five Years Wanting and Then the Company Shut Down</title>
+      <link>https://thelotuslane.in/strips/2026-07-13.html</link>
+      <description>When a dream collapses around you, it's easy to feel like the loss proves something was wrong with you. But the capacity that built the dream is still yours — and grief doesn't cancel that out.</description>
+      <pubDate>Mon, 13 Jul 2026 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-07-13.html</guid>
+      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-07-13.png" type="image/png" />
+    </item>
+    <item>
       <title>Everyone in the Meeting Already Knows Each Other and I Don't Even Know Where the Bathroom Is</title>
       <link>https://thelotuslane.in/strips/2026-07-10.html</link>
       <description>Starting a new job can make you feel like you've forgotten everything you know about yourself. The discomfort of being the outsider is not a sign you don't belong — it's just winter, and it doesn't last.</description>
@@ -397,14 +405,6 @@
       <pubDate>Sat, 28 Mar 2026 00:00:00 +0000</pubDate>
       <guid isPermaLink="true">https://thelotuslane.in/strips/2026-03-28.html</guid>
       <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-03-28.png" type="image/png" />
-    </item>
-    <item>
-      <title>My Father Said I Have No Daughter Anymore</title>
-      <link>https://thelotuslane.in/strips/2026-03-27.html</link>
-      <description>When family rejects you, the grief is sacred and the wound is real. But you do not stop being a daughter, a son, a sibling - you become the one who keeps the door open while the other person learns to walk back through it.</description>
-      <pubDate>Fri, 27 Mar 2026 00:00:00 +0000</pubDate>
-      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-03-27.html</guid>
-      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-03-27.png" type="image/png" />
     </item>
   </channel>
 </rss>
