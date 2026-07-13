@@ -3811,5 +3811,44 @@
       "how-to-forgive",
       "anger-you-cant-control"
     ]
+  },
+  {
+    "date": "2026-07-13",
+    "title": "Angry at the World Right Now? 5 Truths About Where Peace Actually Starts",
+    "theme": "peace",
+    "theme_name": "Peace",
+    "image": "listicles/2026-07-13.png",
+    "items": [
+      {
+        "quote": "A person who can build peace within their own heart can contribute to building peace in the world.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "The argument you had this morning and the state of the world are more connected than you think."
+      },
+      {
+        "quote": "There is no enemy in Buddhism. There is only delusion to be overcome. When we see others as enemies, we have already lost the battle for peace.",
+        "source": "The New Human Revolution, Vol. 6",
+        "explanation": "When you catch yourself writing someone off completely, that instinct itself is the thing worth fighting."
+      },
+      {
+        "quote": "As long as we continue to demonize others, peace will remain a dream. Peace begins the moment we recognize the humanity in every person.",
+        "source": "For Today and Tomorrow",
+        "explanation": "It costs something real to see the full person behind the opinion or action that hurt you."
+      },
+      {
+        "quote": "The most powerful force for peace is not a government, not an army, not a treaty. It is the awakened awareness of individual human beings.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "You are not too small or too ordinary to matter - your shift in awareness ripples further than you know."
+      },
+      {
+        "quote": "The people - the ordinary citizens of the world - are the true protagonists of peace. Not politicians, not leaders, but everyday people with the courage to connect.",
+        "source": "For Today and Tomorrow",
+        "explanation": "Reaching out to one person across a divide today is not a small act - it is exactly how the world changes."
+      }
+    ],
+    "struggles": [
+      "anger-you-cant-control",
+      "how-to-forgive",
+      "loneliness-despite-everything"
+    ]
   }
 ]
