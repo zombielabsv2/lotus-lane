@@ -17,7 +17,7 @@ import httpx
 RESEND_API_KEY = os.environ.get("RESEND_API_KEY", "")
 NOTIFY_EMAIL = os.environ.get("NOTIFY_EMAIL", "")
 FROM_EMAIL = "Lotus Lane Bot <notifications@rxjapps.in>"
-RESEND_API_URL = "https://api.resend.com/emails"
+RESEND_API_URL = "https://ejvavmpieilvigjktugh.supabase.co/functions/v1/resend-send/emails"
 
 STRIPS_DIR = Path(__file__).parent.parent / "strips"
 STRIPS_JSON = Path(__file__).parent.parent / "strips.json"

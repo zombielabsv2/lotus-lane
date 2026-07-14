@@ -408,7 +408,7 @@ def send_email(d: dict, dry_run: bool) -> None:
         print("RESEND_API_KEY or NOTIFY_EMAIL missing — skipping email", file=sys.stderr)
         return
     resp = httpx.post(
-        "https://api.resend.com/emails",
+        "https://ejvavmpieilvigjktugh.supabase.co/functions/v1/resend-send/emails",
         headers={"Authorization": f"Bearer {RESEND_API_KEY}",
                  "Content-Type": "application/json"},
         json={"from": FROM_EMAIL, "to": [NOTIFY_EMAIL],

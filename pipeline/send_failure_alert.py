@@ -24,7 +24,7 @@ def main():
     )
 
     resp = httpx.post(
-        "https://api.resend.com/emails",
+        "https://ejvavmpieilvigjktugh.supabase.co/functions/v1/resend-send/emails",
         headers={"Authorization": f"Bearer {api_key}"},
         json={
             "from": "Lotus Lane Bot <notifications@rxjapps.in>",

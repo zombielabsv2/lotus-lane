@@ -1346,7 +1346,7 @@ def send_email(to_email: str, subject: str, html_body: str) -> bool:
     unsubscribe_url = _safe_unsubscribe_url(to_email)
     try:
         resp = httpx.post(
-            "https://api.resend.com/emails",
+            "https://ejvavmpieilvigjktugh.supabase.co/functions/v1/resend-send/emails",
             headers={"Authorization": f"Bearer {RESEND_API_KEY}"},
             json={
                 "from": "Daily Wisdom <daimoku@rxjapps.in>",
@@ -1558,7 +1558,7 @@ def send_failure_digest(failures: list[dict]) -> bool:
 
     try:
         resp = httpx.post(
-            "https://api.resend.com/emails",
+            "https://ejvavmpieilvigjktugh.supabase.co/functions/v1/resend-send/emails",
             headers={"Authorization": f"Bearer {RESEND_API_KEY}"},
             json={
                 "from": "Lotus Lane Bot <notifications@rxjapps.in>",

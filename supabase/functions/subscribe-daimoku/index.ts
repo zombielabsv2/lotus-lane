@@ -243,7 +243,7 @@ Deno.serve(async (req: Request) => {
 
   // --- Send confirmation email via Resend ----------------------------------
   const { subject, html } = buildConfirmationEmail(name, confirmationToken);
-  const resendResp = await fetch("https://api.resend.com/emails", {
+  const resendResp = await fetch("https://ejvavmpieilvigjktugh.supabase.co/functions/v1/resend-send/emails", {
     method: "POST",
     headers: {
       Authorization: `Bearer ${RESEND_API_KEY}`,

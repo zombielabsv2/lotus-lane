@@ -111,7 +111,7 @@ unpublished essay(s) left (about {count} day(s) of daily-cadence runway).</p>
 </div>"""
     try:
         resp = httpx.post(
-            "https://api.resend.com/emails",
+            "https://ejvavmpieilvigjktugh.supabase.co/functions/v1/resend-send/emails",
             headers={"Authorization": f"Bearer {RESEND_API_KEY}",
                      "Content-Type": "application/json"},
             json={

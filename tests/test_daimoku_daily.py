@@ -567,7 +567,7 @@ def test_send_failure_digest_posts(monkeypatch):
         "subject": "'quote_source'",
     }])
     assert ok is True
-    assert captured["url"] == "https://api.resend.com/emails"
+    assert captured["url"] == "https://ejvavmpieilvigjktugh.supabase.co/functions/v1/resend-send/emails"
     assert captured["json"]["to"] == ["jindal.rahul+claude@gmail.com"]
     assert "1 Daily Lotus email failure" in captured["json"]["subject"]
     assert "shivali@test.com" in captured["json"]["html"]

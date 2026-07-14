@@ -124,7 +124,7 @@ def send_notification(new_subs, total):
     subject = f"Daimoku Daily: {n} new subscriber{plural} (total: {total})"
 
     resp = httpx.post(
-        "https://api.resend.com/emails",
+        "https://ejvavmpieilvigjktugh.supabase.co/functions/v1/resend-send/emails",
         headers={"Authorization": f"Bearer {RESEND_API_KEY}"},
         json={
             "from": "Lotus Lane Bot <notifications@rxjapps.in>",

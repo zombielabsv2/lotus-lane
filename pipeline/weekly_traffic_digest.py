@@ -33,7 +33,7 @@ SITE_URL = "https://thelotuslane.in"
 GA4_MEASUREMENT_ID = "G-4DM9P70KJ6"
 GOATCOUNTER_DASHBOARD = "https://zombielabs.goatcounter.com"
 
-RESEND_API_URL = "https://api.resend.com/emails"
+RESEND_API_URL = "https://ejvavmpieilvigjktugh.supabase.co/functions/v1/resend-send/emails"
 FROM_EMAIL = "Lotus Lane Bot <notifications@rxjapps.in>"
 YT_TOKEN_URL = "https://oauth2.googleapis.com/token"
 YT_API = "https://www.googleapis.com/youtube/v3"
