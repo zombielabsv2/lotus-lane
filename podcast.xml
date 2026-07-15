@@ -24,8 +24,22 @@
     <itunes:category text="Religion &amp; Spirituality">
       <itunes:category text="Buddhism" />
     </itunes:category>
-    <pubDate>Mon, 13 Jul 2026 08:34:26 +0000</pubDate>
-    <lastBuildDate>Mon, 13 Jul 2026 08:34:26 +0000</lastBuildDate>
+    <pubDate>Wed, 15 Jul 2026 07:30:29 +0000</pubDate>
+    <lastBuildDate>Wed, 15 Jul 2026 07:30:29 +0000</lastBuildDate>
+    <item>
+      <title>When You and Your Partner Have Drifted Apart</title>
+      <link>https://thelotuslane.in/wisdom/drifted-apart.html</link>
+      <guid isPermaLink="false">https://storage.googleapis.com/lotus-lane-podcast/drifted-apart.mp3</guid>
+      <pubDate>Wed, 15 Jul 2026 07:30:28 +0000</pubDate>
+      <description>You know that feeling when you look at the person across the dinner table and realize you have nothing to say?</description>
+      <itunes:summary>You know that feeling when you look at the person across the dinner table and realize you have nothing to say?</itunes:summary>
+      <itunes:author>The Lotus Lane</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:duration>8:35</itunes:duration>
+      <itunes:episode>69</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <enclosure url="https://storage.googleapis.com/lotus-lane-podcast/drifted-apart.mp3" length="7070253" type="audio/mpeg" />
+    </item>
     <item>
       <title>When You Dread Every Monday Morning</title>
       <link>https://thelotuslane.in/wisdom/dreading-monday.html</link>
