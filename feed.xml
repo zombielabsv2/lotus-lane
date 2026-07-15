@@ -7,6 +7,14 @@
     <language>en</language>
     <atom:link href="https://thelotuslane.in/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>I've Restarted This Thing Four Times and I'm Starting to Think the Universe Is Telling Me to Stop</title>
+      <link>https://thelotuslane.in/strips/2026-07-15.html</link>
+      <description>When you feel like giving up, it doesn't mean you've failed — it often means you've been showing up so long that you've forgotten to count that as something. The effort itself is not wasted. It is the work.</description>
+      <pubDate>Wed, 15 Jul 2026 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-07-15.html</guid>
+      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-07-15.png" type="image/png" />
+    </item>
+    <item>
       <title>I Got the Job I Spent Five Years Wanting and Then the Company Shut Down</title>
       <link>https://thelotuslane.in/strips/2026-07-13.html</link>
       <description>When a dream collapses around you, it's easy to feel like the loss proves something was wrong with you. But the capacity that built the dream is still yours — and grief doesn't cancel that out.</description>
@@ -397,14 +405,6 @@
       <pubDate>Tue, 31 Mar 2026 00:00:00 +0000</pubDate>
       <guid isPermaLink="true">https://thelotuslane.in/strips/2026-03-31.html</guid>
       <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-03-31.png" type="image/png" />
-    </item>
-    <item>
-      <title>The Weight of Missing</title>
-      <link>https://thelotuslane.in/strips/2026-03-28.html</link>
-      <description>The love we shared with those who have passed continues to flow through our lives, nourishing us and those around us even in their physical absence.</description>
-      <pubDate>Sat, 28 Mar 2026 00:00:00 +0000</pubDate>
-      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-03-28.html</guid>
-      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-03-28.png" type="image/png" />
     </item>
   </channel>
 </rss>
