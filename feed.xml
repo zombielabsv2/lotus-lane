@@ -7,6 +7,14 @@
     <language>en</language>
     <atom:link href="https://thelotuslane.in/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>My Amma Calls Every Sunday to Tell Me I'm Living My Life Wrong</title>
+      <link>https://thelotuslane.in/strips/2026-07-17.html</link>
+      <description>When family pressure and your own choices pull in opposite directions, you do not have to choose between loving someone and living your own life. Both can be true at the same time.</description>
+      <pubDate>Fri, 17 Jul 2026 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-07-17.html</guid>
+      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-07-17.png" type="image/png" />
+    </item>
+    <item>
       <title>I've Restarted This Thing Four Times and I'm Starting to Think the Universe Is Telling Me to Stop</title>
       <link>https://thelotuslane.in/strips/2026-07-15.html</link>
       <description>When you feel like giving up, it doesn't mean you've failed — it often means you've been showing up so long that you've forgotten to count that as something. The effort itself is not wasted. It is the work.</description>
@@ -397,14 +405,6 @@
       <pubDate>Wed, 01 Apr 2026 00:00:00 +0000</pubDate>
       <guid isPermaLink="true">https://thelotuslane.in/strips/2026-04-01.html</guid>
       <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-04-01.png" type="image/png" />
-    </item>
-    <item>
-      <title>The Weight of Gold Stars</title>
-      <link>https://thelotuslane.in/strips/2026-03-31.html</link>
-      <description>True fulfillment comes from walking our own authentic path, not from meeting others' expectations of what our life should look like.</description>
-      <pubDate>Tue, 31 Mar 2026 00:00:00 +0000</pubDate>
-      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-03-31.html</guid>
-      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-03-31.png" type="image/png" />
     </item>
   </channel>
 </rss>
