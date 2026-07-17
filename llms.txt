@@ -22,13 +22,12 @@
 - Letters on Life: 50 timeless letters decoded into plain language — why each was written, its core message, and how to use it today.
 - Wisdom Library: 300 quotes from Daisaku Ikeda across 21 life themes.
 - Wisdom essays: 250 long-form guides, one per life struggle.
-- A daily audio reading, the Two Lamps daily reflection, and a comic strip.
+- A daily audio reading and a comic strip.
 
 ## Reference library (free, citable)
 - Letters on Life: https://thelotuslane.in/decoder/
 - Wisdom Library: https://thelotuslane.in/ikeda/
 - Wisdom essays: https://thelotuslane.in/wisdom/
-- Two Lamps (daily reflection): https://thelotuslane.in/two-lamps/
 - Daily audio: https://thelotuslane.in/podcast/ — feed: https://thelotuslane.in/podcast.xml
 
 ## Full corpus (every decoded letter + meaning, all Wisdom Library themes)
