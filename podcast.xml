@@ -24,8 +24,22 @@
     <itunes:category text="Religion &amp; Spirituality">
       <itunes:category text="Buddhism" />
     </itunes:category>
-    <pubDate>Wed, 15 Jul 2026 07:30:29 +0000</pubDate>
-    <lastBuildDate>Wed, 15 Jul 2026 07:30:29 +0000</lastBuildDate>
+    <pubDate>Fri, 17 Jul 2026 07:35:27 +0000</pubDate>
+    <lastBuildDate>Fri, 17 Jul 2026 07:35:27 +0000</lastBuildDate>
+    <item>
+      <title>When You're Drowning in Debt</title>
+      <link>https://thelotuslane.in/wisdom/drowning-in-debt.html</link>
+      <guid isPermaLink="false">https://storage.googleapis.com/lotus-lane-podcast/drowning-in-debt.mp3</guid>
+      <pubDate>Fri, 17 Jul 2026 07:35:27 +0000</pubDate>
+      <description>You know that feeling when you open your banking app and your stomach drops before the screen even loads?</description>
+      <itunes:summary>You know that feeling when you open your banking app and your stomach drops before the screen even loads?</itunes:summary>
+      <itunes:author>The Lotus Lane</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:duration>8:42</itunes:duration>
+      <itunes:episode>70</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <enclosure url="https://storage.googleapis.com/lotus-lane-podcast/drowning-in-debt.mp3" length="7216557" type="audio/mpeg" />
+    </item>
     <item>
       <title>When You and Your Partner Have Drifted Apart</title>
       <link>https://thelotuslane.in/wisdom/drifted-apart.html</link>
