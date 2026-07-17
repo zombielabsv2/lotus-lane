@@ -3967,5 +3967,44 @@
       "loneliness-despite-everything",
       "when-grief-wont-stop"
     ]
+  },
+  {
+    "date": "2026-07-17",
+    "title": "Lost All Hope and Don't Know How to Get It Back? 5 Truths That Will Change How You See Tomorrow",
+    "theme": "hope",
+    "theme_name": "Hope",
+    "image": "listicles/2026-07-17.png",
+    "items": [
+      {
+        "quote": "Winter always turns to spring. Never, from ancient times on, has anyone heard or seen of winter turning back to autumn.",
+        "source": "The Writings of Nichiren Daishonin (referenced in guidance)",
+        "explanation": "Whatever painful season you are living through right now, it is moving forward - never backward - toward something warmer."
+      },
+      {
+        "quote": "Hope is not a matter of ability; it is a matter of decision.",
+        "source": "Discussions on Youth",
+        "explanation": "You don't have to feel optimistic or capable to choose hope - it's an act of will, not a reward for having things figured out."
+      },
+      {
+        "quote": "No matter how hopeless or bleak things appear, the moment you resolve to never give up, every nerve and fiber in your being will orient itself toward your success.",
+        "source": "Faith Into Action",
+        "explanation": "The single decision to keep going - even when nothing looks promising - quietly reorganizes your entire life in the direction of better days."
+      },
+      {
+        "quote": "No one can make you feel hopeless unless you allow them to. Hope resides in the heart. It is something you create.",
+        "source": "Discussions on Youth",
+        "explanation": "The circumstances, the people, and the setbacks around you don't get to determine what lives inside you - that belongs to you alone."
+      },
+      {
+        "quote": "Each morning we are born again. What we do today is what matters most.",
+        "source": "For Today and Tomorrow",
+        "explanation": "Yesterday's failures and tomorrow's fears don't have to follow you in - every morning hands you a completely fresh start."
+      }
+    ],
+    "struggles": [
+      "depression-fog",
+      "starting-over",
+      "feeling-like-a-failure"
+    ]
   }
 ]
