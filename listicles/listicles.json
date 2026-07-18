@@ -4006,5 +4006,44 @@
       "starting-over",
       "feeling-like-a-failure"
     ]
+  },
+  {
+    "date": "2026-07-18",
+    "title": "Too Scared to Make Your Move? 5 Truths About Courage That Will Finally Get You Off the Sidelines",
+    "theme": "courage",
+    "theme_name": "Courage",
+    "image": "listicles/2026-07-18.png",
+    "items": [
+      {
+        "quote": "Courage is not the absence of fear. Courage is feeling fear, recognizing fear, and still taking action.",
+        "source": "Discussions on Youth",
+        "explanation": "You don't have to feel ready - you just have to take the next step even when your hands are shaking."
+      },
+      {
+        "quote": "Be the kind of person who, when your feet hit the floor in the morning, makes the devil say, 'Oh no, they're up!'",
+        "source": "Youth and the Writings of Nichiren Daishonin",
+        "explanation": "Showing up fully and refusing to shrink is one of the most powerful things you can do on an ordinary Tuesday."
+      },
+      {
+        "quote": "No matter what happens, I will not be defeated. I will not run away. I will not complain. I will not be negative. I will keep advancing.",
+        "source": "The New Human Revolution, Vol. 1",
+        "explanation": "When life keeps pushing back, this is the kind of daily decision that separates people who survive from people who rise."
+      },
+      {
+        "quote": "Buddhism is about winning. It is about the courage to overcome obstacles, to triumph over anything that stands in the way of our happiness.",
+        "source": "Faith Into Action",
+        "explanation": "The thing standing between you and the life you want is not circumstance - it is the willingness to fight for it."
+      },
+      {
+        "quote": "The true hero is one who conquers his own anger and hatred.",
+        "source": "For Today and Tomorrow",
+        "explanation": "Real strength is not about winning arguments or outlasting critics - it is about refusing to let bitterness run your life."
+      }
+    ],
+    "struggles": [
+      "feeling-like-a-failure",
+      "burnout-recovery",
+      "starting-over"
+    ]
   }
 ]
