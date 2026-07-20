@@ -585,49 +585,44 @@ def _roster_section(roster: dict) -> str:
         except Exception:
             return (iso or "")[:10]
 
-    d_rows = ""
+    # Stacked CARDS, not a wide side-by-side table. A 5-column roster (name /
+    # email / challenges / freq / joined) can't fit a phone: even once the
+    # central chokepoint stopped shattering cells one-glyph-per-line, five real
+    # columns on a 320px screen is still cramped. A card per subscriber has no
+    # side-by-side columns, so it structurally cannot clip — name on top, then
+    # the details as short labelled lines. (Rahul, 2026-07-20: "kill the wide
+    # side-by-side tables — each subscriber a small stacked card.")
+    d_cards = ""
     for s in daimoku:
         challenges = ", ".join(s.get("challenges") or []) or "—"
-        d_rows += f"""
-        <tr>
-          <td style="padding:6px 12px 6px 0;color:#111;font-size:13px;white-space:nowrap;">{_esc(s.get('name') or '—')}</td>
-          <td style="padding:6px 12px 6px 0;color:#555;font-size:12px;">{_esc(s.get('email') or '')}</td>
-          <td style="padding:6px 12px 6px 0;color:#555;font-size:12px;">{_esc(challenges)}</td>
-          <td style="padding:6px 12px 6px 0;color:#999;font-size:12px;white-space:nowrap;">{_esc(s.get('frequency') or '')}</td>
-          <td style="padding:6px 0;color:#999;font-size:12px;white-space:nowrap;text-align:right;">{_join_date(s.get('subscribed_at') or '')}</td>
-        </tr>
+        freq = _esc(s.get("frequency") or "")
+        joined = _join_date(s.get("subscribed_at") or "")
+        meta = " · ".join(x for x in [freq, f"joined {joined}" if joined else ""] if x)
+        d_cards += f"""
+        <div style="padding:10px 0;border-top:1px solid #eee;">
+          <div style="color:#111;font-size:14px;font-weight:600;">{_esc(s.get('name') or '—')}</div>
+          <div style="color:#555;font-size:12px;margin-top:2px;">{_esc(s.get('email') or '')}</div>
+          <div style="color:#555;font-size:12px;margin-top:2px;"><span style="color:#999;">Challenges:</span> {_esc(challenges)}</div>
+          <div style="color:#999;font-size:12px;margin-top:2px;">{meta}</div>
+        </div>
         """
     daimoku_table = f"""
         <div style="font-size:12px;color:#999;text-transform:uppercase;letter-spacing:0.5px;margin:4px 0;">Daily Lotus ({len(daimoku)})</div>
-        <table style="width:100%;border-collapse:collapse;border-top:1px solid #eee;">
-          <thead><tr style="color:#999;font-size:11px;text-transform:uppercase;letter-spacing:0.5px;">
-            <th style="padding:4px 12px 4px 0;text-align:left;font-weight:500;">Name</th>
-            <th style="padding:4px 12px 4px 0;text-align:left;font-weight:500;">Email</th>
-            <th style="padding:4px 12px 4px 0;text-align:left;font-weight:500;">Challenges</th>
-            <th style="padding:4px 12px 4px 0;text-align:left;font-weight:500;">Freq</th>
-            <th style="padding:4px 0;text-align:right;font-weight:500;">Joined</th>
-          </tr></thead>
-          <tbody>{d_rows}</tbody>
-        </table>
+        {d_cards}
     """ if daimoku else ""
 
-    c_rows = ""
+    c_cards = ""
     for s in content:
-        c_rows += f"""
-        <tr>
-          <td style="padding:6px 12px 6px 0;color:#555;font-size:12px;">{_esc(s.get('email') or '')}</td>
-          <td style="padding:6px 0;color:#999;font-size:12px;white-space:nowrap;text-align:right;">{_join_date(s.get('subscribed_at') or '')}</td>
-        </tr>
+        joined = _join_date(s.get("subscribed_at") or "")
+        c_cards += f"""
+        <div style="padding:8px 0;border-top:1px solid #eee;">
+          <div style="color:#555;font-size:12px;">{_esc(s.get('email') or '')}</div>
+          <div style="color:#999;font-size:12px;margin-top:2px;">joined {joined}</div>
+        </div>
         """
     content_table = f"""
         <div style="font-size:12px;color:#999;text-transform:uppercase;letter-spacing:0.5px;margin:16px 0 4px;">New-strip notifications ({len(content)})</div>
-        <table style="width:100%;border-collapse:collapse;border-top:1px solid #eee;">
-          <thead><tr style="color:#999;font-size:11px;text-transform:uppercase;letter-spacing:0.5px;">
-            <th style="padding:4px 12px 4px 0;text-align:left;font-weight:500;">Email</th>
-            <th style="padding:4px 0;text-align:right;font-weight:500;">Joined</th>
-          </tr></thead>
-          <tbody>{c_rows}</tbody>
-        </table>
+        {c_cards}
     """ if content else ""
 
     err = ""
