@@ -4123,5 +4123,44 @@
       "feeling-like-a-failure",
       "burnout-recovery"
     ]
+  },
+  {
+    "date": "2026-07-21",
+    "title": "Outgrown Your Mentor or Feel Like You're Living in Their Shadow? 5 Truths About That Bond",
+    "theme": "mentor-disciple",
+    "theme_name": "Mentor & Disciple",
+    "image": "listicles/2026-07-21.png",
+    "items": [
+      {
+        "quote": "A mentor does not exist to create followers. A mentor exists to create leaders.",
+        "source": "Discussions on Youth",
+        "explanation": "The best guidance you ever received was never meant to make you dependent - it was meant to make you capable of standing alone."
+      },
+      {
+        "quote": "A disciple's mission is not to follow the mentor blindly, but to realize the mentor's vision - even surpassing the mentor.",
+        "source": "Discussions on Youth",
+        "explanation": "Honoring someone who believed in you means going further than they went, not staying smaller out of loyalty."
+      },
+      {
+        "quote": "The true disciple is one who carries on the mentor's spirit. Not as a copy, but as a creative continuation.",
+        "source": "The New Human Revolution, Vol. 6",
+        "explanation": "You don't honor a great teacher by imitating them - you honor them by taking what they gave you and making it your own."
+      },
+      {
+        "quote": "The path of mentor and disciple is the path of shared struggle. It is not about hierarchy - it is about sharing the same commitment, the same vision, the same heart.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "The most meaningful relationships in your life aren't built on status - they're built on fighting for the same thing together."
+      },
+      {
+        "quote": "When the disciple truly stands up with the same spirit as the mentor, the power to change the world emerges.",
+        "source": "The New Human Revolution, Vol. 18",
+        "explanation": "The moment you stop waiting for permission and actually act on what you were taught, something shifts - in you and around you."
+      }
+    ],
+    "struggles": [
+      "overcoming-imposter-syndrome",
+      "feeling-like-a-failure",
+      "sidelined-at-work"
+    ]
   }
 ]
