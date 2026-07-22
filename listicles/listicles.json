@@ -4162,5 +4162,44 @@
       "feeling-like-a-failure",
       "sidelined-at-work"
     ]
+  },
+  {
+    "date": "2026-07-22",
+    "title": "Don't Know What You're Doing With Your Life? 5 Truths Every Young Person Needs to Hear",
+    "theme": "youth",
+    "theme_name": "Youth",
+    "image": "listicles/2026-07-22.png",
+    "items": [
+      {
+        "quote": "Nothing is more precious than youth. Do not waste a single day. Challenge yourselves! Grow! There is no time to be idle.",
+        "source": "For Today and Tomorrow",
+        "explanation": "Every day you spend waiting for the right moment is a day of real potential slipping quietly through your hands."
+      },
+      {
+        "quote": "Youth is not a time of life - it is a state of mind. As long as you have a dream, as long as you have a fighting spirit, you are forever young.",
+        "source": "Discussions on Youth",
+        "explanation": "If you still care, still want more, and still refuse to quit, then no number on a calendar can define or limit you."
+      },
+      {
+        "quote": "In youth, you should aim for the highest goals. Dream big. And then do everything in your power to make those dreams a reality.",
+        "source": "Youth and the Writings of Nichiren Daishonin",
+        "explanation": "The gap between where you are and where you want to be closes only when your daily actions finally match the size of your dreams."
+      },
+      {
+        "quote": "The voice of a single young person, if it rings with truth and conviction, can change the world.",
+        "source": "The New Human Revolution, Vol. 11",
+        "explanation": "You do not need a platform, a title, or a million followers - you just need the courage to say what you actually believe."
+      },
+      {
+        "quote": "Be a person of substance, not merely of surface. The depth of your character will determine your influence in the world.",
+        "source": "For Today and Tomorrow",
+        "explanation": "In a world obsessed with appearances and follower counts, the people who build real character are the ones who last."
+      }
+    ],
+    "struggles": [
+      "feeling-like-a-failure",
+      "overcoming-imposter-syndrome",
+      "comparison-trap"
+    ]
   }
 ]
