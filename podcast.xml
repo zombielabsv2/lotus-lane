@@ -24,8 +24,22 @@
     <itunes:category text="Religion &amp; Spirituality">
       <itunes:category text="Buddhism" />
     </itunes:category>
-    <pubDate>Mon, 20 Jul 2026 08:25:33 +0000</pubDate>
-    <lastBuildDate>Mon, 20 Jul 2026 08:25:33 +0000</lastBuildDate>
+    <pubDate>Wed, 22 Jul 2026 07:57:11 +0000</pubDate>
+    <lastBuildDate>Wed, 22 Jul 2026 07:57:11 +0000</lastBuildDate>
+    <item>
+      <title>When You're Emotionally Exhausted</title>
+      <link>https://thelotuslane.in/wisdom/emotional-exhaustion.html</link>
+      <guid isPermaLink="false">https://storage.googleapis.com/lotus-lane-podcast/emotional-exhaustion.mp3</guid>
+      <pubDate>Wed, 22 Jul 2026 07:57:10 +0000</pubDate>
+      <description>You know that feeling when someone asks how you are and you say fine, and the word comes out flat, because the truth would take too long and you do not have the energy to say it?</description>
+      <itunes:summary>You know that feeling when someone asks how you are and you say fine, and the word comes out flat, because the truth would take too long and you do not have the energy to say it?</itunes:summary>
+      <itunes:author>The Lotus Lane</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:duration>9:21</itunes:duration>
+      <itunes:episode>72</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <enclosure url="https://storage.googleapis.com/lotus-lane-podcast/emotional-exhaustion.mp3" length="7730349" type="audio/mpeg" />
+    </item>
     <item>
       <title>Earning Less Than Everyone Around You</title>
       <link>https://thelotuslane.in/wisdom/earning-less-than-everyone-around-you.html</link>
