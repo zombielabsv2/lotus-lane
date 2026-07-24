@@ -2277,5 +2277,24 @@
     },
     "youtube_views": 0,
     "youtube_views_updated_at": "2026-07-24T05:26:25Z"
+  },
+  {
+    "date": "2026-07-24",
+    "title": "He's Sitting Right Next to Me and I Have No Idea Where He Is",
+    "image": "https://zombielabsv2.github.io/lotus-lane-assets/2026-07-24.png",
+    "message": "Loneliness inside a marriage often isn't about love running out — it's about presence running out. The smallest act of choosing to show up, really show up, is where closeness gets rebuilt.",
+    "quote": "A great human revolution in just a single individual will help achieve a change in the destiny of a nation and, further, of all humankind.",
+    "source": "Daisaku Ikeda, The Human Revolution (foreword)",
+    "tags": [
+      "loneliness",
+      "marriage",
+      "relationships"
+    ],
+    "category": "loneliness",
+    "topic": "loneliness in marriage",
+    "characters": [
+      "meera",
+      "arjun"
+    ]
   }
 ]
