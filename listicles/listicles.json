@@ -4240,5 +4240,44 @@
       "how-to-forgive",
       "anger-you-cant-control"
     ]
+  },
+  {
+    "date": "2026-07-24",
+    "title": "Tired of a World That Feels Broken? 5 Truths About How Peace Actually Gets Built",
+    "theme": "peace",
+    "theme_name": "Peace",
+    "image": "listicles/2026-07-24.png",
+    "items": [
+      {
+        "quote": "A person who can build peace within their own heart can contribute to building peace in the world.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "The arguments you have at home and the stress you carry inside are not separate from the state of the world - they are the world."
+      },
+      {
+        "quote": "The most powerful force for peace is not a government, not an army, not a treaty. It is the awakened awareness of individual human beings.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "When you choose not to react with hate in a small moment, you are doing something no policy or law can do on its own."
+      },
+      {
+        "quote": "The people - the ordinary citizens of the world - are the true protagonists of peace. Not politicians, not leaders, but everyday people with the courage to connect.",
+        "source": "For Today and Tomorrow",
+        "explanation": "Your willingness to reach across a divide - at work, in your family, online - matters more than any headline you will read today."
+      },
+      {
+        "quote": "As long as we continue to demonize others, peace will remain a dream. Peace begins the moment we recognize the humanity in every person.",
+        "source": "For Today and Tomorrow",
+        "explanation": "The next time someone frustrates you, pausing to ask what they are carrying inside is one of the most radical things you can do."
+      },
+      {
+        "quote": "There is no enemy in Buddhism. There is only delusion to be overcome. When we see others as enemies, we have already lost the battle for peace.",
+        "source": "The New Human Revolution, Vol. 6",
+        "explanation": "That person you have written off as the villain in your life may be the very relationship where your own growth is waiting."
+      }
+    ],
+    "struggles": [
+      "anger-you-cant-control",
+      "how-to-forgive",
+      "loneliness-despite-everything"
+    ]
   }
 ]
