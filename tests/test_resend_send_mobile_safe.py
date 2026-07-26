@@ -97,3 +97,45 @@ def test_mobile_safe_behaviour_via_node(tmp_path):
     import json
     checks = json.loads(res.stdout.strip().splitlines()[-1])
     assert all(checks.values()), f"mobileSafe behaviour regressed: {checks}"
+
+
+@pytest.mark.skipif(_NODE is None, reason="node not available to execute the Deno transform")
+def test_width_attr_merge_does_not_duplicate_style(tmp_path):
+    """The card shell every empire email uses carries BOTH width="640" and inline
+    styles. The transform used to append a SECOND style="max-width:640px"; parsers
+    keep the first style and discard the rest, so the card lost its background and
+    border. Rahul caught it on the 2026-07-26 KBK briefing. Mirrors the Python
+    twin's test_width_attr_never_emits_a_second_style_attribute."""
+    src = _source()
+    src = re.sub(r"Deno\.serve[\s\S]*$", "", src)
+    src = re.sub(r"export function mobileSafe\(html:\s*string\):\s*string",
+                 "function mobileSafe(html)", src)
+    harness = src + textwrap.dedent(r"""
+        const shell = (style) => '<html><head></head><body>'
+          + '<table role="presentation" cellpadding="0" cellspacing="0" border="0" '
+          + 'width="640" style="' + style + '"><tr><td>hi</td></tr></table></body></html>';
+        const tagOf = (h) => h.match(/<table\b[^>]*>/i)[0];
+        const capped = tagOf(mobileSafe(shell(
+          'max-width:640px;width:100%;background-color:#ffffff;border:1px solid #e5e0d6;')));
+        const uncapped = tagOf(mobileSafe(shell('background-color:#ffffff;')));
+        const styles = (t) => (t.match(/\sstyle\s*=/gi) || []).length;
+        const once = mobileSafe(shell('background-color:#ffffff;'));
+        const checks = {
+          capped_single_style: styles(capped) === 1,
+          capped_keeps_background: capped.includes('background-color:#ffffff'),
+          capped_keeps_border: capped.includes('border:1px solid #e5e0d6'),
+          uncapped_single_style: styles(uncapped) === 1,
+          uncapped_gets_cap: uncapped.includes('max-width:640px'),
+          uncapped_keeps_background: uncapped.includes('background-color:#ffffff'),
+          separator_kept: !uncapped.includes('"width='),
+          idempotent: mobileSafe(once) === once,
+        };
+        console.log(JSON.stringify(checks));
+    """)
+    f = tmp_path / "width_merge.mjs"
+    f.write_text(harness, encoding="utf-8")
+    res = subprocess.run([_NODE, str(f)], capture_output=True, text=True, timeout=30)
+    assert res.returncode == 0, res.stderr
+    import json
+    checks = json.loads(res.stdout.strip().splitlines()[-1])
+    assert all(checks.values()), f"width-attribute merge regressed: {checks}"

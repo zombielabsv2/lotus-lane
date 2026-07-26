@@ -77,12 +77,36 @@ export function mobileSafe(html: string): string {
   );
 
   // Legacy width attributes: <table width="600"> -> fluid with a max-width.
+  // The max-width is MERGED into any style the tag already carries. Emitting a
+  // second style="..." looks harmless and is not: HTML parsers keep the FIRST
+  // occurrence of a duplicate attribute and discard the rest, so the tag's real
+  // styling (background, border, width) silently vanished while the injected
+  // max-width won. Caught on the 2026-07-26 KBK briefing, whose shell table had
+  // both width="640" and inline styles and so lost its white card in Gmail.
+  // Mirrors the Python twin's _merge_max_width (utils/email_mobile.py).
   out = out.replace(
     /<(table|td|th|img)([^>]*?)\swidth=["']?(\d{3,})["']?([^>]*?)>/gi,
-    (m, tag, pre, px, post) =>
-      Number(px) > PHONE_SAFE_PX
-        ? `<${tag}${pre} width="100%" style="max-width:${px}px"${post}>`
-        : m
+    (m, tag, pre, px, post) => {
+      if (Number(px) <= PHONE_SAFE_PX) return m;
+      const attrs = `${pre}${post}`;
+      const style = /\sstyle=(["'])([\s\S]*?)\1/i.exec(attrs);
+      // No type annotation here on purpose: tests/test_resend_send_mobile_safe.py
+      // runs this function body through plain node, which cannot parse TS syntax.
+      let merged;
+      if (!style) {
+        merged = `${attrs} style="max-width:${px}px"`;
+      } else if (/max-width\s*:/i.test(style[2])) {
+        merged = attrs; // already capped, leave it alone
+      } else {
+        const sep = !style[2].trim() || style[2].trimEnd().endsWith(";") ? "" : ";";
+        const value = `${style[2]}${sep}max-width:${px}px`;
+        merged =
+          attrs.slice(0, style.index) +
+          ` style=${style[1]}${value}${style[1]}` +
+          attrs.slice(style.index + style[0].length);
+      }
+      return `<${tag} width="100%"${merged}>`;
+    }
   );
 
   // Wide DATA tables (>=4 cells in the first row) scroll inside their own box.
