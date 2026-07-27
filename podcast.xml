@@ -24,8 +24,22 @@
     <itunes:category text="Religion &amp; Spirituality">
       <itunes:category text="Buddhism" />
     </itunes:category>
-    <pubDate>Wed, 22 Jul 2026 07:57:11 +0000</pubDate>
-    <lastBuildDate>Wed, 22 Jul 2026 07:57:11 +0000</lastBuildDate>
+    <pubDate>Mon, 27 Jul 2026 08:56:32 +0000</pubDate>
+    <lastBuildDate>Mon, 27 Jul 2026 08:56:32 +0000</lastBuildDate>
+    <item>
+      <title>When You Feel Emotionally Numb</title>
+      <link>https://thelotuslane.in/wisdom/emotional-numbness.html</link>
+      <guid isPermaLink="false">https://storage.googleapis.com/lotus-lane-podcast/emotional-numbness.mp3</guid>
+      <pubDate>Mon, 27 Jul 2026 08:56:31 +0000</pubDate>
+      <description>You know that feeling when something good happens, or something sad, and you wait for the feeling to arrive and it just does not come?</description>
+      <itunes:summary>You know that feeling when something good happens, or something sad, and you wait for the feeling to arrive and it just does not come?</itunes:summary>
+      <itunes:author>The Lotus Lane</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:duration>8:50</itunes:duration>
+      <itunes:episode>73</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <enclosure url="https://storage.googleapis.com/lotus-lane-podcast/emotional-numbness.mp3" length="7321005" type="audio/mpeg" />
+    </item>
     <item>
       <title>When You're Emotionally Exhausted</title>
       <link>https://thelotuslane.in/wisdom/emotional-exhaustion.html</link>
