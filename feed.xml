@@ -7,6 +7,14 @@
     <language>en</language>
     <atom:link href="https://thelotuslane.in/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>I'm 32 and I Just Googled 'How Much Do I Need to Retire' and Now I Can't Breathe</title>
+      <link>https://thelotuslane.in/strips/2026-07-27.html</link>
+      <description>Retirement worry can spiral into paralysis when we keep measuring today against a frightening future. The shift that actually helps is smaller than it sounds — stop counting what you're missing and make one real move with what you have right now.</description>
+      <pubDate>Mon, 27 Jul 2026 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-07-27.html</guid>
+      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-07-27.png" type="image/png" />
+    </item>
+    <item>
       <title>He's Sitting Right Next to Me and I Have No Idea Where He Is</title>
       <link>https://thelotuslane.in/strips/2026-07-24.html</link>
       <description>Loneliness inside a marriage often isn't about love running out — it's about presence running out. The smallest act of choosing to show up, really show up, is where closeness gets rebuilt.</description>
@@ -397,14 +405,6 @@
       <pubDate>Sun, 05 Apr 2026 00:00:00 +0000</pubDate>
       <guid isPermaLink="true">https://thelotuslane.in/strips/2026-04-05.html</guid>
       <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-04-05.png" type="image/png" />
-    </item>
-    <item>
-      <title>The Promotion Pass</title>
-      <link>https://thelotuslane.in/strips/2026-04-04.html</link>
-      <description>External recognition may come and go, but the skills we develop and the sincerity in our hearts are treasures no one can take away.</description>
-      <pubDate>Sat, 04 Apr 2026 00:00:00 +0000</pubDate>
-      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-04-04.html</guid>
-      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-04-04.png" type="image/png" />
     </item>
   </channel>
 </rss>
