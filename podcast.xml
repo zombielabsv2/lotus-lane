@@ -24,8 +24,22 @@
     <itunes:category text="Religion &amp; Spirituality">
       <itunes:category text="Buddhism" />
     </itunes:category>
-    <pubDate>Mon, 27 Jul 2026 08:56:32 +0000</pubDate>
-    <lastBuildDate>Mon, 27 Jul 2026 08:56:32 +0000</lastBuildDate>
+    <pubDate>Wed, 29 Jul 2026 06:24:05 +0000</pubDate>
+    <lastBuildDate>Wed, 29 Jul 2026 06:24:05 +0000</lastBuildDate>
+    <item>
+      <title>Loving an Emotionally Unavailable Partner</title>
+      <link>https://thelotuslane.in/wisdom/emotional-unavailability.html</link>
+      <guid isPermaLink="false">https://storage.googleapis.com/lotus-lane-podcast/emotional-unavailability.mp3</guid>
+      <pubDate>Wed, 29 Jul 2026 06:24:04 +0000</pubDate>
+      <description>You know that feeling when you are sitting next to the person you love, and somehow you have never felt more alone?</description>
+      <itunes:summary>You know that feeling when you are sitting next to the person you love, and somehow you have never felt more alone?</itunes:summary>
+      <itunes:author>The Lotus Lane</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:duration>8:44</itunes:duration>
+      <itunes:episode>74</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <enclosure url="https://storage.googleapis.com/lotus-lane-podcast/emotional-unavailability.mp3" length="7210413" type="audio/mpeg" />
+    </item>
     <item>
       <title>When You Feel Emotionally Numb</title>
       <link>https://thelotuslane.in/wisdom/emotional-numbness.html</link>
