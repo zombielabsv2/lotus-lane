@@ -7,6 +7,14 @@
     <language>en</language>
     <atom:link href="https://thelotuslane.in/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>My Boss Just Presented My Six Months of Work as His 'Vision'</title>
+      <link>https://thelotuslane.in/strips/2026-07-29.html</link>
+      <description>When a toxic boss steals credit, it feels like your work disappears with it. But the competence and clarity you built stay entirely yours — and the smartest move is making sure the record reflects that.</description>
+      <pubDate>Wed, 29 Jul 2026 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-07-29.html</guid>
+      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-07-29.png" type="image/png" />
+    </item>
+    <item>
       <title>I'm 32 and I Just Googled 'How Much Do I Need to Retire' and Now I Can't Breathe</title>
       <link>https://thelotuslane.in/strips/2026-07-27.html</link>
       <description>Retirement worry can spiral into paralysis when we keep measuring today against a frightening future. The shift that actually helps is smaller than it sounds — stop counting what you're missing and make one real move with what you have right now.</description>
@@ -397,14 +405,6 @@
       <pubDate>Mon, 06 Apr 2026 00:00:00 +0000</pubDate>
       <guid isPermaLink="true">https://thelotuslane.in/strips/2026-04-06.html</guid>
       <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-04-06.png" type="image/png" />
-    </item>
-    <item>
-      <title>The Mirror Effect</title>
-      <link>https://thelotuslane.in/strips/2026-04-05.html</link>
-      <description>Sometimes difficult people reflect our own inner state back to us - changing our response can transform the entire dynamic.</description>
-      <pubDate>Sun, 05 Apr 2026 00:00:00 +0000</pubDate>
-      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-04-05.html</guid>
-      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-04-05.png" type="image/png" />
     </item>
   </channel>
 </rss>
