@@ -4435,5 +4435,44 @@
       "anxiety-insomnia",
       "starting-over"
     ]
+  },
+  {
+    "date": "2026-07-29",
+    "title": "Frozen by Fear and Can't Make Yourself Move? 5 Truths About Courage That Will Unstick You",
+    "theme": "courage",
+    "theme_name": "Courage",
+    "image": "listicles/2026-07-29.png",
+    "items": [
+      {
+        "quote": "Courage is not the absence of fear. Courage is feeling fear, recognizing fear, and still taking action.",
+        "source": "Discussions on Youth",
+        "explanation": "You don't have to stop being scared - you just have to do the thing anyway, and that alone makes you brave."
+      },
+      {
+        "quote": "Having courage does not mean that we are unafraid. Having courage and showing courage means we face our fears.",
+        "source": "Discussions on Youth",
+        "explanation": "Every time you show up despite the dread in your chest, you are already doing what courage actually requires."
+      },
+      {
+        "quote": "No matter what happens, I will not be defeated. I will not run away. I will not complain. I will not be negative. I will keep advancing.",
+        "source": "The New Human Revolution, Vol. 1",
+        "explanation": "When life piles on, this kind of quiet, stubborn resolve is what separates the people who make it from the ones who don't."
+      },
+      {
+        "quote": "Be the kind of person who, when your feet hit the floor in the morning, makes the devil say, 'Oh no, they're up!'",
+        "source": "Youth and the Writings of Nichiren Daishonin",
+        "explanation": "The most powerful thing you can do on your hardest days is simply refuse to stay down - and get started."
+      },
+      {
+        "quote": "The true hero is one who conquers his own anger and hatred.",
+        "source": "For Today and Tomorrow",
+        "explanation": "Real strength isn't about overpowering other people - it's about winning the battle happening inside your own head every single day."
+      }
+    ],
+    "struggles": [
+      "anxiety-insomnia",
+      "feeling-like-a-failure",
+      "burnout-recovery"
+    ]
   }
 ]
