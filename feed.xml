@@ -7,6 +7,14 @@
     <language>en</language>
     <atom:link href="https://thelotuslane.in/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Dad's Been Gone Ten Years and I Still Pick Up the Phone to Call Him</title>
+      <link>https://thelotuslane.in/strips/2026-07-31.html</link>
+      <description>Grief doesn't have a finish line, and that's not a failure — it means the person mattered. The people we've lost don't disappear; they keep shaping who we are and who we're still becoming.</description>
+      <pubDate>Fri, 31 Jul 2026 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-07-31.html</guid>
+      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-07-31.png" type="image/png" />
+    </item>
+    <item>
       <title>My Boss Just Presented My Six Months of Work as His 'Vision'</title>
       <link>https://thelotuslane.in/strips/2026-07-29.html</link>
       <description>When a toxic boss steals credit, it feels like your work disappears with it. But the competence and clarity you built stay entirely yours — and the smartest move is making sure the record reflects that.</description>
@@ -397,14 +405,6 @@
       <pubDate>Wed, 08 Apr 2026 00:00:00 +0000</pubDate>
       <guid isPermaLink="true">https://thelotuslane.in/strips/2026-04-08.html</guid>
       <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-04-08.png" type="image/png" />
-    </item>
-    <item>
-      <title>The Weight of Dreams</title>
-      <link>https://thelotuslane.in/strips/2026-04-06.html</link>
-      <description>True courage isn't the absence of fear or doubt - it's picking up your tools and continuing the work despite them.</description>
-      <pubDate>Mon, 06 Apr 2026 00:00:00 +0000</pubDate>
-      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-04-06.html</guid>
-      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-04-06.png" type="image/png" />
     </item>
   </channel>
 </rss>
