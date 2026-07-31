@@ -24,8 +24,22 @@
     <itunes:category text="Religion &amp; Spirituality">
       <itunes:category text="Buddhism" />
     </itunes:category>
-    <pubDate>Wed, 29 Jul 2026 06:24:05 +0000</pubDate>
-    <lastBuildDate>Wed, 29 Jul 2026 06:24:05 +0000</lastBuildDate>
+    <pubDate>Fri, 31 Jul 2026 06:32:44 +0000</pubDate>
+    <lastBuildDate>Fri, 31 Jul 2026 06:32:44 +0000</lastBuildDate>
+    <item>
+      <title>When the House Goes Quiet After the Kids Leave</title>
+      <link>https://thelotuslane.in/wisdom/empty-nest.html</link>
+      <guid isPermaLink="false">https://storage.googleapis.com/lotus-lane-podcast/empty-nest.mp3</guid>
+      <pubDate>Fri, 31 Jul 2026 06:32:43 +0000</pubDate>
+      <description>You raised them to go, and they went. Now the silence is loud. Wisdom for finding yourself again after parenting.</description>
+      <itunes:summary>You raised them to go, and they went. Now the silence is loud. Wisdom for finding yourself again after parenting.</itunes:summary>
+      <itunes:author>The Lotus Lane</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:duration>10:21</itunes:duration>
+      <itunes:episode>75</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <enclosure url="https://storage.googleapis.com/lotus-lane-podcast/empty-nest.mp3" length="8541741" type="audio/mpeg" />
+    </item>
     <item>
       <title>Loving an Emotionally Unavailable Partner</title>
       <link>https://thelotuslane.in/wisdom/emotional-unavailability.html</link>
