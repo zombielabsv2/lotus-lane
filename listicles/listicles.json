@@ -4513,5 +4513,44 @@
       "starting-over",
       "depression-fog"
     ]
+  },
+  {
+    "date": "2026-07-31",
+    "title": "Going Through Something Impossibly Hard? 5 Truths About the Prayer That Actually Changes Things",
+    "theme": "prayer-faith",
+    "theme_name": "Prayer & Faith",
+    "image": "listicles/2026-07-31.png",
+    "items": [
+      {
+        "quote": "A powerful prayer - one that is the roar of a lion - can change anything, any situation, no matter how difficult or seemingly impossible.",
+        "source": "The New Human Revolution, Vol. 3",
+        "explanation": "When your situation feels completely locked shut, this is the reminder that your voice - raised with full conviction - carries real force."
+      },
+      {
+        "quote": "Prayer is the courage to persevere. It is the struggle to overcome our own weakness and lack of confidence in ourselves.",
+        "source": "For Today and Tomorrow",
+        "explanation": "Prayer is not passive waiting - it is the daily act of refusing to let your own self-doubt have the final word."
+      },
+      {
+        "quote": "Buddhism teaches that prayer without action is just wishful thinking, and action without prayer lacks the power to break through fundamental darkness.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "If you feel stuck despite trying everything, this truth explains why combining sincere intention with real effort is what finally shifts things."
+      },
+      {
+        "quote": "Do not let your prayer become a mere formality. Infuse it with your deepest desires and your sincerest determination.",
+        "source": "For Today and Tomorrow",
+        "explanation": "Going through the motions when life is hard gets you nowhere - bringing your raw, honest self to prayer is what makes it real."
+      },
+      {
+        "quote": "The purpose of faith is to become happy - not to become a slave to rigid rules or formalities.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "If your spiritual practice has started to feel like another burden on your shoulders, this is the permission you need to reconnect with why it matters."
+      }
+    ],
+    "struggles": [
+      "depression-fog",
+      "anxiety-insomnia",
+      "feeling-like-a-failure"
+    ]
   }
 ]
