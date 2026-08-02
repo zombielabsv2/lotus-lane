@@ -4591,5 +4591,44 @@
       "feeling-like-a-failure",
       "sidelined-at-work"
     ]
+  },
+  {
+    "date": "2026-08-02",
+    "title": "Feel Like You're Wasting Your Best Years? 5 Truths That Will Wake You Up",
+    "theme": "youth",
+    "theme_name": "Youth",
+    "image": "listicles/2026-08-02.png",
+    "items": [
+      {
+        "quote": "Nothing is more precious than youth. Do not waste a single day. Challenge yourselves! Grow! There is no time to be idle.",
+        "source": "For Today and Tomorrow",
+        "explanation": "Every day you spend waiting for the right moment is a day that belongs to the most powerful version of yourself, gone."
+      },
+      {
+        "quote": "Youth is not a time of life - it is a state of mind. As long as you have a dream, as long as you have a fighting spirit, you are forever young.",
+        "source": "Discussions on Youth",
+        "explanation": "The fire inside you matters far more than the number on your birthday cake or the years you think you've already lost."
+      },
+      {
+        "quote": "In youth, you should aim for the highest goals. Dream big. And then do everything in your power to make those dreams a reality.",
+        "source": "Youth and the Writings of Nichiren Daishonin",
+        "explanation": "Settling for a smaller life than you imagined is a choice - and today is still early enough to choose differently."
+      },
+      {
+        "quote": "The voice of a single young person, if it rings with truth and conviction, can change the world.",
+        "source": "The New Human Revolution, Vol. 11",
+        "explanation": "That opinion you're afraid to say out loud, that cause you're scared to stand behind - it may be exactly what someone else needs to hear."
+      },
+      {
+        "quote": "Be a person of substance, not merely of surface. The depth of your character will determine your influence in the world.",
+        "source": "For Today and Tomorrow",
+        "explanation": "In a world obsessed with appearances and follower counts, the person who builds real inner depth will always outlast the noise."
+      }
+    ],
+    "struggles": [
+      "feeling-like-a-failure",
+      "starting-over",
+      "comparison-trap"
+    ]
   }
 ]
