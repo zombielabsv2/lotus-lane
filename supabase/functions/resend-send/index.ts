@@ -28,6 +28,38 @@
 // !! NEVER let a find-and-replace rewrite RESEND_API to this function's own URL.
 // !! That makes the proxy call itself in an infinite loop. (Nearly shipped exactly
 // !! that on 2026-07-14 with a blanket s/api.resend.com/proxy/ across all repos.)
+//
+// ---------------------------------------------------------------------------
+// FLOOD GUARD (added 2026-08-04) — the second reason this function exists.
+//
+// On 2026-08-03/04 an AstroMedha drip bug re-sent the welcome email once per
+// Chart Chat turn. One paying customer received 79 copies of the same email in
+// 16 hours and tried to delete her account. Engagement was the amplifier: the
+// more someone used the product, the more mail we sent them. Nothing noticed
+// for 16 hours, because every guard in that path was advisory, in-process, and
+// upstream of here.
+//
+// The senders cannot be trusted to guard themselves — there are 32 call sites
+// across 20 files POSTing here directly, and a new one opts out by default.
+// This is the only place every app already passes through, so this is where a
+// volume bound actually holds.
+//
+// Two bounds, both backed by a Postgres primary key (exact, race-free):
+//   * duplicate — same recipient + same subject + same body, same UTC day.
+//     Applied to EVERY app. Identical content twice in a day is never intended.
+//   * daily_cap — a per-recipient ceiling, applied ONLY to apps whose real
+//     sending baseline has been measured. astromedha = 18 (measured over 5,610
+//     recipient-days with the storm excluded: mean 1.32, p95 2, p99 4, max 9;
+//     ceiling is 2x observed max). Every other app is dedup-only until its
+//     baseline is measured — an unmeasured round-number ceiling on someone
+//     else's business is how you cry wolf and get ignored.
+//
+// FAIL-OPEN IS PRESERVED, with one deliberate exception. If the guard cannot be
+// reached (Supabase down, RPC slow, anything unexpected) we SEND — the original
+// principle stands, infrastructure trouble must never cost an email. We refuse
+// only on an affirmative verdict from the database: it looked, and it says this
+// is a duplicate or over the ceiling. Error => send. Proven flood => refuse.
+// ---------------------------------------------------------------------------
 
 const RESEND_API = "https://api.resend.com";
 const PHONE_SAFE_PX = 360; // narrowest common phone (iPhone SE) is ~320; 360 is the safe ceiling
@@ -148,6 +180,89 @@ export function mobileSafe(html: string): string {
   return out;
 }
 
+// --------------------------------------------------------------- flood guard
+
+// Per-app daily ceilings. ONLY apps with a measured baseline appear here; an
+// app that is absent gets duplicate-detection but no numeric cap. Do not add an
+// entry without measuring that app's real sends-per-recipient-per-day first.
+// No type annotations anywhere below, on purpose — same constraint as the note
+// inside mobileSafe. tests/test_resend_send_mobile_safe.py strips from
+// `Deno.serve` to EOF and runs everything above it through plain node, which
+// cannot parse TS syntax. These helpers sit above Deno.serve, so they must be
+// valid plain JS. (They reference Deno.env / crypto.subtle, but only inside
+// their bodies, which node never executes.)
+const DAILY_CAPS = {
+  astromedha: 18, // measured 2026-08-04: 5,610 recipient-days, max 9, ceiling 2x
+};
+
+export function appFor(from) {
+  const m = /<([^>]+)>/.exec(from || "");
+  const addr = (m ? m[1] : from || "").trim().toLowerCase();
+  if (addr.endsWith("@astromedha.in") || addr.startsWith("astromedha@")) {
+    return "astromedha";
+  }
+  if (addr.endsWith("@karibykriti.com")) return "kbk";
+  const at = addr.indexOf("@");
+  return at > 0 ? addr.slice(at + 1) : "unknown";
+}
+
+async function fingerprint(subject, html) {
+  const data = new TextEncoder().encode(`${subject || ""} ${html || ""}`);
+  const digest = await crypto.subtle.digest("SHA-256", data);
+  return Array.from(new Uint8Array(digest))
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("")
+    .slice(0, 40);
+}
+
+function recipientsOf(to) {
+  if (Array.isArray(to)) return to.map(String);
+  if (typeof to === "string") return [to];
+  return [];
+}
+
+/** true = send it. Fails OPEN: any error here returns true. */
+async function allowSend(msg) {
+  const url = Deno.env.get("SUPABASE_URL");
+  const key = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
+  if (!url || !key) return { allow: true }; // no creds => fail open
+
+  const to = recipientsOf(msg.to)[0];
+  if (!to) return { allow: true };
+
+  const app = appFor(String(msg.from ?? ""));
+  const cap = DAILY_CAPS[app] ?? null;
+
+  try {
+    const fp = await fingerprint(String(msg.subject ?? ""), String(msg.html ?? ""));
+    const res = await fetch(`${url}/rest/v1/rpc/empire_claim_send`, {
+      method: "POST",
+      headers: {
+        apikey: key,
+        authorization: `Bearer ${key}`,
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({
+        p_recipient: to, p_fingerprint: fp, p_app: app, p_cap: cap,
+      }),
+      signal: AbortSignal.timeout(4000),
+    });
+    if (!res.ok) {
+      console.error("send guard unreachable", res.status, "- failing OPEN");
+      return { allow: true };
+    }
+    const verdict = await res.json();
+    if (verdict && verdict.allow === false) {
+      console.warn("send BLOCKED", JSON.stringify({ to, app, verdict }));
+      return { allow: false, reason: String(verdict.reason ?? "refused"), to };
+    }
+    return { allow: true };
+  } catch (err) {
+    console.error("send guard errored - failing OPEN:", err);
+    return { allow: true };
+  }
+}
+
 Deno.serve(async (req: Request) => {
   const url = new URL(req.url);
   // Supabase may hand us "/resend-send/emails" or "/functions/v1/resend-send/emails"
@@ -182,6 +297,7 @@ Deno.serve(async (req: Request) => {
 
   let body = raw;
   let patched = false;
+  let parsed = null;
   try {
     const json = JSON.parse(raw);
     if (Array.isArray(json)) {
@@ -195,12 +311,52 @@ Deno.serve(async (req: Request) => {
       patched = true;
     }
     if (patched) body = JSON.stringify(json);
+    parsed = json;
   } catch (err) {
     // FAIL OPEN. A transform bug must never cost us an email — forward the
     // original bytes and let Resend decide.
     console.error("mobileSafe failed, forwarding raw:", err);
     body = raw;
     patched = false;
+    parsed = null;
+  }
+
+  // Flood guard. Only runs when the body parsed — an unparseable body is
+  // forwarded untouched, exactly as before.
+  if (parsed) {
+    if (Array.isArray(parsed)) {
+      const kept = [];
+      const refused = [];
+      for (const m of parsed) {
+        const v = await allowSend(m ?? {});
+        if (v.allow) kept.push(m);
+        else refused.push(`${v.to}:${v.reason}`);
+      }
+      if (refused.length) {
+        console.warn(`batch: refused ${refused.length}`, JSON.stringify(refused));
+      }
+      if (!kept.length) {
+        return new Response(
+          JSON.stringify({
+            name: "send_guard_refused",
+            message: `every message in this batch was refused by the empire send guard (${refused.join(", ")})`,
+          }),
+          { status: 429, headers: { "content-type": "application/json" } },
+        );
+      }
+      body = JSON.stringify(kept);
+    } else {
+      const v = await allowSend(parsed);
+      if (!v.allow) {
+        return new Response(
+          JSON.stringify({
+            name: "send_guard_refused",
+            message: `refused by the empire send guard: ${v.reason}. This recipient has already received this exact email today, or has hit the per-day ceiling. See empire_send_guard.`,
+          }),
+          { status: 429, headers: { "content-type": "application/json" } },
+        );
+      }
+    }
   }
 
   const res = await fetch(`${RESEND_API}${path}`, {
