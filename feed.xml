@@ -7,6 +7,14 @@
     <language>en</language>
     <atom:link href="https://thelotuslane.in/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>The Contract Went to the Guy Who Knew the Right People and I'm Supposed to Just Accept That</title>
+      <link>https://thelotuslane.in/strips/2026-08-07.html</link>
+      <description>Anger at injustice is valid — but what you do with it decides whether it breaks you or sharpens you. The goal isn't to stop feeling it. It's to make sure it builds something instead of just burning.</description>
+      <pubDate>Fri, 07 Aug 2026 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-08-07.html</guid>
+      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-08-07.png" type="image/png" />
+    </item>
+    <item>
       <title>She Didn't Invite Me and Acted Like I Wouldn't Find Out</title>
       <link>https://thelotuslane.in/strips/2026-08-05.html</link>
       <description>When a friend hurts you, the anger is real and it deserves space — but holding a silent verdict without a conversation often punishes you more than them. Reaching out isn't the same as saying what happened was fine.</description>
@@ -397,14 +405,6 @@
       <pubDate>Wed, 15 Apr 2026 00:00:00 +0000</pubDate>
       <guid isPermaLink="true">https://thelotuslane.in/strips/2026-04-15.html</guid>
       <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-04-15.png" type="image/png" />
-    </item>
-    <item>
-      <title>My Sister Got the Life I Ordered</title>
-      <link>https://thelotuslane.in/strips/2026-04-13.html</link>
-      <description>When a sibling seems to have everything you want, the pain is real — but you may be measuring your life by the wrong ruler. The only question worth asking is whether you are moving, even one step, toward what is genuinely yours.</description>
-      <pubDate>Mon, 13 Apr 2026 00:00:00 +0000</pubDate>
-      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-04-13.html</guid>
-      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-04-13.png" type="image/png" />
     </item>
   </channel>
 </rss>
