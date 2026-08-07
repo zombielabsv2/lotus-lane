@@ -4786,5 +4786,44 @@
       "overcoming-imposter-syndrome",
       "starting-over"
     ]
+  },
+  {
+    "date": "2026-08-07",
+    "title": "Watching Someone You Love Suffer and Feeling Useless? 5 Truths About What Real Compassion Actually Does",
+    "theme": "compassion",
+    "theme_name": "Compassion",
+    "image": "listicles/2026-08-07.png",
+    "items": [
+      {
+        "quote": "Compassion is not about feeling pity for others. It is about sharing their suffering and working together to overcome it.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "When someone you care about is struggling, showing up beside them matters far more than feeling sorry from a distance."
+      },
+      {
+        "quote": "A single warm word can give someone the courage to go on living. Never underestimate the power of your compassion.",
+        "source": "For Today and Tomorrow",
+        "explanation": "You may never know how much your text, your call, or your small act of kindness meant to someone who was barely holding on."
+      },
+      {
+        "quote": "True compassion is not soft or weak. It takes great strength to truly care about others, to shoulder their pain.",
+        "source": "Discussions on Youth",
+        "explanation": "Choosing to stay present with someone in their darkest moment, rather than pulling away, is one of the hardest and bravest things you can do."
+      },
+      {
+        "quote": "Genuine compassion means not only sharing another's suffering, but also helping them to realize their own strength.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "The deepest way to support someone is not to solve everything for them, but to remind them they have what it takes to get through it."
+      },
+      {
+        "quote": "Buddhism teaches that compassion without wisdom is sentimentality, and wisdom without compassion is cold and heartless. We need both.",
+        "source": "Discussions on Youth",
+        "explanation": "Caring deeply about someone also means thinking clearly about what they actually need, not just what makes us feel like we helped."
+      }
+    ],
+    "struggles": [
+      "caregiver-burden",
+      "loneliness-despite-everything",
+      "when-grief-wont-stop"
+    ]
   }
 ]
