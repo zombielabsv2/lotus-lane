@@ -4825,5 +4825,44 @@
       "loneliness-despite-everything",
       "when-grief-wont-stop"
     ]
+  },
+  {
+    "date": "2026-08-08",
+    "title": "When You've Almost Given Up: 5 Reminders That the Worst Is Not the End",
+    "theme": "hope",
+    "theme_name": "Hope",
+    "image": "listicles/2026-08-08.png",
+    "items": [
+      {
+        "quote": "Winter always turns to spring. Never, from ancient times on, has anyone heard or seen of winter turning back to autumn.",
+        "source": "The Writings of Nichiren Daishonin",
+        "explanation": "When life feels frozen and dark, this is the reminder that things moving forward is the only direction nature has ever known."
+      },
+      {
+        "quote": "No matter how hopeless or bleak things appear, the moment you resolve to never give up, every nerve and fiber in your being will orient itself toward your success.",
+        "source": "Faith Into Action",
+        "explanation": "The decision to keep going - even when you can't see how - is what quietly rearranges everything inside you toward a way forward."
+      },
+      {
+        "quote": "Hope is not a matter of ability; it is a matter of decision.",
+        "source": "Discussions on Youth",
+        "explanation": "You don't have to feel hopeful right now - you just have to decide, in this moment, that you are not done yet."
+      },
+      {
+        "quote": "No one can make you feel hopeless unless you allow them to. Hope resides in the heart. It is something you create.",
+        "source": "Discussions on Youth",
+        "explanation": "No circumstance, no person, and no setback can reach inside you and take away the one thing that is entirely yours to hold."
+      },
+      {
+        "quote": "Each morning we are born again. What we do today is what matters most.",
+        "source": "For Today and Tomorrow",
+        "explanation": "Yesterday's pain does not have to write today's story - every morning is a real, practical chance to start differently."
+      }
+    ],
+    "struggles": [
+      "depression-fog",
+      "starting-over",
+      "feeling-like-a-failure"
+    ]
   }
 ]
