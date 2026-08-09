@@ -4864,5 +4864,44 @@
       "starting-over",
       "feeling-like-a-failure"
     ]
+  },
+  {
+    "date": "2026-08-09",
+    "title": "Terrified But Out of Options? 5 Truths About Doing It Afraid",
+    "theme": "courage",
+    "theme_name": "Courage",
+    "image": "listicles/2026-08-09.png",
+    "items": [
+      {
+        "quote": "Courage is not the absence of fear. Courage is feeling fear, recognizing fear, and still taking action.",
+        "source": "Discussions on Youth",
+        "explanation": "You don't have to stop being scared - you just have to move forward anyway, and that alone counts as brave."
+      },
+      {
+        "quote": "Be the kind of person who, when your feet hit the floor in the morning, makes the devil say, 'Oh no, they're up!'",
+        "source": "Youth and the Writings of Nichiren Daishonin",
+        "explanation": "Starting your day with intention and fire is itself an act of resistance against everything that tries to keep you small."
+      },
+      {
+        "quote": "No matter what happens, I will not be defeated. I will not run away. I will not complain. I will not be negative. I will keep advancing.",
+        "source": "The New Human Revolution, Vol. 1",
+        "explanation": "When life piles on, making even one quiet decision to keep going is more powerful than any grand gesture."
+      },
+      {
+        "quote": "Buddhism is about winning. It is about the courage to overcome obstacles, to triumph over anything that stands in the way of our happiness.",
+        "source": "Faith Into Action",
+        "explanation": "Your happiness is worth fighting for - not someday, but right now, against whatever is blocking the door."
+      },
+      {
+        "quote": "Having courage does not mean that we are unafraid. Having courage and showing courage means we face our fears.",
+        "source": "Discussions on Youth",
+        "explanation": "The moment you act despite the knot in your stomach is the exact moment your life starts to shift."
+      }
+    ],
+    "struggles": [
+      "anxiety-insomnia",
+      "feeling-like-a-failure",
+      "starting-over"
+    ]
   }
 ]
