@@ -7,6 +7,14 @@
     <language>en</language>
     <atom:link href="https://thelotuslane.in/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>I'm 55 and I Don't Know How to Be a Beginner at Anything</title>
+      <link>https://thelotuslane.in/strips/2026-08-10.html</link>
+      <description>Starting over doesn't mean you're behind — it means you're still moving. The first try is supposed to look like a sad amoeba. That's not failure; that's what version one always looks like.</description>
+      <pubDate>Mon, 10 Aug 2026 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-08-10.html</guid>
+      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-08-10.png" type="image/png" />
+    </item>
+    <item>
       <title>The Contract Went to the Guy Who Knew the Right People and I'm Supposed to Just Accept That</title>
       <link>https://thelotuslane.in/strips/2026-08-07.html</link>
       <description>Anger at injustice is valid — but what you do with it decides whether it breaks you or sharpens you. The goal isn't to stop feeling it. It's to make sure it builds something instead of just burning.</description>
@@ -397,14 +405,6 @@
       <pubDate>Fri, 17 Apr 2026 00:00:00 +0000</pubDate>
       <guid isPermaLink="true">https://thelotuslane.in/strips/2026-04-17.html</guid>
       <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-04-17.png" type="image/png" />
-    </item>
-    <item>
-      <title>Sorry Feels Stuck in My Throat</title>
-      <link>https://thelotuslane.in/strips/2026-04-15.html</link>
-      <description>After a bad fight, the instinct to explain yourself is real — but the person you hurt usually needs to feel heard before they can hear you. Regret that stays in your head changes nothing; the smallest honest step forward changes everything.</description>
-      <pubDate>Wed, 15 Apr 2026 00:00:00 +0000</pubDate>
-      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-04-15.html</guid>
-      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-04-15.png" type="image/png" />
     </item>
   </channel>
 </rss>
