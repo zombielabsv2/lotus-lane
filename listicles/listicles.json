@@ -4942,5 +4942,44 @@
       "starting-over",
       "burnout-recovery"
     ]
+  },
+  {
+    "date": "2026-08-11",
+    "title": "Praying But Nothing Is Changing? 5 Truths About What Prayer Actually Does",
+    "theme": "prayer-faith",
+    "theme_name": "Prayer & Faith",
+    "image": "listicles/2026-08-11.png",
+    "items": [
+      {
+        "quote": "Prayer is the courage to persevere. It is the struggle to overcome our own weakness and lack of confidence in ourselves.",
+        "source": "For Today and Tomorrow",
+        "explanation": "When you feel too small to keep going, prayer is not asking for rescue - it is training yourself to believe you can."
+      },
+      {
+        "quote": "A powerful prayer - one that is the roar of a lion - can change anything, any situation, no matter how difficult or seemingly impossible.",
+        "source": "The New Human Revolution, Vol. 3",
+        "explanation": "The situation that feels completely locked and hopeless is exactly the kind that a fierce, determined prayer is built to break open."
+      },
+      {
+        "quote": "Buddhism teaches that prayer without action is just wishful thinking, and action without prayer lacks the power to break through fundamental darkness.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "Prayer and effort are not separate - they work as one engine, where each one fuels the other to push past what neither could do alone."
+      },
+      {
+        "quote": "Do not let your prayer become a mere formality. Infuse it with your deepest desires and your sincerest determination.",
+        "source": "For Today and Tomorrow",
+        "explanation": "Going through the motions of prayer while feeling empty inside is a signal to stop and ask yourself what you actually want and why."
+      },
+      {
+        "quote": "The purpose of faith is to become happy - not to become a slave to rigid rules or formalities.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "If your practice starts feeling like a performance or an obligation, you have drifted away from the whole point of it."
+      }
+    ],
+    "struggles": [
+      "anxiety-insomnia",
+      "feeling-like-a-failure",
+      "depression-fog"
+    ]
   }
 ]
