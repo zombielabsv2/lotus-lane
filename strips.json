@@ -2509,5 +2509,24 @@
     },
     "youtube_views": 0,
     "youtube_views_updated_at": "2026-08-12T04:12:21Z"
+  },
+  {
+    "date": "2026-08-12",
+    "title": "My Body Quit on Me and Nobody Knows What to Do About It Either",
+    "image": "https://zombielabsv2.github.io/lotus-lane-assets/2026-08-12.png",
+    "message": "When chronic illness steals your energy, the pressure to seem fine can feel heavier than the illness itself. Sometimes 'getting up' doesn't mean being okay — it just means sending one honest email, telling one real person, making it through one more day.",
+    "quote": "Fall down seven times, get up eight. That's the spirit of the Lotus Sutra. The important thing is not to give up.",
+    "source": "Daisaku Ikeda, Discussions on Youth",
+    "tags": [
+      "health",
+      "chronic-illness",
+      "mental-health"
+    ],
+    "category": "health",
+    "topic": "chronic illness",
+    "characters": [
+      "arjun",
+      "meera"
+    ]
   }
 ]
