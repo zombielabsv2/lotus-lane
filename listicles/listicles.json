@@ -5020,5 +5020,44 @@
       "overcoming-imposter-syndrome",
       "starting-over"
     ]
+  },
+  {
+    "date": "2026-08-13",
+    "title": "Feel Like You're Too Small to Matter? 5 Truths About the Power You Already Have",
+    "theme": "youth",
+    "theme_name": "Youth",
+    "image": "listicles/2026-08-13.png",
+    "items": [
+      {
+        "quote": "The voice of a single young person, if it rings with truth and conviction, can change the world.",
+        "source": "The New Human Revolution, Vol. 11",
+        "explanation": "When you feel invisible or unheard, remember that one honest, courageous voice has always been enough to shift the direction of history."
+      },
+      {
+        "quote": "Youth is not a time of life - it is a state of mind. As long as you have a dream, as long as you have a fighting spirit, you are forever young.",
+        "source": "Discussions on Youth",
+        "explanation": "No matter your age or circumstances, the moment you refuse to stop dreaming is the moment you reclaim your most vital self."
+      },
+      {
+        "quote": "Nothing is more precious than youth. Do not waste a single day. Challenge yourselves! Grow! There is no time to be idle.",
+        "source": "For Today and Tomorrow",
+        "explanation": "That restless feeling that your life should mean more is not anxiety - it is a signal telling you it is time to act."
+      },
+      {
+        "quote": "Youth should be rebellious. They should challenge the status quo, question authority, and refuse to accept injustice.",
+        "source": "Discussions on Youth",
+        "explanation": "If something feels deeply wrong in your world, your discomfort is not a problem to fix - it is a responsibility to answer."
+      },
+      {
+        "quote": "Be a person of substance, not merely of surface. The depth of your character will determine your influence in the world.",
+        "source": "For Today and Tomorrow",
+        "explanation": "In a world obsessed with how things look, the quiet daily work of building who you actually are is the most radical thing you can do."
+      }
+    ],
+    "struggles": [
+      "feeling-like-a-failure",
+      "overcoming-imposter-syndrome",
+      "comparison-trap"
+    ]
   }
 ]
