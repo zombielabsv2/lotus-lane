@@ -7,6 +7,14 @@
     <language>en</language>
     <atom:link href="https://thelotuslane.in/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Every Month I Pay the EMI and Every Month I Feel Like I'm Drowning</title>
+      <link>https://thelotuslane.in/strips/2026-08-14.html</link>
+      <description>When EMI stress makes you feel like you are just surviving month to month, it helps to remember that this financial winter is not permanent — and the act of facing it, even imperfectly, is already a form of strength.</description>
+      <pubDate>Fri, 14 Aug 2026 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-08-14.html</guid>
+      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-08-14.png" type="image/png" />
+    </item>
+    <item>
       <title>My Body Quit on Me and Nobody Knows What to Do About It Either</title>
       <link>https://thelotuslane.in/strips/2026-08-12.html</link>
       <description>When chronic illness steals your energy, the pressure to seem fine can feel heavier than the illness itself. Sometimes 'getting up' doesn't mean being okay — it just means sending one honest email, telling one real person, making it through one more day.</description>
@@ -397,14 +405,6 @@
       <pubDate>Wed, 22 Apr 2026 00:00:00 +0000</pubDate>
       <guid isPermaLink="true">https://thelotuslane.in/strips/2026-04-22.html</guid>
       <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-04-22.png" type="image/png" />
-    </item>
-    <item>
-      <title>Papa's House Has No Maggi</title>
-      <link>https://thelotuslane.in/strips/2026-04-20.html</link>
-      <description>When parents split up, kids don't just lose a household — they lose the feeling that the world is predictable and safe. Reminding a child (and yourself) that hard seasons do end is not false comfort — it's something real to hold onto while you figure out the rest.</description>
-      <pubDate>Mon, 20 Apr 2026 00:00:00 +0000</pubDate>
-      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-04-20.html</guid>
-      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-04-20.png" type="image/png" />
     </item>
   </channel>
 </rss>
