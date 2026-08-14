@@ -5059,5 +5059,44 @@
       "overcoming-imposter-syndrome",
       "comparison-trap"
     ]
+  },
+  {
+    "date": "2026-08-14",
+    "title": "Can't Get Through to Someone You Love? 5 Truths About the Power of Real Conversation",
+    "theme": "dialogue",
+    "theme_name": "Dialogue",
+    "image": "listicles/2026-08-14.png",
+    "items": [
+      {
+        "quote": "Dialogue starts with listening. Truly listening - not just waiting for your turn to speak - but genuinely trying to understand another person's heart.",
+        "source": "Discussions on Youth",
+        "explanation": "Most arguments stay stuck because we are preparing our defense instead of actually hearing what the other person is trying to say."
+      },
+      {
+        "quote": "When we engage in dialogue with sincerity and respect, the walls of misunderstanding crumble. Even the most hardened hearts can be opened.",
+        "source": "The New Human Revolution, Vol. 7",
+        "explanation": "That person who seems impossible to reach - a parent, a partner, a friend - may just be waiting for one honest, respectful conversation."
+      },
+      {
+        "quote": "We must not fear those who are different from us. Difference is not a reason for conflict - it is an invitation for dialogue.",
+        "source": "For Today and Tomorrow",
+        "explanation": "The tension you feel around someone who sees the world differently is actually an opening, not a dead end."
+      },
+      {
+        "quote": "One sincere conversation can accomplish more than a hundred speeches or a thousand emails.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "If a relationship in your life feels cold and distant, no amount of texting will fix what one real, face-to-face talk might heal."
+      },
+      {
+        "quote": "The greatest tool for peace is not weapons or technology. It is the simple act of two human beings sitting down and talking to each other.",
+        "source": "A New Era of Dialogue (Peace Proposal)",
+        "explanation": "Whether it is a family feud or a falling-out with a friend, the solution is rarely complicated - it usually starts with showing up and talking."
+      }
+    ],
+    "struggles": [
+      "relationship-falling-apart",
+      "how-to-forgive",
+      "anger-you-cant-control"
+    ]
   }
 ]
