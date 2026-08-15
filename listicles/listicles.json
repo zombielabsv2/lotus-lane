@@ -5098,5 +5098,44 @@
       "how-to-forgive",
       "anger-you-cant-control"
     ]
+  },
+  {
+    "date": "2026-08-15",
+    "title": "Tired of a World That Feels Broken? 5 Truths About Where Peace Actually Comes From",
+    "theme": "peace",
+    "theme_name": "Peace",
+    "image": "listicles/2026-08-15.png",
+    "items": [
+      {
+        "quote": "A person who can build peace within their own heart can contribute to building peace in the world.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "The tension you feel inside - with coworkers, family, or strangers - is the same conflict playing out on a global scale."
+      },
+      {
+        "quote": "The most powerful force for peace is not a government, not an army, not a treaty. It is the awakened awareness of individual human beings.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "Every time you choose understanding over reaction, you are doing work that no politician or institution can do for you."
+      },
+      {
+        "quote": "As long as we continue to demonize others, peace will remain a dream. Peace begins the moment we recognize the humanity in every person.",
+        "source": "For Today and Tomorrow",
+        "explanation": "That person you cannot stand - at work, online, or at the dinner table - is the exact place where your peace practice gets tested."
+      },
+      {
+        "quote": "There is no enemy in Buddhism. There is only delusion to be overcome. When we see others as enemies, we have already lost the battle for peace.",
+        "source": "The New Human Revolution, Vol. 6",
+        "explanation": "The anger you carry toward someone is costing you more energy than it is costing them."
+      },
+      {
+        "quote": "The people - the ordinary citizens of the world - are the true protagonists of peace. Not politicians, not leaders, but everyday people with the courage to connect.",
+        "source": "For Today and Tomorrow",
+        "explanation": "One honest conversation you have with someone different from you matters more than most people realize."
+      }
+    ],
+    "struggles": [
+      "anger-you-cant-control",
+      "loneliness-despite-everything",
+      "how-to-forgive"
+    ]
   }
 ]
