@@ -2565,5 +2565,24 @@
     },
     "youtube_views": 4,
     "youtube_views_updated_at": "2026-08-17T03:05:30Z"
+  },
+  {
+    "date": "2026-08-17",
+    "title": "Everyone in the Room Has a PhD and I Can't Even Finish My Literature Review",
+    "image": "https://zombielabsv2.github.io/lotus-lane-assets/2026-08-17.png",
+    "message": "Imposter syndrome tells you the fact that you haven't arrived yet is proof you don't belong — but showing up, day after day, despite the doubt, is its own kind of evidence. You don't have to feel certain to be real.",
+    "quote": "That you have survived until today is itself proof that your prayers have been answered. Do not be discouraged by the fact that your wishes have not yet been fulfilled.",
+    "source": "Daisaku Ikeda, Faith Into Action, p. 70",
+    "tags": [
+      "work-stress",
+      "imposter-syndrome",
+      "self-doubt"
+    ],
+    "category": "work-stress",
+    "topic": "imposter syndrome",
+    "characters": [
+      "meera",
+      "vikram"
+    ]
   }
 ]
