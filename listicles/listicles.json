@@ -5176,5 +5176,44 @@
       "depression-fog",
       "burnout-recovery"
     ]
+  },
+  {
+    "date": "2026-08-17",
+    "title": "Graduated But Still Feel Lost? 5 Truths About What Education Was Always Supposed to Give You",
+    "theme": "education",
+    "theme_name": "Education",
+    "image": "listicles/2026-08-17.png",
+    "items": [
+      {
+        "quote": "Education is not the filling of a pail, but the lighting of a fire. The purpose of education is to cultivate the wisdom and compassion to create value in any situation.",
+        "source": "Soka Education",
+        "explanation": "Real learning is not about how much you know - it is about whether what you learned makes you better at handling real life."
+      },
+      {
+        "quote": "A truly educated person is not someone who has memorized facts, but someone who can think critically, feel compassionately, and act courageously.",
+        "source": "Discussions on Youth",
+        "explanation": "If your education only filled your head but never strengthened your heart or your spine, there is still more growing to do."
+      },
+      {
+        "quote": "Education that does not teach people how to live, how to face suffering, and how to create meaning - such education is incomplete.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "The fact that school never prepared you for loss, failure, or purpose is not your fault - it is a gap you can still choose to fill."
+      },
+      {
+        "quote": "The goal of education should be the happiness of the learner. Any system of education that does not lead to happiness has failed.",
+        "source": "Soka Education",
+        "explanation": "If everything you were taught led you away from a life that feels meaningful, you were not failed by yourself - you were failed by the system."
+      },
+      {
+        "quote": "A person who has learned to think for themselves - that is the greatest product of education.",
+        "source": "Discussions on Youth",
+        "explanation": "The most valuable thing any school could give you is the ability to question, decide, and trust your own mind - and it is never too late to build that."
+      }
+    ],
+    "struggles": [
+      "feeling-like-a-failure",
+      "overcoming-imposter-syndrome",
+      "starting-over"
+    ]
   }
 ]
