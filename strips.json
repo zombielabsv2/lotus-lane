@@ -2594,5 +2594,24 @@
     },
     "youtube_views": 0,
     "youtube_views_updated_at": "2026-08-19T03:03:24Z"
+  },
+  {
+    "date": "2026-08-19",
+    "title": "My Friend Didn't Make It Out and I Did. I Don't Know What to Do With That.",
+    "image": "https://zombielabsv2.github.io/lotus-lane-assets/2026-08-19.png",
+    "message": "Survivor guilt often whispers that living fully is a betrayal of those we lost. But honoring someone's memory doesn't mean shrinking — it means carrying their unlived possibilities forward in what you do next.",
+    "quote": "To be alive is itself a victory. And the greatest tribute you can offer those who are gone is to live with twice the joy, twice the courage, twice the purpose.",
+    "source": "Daisaku Ikeda, For Today and Tomorrow",
+    "tags": [
+      "grief-loss",
+      "survivor-guilt",
+      "purpose"
+    ],
+    "category": "grief-loss",
+    "topic": "survivor guilt",
+    "characters": [
+      "sudha",
+      "meera"
+    ]
   }
 ]
