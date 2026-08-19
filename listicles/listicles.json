@@ -5254,5 +5254,44 @@
       "loneliness-despite-everything",
       "when-grief-wont-stop"
     ]
+  },
+  {
+    "date": "2026-08-19",
+    "title": "Can't See a Way Out? 5 Reminders That the Dark Does Not Last Forever",
+    "theme": "hope",
+    "theme_name": "Hope",
+    "image": "listicles/2026-08-19.png",
+    "items": [
+      {
+        "quote": "Winter always turns to spring. Never, from ancient times on, has anyone heard or seen of winter turning back to autumn.",
+        "source": "The Writings of Nichiren Daishonin (referenced in guidance)",
+        "explanation": "Whatever painful season you are in right now, life moves forward - not backward, and better days are already on their way."
+      },
+      {
+        "quote": "No matter how hopeless or bleak things appear, the moment you resolve to never give up, every nerve and fiber in your being will orient itself toward your success.",
+        "source": "Faith Into Action",
+        "explanation": "The simple decision to keep going - even when you feel completely lost - is enough to set your whole life moving in a new direction."
+      },
+      {
+        "quote": "Hope is not a matter of ability; it is a matter of decision.",
+        "source": "Discussions on Youth",
+        "explanation": "You do not have to feel capable or confident to choose hope - it is available to you right now, exactly as you are."
+      },
+      {
+        "quote": "No one can make you feel hopeless unless you allow them to. Hope resides in the heart. It is something you create.",
+        "source": "Discussions on Youth",
+        "explanation": "When the people or circumstances around you feel crushing, it helps to remember that your hope is yours alone - and no one can take it from you."
+      },
+      {
+        "quote": "Each morning we are born again. What we do today is what matters most.",
+        "source": "For Today and Tomorrow",
+        "explanation": "Yesterday's failures do not define you because every single morning is a real, usable chance to start fresh and try again."
+      }
+    ],
+    "struggles": [
+      "depression-fog",
+      "anxiety-insomnia",
+      "starting-over"
+    ]
   }
 ]
