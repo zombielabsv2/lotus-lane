@@ -24,8 +24,22 @@
     <itunes:category text="Religion &amp; Spirituality">
       <itunes:category text="Buddhism" />
     </itunes:category>
-    <pubDate>Mon, 17 Aug 2026 06:01:04 +0000</pubDate>
-    <lastBuildDate>Mon, 17 Aug 2026 06:01:04 +0000</lastBuildDate>
+    <pubDate>Wed, 19 Aug 2026 05:56:23 +0000</pubDate>
+    <lastBuildDate>Wed, 19 Aug 2026 05:56:23 +0000</lastBuildDate>
+    <item>
+      <title>Being the Family Scapegoat</title>
+      <link>https://thelotuslane.in/wisdom/family-scapegoat.html</link>
+      <guid isPermaLink="false">https://storage.googleapis.com/lotus-lane-podcast/family-scapegoat.mp3</guid>
+      <pubDate>Wed, 19 Aug 2026 05:56:22 +0000</pubDate>
+      <description>You know that feeling when something goes wrong in your family, anything, a tense holiday, a money problem, an argument between two other people...</description>
+      <itunes:summary>You know that feeling when something goes wrong in your family, anything, a tense holiday, a money problem, an argument between two other people...</itunes:summary>
+      <itunes:author>The Lotus Lane</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:duration>9:13</itunes:duration>
+      <itunes:episode>81</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <enclosure url="https://storage.googleapis.com/lotus-lane-podcast/family-scapegoat.mp3" length="7596333" type="audio/mpeg" />
+    </item>
     <item>
       <title>The Guilt of Family Obligation</title>
       <link>https://thelotuslane.in/wisdom/family-obligation-guilt.html</link>
