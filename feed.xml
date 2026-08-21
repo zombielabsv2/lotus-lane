@@ -7,6 +7,14 @@
     <language>en</language>
     <atom:link href="https://thelotuslane.in/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>My Son Had a Meltdown in the Mall and Every Stranger Had an Opinion</title>
+      <link>https://thelotuslane.in/strips/2026-08-21.html</link>
+      <description>Parenting a child with special needs can feel like failing in public, constantly. But the quiet moments — staying on the floor with them, showing up again the next morning — those are not small things. They are the whole thing.</description>
+      <pubDate>Fri, 21 Aug 2026 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-08-21.html</guid>
+      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-08-21.png" type="image/png" />
+    </item>
+    <item>
       <title>My Friend Didn't Make It Out and I Did. I Don't Know What to Do With That.</title>
       <link>https://thelotuslane.in/strips/2026-08-19.html</link>
       <description>Survivor guilt often whispers that living fully is a betrayal of those we lost. But honoring someone's memory doesn't mean shrinking — it means carrying their unlived possibilities forward in what you do next.</description>
@@ -397,14 +405,6 @@
       <pubDate>Wed, 29 Apr 2026 00:00:00 +0000</pubDate>
       <guid isPermaLink="true">https://thelotuslane.in/strips/2026-04-29.html</guid>
       <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-04-29.png" type="image/png" />
-    </item>
-    <item>
-      <title>They Changed the Rules After I Won</title>
-      <link>https://thelotuslane.in/strips/2026-04-27.html</link>
-      <description>When a system is unfair, your anger makes complete sense — but living inside only that anger hands the people who wronged you even more of your life. Acting from clarity, even when nothing is guaranteed, is how you take yourself back.</description>
-      <pubDate>Mon, 27 Apr 2026 00:00:00 +0000</pubDate>
-      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-04-27.html</guid>
-      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-04-27.png" type="image/png" />
     </item>
   </channel>
 </rss>

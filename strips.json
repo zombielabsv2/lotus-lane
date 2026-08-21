@@ -2623,5 +2623,25 @@
     },
     "youtube_views": 6,
     "youtube_views_updated_at": "2026-08-21T03:09:09Z"
+  },
+  {
+    "date": "2026-08-21",
+    "title": "My Son Had a Meltdown in the Mall and Every Stranger Had an Opinion",
+    "image": "https://zombielabsv2.github.io/lotus-lane-assets/2026-08-21.png",
+    "message": "Parenting a child with special needs can feel like failing in public, constantly. But the quiet moments — staying on the floor with them, showing up again the next morning — those are not small things. They are the whole thing.",
+    "quote": "The deeper your suffering, the greater your happiness will be. That is the law of the Lotus Sutra.",
+    "source": "Daisaku Ikeda, The Wisdom for Creating Happiness and Peace, Part 1",
+    "tags": [
+      "family",
+      "special-needs-parenting",
+      "single-parenting"
+    ],
+    "category": "family",
+    "topic": "parenting a child with special needs",
+    "characters": [
+      "sudha",
+      "arjun",
+      "vikram"
+    ]
   }
 ]
