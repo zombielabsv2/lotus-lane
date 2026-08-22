@@ -5371,5 +5371,44 @@
       "starting-over",
       "burnout-recovery"
     ]
+  },
+  {
+    "date": "2026-08-22",
+    "title": "Your Prayers Feel Empty and Hollow? 5 Truths About How to Make Them Actually Work",
+    "theme": "prayer-faith",
+    "theme_name": "Prayer & Faith",
+    "image": "listicles/2026-08-22.png",
+    "items": [
+      {
+        "quote": "Prayer is the courage to persevere. It is the struggle to overcome our own weakness and lack of confidence in ourselves.",
+        "source": "For Today and Tomorrow",
+        "explanation": "When you feel too small or broken to keep going, prayer is not passive - it is the act of fighting your own doubt out loud."
+      },
+      {
+        "quote": "A powerful prayer - one that is the roar of a lion - can change anything, any situation, no matter how difficult or seemingly impossible.",
+        "source": "The New Human Revolution, Vol. 3",
+        "explanation": "The situation that feels completely locked and hopeless is exactly the situation that a full-hearted, fierce prayer was built to meet."
+      },
+      {
+        "quote": "Buddhism teaches that prayer without action is just wishful thinking, and action without prayer lacks the power to break through fundamental darkness.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "Real change asks for both - you need to get up and move, but the inner fire that keeps you moving has to be lit first."
+      },
+      {
+        "quote": "Do not let your prayer become a mere formality. Infuse it with your deepest desires and your sincerest determination.",
+        "source": "For Today and Tomorrow",
+        "explanation": "Going through the motions out of habit is not prayer - bring the thing that actually hurts, the thing you actually want, and say it like you mean it."
+      },
+      {
+        "quote": "The purpose of faith is to become happy - not to become a slave to rigid rules or formalities.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "If your practice feels like a checklist that guilts you instead of a force that lifts you, it may be time to reconnect with why you started."
+      }
+    ],
+    "struggles": [
+      "anxiety-insomnia",
+      "depression-fog",
+      "feeling-like-a-failure"
+    ]
   }
 ]
