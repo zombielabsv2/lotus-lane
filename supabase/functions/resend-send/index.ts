@@ -244,6 +244,18 @@ async function allowSend(msg) {
       },
       body: JSON.stringify({
         p_recipient: to, p_fingerprint: fp, p_app: app, p_cap: cap,
+        // The subject is what lets the guard tell a campaign apart from the
+        // product someone PAID for. Without it empire_claim_send classifies
+        // nothing, and the rolling weekly ceiling added 2026-08-22 can never
+        // apply — which is deliberately how that migration shipped inert.
+        //
+        // It is only ever read against empire_send_policy.product_patterns to
+        // decide exempt-vs-counted; nothing about the subject is stored beyond
+        // that one-word verdict. The daily guidance, purchased reports,
+        // transactional mail and our own [bracketed] ops alarms are exempt, so
+        // a spam control can never throttle an outage alert or something a
+        // customer bought.
+        p_subject: String(msg.subject ?? ""),
       }),
       signal: AbortSignal.timeout(4000),
     });
