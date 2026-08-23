@@ -1,0 +1,110 @@
+# Deploy the empire's shared Supabase edge functions.
+#
+# WHY THIS EXISTS. This repo is the de-facto home for the shared functions —
+# resend-send, resend-webhook, kbk-unsubscribe, confirm-subscription,
+# unsubscribe-handler, subscribe-daimoku — all living in the one Supabase
+# project (ejvavmpieilvigjktugh) and serving astromedha, kbk, iqbalforall and
+# rxjapps. Until now nothing deployed them. Merging a PR that changed one
+# shipped exactly nothing, and the only way to find that out was to compare the
+# live version by hand.
+#
+# That is not hypothetical. On 2026-08-22 the one-line change letting the send
+# guard tell a campaign apart from a purchase (#27) was merged, and resend-send
+# stayed on version 6 with an unchanged ezbr_sha256. The feature it unblocks sat
+# inert with nobody aware, because a merged PR reads as a shipped PR.
+#
+# WHY --no-verify-jwt IS NOT OPTIONAL. resend-send runs with verify_jwt: false,
+# and every empire sender calls it carrying a RESEND key in the Authorization
+# header, not a Supabase JWT — the function forwards that header to Resend
+# untouched, which is the whole proxy contract. Deploying with verification on
+# would make Supabase reject every caller before the function ran: a total email
+# outage across four apps, from a flag. The per-function settings below are
+# explicit for that reason; do not collapse them into a bare `deploy` loop.
+#
+# SCOPE. Only functions whose source changed in the push are deployed, so an
+# unrelated commit cannot redeploy the email chokepoint as a side effect.
+name: Deploy edge functions
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'supabase/functions/**'
+  # Manual runs exist so a function can be re-deployed without an empty commit —
+  # e.g. after a dashboard edit has drifted from what is in git.
+  workflow_dispatch:
+    inputs:
+      function:
+        description: 'Single function slug to deploy (blank = all changed)'
+        required: false
+        type: string
+
+concurrency:
+  # Two deploys of the same function racing would leave whichever finished last
+  # live, which is not necessarily whichever was newest.
+  group: deploy-functions
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          # Need the previous commit to diff against for the changed-file list.
+          fetch-depth: 2
+
+      - uses: supabase/setup-cli@v1
+        with:
+          version: latest
+
+      - name: Work out which functions changed
+        id: changed
+        run: |
+          if [ -n "${{ inputs.function }}" ]; then
+            echo "list=${{ inputs.function }}" >> "$GITHUB_OUTPUT"
+            echo "Manual run: ${{ inputs.function }}"
+            exit 0
+          fi
+          CHANGED=$(git diff --name-only HEAD^ HEAD -- 'supabase/functions/**' \
+                    | cut -d/ -f3 | sort -u | tr '\n' ' ')
+          echo "list=$CHANGED" >> "$GITHUB_OUTPUT"
+          echo "Changed: ${CHANGED:-<none>}"
+
+      - name: Deploy
+        if: steps.changed.outputs.list != ''
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+          PROJECT_REF: ejvavmpieilvigjktugh
+        run: |
+          set -euo pipefail
+          if [ -z "${SUPABASE_ACCESS_TOKEN:-}" ]; then
+            echo "::error::SUPABASE_ACCESS_TOKEN is not set. Add it to this"
+            echo "::error::repository's Actions secrets, or the deploy is a no-op"
+            echo "::error::that looks like a success — the exact failure this"
+            echo "::error::workflow exists to end."
+            exit 1
+          fi
+          for fn in ${{ steps.changed.outputs.list }}; do
+            [ -d "supabase/functions/$fn" ] || { echo "skip $fn (deleted)"; continue; }
+            # Every function in this project runs with verify_jwt: false — each
+            # is called by a webhook or a server holding a non-Supabase key.
+            # Passing the flag per function rather than globally so that adding
+            # a JWT-verified function later is a deliberate edit here.
+            echo "::group::deploy $fn"
+            supabase functions deploy "$fn" \
+              --project-ref "$PROJECT_REF" \
+              --no-verify-jwt
+            echo "::endgroup::"
+          done
+
+      - name: Report what is now live
+        if: steps.changed.outputs.list != ''
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+          PROJECT_REF: ejvavmpieilvigjktugh
+        run: |
+          # A deploy command that exits 0 is acceptance, not proof. Print the
+          # live version so the run log carries the thing you would otherwise
+          # have to go and check by hand.
+          supabase functions list --project-ref "$PROJECT_REF" || true
