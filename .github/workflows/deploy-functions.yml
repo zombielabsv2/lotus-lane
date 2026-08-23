@@ -79,10 +79,23 @@ jobs:
         run: |
           set -euo pipefail
           if [ -z "${SUPABASE_ACCESS_TOKEN:-}" ]; then
-            echo "::error::SUPABASE_ACCESS_TOKEN is not set. Add it to this"
-            echo "::error::repository's Actions secrets, or the deploy is a no-op"
-            echo "::error::that looks like a success — the exact failure this"
-            echo "::error::workflow exists to end."
+            echo "::error::SUPABASE_ACCESS_TOKEN is not set in this repository's"
+            echo "::error::Actions secrets. A deploy without it is a no-op that"
+            echo "::error::looks like a success — the exact failure this workflow"
+            echo "::error::exists to end."
+            exit 1
+          fi
+          # PRESENT is not the same as VALID. Supabase PATs are revocable and do
+          # expire: the copy in ~/.supabase/.env (LotusLaneAuth) returns 401 on
+          # even a read-only `projects list` as of 2026-08-23. Probe before
+          # deploying, so a dead token fails HERE with a clear message rather
+          # than part-way through a multi-function loop having already
+          # redeployed some functions and not others.
+          if ! supabase projects list >/dev/null 2>&1; then
+            echo "::error::SUPABASE_ACCESS_TOKEN is present but REJECTED (401)."
+            echo "::error::The working token is in astromedha-cron Secret Manager"
+            echo "::error::as SUPABASE_PAT; or mint one at"
+            echo "::error::supabase.com/dashboard/account/tokens"
             exit 1
           fi
           for fn in ${{ steps.changed.outputs.list }}; do
