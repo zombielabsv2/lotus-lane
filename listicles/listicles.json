@@ -5410,5 +5410,44 @@
       "depression-fog",
       "feeling-like-a-failure"
     ]
+  },
+  {
+    "date": "2026-08-23",
+    "title": "Feel Like You're Failing the People Who Believed in You? 5 Truths About Carrying Someone's Vision Forward",
+    "theme": "mentor-disciple",
+    "theme_name": "Mentor & Disciple",
+    "image": "listicles/2026-08-23.png",
+    "items": [
+      {
+        "quote": "A mentor does not exist to create followers. A mentor exists to create leaders.",
+        "source": "Discussions on Youth",
+        "explanation": "The best guidance you ever received was never meant to make you dependent - it was meant to make you capable of standing on your own."
+      },
+      {
+        "quote": "A disciple's mission is not to follow the mentor blindly, but to realize the mentor's vision - even surpassing the mentor.",
+        "source": "Discussions on Youth",
+        "explanation": "Honoring someone who believed in you means building beyond what they built, not simply repeating what they said."
+      },
+      {
+        "quote": "The true disciple is one who carries on the mentor's spirit. Not as a copy, but as a creative continuation.",
+        "source": "The New Human Revolution, Vol. 6",
+        "explanation": "You don't honor your teachers by imitating them - you honor them by taking what they gave you and making it your own."
+      },
+      {
+        "quote": "The path of mentor and disciple is the path of shared struggle. It is not about hierarchy - it is about sharing the same commitment, the same vision, the same heart.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "The most important relationships in your life are not about rank or status - they are about two people choosing to fight for the same thing."
+      },
+      {
+        "quote": "When the disciple truly stands up with the same spirit as the mentor, the power to change the world emerges.",
+        "source": "The New Human Revolution, Vol. 18",
+        "explanation": "The moment you stop waiting for permission and act with everything someone once poured into you, something extraordinary becomes possible."
+      }
+    ],
+    "struggles": [
+      "feeling-like-a-failure",
+      "overcoming-imposter-syndrome",
+      "starting-over"
+    ]
   }
 ]
