@@ -24,8 +24,22 @@
     <itunes:category text="Religion &amp; Spirituality">
       <itunes:category text="Buddhism" />
     </itunes:category>
-    <pubDate>Fri, 21 Aug 2026 05:58:09 +0000</pubDate>
-    <lastBuildDate>Fri, 21 Aug 2026 05:58:09 +0000</lastBuildDate>
+    <pubDate>Mon, 24 Aug 2026 06:03:05 +0000</pubDate>
+    <lastBuildDate>Mon, 24 Aug 2026 06:03:05 +0000</lastBuildDate>
+    <item>
+      <title>Living With the Fear of Being Fired</title>
+      <link>https://thelotuslane.in/wisdom/fear-of-being-fired.html</link>
+      <guid isPermaLink="false">https://storage.googleapis.com/lotus-lane-podcast/fear-of-being-fired.mp3</guid>
+      <pubDate>Mon, 24 Aug 2026 06:03:04 +0000</pubDate>
+      <description>You know that feeling when your manager schedules an unexpected one-on-one and your stomach drops before you even see the calendar invite?</description>
+      <itunes:summary>You know that feeling when your manager schedules an unexpected one-on-one and your stomach drops before you even see the calendar invite?</itunes:summary>
+      <itunes:author>The Lotus Lane</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:duration>9:52</itunes:duration>
+      <itunes:episode>83</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <enclosure url="https://storage.googleapis.com/lotus-lane-podcast/fear-of-being-fired.mp3" length="8138157" type="audio/mpeg" />
+    </item>
     <item>
       <title>The Fear You Carry for Your Child's Future</title>
       <link>https://thelotuslane.in/wisdom/fear-for-childs-future.html</link>
