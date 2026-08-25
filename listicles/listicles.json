@@ -5488,5 +5488,44 @@
       "overcoming-imposter-syndrome",
       "starting-over"
     ]
+  },
+  {
+    "date": "2026-08-25",
+    "title": "Nobody Is Listening to Each Other Anymore - 5 Truths About What Real Dialogue Can Fix",
+    "theme": "dialogue",
+    "theme_name": "Dialogue",
+    "image": "listicles/2026-08-25.png",
+    "items": [
+      {
+        "quote": "Dialogue starts with listening. Truly listening - not just waiting for your turn to speak - but genuinely trying to understand another person's heart.",
+        "source": "Discussions on Youth",
+        "explanation": "Most arguments stay stuck because both sides are rehearsing rebuttals instead of actually hearing what the other person is carrying."
+      },
+      {
+        "quote": "When we engage in dialogue with sincerity and respect, the walls of misunderstanding crumble. Even the most hardened hearts can be opened.",
+        "source": "The New Human Revolution, Vol. 7",
+        "explanation": "That person you've written off as impossible to reach might just be waiting for one honest, respectful conversation to finally let their guard down."
+      },
+      {
+        "quote": "We must not fear those who are different from us. Difference is not a reason for conflict - it is an invitation for dialogue.",
+        "source": "For Today and Tomorrow",
+        "explanation": "The discomfort you feel around people who think or live differently is actually a signal that a conversation worth having is waiting right there."
+      },
+      {
+        "quote": "One sincere conversation can accomplish more than a hundred speeches or a thousand emails.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "Before you send another frustrated text or write another long message, consider that five minutes of honest face-to-face talk could resolve everything."
+      },
+      {
+        "quote": "The greatest tool for peace is not weapons or technology. It is the simple act of two human beings sitting down and talking to each other.",
+        "source": "A New Era of Dialogue (Peace Proposal)",
+        "explanation": "Whether it is a broken friendship or a tense family dinner, the solution almost always starts with two people choosing to show up for a real conversation."
+      }
+    ],
+    "struggles": [
+      "relationship-falling-apart",
+      "anger-you-cant-control",
+      "how-to-forgive"
+    ]
   }
 ]
