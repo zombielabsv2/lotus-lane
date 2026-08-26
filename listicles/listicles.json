@@ -5527,5 +5527,44 @@
       "anger-you-cant-control",
       "how-to-forgive"
     ]
+  },
+  {
+    "date": "2026-08-26",
+    "title": "The World Feels Like It's Falling Apart - 5 Truths About the Peace You Can Actually Build",
+    "theme": "peace",
+    "theme_name": "Peace",
+    "image": "listicles/2026-08-26.png",
+    "items": [
+      {
+        "quote": "A person who can build peace within their own heart can contribute to building peace in the world.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "The argument you had this morning and the headlines tonight are more connected than you think."
+      },
+      {
+        "quote": "The people - the ordinary citizens of the world - are the true protagonists of peace. Not politicians, not leaders, but everyday people with the courage to connect.",
+        "source": "For Today and Tomorrow",
+        "explanation": "When you feel powerless watching the news, remember that real change has always started with regular people choosing to show up."
+      },
+      {
+        "quote": "There is no enemy in Buddhism. There is only delusion to be overcome. When we see others as enemies, we have already lost the battle for peace.",
+        "source": "The New Human Revolution, Vol. 6",
+        "explanation": "The moment you label someone your enemy - at work, at home, online - you give up the one tool that could actually resolve things."
+      },
+      {
+        "quote": "As long as we continue to demonize others, peace will remain a dream. Peace begins the moment we recognize the humanity in every person.",
+        "source": "For Today and Tomorrow",
+        "explanation": "It is easier than ever to write people off, and that is exactly why choosing to see them clearly is the hardest and most important thing you can do."
+      },
+      {
+        "quote": "The most powerful force for peace is not a government, not an army, not a treaty. It is the awakened awareness of individual human beings.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "One person deciding to stop reacting with hatred and start responding with clarity changes the room - and eventually, much more than the room."
+      }
+    ],
+    "struggles": [
+      "anger-you-cant-control",
+      "how-to-forgive",
+      "loneliness-despite-everything"
+    ]
   }
 ]
