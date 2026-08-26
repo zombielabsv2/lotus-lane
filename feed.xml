@@ -7,6 +7,14 @@
     <language>en</language>
     <atom:link href="https://thelotuslane.in/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>My Cousin Just Bought a Flat and I'm Still Splitting the WiFi Bill</title>
+      <link>https://thelotuslane.in/strips/2026-08-26.html</link>
+      <description>Comparing yourself to others isn't a character flaw — it's usually a signal that you care about your own life. The real question is whether you let that fear shrink you or redirect you back to your own work.</description>
+      <pubDate>Wed, 26 Aug 2026 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-08-26.html</guid>
+      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-08-26.png" type="image/png" />
+    </item>
+    <item>
       <title>He's 26 and He Just Got the Promotion I've Been Waiting For Since He Was in School</title>
       <link>https://thelotuslane.in/strips/2026-08-24.html</link>
       <description>Watching someone younger get ahead can make years of hard work feel invisible — but your real growth is the part nobody can hand to someone else or put on a cake. That inner expansion is yours, and it compounds in ways a job title never could.</description>
@@ -397,14 +405,6 @@
       <pubDate>Mon, 04 May 2026 00:00:00 +0000</pubDate>
       <guid isPermaLink="true">https://thelotuslane.in/strips/2026-05-04.html</guid>
       <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-05-04.png" type="image/png" />
-    </item>
-    <item>
-      <title>Everyone Got There Before Me</title>
-      <link>https://thelotuslane.in/strips/2026-05-01.html</link>
-      <description>When everyone around you seems to be moving faster, the trap is waiting until you feel ready or worthy. The only move that actually counts is the one you make today, from exactly where you are.</description>
-      <pubDate>Fri, 01 May 2026 00:00:00 +0000</pubDate>
-      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-05-01.html</guid>
-      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-05-01.png" type="image/png" />
     </item>
   </channel>
 </rss>
