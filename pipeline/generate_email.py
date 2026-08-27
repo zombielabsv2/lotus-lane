@@ -1136,6 +1136,55 @@ Return your response in this exact JSON format:
 
 Return ONLY the JSON, no other text."""
 
+    # ── Max broker first, metered API as the safety net ──────────────────
+    # Rahul decided this on 2026-08-27 (inbox thread 1a04249ad78f8667): this job
+    # called api.anthropic.com once per subscriber on the SHARED prepaid key, so
+    # a daily send was a daily drip against a balance other live automations draw
+    # on. The broker serves the same prompt on the Max plan at zero cost.
+    #
+    # It returns None — never raises — whenever it cannot serve: disabled, no
+    # Supabase creds, drain timeout, failed generation. The API path below is
+    # left exactly as it was so a broker outage can never stop someone's email.
+    # That is also why ANTHROPIC_API_KEY STAYS in daily-content.yml: dropping it
+    # would delete the fallback, which is the opposite of safe. It comes out only
+    # once the broker has a track record here.
+    maxgen_text = None
+    try:
+        import sys as _sys
+        _sys.path.insert(0, str(Path(__file__).parent.parent))
+        import maxgen_client
+        maxgen_text = maxgen_client.generate(
+            system="",
+            user=prompt,
+            max_tokens=1024,
+            app="lotus_lane",
+            action="daimoku_email",
+            response_format="json",
+        )
+    except Exception as _e:
+        import sys as _sys
+        print(f"[lotus_lane] maxgen client unavailable: {type(_e).__name__}: {_e}",
+              file=_sys.stderr)
+
+    if maxgen_text is not None:
+        # Served on Max. Logged at zero cost so the daily cost report shows the
+        # work SHIFTED rather than vanished — a silent drop to zero reads as a
+        # broken job, which is how a real outage would hide here.
+        try:
+            import sys as _sys
+            _sys.path.insert(0, str(Path(__file__).parent.parent))
+            from usage_logger import log_usage as _log_usage
+            _log_usage(
+                app="lotus_lane", action="daimoku_email",
+                model=getattr(maxgen_client, "MAX_MODEL_LABEL", "max-oauth"),
+                input_tokens=0, output_tokens=0,
+            )
+        except Exception as _e:
+            import sys as _sys
+            print(f"[lotus_lane] usage_logger import failed: {type(_e).__name__}: {_e}",
+                  file=_sys.stderr)
+        return _finish_email_content(maxgen_text, name, subscriber)
+
     # Call Claude Sonnet API — with exponential backoff on 429 rate limits
     max_retries = 5
     for attempt in range(max_retries):
@@ -1189,7 +1238,19 @@ Return ONLY the JSON, no other text."""
         print(f"[lotus_lane] usage_logger import failed: {type(_e).__name__}: {_e}", file=_sys.stderr)
 
     # Parse response
-    content_text = result["content"][0]["text"].strip()
+    return _finish_email_content(result["content"][0]["text"], name, subscriber)
+
+
+def _finish_email_content(content_text: str, name: str, subscriber: dict) -> dict:
+    """Model JSON -> the dict the sender expects.
+
+    Shared by BOTH generation paths (the Max broker and the metered API) so they
+    cannot drift. Before the broker landed this was inline in the API path only;
+    duplicating it would have meant a normalisation fix reaching one path and not
+    the other, which is precisely the kind of split that shows up as "it only
+    breaks on some days".
+    """
+    content_text = (content_text or "").strip()
 
     # Extract JSON from response (handle markdown code blocks)
     if content_text.startswith("```"):
