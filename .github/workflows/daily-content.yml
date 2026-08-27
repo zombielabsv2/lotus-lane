@@ -132,6 +132,15 @@ jobs:
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          # Route generation through the Max broker instead of the shared prepaid
+          # Anthropic key. ANTHROPIC_API_KEY deliberately STAYS below: the broker
+          # falls back to it on timeout or outage, and removing the key would
+          # delete that fallback rather than save anything.
+          MAXGEN_ENABLED: "1"
+          # One call per subscriber against a shared drain that polls every 2 min.
+          # 600s is the client default and is the number to revisit first if the
+          # list grows — at that point this wants batching into one call, not N.
+          MAXGEN_TIMEOUT_S: "600"
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
           CHUNKS_PATH: nichiren-chatbot/data/processed/chunks.json
