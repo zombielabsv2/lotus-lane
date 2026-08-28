@@ -5608,41 +5608,41 @@
   },
   {
     "date": "2026-08-28",
-    "title": "Keep Falling Down and Getting Back Up? 5 Truths About What Winning Actually Means",
-    "theme": "victory",
-    "theme_name": "Victory",
+    "title": "Watching Someone Suffer and Not Knowing What to Do? 5 Truths About Compassion That Actually Help",
+    "theme": "compassion",
+    "theme_name": "Compassion",
     "image": "listicles/2026-08-28.png",
     "items": [
       {
-        "quote": "Never accept defeat. Even if you fall, even if you fail, as long as you stand up again, you have not been defeated.",
-        "source": "The New Human Revolution, Vol. 5",
-        "explanation": "Every time you get up after a setback - no matter how small or slow - you are still in the fight."
-      },
-      {
-        "quote": "True victory is not about defeating others. It is about overcoming your own weakness, your own negativity, your own despair.",
-        "source": "Discussions on Youth",
-        "explanation": "The real competition was never with anyone else - it has always been with the voice inside you that says you cannot do it."
-      },
-      {
-        "quote": "In life, we are victorious when we are growing, developing, and challenging ourselves. We are defeated when we stop trying.",
-        "source": "The Wisdom for Creating Happiness and Peace",
-        "explanation": "You do not have to be succeeding right now - you just have to still be moving, still be trying, still be showing up."
-      },
-      {
-        "quote": "Victory in life is not determined by wealth, status, or power. It is determined by the state of your heart - whether you have lived with courage and compassion.",
-        "source": "Discussions on Youth",
-        "explanation": "When you measure your life by titles and numbers, you will always feel behind - measure it by how you treated people instead."
-      },
-      {
-        "quote": "Those who win in the end are those who never gave up. Victory belongs to the persistent.",
+        "quote": "A single warm word can give someone the courage to go on living. Never underestimate the power of your compassion.",
         "source": "For Today and Tomorrow",
-        "explanation": "The people who look like overnight successes almost always have years of quiet, unseen refusal to quit behind them."
+        "explanation": "When you feel helpless around someone who is hurting, remember that showing up with kindness - even briefly - can change everything for them."
+      },
+      {
+        "quote": "Compassion is not about feeling pity for others. It is about sharing their suffering and working together to overcome it.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "Real support is not looking down at someone in pain from a safe distance - it is sitting beside them and refusing to let them face it alone."
+      },
+      {
+        "quote": "True compassion is not soft or weak. It takes great strength to truly care about others, to shoulder their pain.",
+        "source": "Discussions on Youth",
+        "explanation": "Caring deeply about another person's suffering, especially when it costs you something, is one of the hardest and most courageous things a person can do."
+      },
+      {
+        "quote": "Genuine compassion means not only sharing another's suffering, but also helping them to realize their own strength.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "The greatest thing you can do for someone who is struggling is not to rescue them, but to remind them of what they are already capable of."
+      },
+      {
+        "quote": "Buddhism teaches that compassion without wisdom is sentimentality, and wisdom without compassion is cold and heartless. We need both.",
+        "source": "Discussions on Youth",
+        "explanation": "Wanting to help someone is not enough on its own - learning how to actually help them, thoughtfully and honestly, is what makes care meaningful."
       }
     ],
     "struggles": [
-      "feeling-like-a-failure",
-      "burnout-recovery",
-      "starting-over"
+      "caregiver-burden",
+      "loneliness-despite-everything",
+      "when-grief-wont-stop"
     ]
   }
 ]
