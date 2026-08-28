@@ -3,7 +3,12 @@ name: Retry Pending YouTube Uploads
 on:
   schedule:
     # Run daily at 2 AM UTC (7:30 AM IST) until all are uploaded
-    - cron: '0 2 * * *'
+    # Offset off :00/:30 deliberately (2026-08-28). GitHub delays scheduled
+    # runs under load and the top and half of the hour are the most
+    # contended slots. Measured on this workflow: a 3-day run of ~65 min
+    # late every day, then ~10 h late on 2026-08-27, which tripped the
+    # fleet-health 'behind' lens. The job never failed - it was queued.
+    - cron: '41 2 * * *'
   workflow_dispatch:
 
 permissions:
