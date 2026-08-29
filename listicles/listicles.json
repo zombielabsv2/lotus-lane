@@ -5644,5 +5644,44 @@
       "loneliness-despite-everything",
       "when-grief-wont-stop"
     ]
+  },
+  {
+    "date": "2026-08-29",
+    "title": "Keep Falling Down and Getting Back Up? 5 Truths About What Winning Actually Looks Like",
+    "theme": "victory",
+    "theme_name": "Victory",
+    "image": "listicles/2026-08-29.png",
+    "items": [
+      {
+        "quote": "Never accept defeat. Even if you fall, even if you fail, as long as you stand up again, you have not been defeated.",
+        "source": "The New Human Revolution, Vol. 5",
+        "explanation": "Every time you get up after a setback - no matter how small - you are already winning the only fight that counts."
+      },
+      {
+        "quote": "True victory is not about defeating others. It is about overcoming your own weakness, your own negativity, your own despair.",
+        "source": "Discussions on Youth",
+        "explanation": "The real competition has never been with your colleagues, your rivals, or anyone else - it has always been with the voice inside you that says you can't."
+      },
+      {
+        "quote": "In life, we are victorious when we are growing, developing, and challenging ourselves. We are defeated when we stop trying.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "You don't have to achieve something big today - simply choosing to try again is what separates winning from giving up."
+      },
+      {
+        "quote": "Victory in life is not determined by wealth, status, or power. It is determined by the state of your heart - whether you have lived with courage and compassion.",
+        "source": "Discussions on Youth",
+        "explanation": "When you feel like you're losing because you don't have enough yet, this is a reminder that the scoreboard you're watching is the wrong one."
+      },
+      {
+        "quote": "Those who win in the end are those who never gave up. Victory belongs to the persistent.",
+        "source": "For Today and Tomorrow",
+        "explanation": "The people who seem to have it all figured out didn't get there through talent alone - they simply refused to stop one moment before the breakthrough."
+      }
+    ],
+    "struggles": [
+      "feeling-like-a-failure",
+      "burnout-recovery",
+      "starting-over"
+    ]
   }
 ]
