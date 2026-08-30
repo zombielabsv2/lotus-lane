@@ -5683,5 +5683,44 @@
       "burnout-recovery",
       "starting-over"
     ]
+  },
+  {
+    "date": "2026-08-30",
+    "title": "Ready to Give Up? 5 Reminders That Hope Is Still Yours to Choose",
+    "theme": "hope",
+    "theme_name": "Hope",
+    "image": "listicles/2026-08-30.png",
+    "items": [
+      {
+        "quote": "Hope is not a matter of ability; it is a matter of decision.",
+        "source": "Discussions on Youth",
+        "explanation": "When everything feels impossible, this reminds you that hope is not something life hands you - it is something you choose."
+      },
+      {
+        "quote": "Winter always turns to spring. Never, from ancient times on, has anyone heard or seen of winter turning back to autumn.",
+        "source": "The Writings of Nichiren Daishonin (referenced in guidance)",
+        "explanation": "Whatever dark season you are living through right now, it has a natural end - things move forward, never backward."
+      },
+      {
+        "quote": "No matter how hopeless or bleak things appear, the moment you resolve to never give up, every nerve and fiber in your being will orient itself toward your success.",
+        "source": "Faith Into Action",
+        "explanation": "The single decision to keep going - even on your worst day - quietly shifts everything inside you toward finding a way through."
+      },
+      {
+        "quote": "No one can make you feel hopeless unless you allow them to. Hope resides in the heart. It is something you create.",
+        "source": "Discussions on Youth",
+        "explanation": "Other people's doubts, bad news, and hard circumstances can pressure you - but they cannot reach the hope you carry inside."
+      },
+      {
+        "quote": "Each morning we are born again. What we do today is what matters most.",
+        "source": "For Today and Tomorrow",
+        "explanation": "Yesterday's pain and mistakes do not have to follow you - each new morning is a real and usable fresh start."
+      }
+    ],
+    "struggles": [
+      "depression-fog",
+      "anxiety-insomnia",
+      "starting-over"
+    ]
   }
 ]
