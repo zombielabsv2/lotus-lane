@@ -5722,5 +5722,44 @@
       "anxiety-insomnia",
       "starting-over"
     ]
+  },
+  {
+    "date": "2026-08-31",
+    "title": "Feel Like Fear Is Winning? 5 Truths About What It Really Means to Be Brave",
+    "theme": "courage",
+    "theme_name": "Courage",
+    "image": "listicles/2026-08-31.png",
+    "items": [
+      {
+        "quote": "Courage is not the absence of fear. Courage is feeling fear, recognizing fear, and still taking action.",
+        "source": "Discussions on Youth",
+        "explanation": "You do not have to stop feeling afraid - you just have to move forward anyway, even one small step at a time."
+      },
+      {
+        "quote": "Having courage does not mean that we are unafraid. Having courage and showing courage means we face our fears.",
+        "source": "Discussions on Youth",
+        "explanation": "The moment you act despite the knot in your stomach, you are already doing something most people never manage to do."
+      },
+      {
+        "quote": "No matter what happens, I will not be defeated. I will not run away. I will not complain. I will not be negative. I will keep advancing.",
+        "source": "The New Human Revolution, Vol. 1",
+        "explanation": "When everything feels out of control, this single commitment - to keep going - is the one thing that cannot be taken from you."
+      },
+      {
+        "quote": "Be the kind of person who, when your feet hit the floor in the morning, makes the devil say, 'Oh no, they're up!'",
+        "source": "Youth and the Writings of Nichiren Daishonin",
+        "explanation": "Starting each day with intention rather than dread is a quiet act of defiance against every force that wants to keep you small."
+      },
+      {
+        "quote": "The true hero is one who conquers his own anger and hatred.",
+        "source": "For Today and Tomorrow",
+        "explanation": "Real bravery is not fighting the people who hurt you - it is refusing to let bitterness turn you into someone you do not recognize."
+      }
+    ],
+    "struggles": [
+      "anxiety-insomnia",
+      "feeling-like-a-failure",
+      "starting-over"
+    ]
   }
 ]
