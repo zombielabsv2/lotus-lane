@@ -2721,5 +2721,24 @@
     "category": "relationships",
     "topic": "partner not listening",
     "characters": []
+  },
+  {
+    "date": "2026-08-31",
+    "title": "I Was Surrounded by People All Evening and I've Never Felt More Alone",
+    "image": "https://zombielabsv2.github.io/lotus-lane-assets/2026-08-31.png",
+    "message": "Feeling lonely in a crowd doesn't mean something is wrong with you — it usually means you want something more real than small talk. That longing is actually the beginning of finding it.",
+    "quote": "It is rare to be born as a human being. The number of those endowed with human life is as small as the amount of earth one can place on a fingernail. Life as a human being is precious above all things... a person who has friends in the Dharma... is a person with the greatest fortune.",
+    "source": "Daisaku Ikeda, The Wisdom for Creating Happiness and Peace, Part 1, Chapter 3",
+    "tags": [
+      "loneliness",
+      "social anxiety",
+      "connection"
+    ],
+    "category": "loneliness",
+    "topic": "lonely in a crowd",
+    "characters": [
+      "meera",
+      "vikram"
+    ]
   }
 ]

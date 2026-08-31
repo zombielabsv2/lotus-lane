@@ -7,6 +7,14 @@
     <language>en</language>
     <atom:link href="https://thelotuslane.in/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>I Was Surrounded by People All Evening and I've Never Felt More Alone</title>
+      <link>https://thelotuslane.in/strips/2026-08-31.html</link>
+      <description>Feeling lonely in a crowd doesn't mean something is wrong with you — it usually means you want something more real than small talk. That longing is actually the beginning of finding it.</description>
+      <pubDate>Mon, 31 Aug 2026 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-08-31.html</guid>
+      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-08-31.png" type="image/png" />
+    </item>
+    <item>
       <title>I've Said the Same Thing Four Times and He's Still Looking at His Phone</title>
       <link>https://thelotuslane.in/strips/2026-08-28.html</link>
       <description>When your partner stops really listening, it does not just feel like bad communication — it feels like you have stopped mattering. Real presence is not a grand gesture; it starts with putting the phone down and turning your body toward the person in front of you.</description>
@@ -397,14 +405,6 @@
       <pubDate>Fri, 08 May 2026 00:00:00 +0000</pubDate>
       <guid isPermaLink="true">https://thelotuslane.in/strips/2026-05-08.html</guid>
       <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-05-08.png" type="image/png" />
-    </item>
-    <item>
-      <title>Rahul Got the Promotion. I Bought Myself a Samosa and Cried in the Car Park.</title>
-      <link>https://thelotuslane.in/strips/2026-05-06.html</link>
-      <description>When someone else gets what you wanted, the envy you feel is not a character flaw — it is information. The real question it is asking is: are you still building the thing only you can build, or have you been watching someone else's scoreboard instead of playing your own game?</description>
-      <pubDate>Wed, 06 May 2026 00:00:00 +0000</pubDate>
-      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-05-06.html</guid>
-      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-05-06.png" type="image/png" />
     </item>
   </channel>
 </rss>
