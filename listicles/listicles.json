@@ -5761,5 +5761,44 @@
       "feeling-like-a-failure",
       "starting-over"
     ]
+  },
+  {
+    "date": "2026-09-01",
+    "title": "Tired of Waiting for the World to Change? 5 Truths About Where Change Actually Starts",
+    "theme": "human-revolution",
+    "theme_name": "Human Revolution",
+    "image": "listicles/2026-09-01.png",
+    "items": [
+      {
+        "quote": "When you change, the world around you will change. Everything begins with your own human revolution.",
+        "source": "Discussions on Youth",
+        "explanation": "The situation at work, at home, or in your city can shift when you stop waiting and start working on yourself first."
+      },
+      {
+        "quote": "Changing ourselves is the most difficult revolution of all. But it is the most important revolution.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "It is harder to change one habit, one reaction, or one belief than to change anything in the outside world - and that is exactly why it matters."
+      },
+      {
+        "quote": "A great human revolution in just a single individual will help achieve a change in the destiny of a nation and, further, will enable a change in the destiny of all humankind.",
+        "source": "The Human Revolution",
+        "explanation": "Your personal effort to grow is never small or private - it quietly ripples outward in ways you may never fully see."
+      },
+      {
+        "quote": "Human revolution is not something special or out of the ordinary. It is the process of transforming our lives, one challenge at a time.",
+        "source": "Discussions on Youth",
+        "explanation": "You do not need a dramatic turning point - every single difficult moment you face honestly is already the work of changing your life."
+      },
+      {
+        "quote": "Our lives are like gardens. We can grow flowers or we can grow weeds. It all depends on what we plant and how we tend our garden.",
+        "source": "For Today and Tomorrow",
+        "explanation": "The thoughts you repeat, the habits you keep, and the people you spend time with are all seeds that will eventually become your reality."
+      }
+    ],
+    "struggles": [
+      "starting-over",
+      "feeling-like-a-failure",
+      "burnout-recovery"
+    ]
   }
 ]
