@@ -5800,5 +5800,44 @@
       "feeling-like-a-failure",
       "burnout-recovery"
     ]
+  },
+  {
+    "date": "2026-09-02",
+    "title": "Your Prayers Feel Like They're Going Nowhere? 5 Truths About How to Make Them Actually Land",
+    "theme": "prayer-faith",
+    "theme_name": "Prayer & Faith",
+    "image": "listicles/2026-09-02.png",
+    "items": [
+      {
+        "quote": "Prayer is the courage to persevere. It is the struggle to overcome our own weakness and lack of confidence in ourselves.",
+        "source": "For Today and Tomorrow",
+        "explanation": "When you feel too broken or small to keep going, prayer is not asking for rescue - it is building the inner strength to stand back up."
+      },
+      {
+        "quote": "A powerful prayer - one that is the roar of a lion - can change anything, any situation, no matter how difficult or seemingly impossible.",
+        "source": "The New Human Revolution, Vol. 3",
+        "explanation": "That problem at work, that fractured relationship, that diagnosis - nothing in your life is too heavy for a prayer that comes from your whole self."
+      },
+      {
+        "quote": "Buddhism teaches that prayer without action is just wishful thinking, and action without prayer lacks the power to break through fundamental darkness.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "Real change happens when you bring both together - the quiet inner clarity that prayer gives you, and the concrete steps you take because of it."
+      },
+      {
+        "quote": "Do not let your prayer become a mere formality. Infuse it with your deepest desires and your sincerest determination.",
+        "source": "For Today and Tomorrow",
+        "explanation": "Going through the motions every morning is not enough - your prayer needs to carry the weight of what you actually want and what you are willing to fight for."
+      },
+      {
+        "quote": "The purpose of faith is to become happy - not to become a slave to rigid rules or formalities.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "If your spiritual practice is making you feel more anxious and less free, it has drifted from its whole point - which is your genuine, everyday happiness."
+      }
+    ],
+    "struggles": [
+      "anxiety-insomnia",
+      "depression-fog",
+      "feeling-like-a-failure"
+    ]
   }
 ]
