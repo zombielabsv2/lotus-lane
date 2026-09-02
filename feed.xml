@@ -7,6 +7,14 @@
     <language>en</language>
     <atom:link href="https://thelotuslane.in/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>I Added Up Everything I Owe and Had to Sit Down on the Kitchen Floor</title>
+      <link>https://thelotuslane.in/strips/2026-09-02.html</link>
+      <description>When debt feels like a wall you can't see over, the first shift isn't financial — it's internal. Building the inner strength to face what's real, one concrete step at a time, is where the way out actually begins.</description>
+      <pubDate>Wed, 02 Sep 2026 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-09-02.html</guid>
+      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-09-02.png" type="image/png" />
+    </item>
+    <item>
       <title>I Was Surrounded by People All Evening and I've Never Felt More Alone</title>
       <link>https://thelotuslane.in/strips/2026-08-31.html</link>
       <description>Feeling lonely in a crowd doesn't mean something is wrong with you — it usually means you want something more real than small talk. That longing is actually the beginning of finding it.</description>
@@ -397,14 +405,6 @@
       <pubDate>Mon, 11 May 2026 00:00:00 +0000</pubDate>
       <guid isPermaLink="true">https://thelotuslane.in/strips/2026-05-11.html</guid>
       <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-05-11.png" type="image/png" />
-    </item>
-    <item>
-      <title>47 Is Not Too Late (But My Brain Keeps Saying It Is)</title>
-      <link>https://thelotuslane.in/strips/2026-05-08.html</link>
-      <description>Feeling too old to start over is real — but it is a feeling, not a fact. The courage to begin is not reserved for the young; it belongs to anyone willing to stop asking for permission.</description>
-      <pubDate>Fri, 08 May 2026 00:00:00 +0000</pubDate>
-      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-05-08.html</guid>
-      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-05-08.png" type="image/png" />
     </item>
   </channel>
 </rss>
