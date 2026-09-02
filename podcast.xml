@@ -24,8 +24,22 @@
     <itunes:category text="Religion &amp; Spirituality">
       <itunes:category text="Buddhism" />
     </itunes:category>
-    <pubDate>Mon, 31 Aug 2026 11:46:12 +0000</pubDate>
-    <lastBuildDate>Mon, 31 Aug 2026 11:46:12 +0000</lastBuildDate>
+    <pubDate>Wed, 02 Sep 2026 09:50:31 +0000</pubDate>
+    <lastBuildDate>Wed, 02 Sep 2026 09:50:31 +0000</lastBuildDate>
+    <item>
+      <title>The Fear of Going Broke</title>
+      <link>https://thelotuslane.in/wisdom/fear-of-going-broke.html</link>
+      <guid isPermaLink="false">https://storage.googleapis.com/lotus-lane-podcast/fear-of-going-broke.mp3</guid>
+      <pubDate>Wed, 02 Sep 2026 09:50:30 +0000</pubDate>
+      <description>You know that feeling when you are lying awake and your mind starts running the worst-case film?</description>
+      <itunes:summary>You know that feeling when you are lying awake and your mind starts running the worst-case film?</itunes:summary>
+      <itunes:author>The Lotus Lane</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:duration>9:49</itunes:duration>
+      <itunes:episode>87</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <enclosure url="https://storage.googleapis.com/lotus-lane-podcast/fear-of-going-broke.mp3" length="8123565" type="audio/mpeg" />
+    </item>
     <item>
       <title>When You're Afraid of Doctors and Tests</title>
       <link>https://thelotuslane.in/wisdom/fear-of-doctors.html</link>
