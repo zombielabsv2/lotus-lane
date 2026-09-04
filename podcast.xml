@@ -24,8 +24,22 @@
     <itunes:category text="Religion &amp; Spirituality">
       <itunes:category text="Buddhism" />
     </itunes:category>
-    <pubDate>Wed, 02 Sep 2026 09:50:31 +0000</pubDate>
-    <lastBuildDate>Wed, 02 Sep 2026 09:50:31 +0000</lastBuildDate>
+    <pubDate>Fri, 04 Sep 2026 09:50:41 +0000</pubDate>
+    <lastBuildDate>Fri, 04 Sep 2026 09:50:41 +0000</lastBuildDate>
+    <item>
+      <title>The Fear of Making a Mistake at Work</title>
+      <link>https://thelotuslane.in/wisdom/fear-of-making-a-mistake-at-work.html</link>
+      <guid isPermaLink="false">https://storage.googleapis.com/lotus-lane-podcast/fear-of-making-a-mistake-at-work.mp3</guid>
+      <pubDate>Fri, 04 Sep 2026 09:50:40 +0000</pubDate>
+      <description>You know that feeling when you've just sent an email and the moment it leaves your outbox you start reading it again, sentence by sentence, looking for the...</description>
+      <itunes:summary>You know that feeling when you've just sent an email and the moment it leaves your outbox you start reading it again, sentence by sentence, looking for the...</itunes:summary>
+      <itunes:author>The Lotus Lane</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:duration>10:50</itunes:duration>
+      <itunes:episode>88</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <enclosure url="https://storage.googleapis.com/lotus-lane-podcast/fear-of-making-a-mistake-at-work.mp3" length="8954925" type="audio/mpeg" />
+    </item>
     <item>
       <title>The Fear of Going Broke</title>
       <link>https://thelotuslane.in/wisdom/fear-of-going-broke.html</link>
