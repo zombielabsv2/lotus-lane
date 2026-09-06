@@ -256,6 +256,14 @@ async function allowSend(msg) {
         // a spam control can never throttle an outage alert or something a
         // customer bought.
         p_subject: String(msg.subject ?? ""),
+        // Body and sender, for the operator-mail deferral lane only. The guard
+        // stores these ONLY when empire_route_operator_mail says 'digest', and
+        // that returns 'now' for every recipient not in
+        // empire_operator_recipients - so a customer's body is never stored.
+        // Migration 146's privacy note ("stores its verdict and not the subject
+        // it judged") still holds for empire_send_guard itself, untouched.
+        p_html: typeof msg.html === "string" ? msg.html : null,
+        p_from: String(msg.from ?? ""),
       }),
       signal: AbortSignal.timeout(4000),
     });
@@ -265,8 +273,20 @@ async function allowSend(msg) {
     }
     const verdict = await res.json();
     if (verdict && verdict.allow === false) {
+      const reason = String(verdict.reason ?? "refused");
+      // DEFERRED IS NOT A REFUSAL. The message was captured into
+      // empire_operator_digest and goes out in the 07:00 IST digest, so the
+      // caller must see success. Returning a 429 here would make ~108 cron jobs
+      // log a failure for mail that was never lost - and Fleet Health would then
+      // alarm on those failures, which is precisely the noise this lane exists
+      // to remove. It would also be the second time a verdict got read as a rate
+      // limit; see reference_chokepoint_429_is_a_verdict_not_a_rate_limit.
+      if (reason === "deferred") {
+        console.log("send DEFERRED to digest", JSON.stringify({ to, app }));
+        return { allow: false, deferred: true, reason, to };
+      }
       console.warn("send BLOCKED", JSON.stringify({ to, app, verdict }));
-      return { allow: false, reason: String(verdict.reason ?? "refused"), to };
+      return { allow: false, reason, to };
     }
     return { allow: true };
   } catch (err) {
@@ -339,13 +359,26 @@ Deno.serve(async (req: Request) => {
     if (Array.isArray(parsed)) {
       const kept = [];
       const refused = [];
+      let deferred = 0;
       for (const m of parsed) {
         const v = await allowSend(m ?? {});
         if (v.allow) kept.push(m);
+        else if (v.deferred) deferred += 1;
         else refused.push(`${v.to}:${v.reason}`);
       }
       if (refused.length) {
         console.warn(`batch: refused ${refused.length}`, JSON.stringify(refused));
+      }
+      if (deferred) {
+        console.log(`batch: deferred ${deferred} to digest`);
+      }
+      if (!kept.length && deferred && !refused.length) {
+        // Every message was DEFERRED, none refused. That is a success: the mail
+        // is queued for the digest, so this must not 429.
+        return new Response(
+          JSON.stringify({ data: [], deferred }),
+          { status: 200, headers: { "content-type": "application/json" } },
+        );
       }
       if (!kept.length) {
         return new Response(
@@ -359,6 +392,15 @@ Deno.serve(async (req: Request) => {
       body = JSON.stringify(kept);
     } else {
       const v = await allowSend(parsed);
+      if (v.deferred) {
+        // Shaped like a Resend send so no caller has to know this lane exists.
+        // The id is prefixed rather than random-looking on purpose: anything
+        // that later reads it back from Resend gets a 404 it can explain.
+        return new Response(
+          JSON.stringify({ id: `deferred-${crypto.randomUUID()}`, deferred: true }),
+          { status: 200, headers: { "content-type": "application/json" } },
+        );
+      }
       if (!v.allow) {
         return new Response(
           JSON.stringify({
