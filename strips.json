@@ -2775,5 +2775,25 @@
     "category": "health",
     "topic": "anxiety attacks",
     "characters": []
+  },
+  {
+    "date": "2026-09-07",
+    "title": "Everyone Got Funded, Promoted, or Engaged This Month and I Just Replaced a Broken Belt in My Machine",
+    "image": "https://zombielabsv2.github.io/lotus-lane-assets/2026-09-07.png",
+    "message": "When everyone around you seems to be winning, the real question is whether you kept going on your own path — because the battles nobody applauds are often the ones that matter most.",
+    "quote": "Those who persevere in faith are the foremost champions of life. Do not compare yourself to others. Just advance, step by step, along your own path.",
+    "source": "Daisaku Ikeda, Discussions on Youth",
+    "tags": [
+      "perseverance",
+      "comparison",
+      "imposter-syndrome"
+    ],
+    "category": "perseverance",
+    "topic": "everyone else is succeeding",
+    "characters": [
+      "vikram",
+      "meera",
+      "arjun"
+    ]
   }
 ]
