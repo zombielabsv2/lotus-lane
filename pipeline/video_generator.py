@@ -1049,7 +1049,25 @@ def main():
             narrated = SHORTS_DIR / f"{args.date}_narrated.mp4"
             if narrated.exists():
                 narrated.unlink()
-        generate_video(args.date, fps=args.fps)
+        if generate_video(args.date, fps=args.fps) is None:
+            # EXIT NON-ZERO, or the failure is invisible. generate_video returns
+            # None on every abort path (TTS down, no strip, ffmpeg mux failed)
+            # and main() used to ignore it, so the process exited 0 and the
+            # workflow step went green while producing no Short.
+            #
+            # That is not theoretical: ElevenLabs has been returning 401
+            # payment_required since 2026-08-28 ("Your subscription has a failed
+            # or incomplete payment"), so four consecutive strips — 28 Aug,
+            # 31 Aug, 2 Sep, 4 Sep — shipped with no video and every run
+            # reported success. It surfaced ten days later, in a weekly digest
+            # counting the holes.
+            #
+            # The alerting was already built and correct: the step is
+            # continue-on-error with id `video`, and "Report failure summary"
+            # emails when steps.video.outcome == 'failure'. It could simply
+            # never be true. This is the line that makes it true.
+            print(f"ERROR: no video produced for {args.date}", file=sys.stderr)
+            sys.exit(1)
 
 
 if __name__ == "__main__":
