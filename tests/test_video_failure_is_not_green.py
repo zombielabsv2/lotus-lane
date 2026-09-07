@@ -59,3 +59,34 @@ def test_the_step_stays_continue_on_error():
     block = wf[wf.index("- name: Generate YouTube Short video"):]
     block = block[:block.index("- name: Generate 15-second hook reel")]
     assert "continue-on-error: true" in block
+
+
+def test_the_all_branch_also_exits_non_zero():
+    """The backfill path had the same bug, and it is the path that matters most
+    when TTS is down: generate_all collected its failures and main() dropped
+    them, so a run where EVERY render failed looked like a run with nothing to
+    do."""
+    src = GEN.read_text(encoding="utf-8")
+    tail = src[src.index("def main("):]
+    call = re.search(r"if generate_all\([^)]*\):", tail)
+    assert call, "main() must check what generate_all returns"
+    after = tail[call.end():call.end() + 500]
+    assert "sys.exit(1)" in after
+    body = src[src.index("def generate_all("):src.index("def main(")]
+    assert 'return results["failed"]' in body, (
+        "generate_all must return its failures, or main() has nothing to check"
+    )
+
+
+def test_a_missing_video_gets_rendered_without_a_human():
+    """retry-uploads only UPLOADS an existing mp4; it never renders one. So the
+    only thing that fills a hole is generate-missing-videos, and until
+    2026-09-08 that was workflow_dispatch only — four strips sat without video
+    from 28 Aug and nothing was going to fix them even after the ElevenLabs
+    invoice cleared."""
+    wf = (ROOT / ".github" / "workflows" / "generate-missing-videos.yml").read_text(
+        encoding="utf-8")
+    assert "schedule:" in wf and "cron:" in wf, (
+        "generate-missing-videos must run on a schedule. Dispatch-only means a "
+        "missing video is only ever fixed by someone noticing."
+    )

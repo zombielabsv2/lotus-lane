@@ -1010,6 +1010,7 @@ def generate_all(fps=FPS_DEFAULT):
     if results["failed"]:
         print(f"  Failed: {', '.join(results['failed'])}")
     print(f"{'='*60}")
+    return results["failed"]
 
 
 # ---------------------------------------------------------------------------
@@ -1039,7 +1040,14 @@ def main():
         sys.exit(1)
 
     if args.generate_all:
-        generate_all(fps=args.fps)
+        # Same rule as the single-date branch below: a render that produced
+        # nothing must not exit 0. generate_all collects its failures and used
+        # to drop them on the floor, so a backfill where EVERY render failed
+        # looked identical to one with nothing to do — which is exactly the
+        # state this path runs in when TTS is down.
+        if generate_all(fps=args.fps):
+            print("ERROR: some videos failed to render", file=sys.stderr)
+            sys.exit(1)
     else:
         if args.force:
             output = SHORTS_DIR / f"{args.date}.mp4"

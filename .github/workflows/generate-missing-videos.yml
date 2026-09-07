@@ -1,6 +1,22 @@
 name: Generate Missing MP4 Videos
 
 on:
+  # Weekly, an hour before the Monday traffic digest that COUNTS the holes.
+  # This was workflow_dispatch only, which meant a strip published without a
+  # video stayed without one until a human noticed and pressed a button. Four
+  # did exactly that between 28 Aug and 7 Sep 2026 while ElevenLabs was
+  # unpaid, and nothing was going to fill them in even after the invoice
+  # cleared: retry-uploads only UPLOADS an mp4 that already exists, it does
+  # not render one.
+  #
+  # Cheap when there is nothing to do: generate_all skips every date whose
+  # mp4 is already on disk, so a healthy week makes no TTS calls at all.
+  # Weekly rather than daily on purpose, because while TTS is down this run
+  # fails loudly, and a daily red tick is the kind of alarm people learn to
+  # scroll past.
+  schedule:
+    # Monday 06:30 UTC = 12:00 IST, ahead of the 13:00 IST weekly digest.
+    - cron: '30 6 * * 1'
   workflow_dispatch:
 
 permissions:
