@@ -148,30 +148,16 @@ jobs:
           # Push both commits in one go.
           git push
 
-      # --- Optional enrichment: video + social (all continue-on-error) ---
-      - name: Generate YouTube Short video
-        if: ${{ github.event.inputs.dry_run != 'true' }}
-        continue-on-error: true
-        id: video
-        env:
-          ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
-        run: python pipeline/video_generator.py --date ${{ steps.target.outputs.date }}
-
+      # --- Optional enrichment: social (all continue-on-error) ---
+      # The YouTube Short and its upload were removed 2026-09-08. Rahul
+      # retired the rail rather than renew ElevenLabs: 19 subscribers, and
+      # the best video of the month had 6 views. The hook reel stays — it
+      # needs no TTS and renders straight from the panels.
       - name: Generate 15-second hook reel
         if: ${{ github.event.inputs.dry_run != 'true' }}
         continue-on-error: true
         id: hook_reel
         run: python pipeline/hook_reel_generator.py --date ${{ steps.target.outputs.date }}
-
-      - name: Upload to YouTube
-        if: ${{ github.event.inputs.dry_run != 'true' }}
-        continue-on-error: true
-        id: youtube
-        env:
-          YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
-          YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
-          YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
-        run: python pipeline/youtube_upload.py --date ${{ steps.target.outputs.date }}
 
       # --- Pinterest, Tumblr, Instagram DISABLED (no credentials configured, generates noise) ---
       # Re-enable when credentials are set up. workflow_dispatch still works for manual testing.
@@ -207,7 +193,7 @@ jobs:
       #     INSTAGRAM_USER_ID: ${{ secrets.INSTAGRAM_USER_ID }}
       #   run: python pipeline/instagram_upload.py --latest
 
-      - name: Commit video and social media IDs
+      - name: Commit reel and social media IDs
         if: ${{ github.event.inputs.dry_run != 'true' }}
         # NOTE: continue-on-error removed deliberately. If we can't commit the
         # freshly-uploaded youtube_id + MP4, the run should turn RED so the
@@ -286,8 +272,7 @@ jobs:
           NOTIFY_EMAIL: ${{ secrets.NOTIFY_EMAIL }}
         run: |
           FAILURES=""
-          if [ "${{ steps.video.outcome }}" == "failure" ]; then FAILURES="$FAILURES- Video generation FAILED\n"; fi
-          if [ "${{ steps.youtube.outcome }}" == "failure" ]; then FAILURES="$FAILURES- YouTube upload FAILED\n"; fi
+          if [ "${{ steps.hook_reel.outcome }}" == "failure" ]; then FAILURES="$FAILURES- Hook reel FAILED\n"; fi
           # Pinterest, Tumblr, Instagram checks removed — steps disabled
           if [ "${{ steps.commit_social.outcome }}" == "failure" ]; then FAILURES="$FAILURES- Social ID commit FAILED\n"; fi
           if [ "${{ steps.gcs_auth.outcome }}" == "failure" ]; then FAILURES="$FAILURES- GCS auth FAILED (content not backed up this run)\n"; fi

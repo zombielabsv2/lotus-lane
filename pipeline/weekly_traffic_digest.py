@@ -754,10 +754,11 @@ def build_html(subs: dict, yt: dict, strips: dict, ga4: dict, roster: dict | Non
 
     # Health flags
     health_flags = []
-    if strips["missing_video_in_week"] > 0:
-        health_flags.append(
-            f"<li><b>{strips['missing_video_in_week']}</b> strip(s) this week missing a YouTube video</li>"
-        )
+    # The missing-video flag was removed 2026-09-08 with the Shorts rail. It
+    # can only ever be satisfied by a renderer that no longer runs, so leaving
+    # it in would page every week about a decision Rahul already made. The
+    # count is still computed and still reported below as a plain figure, so
+    # the history stays legible — it just is not a health FLAG any more.
     if subs.get("email_failed_7d", 0) > 0:
         health_flags.append(
             f"<li><b>{subs['email_failed_7d']}</b> Daily Lotus email failures this week</li>"

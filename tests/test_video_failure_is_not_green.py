@@ -1,28 +1,35 @@
-"""A Short that was never rendered must fail the step that renders it.
+"""The Shorts rail is retired, and a render that produces nothing still fails.
 
-ElevenLabs began returning 401 payment_required on 2026-08-28 ("Your
-subscription has a failed or incomplete payment"). `generate_video` correctly
-gave up and returned None each time — and `main()` ignored the return value, so
-the process exited 0, the workflow step went green, and four consecutive strips
-(28 Aug, 31 Aug, 2 Sep, 4 Sep) shipped with no video. It surfaced ten days later
-in a weekly digest counting the holes.
+Two eras in one file, both worth pinning.
 
-The alerting was already built and correct: the step is continue-on-error with
-id `video`, and "Report failure summary" emails when
-steps.video.outcome == 'failure'. It could simply never be true.
+WHAT HAPPENED. ElevenLabs began returning 401 payment_required on 2026-08-28.
+`generate_video` correctly gave up and returned None each time, and `main()`
+ignored the return value, so the process exited 0, the workflow step went green,
+and four consecutive strips (28 Aug, 31 Aug, 2 Sep, 4 Sep) shipped with no
+video. It surfaced ten days later in a weekly digest counting the holes.
 
-Two things are pinned here, because either one alone lets the silence back:
-the exit code, and the workflow wiring that turns it into mail.
+WHAT RAHUL DECIDED, 2026-09-08: drop the rail rather than renew. 19 subscribers,
+and the best video of the month had 6 views, against a subscription payable
+whether or not anyone watches. The Short, the YouTube upload, the retry job and
+the weekly backfill are gone.
+
+So the tests split. The exit-code invariant still holds, because
+video_generator.py is still here and still runnable by hand — unwired, not
+deleted, so the decision stays reversible. And a new test pins the retirement
+itself, because the failure mode now is somebody re-adding a step that quietly
+needs a subscription nobody is paying.
 """
 import pathlib
 import re
 
-import pytest
-
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 GEN = ROOT / "pipeline" / "video_generator.py"
-WF = ROOT / ".github" / "workflows" / "generate-strip.yml"
+STRIP_WF = ROOT / ".github" / "workflows" / "generate-strip.yml"
 
+
+# ---------------------------------------------------------------------------
+# Still true: a render that produced nothing must not exit 0.
+# ---------------------------------------------------------------------------
 
 def test_main_exits_non_zero_when_no_video_was_produced():
     src = GEN.read_text(encoding="utf-8")
@@ -33,60 +40,62 @@ def test_main_exits_non_zero_when_no_video_was_produced():
         "every abort path, and ignoring that is what made a dead renderer look "
         "like a healthy one."
     )
-    after = tail[call.end():call.end() + 800]
-    assert "sys.exit(1)" in after, (
-        "main() must exit non-zero when no video was produced — the workflow "
-        "step is continue-on-error, so a zero exit is reported as success and "
-        "no failure mail is sent."
-    )
-
-
-def test_the_video_step_is_still_wired_to_the_failure_mail():
-    """The exit code only helps because something reads it."""
-    wf = WF.read_text(encoding="utf-8")
-    assert "id: video" in wf, "the video step lost its id; nothing can read its outcome"
-    assert "steps.video.outcome" in wf, (
-        "the failure summary no longer reads the video step's outcome, so a "
-        "non-zero exit would go nowhere"
-    )
-
-
-def test_the_step_stays_continue_on_error():
-    """Deliberate: a missing Short must not block the strip, the page, the
-    email or the GCS sync. The fix is to make the failure LOUD, never to make
-    it fatal."""
-    wf = WF.read_text(encoding="utf-8")
-    block = wf[wf.index("- name: Generate YouTube Short video"):]
-    block = block[:block.index("- name: Generate 15-second hook reel")]
-    assert "continue-on-error: true" in block
+    assert "sys.exit(1)" in tail[call.end():call.end() + 800]
 
 
 def test_the_all_branch_also_exits_non_zero():
-    """The backfill path had the same bug, and it is the path that matters most
-    when TTS is down: generate_all collected its failures and main() dropped
-    them, so a run where EVERY render failed looked like a run with nothing to
-    do."""
+    """The backfill path had the same bug, and it was the path that mattered
+    most when TTS was down."""
     src = GEN.read_text(encoding="utf-8")
     tail = src[src.index("def main("):]
     call = re.search(r"if generate_all\([^)]*\):", tail)
     assert call, "main() must check what generate_all returns"
-    after = tail[call.end():call.end() + 500]
-    assert "sys.exit(1)" in after
+    assert "sys.exit(1)" in tail[call.end():call.end() + 500]
     body = src[src.index("def generate_all("):src.index("def main(")]
     assert 'return results["failed"]' in body, (
         "generate_all must return its failures, or main() has nothing to check"
     )
 
 
-def test_a_missing_video_gets_rendered_without_a_human():
-    """retry-uploads only UPLOADS an existing mp4; it never renders one. So the
-    only thing that fills a hole is generate-missing-videos, and until
-    2026-09-08 that was workflow_dispatch only — four strips sat without video
-    from 28 Aug and nothing was going to fix them even after the ElevenLabs
-    invoice cleared."""
-    wf = (ROOT / ".github" / "workflows" / "generate-missing-videos.yml").read_text(
-        encoding="utf-8")
-    assert "schedule:" in wf and "cron:" in wf, (
-        "generate-missing-videos must run on a schedule. Dispatch-only means a "
-        "missing video is only ever fixed by someone noticing."
+# ---------------------------------------------------------------------------
+# New: the rail is retired and does not come back by accident.
+# ---------------------------------------------------------------------------
+
+def test_the_shorts_rail_stays_retired():
+    """Re-adding either step brings back a hard dependency on a subscription
+    nobody is paying, and it fails the way the original did: quietly, with the
+    run still green, because both steps were continue-on-error.
+
+    If the rail is ever revived deliberately, delete this test in the same
+    commit that renews the subscription — not before.
+    """
+    wf = STRIP_WF.read_text(encoding="utf-8")
+    assert "Generate YouTube Short video" not in wf, (
+        "the Short step is back; Rahul retired it on 2026-09-08 rather than "
+        "renew ElevenLabs"
     )
+    assert "Upload to YouTube" not in wf, "the YouTube upload step is back"
+    assert "ELEVENLABS_API_KEY" not in wf, (
+        "generate-strip no longer needs a TTS key; a step asking for one is a "
+        "step that will fail on a dead subscription"
+    )
+
+
+def test_the_hook_reel_survived_the_cut():
+    """It renders straight from the panels and never called ElevenLabs, so it
+    was never part of what broke. Cutting it with the rail would have been
+    collateral damage."""
+    wf = STRIP_WF.read_text(encoding="utf-8")
+    assert "Generate 15-second hook reel" in wf
+    assert "id: hook_reel" in wf
+
+
+def test_the_failure_summary_names_only_steps_that_exist():
+    """It read steps.video.outcome and steps.youtube.outcome. A summary reading
+    a step that is gone resolves to empty and silently never fires — which is
+    the same class of bug as the exit code it was built to catch."""
+    wf = STRIP_WF.read_text(encoding="utf-8")
+    referenced = set(re.findall(r"steps\.([a-z_]+)\.outcome", wf))
+    declared = set(re.findall(r"^\s+id: ([a-z_]+)\s*$", wf, re.MULTILINE))
+    missing = referenced - declared
+    assert not missing, f"failure summary reads step ids that do not exist: {sorted(missing)}"
