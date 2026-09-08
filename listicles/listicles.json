@@ -6034,5 +6034,44 @@
       "overcoming-imposter-syndrome",
       "burnout-recovery"
     ]
+  },
+  {
+    "date": "2026-09-08",
+    "title": "Caring for Everyone Except Yourself? 5 Truths About What Real Compassion Actually Demands",
+    "theme": "compassion",
+    "theme_name": "Compassion",
+    "image": "listicles/2026-09-08.png",
+    "items": [
+      {
+        "quote": "Compassion is not about feeling pity for others. It is about sharing their suffering and working together to overcome it.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "When a friend is struggling, sitting beside them in their pain matters far more than offering sympathy from a safe distance."
+      },
+      {
+        "quote": "True compassion is not soft or weak. It takes great strength to truly care about others, to shoulder their pain.",
+        "source": "Discussions on Youth",
+        "explanation": "Choosing to stay present for someone in their darkest moment, when you could walk away, is one of the hardest and bravest things you can do."
+      },
+      {
+        "quote": "A single warm word can give someone the courage to go on living. Never underestimate the power of your compassion.",
+        "source": "For Today and Tomorrow",
+        "explanation": "You may never know how much a simple, genuine check-in meant to someone who was quietly falling apart that day."
+      },
+      {
+        "quote": "Genuine compassion means not only sharing another's suffering, but also helping them to realize their own strength.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "The most loving thing you can do for someone in crisis is believe in their ability to get through it, even when they have stopped believing in themselves."
+      },
+      {
+        "quote": "Buddhism teaches that compassion without wisdom is sentimentality, and wisdom without compassion is cold and heartless. We need both.",
+        "source": "Discussions on Youth",
+        "explanation": "Truly helping someone means pairing a warm heart with clear thinking, so your care actually solves the problem rather than just feeling good in the moment."
+      }
+    ],
+    "struggles": [
+      "caregiver-burden",
+      "loneliness-despite-everything",
+      "how-to-forgive"
+    ]
   }
 ]
