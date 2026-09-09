@@ -6073,5 +6073,44 @@
       "loneliness-despite-everything",
       "how-to-forgive"
     ]
+  },
+  {
+    "date": "2026-09-09",
+    "title": "Tired of Losing to Yourself? 5 Truths About What It Actually Takes to Win",
+    "theme": "victory",
+    "theme_name": "Victory",
+    "image": "listicles/2026-09-09.png",
+    "items": [
+      {
+        "quote": "True victory is not about defeating others. It is about overcoming your own weakness, your own negativity, your own despair.",
+        "source": "Discussions on Youth",
+        "explanation": "The real competition in life is never with other people - it is with the voice inside you that says you cannot do it."
+      },
+      {
+        "quote": "Never accept defeat. Even if you fall, even if you fail, as long as you stand up again, you have not been defeated.",
+        "source": "The New Human Revolution, Vol. 5",
+        "explanation": "Failure only becomes permanent when you decide to stay down - every time you get back up, you are still in the fight."
+      },
+      {
+        "quote": "The person who wins over themselves is the strongest of all. The greatest victory is self-mastery.",
+        "source": "For Today and Tomorrow",
+        "explanation": "Discipline over your own habits, fears, and impulses is harder - and more rewarding - than any external achievement you could chase."
+      },
+      {
+        "quote": "In life, we are victorious when we are growing, developing, and challenging ourselves. We are defeated when we stop trying.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "The moment you settle for comfort and stop pushing yourself is the moment defeat quietly moves in without you noticing."
+      },
+      {
+        "quote": "Victory in life is not determined by wealth, status, or power. It is determined by the state of your heart - whether you have lived with courage and compassion.",
+        "source": "Discussions on Youth",
+        "explanation": "At the end of the day, how you treated people and how honestly you faced your struggles matters far more than any title or salary."
+      }
+    ],
+    "struggles": [
+      "feeling-like-a-failure",
+      "burnout-recovery",
+      "comparison-trap"
+    ]
   }
 ]
