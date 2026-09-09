@@ -24,8 +24,22 @@
     <itunes:category text="Religion &amp; Spirituality">
       <itunes:category text="Buddhism" />
     </itunes:category>
-    <pubDate>Mon, 07 Sep 2026 10:36:39 +0000</pubDate>
-    <lastBuildDate>Mon, 07 Sep 2026 10:36:39 +0000</lastBuildDate>
+    <pubDate>Wed, 09 Sep 2026 09:59:44 +0000</pubDate>
+    <lastBuildDate>Wed, 09 Sep 2026 09:59:44 +0000</lastBuildDate>
+    <item>
+      <title>When the Future Fills You With Dread</title>
+      <link>https://thelotuslane.in/wisdom/fear-of-the-future.html</link>
+      <guid isPermaLink="false">https://storage.googleapis.com/lotus-lane-podcast/fear-of-the-future.mp3</guid>
+      <pubDate>Wed, 09 Sep 2026 09:59:43 +0000</pubDate>
+      <description>Every thought about what's coming tightens your chest. Wisdom for living now when tomorrow feels like a threat.</description>
+      <itunes:summary>Every thought about what's coming tightens your chest. Wisdom for living now when tomorrow feels like a threat.</itunes:summary>
+      <itunes:author>The Lotus Lane</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:duration>10:29</itunes:duration>
+      <itunes:episode>90</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <enclosure url="https://storage.googleapis.com/lotus-lane-podcast/fear-of-the-future.mp3" length="8595501" type="audio/mpeg" />
+    </item>
     <item>
       <title>The Fear of Not Affording Retirement</title>
       <link>https://thelotuslane.in/wisdom/fear-of-retirement-poverty.html</link>
