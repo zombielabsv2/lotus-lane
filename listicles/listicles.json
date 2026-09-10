@@ -6112,5 +6112,44 @@
       "burnout-recovery",
       "comparison-trap"
     ]
+  },
+  {
+    "date": "2026-09-10",
+    "title": "Can't See a Way Out? 5 Truths About Why the Darkness Won't Last",
+    "theme": "hope",
+    "theme_name": "Hope",
+    "image": "listicles/2026-09-10.png",
+    "items": [
+      {
+        "quote": "Winter always turns to spring. Never, from ancient times on, has anyone heard or seen of winter turning back to autumn.",
+        "source": "The Writings of Nichiren Daishonin (referenced in guidance)",
+        "explanation": "Whatever hard season you are living through right now has an expiration date - that is not wishful thinking, it is the law of life."
+      },
+      {
+        "quote": "No matter how hopeless or bleak things appear, the moment you resolve to never give up, every nerve and fiber in your being will orient itself toward your success.",
+        "source": "Faith Into Action",
+        "explanation": "The simple decision to keep going - even when you cannot see how - triggers something inside you that starts working on your behalf."
+      },
+      {
+        "quote": "Hope is not a matter of ability; it is a matter of decision.",
+        "source": "Discussions on Youth",
+        "explanation": "Feeling hopeful is not a gift some people are born with - it is a choice you are fully qualified to make, starting right now."
+      },
+      {
+        "quote": "No one can make you feel hopeless unless you allow them to. Hope resides in the heart. It is something you create.",
+        "source": "Discussions on Youth",
+        "explanation": "The situation, the person, or the setback that drained your hope does not get to keep it - because you are the one who generates it."
+      },
+      {
+        "quote": "Each morning we are born again. What we do today is what matters most.",
+        "source": "For Today and Tomorrow",
+        "explanation": "Yesterday's worst moments do not define what today can become - every morning is a clean opening to start building something better."
+      }
+    ],
+    "struggles": [
+      "depression-fog",
+      "anxiety-insomnia",
+      "starting-over"
+    ]
   }
 ]
