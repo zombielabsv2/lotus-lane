@@ -7,6 +7,14 @@
     <language>en</language>
     <atom:link href="https://thelotuslane.in/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>She Smiled at Me in the Meeting and Then Forwarded My Email to My Boss Without My Name On It</title>
+      <link>https://thelotuslane.in/strips/2026-09-11.html</link>
+      <description>When someone steals credit at work, the real damage isn't just professional — it's the sting of being invisible. The move isn't silence or explosion, it's making your work legible again on your own terms.</description>
+      <pubDate>Fri, 11 Sep 2026 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-09-11.html</guid>
+      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-09-11.png" type="image/png" />
+    </item>
+    <item>
       <title>I Keep Filling Her Water Bowl and She's Been Gone a Week</title>
       <link>https://thelotuslane.in/strips/2026-09-09.html</link>
       <description>Grief for a pet is real grief — not lesser, not dramatic, not something to explain away. The love you felt was real, and that means the loss is real too.</description>
@@ -397,14 +405,6 @@
       <pubDate>Wed, 20 May 2026 00:00:00 +0000</pubDate>
       <guid isPermaLink="true">https://thelotuslane.in/strips/2026-05-20.html</guid>
       <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-05-20.png" type="image/png" />
-    </item>
-    <item>
-      <title>We Share a Bed and I've Never Been More Alone</title>
-      <link>https://thelotuslane.in/strips/2026-05-18.html</link>
-      <description>When a marriage goes quiet and distant, it's easy to wait for the other person to change first. Sometimes the shift starts inside you — when you decide to raise your own life condition just one degree, the room around you gets a little warmer too.</description>
-      <pubDate>Mon, 18 May 2026 00:00:00 +0000</pubDate>
-      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-05-18.html</guid>
-      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-05-18.png" type="image/png" />
     </item>
   </channel>
 </rss>
