@@ -222,6 +222,14 @@ function recipientsOf(to) {
 }
 
 /** true = send it. Fails OPEN: any error here returns true. */
+// `kind` is OUR control field and Resend has never agreed to accept it. This
+// function's stated contract is "byte-for-byte the Resend API", so whatever the
+// guard reads must not survive into the forwarded body.
+function stripKind(m) {
+  if (m && typeof m === "object" && "kind" in m) delete m.kind;
+  return m;
+}
+
 async function allowSend(msg) {
   const url = Deno.env.get("SUPABASE_URL");
   const key = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
@@ -256,6 +264,20 @@ async function allowSend(msg) {
         // a spam control can never throttle an outage alert or something a
         // customer bought.
         p_subject: String(msg.subject ?? ""),
+        // p_kind, when the CALLER knows what this send is. empire_claim_send
+        // honours an explicit kind and only falls back to matching the subject
+        // against product_patterns when it gets none. Nothing passed one until
+        // 2026-09-12, so every send was classified by inference, and an
+        // unrecognised subject defaults to 'marketing' -- which means REFUSED
+        // once the weekly slots are gone. That fired 10 times across 4 dates and
+        // 6 people (27/29/30 Aug, 9 Sep): the evening reflection, the
+        // dasha-transition alert and the daily guidance, all mail somebody PAYS
+        // for, all refused because a chart picked a subject wording nobody had
+        // added to a regex yet. A stream that knows it is product should say so
+        // rather than leave it to be guessed.
+        p_kind: typeof msg.kind === "string" && msg.kind.trim()
+          ? msg.kind.trim().toLowerCase()
+          : null,
         // Body and sender, for the operator-mail deferral lane only. The guard
         // stores these ONLY when empire_route_operator_mail says 'digest', and
         // that returns 'now' for every recipient not in
@@ -389,7 +411,7 @@ Deno.serve(async (req: Request) => {
           { status: 429, headers: { "content-type": "application/json" } },
         );
       }
-      body = JSON.stringify(kept);
+      body = JSON.stringify(kept.map(stripKind));
     } else {
       const v = await allowSend(parsed);
       if (v.deferred) {
@@ -410,6 +432,10 @@ Deno.serve(async (req: Request) => {
           { status: 429, headers: { "content-type": "application/json" } },
         );
       }
+      // Single-message lane. `parsed` is the same object `body` was built from
+      // (mobileSafe patches it in place), so re-serialising here keeps that
+      // transform and drops only our control field.
+      body = JSON.stringify(stripKind(parsed));
     }
   }
 
