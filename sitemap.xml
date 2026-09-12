@@ -1706,6 +1706,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://thelotuslane.in/listicles/2026-09-12.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://thelotuslane.in/listicles/index.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
