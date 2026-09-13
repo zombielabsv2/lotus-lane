@@ -6229,5 +6229,44 @@
       "starting-over",
       "depression-fog"
     ]
+  },
+  {
+    "date": "2026-09-13",
+    "title": "Prayers Feel Empty and Pointless? 5 Truths About What Real Faith Actually Requires",
+    "theme": "prayer-faith",
+    "theme_name": "Prayer & Faith",
+    "image": "listicles/2026-09-13.png",
+    "items": [
+      {
+        "quote": "Prayer is the courage to persevere. It is the struggle to overcome our own weakness and lack of confidence in ourselves.",
+        "source": "For Today and Tomorrow",
+        "explanation": "When doubt creeps in and you feel too broken to try, prayer is the act of fighting back against the voice that says you can't."
+      },
+      {
+        "quote": "A powerful prayer - one that is the roar of a lion - can change anything, any situation, no matter how difficult or seemingly impossible.",
+        "source": "The New Human Revolution, Vol. 3",
+        "explanation": "That situation you've stopped believing can ever change - a fierce, lion-hearted prayer refuses to accept that as the final word."
+      },
+      {
+        "quote": "Buddhism teaches that prayer without action is just wishful thinking, and action without prayer lacks the power to break through fundamental darkness.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "Real change happens when you pair your daily effort with deep inner resolve - neither one alone is strong enough to move the hardest obstacles."
+      },
+      {
+        "quote": "Do not let your prayer become a mere formality. Infuse it with your deepest desires and your sincerest determination.",
+        "source": "For Today and Tomorrow",
+        "explanation": "Going through the motions won't move anything - bring your actual raw, desperate, specific longing to your practice and watch it come alive."
+      },
+      {
+        "quote": "The purpose of faith is to become happy - not to become a slave to rigid rules or formalities.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "If your spiritual practice is making you feel more guilt than hope, it's worth asking whether you've confused the rules for the whole point."
+      }
+    ],
+    "struggles": [
+      "anxiety-insomnia",
+      "feeling-like-a-failure",
+      "depression-fog"
+    ]
   }
 ]
