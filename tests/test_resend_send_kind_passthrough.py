@@ -86,27 +86,62 @@ def test_a_caller_that_passes_no_kind_keeps_the_old_behaviour():
     )
 
 
-def test_kind_is_stripped_from_the_body_forwarded_to_resend():
+def test_every_control_field_is_stripped_from_the_body_forwarded_to_resend():
     active = _active(_source())
-    assert re.search(r"function stripKind\s*\(", active), (
-        "no stripKind helper: our control field would be forwarded to "
+    assert re.search(r"function stripControlFields\s*\(", active), (
+        "no stripControlFields helper: our control fields would be forwarded to "
         "api.resend.com, breaking this function's byte-for-byte contract."
     )
-    assert re.search(r'delete\s+m\.kind', active), \
-        "stripKind must actually remove the field, not merely inspect it"
-
-
-def test_both_send_lanes_strip_it():
-    active = _active(_source())
-    assert re.search(r"kept\.map\(\s*stripKind\s*\)", active), (
-        "the /emails/batch lane rebuilds its body from `kept` and must strip "
-        "kind from every surviving message."
+    m = re.search(r"const CONTROL_FIELDS\s*=\s*\[(.*?)\]", active, flags=re.S)
+    assert m, "CONTROL_FIELDS must list what gets stripped, in one place"
+    listed = set(re.findall(r'"([a-z_]+)"', m.group(1)))
+    assert {"kind", "app"} <= listed, (
+        f"CONTROL_FIELDS is {sorted(listed)}. Every field we read off the body "
+        "and Resend does not accept must be listed here, or it reaches a "
+        "third-party API that 422s on it -- i.e. every send from the caller "
+        "that started declaring fails at once."
     )
-    assert re.search(r"JSON\.stringify\(\s*stripKind\(\s*parsed\s*\)\s*\)", active), (
+    assert re.search(r"delete\s+m\[f\]", active), \
+        "stripControlFields must actually remove the fields, not merely inspect them"
+
+
+def test_both_send_lanes_strip_them():
+    active = _active(_source())
+    assert re.search(r"kept\.map\(\s*stripControlFields\s*\)", active), (
+        "the /emails/batch lane rebuilds its body from `kept` and must strip "
+        "the control fields from every surviving message."
+    )
+    assert re.search(
+        r"JSON\.stringify\(\s*stripControlFields\(\s*parsed\s*\)\s*\)", active), (
         "the single-message lane must re-serialise from the stripped object. "
         "Note it has to re-serialise rather than reuse the earlier `body`, "
         "because mobileSafe patches `parsed` in place and that transform must "
         "survive."
+    )
+
+
+def test_the_app_is_declared_when_given_and_inferred_otherwise():
+    """The same defect as the subject regex, one field over.
+
+    `app` selects WHICH ceilings apply -- DAILY_CAPS[app] and the
+    empire_send_policy row. It was only ever inferred from the From address, and
+    AstroMedha lands in the capped bucket only because appFor matches the local
+    part `astromedha@`: it sends from astromedha@rxjapps.in, not from
+    @astromedha.in at all. Renaming that mailbox to guidance@rxjapps.in yields
+    app "rxjapps.in", which has neither a policy row nor a DAILY_CAPS entry, so
+    BOTH the 18/day flood ceiling and the 4/week cap vanish with no error.
+    """
+    active = _active(_source())
+    m = re.search(r"const app = (.{0,240}?);\n", active, flags=re.S)
+    assert m, "could not read the app expression"
+    expr = m.group(1)
+    assert "msg.app" in expr, (
+        "app is still inferred unconditionally. A caller that knows which "
+        "product it is must be able to say so."
+    )
+    assert "appFor(" in expr, (
+        "inference must remain the DEFAULT. Without the fallback every existing "
+        "sender -- none of which declare an app -- loses its ceilings instead."
     )
 
 

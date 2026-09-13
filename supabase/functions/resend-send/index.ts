@@ -222,11 +222,16 @@ function recipientsOf(to) {
 }
 
 /** true = send it. Fails OPEN: any error here returns true. */
-// `kind` is OUR control field and Resend has never agreed to accept it. This
-// function's stated contract is "byte-for-byte the Resend API", so whatever the
-// guard reads must not survive into the forwarded body.
-function stripKind(m) {
-  if (m && typeof m === "object" && "kind" in m) delete m.kind;
+// `kind` and `app` are OUR control fields and Resend has never agreed to accept
+// either. This function's stated contract is "byte-for-byte the Resend API", so
+// whatever the guard reads must not survive into the forwarded body. Resend 422s
+// on an unknown field, so a leak here is not cosmetic: it is every email from
+// the sender that started declaring, failing at once.
+const CONTROL_FIELDS = ["kind", "app"];
+function stripControlFields(m) {
+  if (m && typeof m === "object") {
+    for (const f of CONTROL_FIELDS) if (f in m) delete m[f];
+  }
   return m;
 }
 
@@ -238,7 +243,23 @@ async function allowSend(msg) {
   const to = recipientsOf(msg.to)[0];
   if (!to) return { allow: true };
 
-  const app = appFor(String(msg.from ?? ""));
+  // The app decides WHICH ceilings apply: DAILY_CAPS[app] and the
+  // empire_send_policy row. Until 2026-09-14 it was only ever INFERRED from the
+  // From address, which is the same defect as classifying a send by its subject,
+  // one field over — and it was live. AstroMedha does not send from
+  // @astromedha.in at all; it sends from astromedha@rxjapps.in, so it landed in
+  // the capped bucket ONLY via appFor's `startsWith("astromedha@")` local-part
+  // match. Renaming that mailbox to guidance@rxjapps.in — an ordinary change,
+  // and one siblings have already made — silently yields app "rxjapps.in",
+  // which has no policy row and no DAILY_CAPS entry, so BOTH the 18/day flood
+  // ceiling and the 4/week cap vanish with no error anywhere. That is the
+  // 2026-08-03 flood guard disarming itself on a one-line edit.
+  //
+  // A caller that knows which product it is now says so. Inference stays the
+  // default, so every existing sender is unaffected.
+  const app = (typeof msg.app === "string" && msg.app.trim())
+    ? msg.app.trim().toLowerCase()
+    : appFor(String(msg.from ?? ""));
   const cap = DAILY_CAPS[app] ?? null;
 
   try {
@@ -411,7 +432,7 @@ Deno.serve(async (req: Request) => {
           { status: 429, headers: { "content-type": "application/json" } },
         );
       }
-      body = JSON.stringify(kept.map(stripKind));
+      body = JSON.stringify(kept.map(stripControlFields));
     } else {
       const v = await allowSend(parsed);
       if (v.deferred) {
@@ -435,7 +456,7 @@ Deno.serve(async (req: Request) => {
       // Single-message lane. `parsed` is the same object `body` was built from
       // (mobileSafe patches it in place), so re-serialising here keeps that
       // transform and drops only our control field.
-      body = JSON.stringify(stripKind(parsed));
+      body = JSON.stringify(stripControlFields(parsed));
     }
   }
 
