@@ -24,8 +24,22 @@
     <itunes:category text="Religion &amp; Spirituality">
       <itunes:category text="Buddhism" />
     </itunes:category>
-    <pubDate>Fri, 11 Sep 2026 09:55:54 +0000</pubDate>
-    <lastBuildDate>Fri, 11 Sep 2026 09:55:54 +0000</lastBuildDate>
+    <pubDate>Mon, 14 Sep 2026 10:52:51 +0000</pubDate>
+    <lastBuildDate>Mon, 14 Sep 2026 10:52:51 +0000</lastBuildDate>
+    <item>
+      <title>When You Feel Fundamentally Broken</title>
+      <link>https://thelotuslane.in/wisdom/feeling-broken.html</link>
+      <guid isPermaLink="false">https://storage.googleapis.com/lotus-lane-podcast/feeling-broken.mp3</guid>
+      <pubDate>Mon, 14 Sep 2026 10:52:50 +0000</pubDate>
+      <description>You know that feeling when you look at other people and they seem to come with some basic instruction manual you never received?</description>
+      <itunes:summary>You know that feeling when you look at other people and they seem to come with some basic instruction manual you never received?</itunes:summary>
+      <itunes:author>The Lotus Lane</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:duration>9:17</itunes:duration>
+      <itunes:episode>92</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <enclosure url="https://storage.googleapis.com/lotus-lane-podcast/feeling-broken.mp3" length="7713453" type="audio/mpeg" />
+    </item>
     <item>
       <title>Feeling Anxious for No Reason</title>
       <link>https://thelotuslane.in/wisdom/feeling-anxious-for-no-reason.html</link>
