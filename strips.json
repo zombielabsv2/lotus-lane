@@ -2830,5 +2830,24 @@
     "category": "work-stress",
     "topic": "office politics",
     "characters": []
+  },
+  {
+    "date": "2026-09-14",
+    "title": "We Used to Talk for Hours. Now I Don't Know What to Say to Him.",
+    "image": "https://zombielabsv2.github.io/lotus-lane-assets/2026-09-14.png",
+    "message": "When friendships grow quiet, it doesn't always mean they've ended — sometimes you just buried them under busyness. Showing up, even imperfectly and a little late, is still showing up.",
+    "quote": "A friend in need is a friend indeed. Even the moon, when clouded over, is not without its light.",
+    "source": "Daisaku Ikeda, The Wisdom for Creating Happiness and Peace, Part 2",
+    "tags": [
+      "relationships",
+      "friendship",
+      "loneliness"
+    ],
+    "category": "relationships",
+    "topic": "growing apart",
+    "characters": [
+      "arjun",
+      "vikram"
+    ]
   }
 ]
