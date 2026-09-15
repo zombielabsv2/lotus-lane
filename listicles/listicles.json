@@ -6307,5 +6307,44 @@
       "overcoming-imposter-syndrome",
       "starting-over"
     ]
+  },
+  {
+    "date": "2026-09-15",
+    "title": "Don't Know What You're Living For Yet? 5 Truths About the Power You're Already Carrying",
+    "theme": "youth",
+    "theme_name": "Youth",
+    "image": "listicles/2026-09-15.png",
+    "items": [
+      {
+        "quote": "Youth is not a time of life - it is a state of mind. As long as you have a dream, as long as you have a fighting spirit, you are forever young.",
+        "source": "Discussions on Youth",
+        "explanation": "When life starts to feel routine and small, your dreams are the thing that keeps you alive and moving forward."
+      },
+      {
+        "quote": "Young people, be philosophers, be thinkers, be global citizens. The future of humanity depends on the inner strength of the young.",
+        "source": "Discussions on Youth",
+        "explanation": "The world's biggest problems - inequality, conflict, indifference - will only be solved by people who refuse to stop thinking deeply."
+      },
+      {
+        "quote": "The voice of a single young person, if it rings with truth and conviction, can change the world.",
+        "source": "The New Human Revolution, Vol. 11",
+        "explanation": "You don't need a platform or a title to matter - you need the courage to say what you actually believe."
+      },
+      {
+        "quote": "Youth should be rebellious. They should challenge the status quo, question authority, and refuse to accept injustice.",
+        "source": "Discussions on Youth",
+        "explanation": "When something feels wrong and everyone around you says to stay quiet, that restless feeling inside you is not a problem - it is a calling."
+      },
+      {
+        "quote": "Be a person of substance, not merely of surface. The depth of your character will determine your influence in the world.",
+        "source": "For Today and Tomorrow",
+        "explanation": "In a world obsessed with appearances and follower counts, the person who builds real inner depth will outlast every trend."
+      }
+    ],
+    "struggles": [
+      "overcoming-imposter-syndrome",
+      "feeling-like-a-failure",
+      "comparison-trap"
+    ]
   }
 ]
