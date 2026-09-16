@@ -24,8 +24,22 @@
     <itunes:category text="Religion &amp; Spirituality">
       <itunes:category text="Buddhism" />
     </itunes:category>
-    <pubDate>Mon, 14 Sep 2026 10:52:51 +0000</pubDate>
-    <lastBuildDate>Mon, 14 Sep 2026 10:52:51 +0000</lastBuildDate>
+    <pubDate>Wed, 16 Sep 2026 10:10:39 +0000</pubDate>
+    <lastBuildDate>Wed, 16 Sep 2026 10:10:39 +0000</lastBuildDate>
+    <item>
+      <title>Feeling Disconnected From Yourself</title>
+      <link>https://thelotuslane.in/wisdom/feeling-disconnected-from-yourself.html</link>
+      <guid isPermaLink="false">https://storage.googleapis.com/lotus-lane-podcast/feeling-disconnected-from-yourself.mp3</guid>
+      <pubDate>Wed, 16 Sep 2026 10:10:37 +0000</pubDate>
+      <description>You know that feeling when you catch your reflection somewhere unexpected - a shop window, a phone screen - and for a split second you don't recognize the...</description>
+      <itunes:summary>You know that feeling when you catch your reflection somewhere unexpected - a shop window, a phone screen - and for a split second you don't recognize the...</itunes:summary>
+      <itunes:author>The Lotus Lane</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:duration>10:01</itunes:duration>
+      <itunes:episode>93</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <enclosure url="https://storage.googleapis.com/lotus-lane-podcast/feeling-disconnected-from-yourself.mp3" length="8285613" type="audio/mpeg" />
+    </item>
     <item>
       <title>When You Feel Fundamentally Broken</title>
       <link>https://thelotuslane.in/wisdom/feeling-broken.html</link>
