@@ -24,8 +24,22 @@
     <itunes:category text="Religion &amp; Spirituality">
       <itunes:category text="Buddhism" />
     </itunes:category>
-    <pubDate>Wed, 16 Sep 2026 10:10:39 +0000</pubDate>
-    <lastBuildDate>Wed, 16 Sep 2026 10:10:39 +0000</lastBuildDate>
+    <pubDate>Fri, 18 Sep 2026 09:58:51 +0000</pubDate>
+    <lastBuildDate>Fri, 18 Sep 2026 09:58:51 +0000</lastBuildDate>
+    <item>
+      <title>When You Feel Everything Too Intensely</title>
+      <link>https://thelotuslane.in/wisdom/feeling-everything-too-intensely.html</link>
+      <guid isPermaLink="false">https://storage.googleapis.com/lotus-lane-podcast/feeling-everything-too-intensely.mp3</guid>
+      <pubDate>Fri, 18 Sep 2026 09:58:50 +0000</pubDate>
+      <description>You know that feeling when someone makes a small offhand comment and you carry it for three days?</description>
+      <itunes:summary>You know that feeling when someone makes a small offhand comment and you carry it for three days?</itunes:summary>
+      <itunes:author>The Lotus Lane</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:duration>8:58</itunes:duration>
+      <itunes:episode>94</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <enclosure url="https://storage.googleapis.com/lotus-lane-podcast/feeling-everything-too-intensely.mp3" length="7426989" type="audio/mpeg" />
+    </item>
     <item>
       <title>Feeling Disconnected From Yourself</title>
       <link>https://thelotuslane.in/wisdom/feeling-disconnected-from-yourself.html</link>
