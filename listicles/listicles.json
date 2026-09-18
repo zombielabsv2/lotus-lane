@@ -6424,5 +6424,44 @@
       "how-to-forgive",
       "loneliness-despite-everything"
     ]
+  },
+  {
+    "date": "2026-09-18",
+    "title": "Got Good Grades But Still Feel Lost? 5 Truths About What Education Was Supposed to Give You",
+    "theme": "education",
+    "theme_name": "Education",
+    "image": "listicles/2026-09-18.png",
+    "items": [
+      {
+        "quote": "Education is not the filling of a pail, but the lighting of a fire. The purpose of education is to cultivate the wisdom and compassion to create value in any situation.",
+        "source": "Soka Education",
+        "explanation": "Real learning isn't about storing information - it's about building the inner strength to handle whatever life throws at you."
+      },
+      {
+        "quote": "A truly educated person is not someone who has memorized facts, but someone who can think critically, feel compassionately, and act courageously.",
+        "source": "Discussions on Youth",
+        "explanation": "If your education only trained your memory and not your heart, there is still time to build the parts that actually matter."
+      },
+      {
+        "quote": "Education that does not teach people how to live, how to face suffering, and how to create meaning - such education is incomplete.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "Feeling unprepared for real life after years of school is not a personal failure - it is a sign the system left something out."
+      },
+      {
+        "quote": "A person who has learned to think for themselves - that is the greatest product of education.",
+        "source": "Discussions on Youth",
+        "explanation": "Every time you question what you've been told and form your own honest opinion, you are doing the most important work education ever asked of you."
+      },
+      {
+        "quote": "The goal of education should be the happiness of the learner. Any system of education that does not lead to happiness has failed.",
+        "source": "Soka Education",
+        "explanation": "If your years of learning left you anxious, hollow, or directionless, that is not your fault - and it is not too late to learn what happiness actually requires."
+      }
+    ],
+    "struggles": [
+      "feeling-like-a-failure",
+      "overcoming-imposter-syndrome",
+      "starting-over"
+    ]
   }
 ]
