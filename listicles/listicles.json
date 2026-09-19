@@ -6463,5 +6463,44 @@
       "overcoming-imposter-syndrome",
       "starting-over"
     ]
+  },
+  {
+    "date": "2026-09-19",
+    "title": "Nobody Told You Caring This Much Would Hurt - 5 Truths About What Compassion Really Is",
+    "theme": "compassion",
+    "theme_name": "Compassion",
+    "image": "listicles/2026-09-19.png",
+    "items": [
+      {
+        "quote": "Compassion is not about feeling pity for others. It is about sharing their suffering and working together to overcome it.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "When someone you love is struggling, showing up beside them - not above them - is what actually helps them heal."
+      },
+      {
+        "quote": "True compassion is not soft or weak. It takes great strength to truly care about others, to shoulder their pain.",
+        "source": "Discussions on Youth",
+        "explanation": "The next time someone calls you too sensitive, remember that choosing to carry another person's pain is one of the hardest things a human being can do."
+      },
+      {
+        "quote": "A single warm word can give someone the courage to go on living. Never underestimate the power of your compassion.",
+        "source": "For Today and Tomorrow",
+        "explanation": "That text you sent, that small check-in you almost skipped - it may have meant more to someone than you will ever know."
+      },
+      {
+        "quote": "Genuine compassion means not only sharing another's suffering, but also helping them to realize their own strength.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "Real support is not doing everything for someone - it is standing close enough that they find the confidence to do it themselves."
+      },
+      {
+        "quote": "Buddhism teaches that compassion without wisdom is sentimentality, and wisdom without compassion is cold and heartless. We need both.",
+        "source": "Discussions on Youth",
+        "explanation": "Caring for others without boundaries leads to burnout, but setting boundaries without care leads to isolation - the two have to work together."
+      }
+    ],
+    "struggles": [
+      "caregiver-burden",
+      "burnout-recovery",
+      "loneliness-despite-everything"
+    ]
   }
 ]
