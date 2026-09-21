@@ -6541,5 +6541,44 @@
       "burnout-recovery",
       "starting-over"
     ]
+  },
+  {
+    "date": "2026-09-21",
+    "title": "Lost All Hope and Don't Know How to Get It Back? 5 Truths Worth Holding Onto",
+    "theme": "hope",
+    "theme_name": "Hope",
+    "image": "listicles/2026-09-21.png",
+    "items": [
+      {
+        "quote": "Winter always turns to spring. Never, from ancient times on, has anyone heard or seen of winter turning back to autumn.",
+        "source": "The Writings of Nichiren Daishonin (referenced in guidance)",
+        "explanation": "Whatever painful season you are living through right now, history promises it cannot stay this way forever."
+      },
+      {
+        "quote": "Hope is not a matter of ability; it is a matter of decision.",
+        "source": "Discussions on Youth",
+        "explanation": "You do not have to feel hopeful to choose hope - it is an act of will, not a feeling you wait for."
+      },
+      {
+        "quote": "No matter how hopeless or bleak things appear, the moment you resolve to never give up, every nerve and fiber in your being will orient itself toward your success.",
+        "source": "Faith Into Action",
+        "explanation": "The simple decision to keep going is enough to set something powerful in motion inside you."
+      },
+      {
+        "quote": "No one can make you feel hopeless unless you allow them to. Hope resides in the heart. It is something you create.",
+        "source": "Discussions on Youth",
+        "explanation": "When circumstances or other people drain your optimism, remember that hope is not given to you - it is built by you."
+      },
+      {
+        "quote": "Each morning we are born again. What we do today is what matters most.",
+        "source": "For Today and Tomorrow",
+        "explanation": "Yesterday's failures and heartbreaks do not define what is possible in the hours that are still ahead of you today."
+      }
+    ],
+    "struggles": [
+      "depression-fog",
+      "starting-over",
+      "feeling-like-a-failure"
+    ]
   }
 ]
