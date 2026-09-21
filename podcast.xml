@@ -24,8 +24,22 @@
     <itunes:category text="Religion &amp; Spirituality">
       <itunes:category text="Buddhism" />
     </itunes:category>
-    <pubDate>Fri, 18 Sep 2026 09:58:51 +0000</pubDate>
-    <lastBuildDate>Fri, 18 Sep 2026 09:58:51 +0000</lastBuildDate>
+    <pubDate>Mon, 21 Sep 2026 10:57:27 +0000</pubDate>
+    <lastBuildDate>Mon, 21 Sep 2026 10:57:27 +0000</lastBuildDate>
+    <item>
+      <title>Feeling Invisible to Everyone</title>
+      <link>https://thelotuslane.in/wisdom/feeling-invisible-to-everyone.html</link>
+      <guid isPermaLink="false">https://storage.googleapis.com/lotus-lane-podcast/feeling-invisible-to-everyone.mp3</guid>
+      <pubDate>Mon, 21 Sep 2026 10:57:25 +0000</pubDate>
+      <description>You know that feeling when you're in a room full of people and you're pretty sure no one would notice if you quietly slipped out?</description>
+      <itunes:summary>You know that feeling when you're in a room full of people and you're pretty sure no one would notice if you quietly slipped out?</itunes:summary>
+      <itunes:author>The Lotus Lane</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:duration>10:08</itunes:duration>
+      <itunes:episode>95</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <enclosure url="https://storage.googleapis.com/lotus-lane-podcast/feeling-invisible-to-everyone.mp3" length="8433453" type="audio/mpeg" />
+    </item>
     <item>
       <title>When You Feel Everything Too Intensely</title>
       <link>https://thelotuslane.in/wisdom/feeling-everything-too-intensely.html</link>
