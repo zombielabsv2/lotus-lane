@@ -7,6 +7,14 @@
     <language>en</language>
     <atom:link href="https://thelotuslane.in/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>I Stared at the Same Email for 45 Minutes and Still Don't Know What It Said</title>
+      <link>https://thelotuslane.in/strips/2026-09-21.html</link>
+      <description>When brain fog makes even basic tasks feel impossible, the pressure to 'push through' can make things worse. Sometimes the only real step forward is choosing not to quit on yourself today — and that is enough.</description>
+      <pubDate>Mon, 21 Sep 2026 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-09-21.html</guid>
+      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-09-21.png" type="image/png" />
+    </item>
+    <item>
       <title>Her Life Looks Like a Pinterest Board and Mine Looks Like a Dropped Dosa</title>
       <link>https://thelotuslane.in/strips/2026-09-18.html</link>
       <description>Scrolling through someone else's highlight reel and measuring your insides against their outsides is a losing game — because you were never competing in the same race. You have a specific life to build, and it doesn't look like anyone else's, which is the whole point.</description>
@@ -397,14 +405,6 @@
       <pubDate>Fri, 29 May 2026 00:00:00 +0000</pubDate>
       <guid isPermaLink="true">https://thelotuslane.in/strips/2026-05-29.html</guid>
       <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-05-29.png" type="image/png" />
-    </item>
-    <item>
-      <title>I Love What I Do and I Can't Afford Curd Rice</title>
-      <link>https://thelotuslane.in/strips/2026-05-27.html</link>
-      <description>When your passion pays less than your practicality, it's easy to read the pay gap as a verdict on your choices. But the worth of your work isn't always settled in this month's bank statement — sometimes it's being built in you, slowly and for real.</description>
-      <pubDate>Wed, 27 May 2026 00:00:00 +0000</pubDate>
-      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-05-27.html</guid>
-      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-05-27.png" type="image/png" />
     </item>
   </channel>
 </rss>
