@@ -6619,5 +6619,44 @@
       "feeling-like-a-failure",
       "starting-over"
     ]
+  },
+  {
+    "date": "2026-09-23",
+    "title": "Tired of Waiting for Your Life to Change? 5 Truths About Where Change Actually Begins",
+    "theme": "human-revolution",
+    "theme_name": "Human Revolution",
+    "image": "listicles/2026-09-23.png",
+    "items": [
+      {
+        "quote": "When you change, the world around you will change. Everything begins with your own human revolution.",
+        "source": "Discussions on Youth",
+        "explanation": "The relationship, the job, the situation you want to be different - it starts moving the moment you do."
+      },
+      {
+        "quote": "Changing ourselves is the most difficult revolution of all. But it is the most important revolution.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "It is harder to face yourself honestly than to fix anything outside of you - and that is exactly why it matters most."
+      },
+      {
+        "quote": "Human revolution is not something special or out of the ordinary. It is the process of transforming our lives, one challenge at a time.",
+        "source": "Discussions on Youth",
+        "explanation": "You do not need a dramatic breakthrough - every small hard thing you work through is already the change happening."
+      },
+      {
+        "quote": "Our lives are like gardens. We can grow flowers or we can grow weeds. It all depends on what we plant and how we tend our garden.",
+        "source": "For Today and Tomorrow",
+        "explanation": "What you feed your attention, your habits, and your daily choices is quietly shaping everything your life becomes."
+      },
+      {
+        "quote": "A great human revolution in just a single individual will help achieve a change in the destiny of a nation and, further, will enable a change in the destiny of all humankind.",
+        "source": "The Human Revolution",
+        "explanation": "Your personal struggles are not small or private - how you face them ripples outward in ways you may never fully see."
+      }
+    ],
+    "struggles": [
+      "feeling-like-a-failure",
+      "starting-over",
+      "burnout-recovery"
+    ]
   }
 ]
