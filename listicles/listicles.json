@@ -6658,5 +6658,44 @@
       "starting-over",
       "burnout-recovery"
     ]
+  },
+  {
+    "date": "2026-09-24",
+    "title": "Your Prayers Feel Like They're Going Nowhere? 5 Truths About What's Really Happening",
+    "theme": "prayer-faith",
+    "theme_name": "Prayer & Faith",
+    "image": "listicles/2026-09-24.png",
+    "items": [
+      {
+        "quote": "Prayer is the courage to persevere. It is the struggle to overcome our own weakness and lack of confidence in ourselves.",
+        "source": "For Today and Tomorrow",
+        "explanation": "When you feel too defeated to even try, the act of praying itself is how you begin fighting back against self-doubt."
+      },
+      {
+        "quote": "A powerful prayer - one that is the roar of a lion - can change anything, any situation, no matter how difficult or seemingly impossible.",
+        "source": "The New Human Revolution, Vol. 3",
+        "explanation": "The situation that looks completely hopeless to you right now is not beyond the reach of what sincere, fierce prayer can shift."
+      },
+      {
+        "quote": "Buddhism teaches that prayer without action is just wishful thinking, and action without prayer lacks the power to break through fundamental darkness.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "Real change happens when you pair your daily effort with deep intention - neither one alone is enough to move the hardest obstacles."
+      },
+      {
+        "quote": "Do not let your prayer become a mere formality. Infuse it with your deepest desires and your sincerest determination.",
+        "source": "For Today and Tomorrow",
+        "explanation": "Going through the motions keeps you stuck - bringing your raw, honest longing to prayer is what makes it actually work."
+      },
+      {
+        "quote": "The purpose of faith is to become happy - not to become a slave to rigid rules or formalities.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "If your spiritual practice is adding pressure instead of relief, it may be time to reconnect with the simple reason it exists - your happiness."
+      }
+    ],
+    "struggles": [
+      "anxiety-insomnia",
+      "feeling-like-a-failure",
+      "burnout-recovery"
+    ]
   }
 ]
