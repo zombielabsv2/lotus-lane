@@ -24,8 +24,22 @@
     <itunes:category text="Religion &amp; Spirituality">
       <itunes:category text="Buddhism" />
     </itunes:category>
-    <pubDate>Wed, 23 Sep 2026 10:13:37 +0000</pubDate>
-    <lastBuildDate>Wed, 23 Sep 2026 10:13:37 +0000</lastBuildDate>
+    <pubDate>Fri, 25 Sep 2026 10:23:53 +0000</pubDate>
+    <lastBuildDate>Fri, 25 Sep 2026 10:23:53 +0000</lastBuildDate>
+    <item>
+      <title>Feeling Like Life Is Passing You By</title>
+      <link>https://thelotuslane.in/wisdom/feeling-like-life-is-passing-you-by.html</link>
+      <guid isPermaLink="false">https://storage.googleapis.com/lotus-lane-podcast/feeling-like-life-is-passing-you-by.mp3</guid>
+      <pubDate>Fri, 25 Sep 2026 10:23:52 +0000</pubDate>
+      <description>You know that feeling when you're scrolling through photos and you notice that the last three years look almost identical?</description>
+      <itunes:summary>You know that feeling when you're scrolling through photos and you notice that the last three years look almost identical?</itunes:summary>
+      <itunes:author>The Lotus Lane</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:duration>9:55</itunes:duration>
+      <itunes:episode>97</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <enclosure url="https://storage.googleapis.com/lotus-lane-podcast/feeling-like-life-is-passing-you-by.mp3" length="8174253" type="audio/mpeg" />
+    </item>
     <item>
       <title>Feeling Left Out</title>
       <link>https://thelotuslane.in/wisdom/feeling-left-out.html</link>
