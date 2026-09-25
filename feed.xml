@@ -7,6 +7,14 @@
     <language>en</language>
     <atom:link href="https://thelotuslane.in/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>I've Been Watering This Plant for Six Months and It Looks Exactly the Same</title>
+      <link>https://thelotuslane.in/strips/2026-09-25.html</link>
+      <description>When effort produces no visible results, it can feel like proof you were wrong to try. But growth that hasn't surfaced yet is still growth — and continuing anyway, even without evidence, is the hardest and most honest thing a person can do.</description>
+      <pubDate>Fri, 25 Sep 2026 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-09-25.html</guid>
+      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-09-25.png" type="image/png" />
+    </item>
+    <item>
       <title>I Built This Business With My Bare Hands and Now I Can't Make Payroll</title>
       <link>https://thelotuslane.in/strips/2026-09-23.html</link>
       <description>When your business or income collapses, the urge is to freeze. This strip is about the one small act — opening the notebook, making the list — that proves you're not done yet.</description>
@@ -397,14 +405,6 @@
       <pubDate>Wed, 03 Jun 2026 00:00:00 +0000</pubDate>
       <guid isPermaLink="true">https://thelotuslane.in/strips/2026-06-03.html</guid>
       <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-06-03.png" type="image/png" />
-    </item>
-    <item>
-      <title>They Called It 'Restructuring' and Now I Can't Stop Refreshing My Email</title>
-      <link>https://thelotuslane.in/strips/2026-06-01.html</link>
-      <description>When a layoff wave hits and your future feels like standing water, the instinct is to freeze or spiral. This strip holds a quieter idea: the hard moment isn't proof you're done — it's the exact place where something new gets built, if you don't hand the wheel over to fear.</description>
-      <pubDate>Mon, 01 Jun 2026 00:00:00 +0000</pubDate>
-      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-06-01.html</guid>
-      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-06-01.png" type="image/png" />
     </item>
   </channel>
 </rss>
