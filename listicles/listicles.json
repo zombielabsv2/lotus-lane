@@ -6736,5 +6736,44 @@
       "feeling-like-a-failure",
       "starting-over"
     ]
+  },
+  {
+    "date": "2026-09-26",
+    "title": "Wasting Your 20s and Feeling It? 5 Truths About What This Time Is Really For",
+    "theme": "youth",
+    "theme_name": "Youth",
+    "image": "listicles/2026-09-26.png",
+    "items": [
+      {
+        "quote": "Nothing is more precious than youth. Do not waste a single day. Challenge yourselves! Grow! There is no time to be idle.",
+        "source": "For Today and Tomorrow",
+        "explanation": "Every day you spend scrolling or waiting for life to begin is a day of real potential quietly slipping through your hands."
+      },
+      {
+        "quote": "Youth is not a time of life - it is a state of mind. As long as you have a dream, as long as you have a fighting spirit, you are forever young.",
+        "source": "Discussions on Youth",
+        "explanation": "If you still carry a dream you are fighting for, no age or setback can strip away what makes you truly alive."
+      },
+      {
+        "quote": "In youth, you should aim for the highest goals. Dream big. And then do everything in your power to make those dreams a reality.",
+        "source": "Youth and the Writings of Nichiren Daishonin",
+        "explanation": "Setting a small, safe goal to avoid disappointment is the one choice most likely to leave you with a life you regret."
+      },
+      {
+        "quote": "Young people, be philosophers, be thinkers, be global citizens. The future of humanity depends on the inner strength of the young.",
+        "source": "Discussions on Youth",
+        "explanation": "The world does not need more followers scrolling through other people's opinions - it needs you to build your own."
+      },
+      {
+        "quote": "Be a person of substance, not merely of surface. The depth of your character will determine your influence in the world.",
+        "source": "For Today and Tomorrow",
+        "explanation": "In a world obsessed with image and followers, the person who invests in who they are inside will always outlast the noise."
+      }
+    ],
+    "struggles": [
+      "feeling-like-a-failure",
+      "comparison-trap",
+      "starting-over"
+    ]
   }
 ]
