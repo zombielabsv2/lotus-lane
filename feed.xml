@@ -7,6 +7,14 @@
     <language>en</language>
     <atom:link href="https://thelotuslane.in/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Everyone Keeps Asking What I Want and I Keep Smiling and Changing the Subject</title>
+      <link>https://thelotuslane.in/strips/2026-09-28.html</link>
+      <description>Not knowing what you want isn't a character flaw — it's just the fog before one honest step. You don't need the whole map. You need one thing that feels slightly more true than the others.</description>
+      <pubDate>Mon, 28 Sep 2026 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-09-28.html</guid>
+      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-09-28.png" type="image/png" />
+    </item>
+    <item>
       <title>I've Been Watering This Plant for Six Months and It Looks Exactly the Same</title>
       <link>https://thelotuslane.in/strips/2026-09-25.html</link>
       <description>When effort produces no visible results, it can feel like proof you were wrong to try. But growth that hasn't surfaced yet is still growth — and continuing anyway, even without evidence, is the hardest and most honest thing a person can do.</description>
@@ -397,14 +405,6 @@
       <pubDate>Fri, 05 Jun 2026 00:00:00 +0000</pubDate>
       <guid isPermaLink="true">https://thelotuslane.in/strips/2026-06-05.html</guid>
       <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-06-05.png" type="image/png" />
-    </item>
-    <item>
-      <title>All My Friends Got Married and I Got a Group Chat That Nobody Opens Anymore</title>
-      <link>https://thelotuslane.in/strips/2026-06-03.html</link>
-      <description>Losing a friend group in your 30s doesn't mean something went wrong — it often means you're in a stretch of life that's reshaping you in ways easy comfort never could. The loneliness is real, and so is what you're quietly building inside it.</description>
-      <pubDate>Wed, 03 Jun 2026 00:00:00 +0000</pubDate>
-      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-06-03.html</guid>
-      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-06-03.png" type="image/png" />
     </item>
   </channel>
 </rss>
