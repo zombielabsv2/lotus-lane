@@ -6814,5 +6814,44 @@
       "how-to-forgive",
       "anger-you-cant-control"
     ]
+  },
+  {
+    "date": "2026-09-28",
+    "title": "Angry at the World and Don't Know What to Do? 5 Truths About Where Peace Really Starts",
+    "theme": "peace",
+    "theme_name": "Peace",
+    "image": "listicles/2026-09-28.png",
+    "items": [
+      {
+        "quote": "A person who can build peace within their own heart can contribute to building peace in the world.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "The arguments at home, the rage at the news - your inner calm is not a luxury, it is the actual starting point for a better world."
+      },
+      {
+        "quote": "There is no enemy in Buddhism. There is only delusion to be overcome. When we see others as enemies, we have already lost the battle for peace.",
+        "source": "The New Human Revolution, Vol. 6",
+        "explanation": "The moment you label someone your enemy, you hand them power over your peace that they never had to earn."
+      },
+      {
+        "quote": "As long as we continue to demonize others, peace will remain a dream. Peace begins the moment we recognize the humanity in every person.",
+        "source": "For Today and Tomorrow",
+        "explanation": "In a world of us-versus-them headlines, choosing to see a real human being on the other side is a radical and healing act."
+      },
+      {
+        "quote": "The most powerful force for peace is not a government, not an army, not a treaty. It is the awakened awareness of individual human beings.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "You are not too small or too ordinary to matter - your shift in awareness is exactly the kind of change the world is waiting for."
+      },
+      {
+        "quote": "The people - the ordinary citizens of the world - are the true protagonists of peace. Not politicians, not leaders, but everyday people with the courage to connect.",
+        "source": "For Today and Tomorrow",
+        "explanation": "Every time you choose connection over division in your daily life, you are doing the real work that no leader can do for you."
+      }
+    ],
+    "struggles": [
+      "anger-you-cant-control",
+      "how-to-forgive",
+      "loneliness-despite-everything"
+    ]
   }
 ]
