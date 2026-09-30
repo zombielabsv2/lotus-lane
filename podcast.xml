@@ -24,8 +24,22 @@
     <itunes:category text="Religion &amp; Spirituality">
       <itunes:category text="Buddhism" />
     </itunes:category>
-    <pubDate>Mon, 28 Sep 2026 11:53:43 +0000</pubDate>
-    <lastBuildDate>Mon, 28 Sep 2026 11:53:43 +0000</lastBuildDate>
+    <pubDate>Wed, 30 Sep 2026 11:18:03 +0000</pubDate>
+    <lastBuildDate>Wed, 30 Sep 2026 11:18:03 +0000</lastBuildDate>
+    <item>
+      <title>Feeling Lost and Without Direction</title>
+      <link>https://thelotuslane.in/wisdom/feeling-spiritually-lost.html</link>
+      <guid isPermaLink="false">https://storage.googleapis.com/lotus-lane-podcast/feeling-spiritually-lost.mp3</guid>
+      <pubDate>Wed, 30 Sep 2026 11:18:02 +0000</pubDate>
+      <description>You know that feeling when you wake up in the morning and the day just... sits there? Not bad exactly, not good either. Just flat.</description>
+      <itunes:summary>You know that feeling when you wake up in the morning and the day just... sits there? Not bad exactly, not good either. Just flat.</itunes:summary>
+      <itunes:author>The Lotus Lane</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:duration>9:45</itunes:duration>
+      <itunes:episode>99</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <enclosure url="https://storage.googleapis.com/lotus-lane-podcast/feeling-spiritually-lost.mp3" length="8054445" type="audio/mpeg" />
+    </item>
     <item>
       <title>Feeling Like Time Is Running Out</title>
       <link>https://thelotuslane.in/wisdom/feeling-like-times-running-out.html</link>
