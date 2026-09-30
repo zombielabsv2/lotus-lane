@@ -2957,5 +2957,25 @@
     "category": "self-doubt",
     "topic": "not knowing what you want",
     "characters": []
+  },
+  {
+    "date": "2026-09-30",
+    "title": "My Professor Died and I Don't Know Who I'm Doing This For Anymore",
+    "image": "https://zombielabsv2.github.io/lotus-lane-assets/2026-09-30.png",
+    "message": "When you lose a mentor, the grief is real — and so is what they left inside you. The things they saw in you don't disappear when they do; they wait for you to trust them on your own.",
+    "quote": "A great teacher lives on in the lives of those whom they have inspired. Their voice continues to speak through your actions, your courage, your care for others.",
+    "source": "Daisaku Ikeda, The New Human Revolution",
+    "tags": [
+      "grief-loss",
+      "mentorship",
+      "academic-life"
+    ],
+    "category": "grief-loss",
+    "topic": "losing a mentor",
+    "characters": [
+      "meera",
+      "arjun",
+      "sudha"
+    ]
   }
 ]

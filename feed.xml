@@ -7,6 +7,14 @@
     <language>en</language>
     <atom:link href="https://thelotuslane.in/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>My Professor Died and I Don't Know Who I'm Doing This For Anymore</title>
+      <link>https://thelotuslane.in/strips/2026-09-30.html</link>
+      <description>When you lose a mentor, the grief is real — and so is what they left inside you. The things they saw in you don't disappear when they do; they wait for you to trust them on your own.</description>
+      <pubDate>Wed, 30 Sep 2026 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-09-30.html</guid>
+      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-09-30.png" type="image/png" />
+    </item>
+    <item>
       <title>Everyone Keeps Asking What I Want and I Keep Smiling and Changing the Subject</title>
       <link>https://thelotuslane.in/strips/2026-09-28.html</link>
       <description>Not knowing what you want isn't a character flaw — it's just the fog before one honest step. You don't need the whole map. You need one thing that feels slightly more true than the others.</description>
@@ -397,14 +405,6 @@
       <pubDate>Mon, 08 Jun 2026 00:00:00 +0000</pubDate>
       <guid isPermaLink="true">https://thelotuslane.in/strips/2026-06-08.html</guid>
       <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-06-08.png" type="image/png" />
-    </item>
-    <item>
-      <title>I Have Been Watering This Plant for Six Months and It Still Looks Dead</title>
-      <link>https://thelotuslane.in/strips/2026-06-05.html</link>
-      <description>When effort produces no visible results, it's easy to believe you're failing — but the work itself is changing you in ways the spreadsheet can't measure. Keep going. The invisible days are part of it too.</description>
-      <pubDate>Fri, 05 Jun 2026 00:00:00 +0000</pubDate>
-      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-06-05.html</guid>
-      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-06-05.png" type="image/png" />
     </item>
   </channel>
 </rss>
