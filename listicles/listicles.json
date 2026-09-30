@@ -6892,5 +6892,44 @@
       "overcoming-imposter-syndrome",
       "starting-over"
     ]
+  },
+  {
+    "date": "2026-09-30",
+    "title": "You Want to Help But Don't Know How - 5 Truths About What Compassion Actually Looks Like",
+    "theme": "compassion",
+    "theme_name": "Compassion",
+    "image": "listicles/2026-09-30.png",
+    "items": [
+      {
+        "quote": "Compassion is not about feeling pity for others. It is about sharing their suffering and working together to overcome it.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "Real support means sitting in the hard place with someone, not looking down at them from a comfortable distance."
+      },
+      {
+        "quote": "A single warm word can give someone the courage to go on living. Never underestimate the power of your compassion.",
+        "source": "For Today and Tomorrow",
+        "explanation": "That small thing you almost didn't say to a struggling friend or coworker might have been exactly what kept them going."
+      },
+      {
+        "quote": "True compassion is not soft or weak. It takes great strength to truly care about others, to shoulder their pain.",
+        "source": "Discussions on Youth",
+        "explanation": "Choosing to show up for someone in pain when it costs you something is one of the hardest and bravest things you can do."
+      },
+      {
+        "quote": "Genuine compassion means not only sharing another's suffering, but also helping them to realize their own strength.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "The best help doesn't create dependence - it reminds the person you care about that they have what it takes to get through this."
+      },
+      {
+        "quote": "Buddhism teaches that compassion without wisdom is sentimentality, and wisdom without compassion is cold and heartless. We need both.",
+        "source": "Discussions on Youth",
+        "explanation": "Caring about people without thinking clearly can cause harm, and thinking clearly without caring about people solves nothing."
+      }
+    ],
+    "struggles": [
+      "caregiver-burden",
+      "loneliness-despite-everything",
+      "how-to-forgive"
+    ]
   }
 ]
