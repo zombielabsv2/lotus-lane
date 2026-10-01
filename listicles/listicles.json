@@ -6931,5 +6931,44 @@
       "loneliness-despite-everything",
       "how-to-forgive"
     ]
+  },
+  {
+    "date": "2026-10-01",
+    "title": "You Haven't Lost Yet - 5 Truths About What Winning Actually Means",
+    "theme": "victory",
+    "theme_name": "Victory",
+    "image": "listicles/2026-10-01.png",
+    "items": [
+      {
+        "quote": "True victory is not about defeating others. It is about overcoming your own weakness, your own negativity, your own despair.",
+        "source": "Discussions on Youth",
+        "explanation": "Every time you push back against the voice that says you can't, that is the real competition worth winning."
+      },
+      {
+        "quote": "Never accept defeat. Even if you fall, even if you fail, as long as you stand up again, you have not been defeated.",
+        "source": "The New Human Revolution, Vol. 5",
+        "explanation": "The moment you get back up - even slowly, even painfully - you are still in the fight and still capable of turning things around."
+      },
+      {
+        "quote": "In life, we are victorious when we are growing, developing, and challenging ourselves. We are defeated when we stop trying.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "Winning isn't a single moment you reach - it's the daily decision to keep moving forward instead of giving up on yourself."
+      },
+      {
+        "quote": "Those who win in the end are those who never gave up. Victory belongs to the persistent.",
+        "source": "For Today and Tomorrow",
+        "explanation": "The people who seem lucky often simply refused to quit at the exact moment most others would have walked away."
+      },
+      {
+        "quote": "Victory in life is not determined by wealth, status, or power. It is determined by the state of your heart - whether you have lived with courage and compassion.",
+        "source": "Discussions on Youth",
+        "explanation": "When outside measures of success feel out of reach, this is the reminder that the most important scoreboard is the one inside you."
+      }
+    ],
+    "struggles": [
+      "feeling-like-a-failure",
+      "burnout-recovery",
+      "starting-over"
+    ]
   }
 ]
