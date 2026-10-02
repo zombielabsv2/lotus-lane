@@ -6970,5 +6970,44 @@
       "burnout-recovery",
       "starting-over"
     ]
+  },
+  {
+    "date": "2026-10-02",
+    "title": "Stuck in the Darkest Season of Your Life? 5 Reminders That Spring Is Coming",
+    "theme": "hope",
+    "theme_name": "Hope",
+    "image": "listicles/2026-10-02.png",
+    "items": [
+      {
+        "quote": "Winter always turns to spring. Never, from ancient times on, has anyone heard or seen of winter turning back to autumn.",
+        "source": "The Writings of Nichiren Daishonin (referenced in guidance)",
+        "explanation": "Whatever painful season you are in right now, history itself guarantees it cannot last forever."
+      },
+      {
+        "quote": "Hope is not a matter of ability; it is a matter of decision.",
+        "source": "Discussions on Youth",
+        "explanation": "You do not have to feel optimistic to choose hope - it is an act of will, not a feeling you wait for."
+      },
+      {
+        "quote": "No matter how hopeless or bleak things appear, the moment you resolve to never give up, every nerve and fiber in your being will orient itself toward your success.",
+        "source": "Faith Into Action",
+        "explanation": "That single decision to keep going - even on your worst day - quietly rewires everything inside you toward recovery."
+      },
+      {
+        "quote": "No one can make you feel hopeless unless you allow them to. Hope resides in the heart. It is something you create.",
+        "source": "Discussions on Youth",
+        "explanation": "When circumstances or other people drain your spirit, it is a reminder that hope is yours to build and no one else can take it."
+      },
+      {
+        "quote": "Each morning we are born again. What we do today is what matters most.",
+        "source": "For Today and Tomorrow",
+        "explanation": "Yesterday's failures and losses do not carry legal authority over this morning - today is genuinely a fresh start."
+      }
+    ],
+    "struggles": [
+      "depression-fog",
+      "burnout-recovery",
+      "starting-over"
+    ]
   }
 ]
