@@ -15,7 +15,7 @@ name: Daily Content + Email
 #
 # The three scripts share NO data — each reads its own source (theme
 # rotation history for quote card, theme rotation for listicle, Supabase
-# subscribers + nichiren-chatbot/chunks.json for email). Quote/listicle
+# subscribers + nichiren-chatbot/data/kb/quotable_kb.json.gz for email). Quote/listicle
 # failure is non-fatal: subscribers still get their daily email.
 
 on:
@@ -143,7 +143,7 @@ jobs:
           MAXGEN_TIMEOUT_S: "600"
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
-          CHUNKS_PATH: nichiren-chatbot/data/processed/chunks.json
+          CHUNKS_PATH: nichiren-chatbot/data/kb/quotable_kb.json.gz
         run: |
           if [ "${{ inputs.dry_run }}" = "true" ]; then
             python -m pipeline.generate_email --regular --dry-run

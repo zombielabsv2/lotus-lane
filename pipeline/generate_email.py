@@ -9,6 +9,7 @@ For each subscriber due for an email:
 5. Log in daimoku_email_log
 """
 
+import gzip
 import json
 import os
 import random
@@ -38,7 +39,7 @@ FAILURE_NOTIFY_EMAIL = os.environ.get("FAILURE_NOTIFY_EMAIL", "jindal.rahul+clau
 # Path to knowledge base — in CI this is cloned alongside the repo
 CHUNKS_PATH = os.environ.get(
     "CHUNKS_PATH",
-    str(Path(__file__).parent.parent.parent / "nichiren-chatbot" / "data" / "processed" / "chunks.json"),
+    str(Path(__file__).parent.parent.parent / "nichiren-chatbot" / "data" / "kb" / "quotable_kb.json.gz"),
 )
 
 # Preferred collections (writings > dictionary)
@@ -329,22 +330,32 @@ def load_chunks():
         print(f"  [WARN] Chunks file not found at {chunks_path}")
         _chunks_cache = []
     else:
-        with open(chunks_path, "r", encoding="utf-8") as f:
-            all_chunks = json.load(f)
+        opener = gzip.open if chunks_path.suffix == ".gz" else open
+        with opener(chunks_path, "rt", encoding="utf-8") as f:
+            data = json.load(f)
 
-        # Filter to preferred collections and minimum quality
-        _chunks_cache = [
-            c for c in all_chunks
-            if c.get("metadata", {}).get("collection_name", "") in PREFERRED_COLLECTIONS
-            and c.get("token_count", 0) >= 80
-        ]
-        print(f"  [KB] Loaded {len(_chunks_cache)} quality chunks from {len(all_chunks)} total")
+        if isinstance(data, dict) and "chunks" in data:
+            # nichiren-chatbot data/kb/quotable_kb.json.gz — already filtered to
+            # verbatim Nichiren / Ikeda / sutra text by build_quotable_kb.py
+            _chunks_cache = data["chunks"]
+            print(f"  [KB] Loaded {len(_chunks_cache)} quotable chunks (kb_version "
+                  f"{data.get('meta', {}).get('kb_version')}, built {data.get('meta', {}).get('built_at', '?')[:10]})")
+        else:
+            # Filter to preferred collections and minimum quality
+            _chunks_cache = [
+                c for c in data
+                if c.get("metadata", {}).get("collection_name", "") in PREFERRED_COLLECTIONS
+                and c.get("token_count", 0) >= 80
+            ]
+            print(f"  [KB] Loaded {len(_chunks_cache)} quality chunks from {len(data)} total")
 
-    # Add Ikeda quotes to the pool
-    ikeda_chunks = _load_ikeda_as_chunks()
-    if ikeda_chunks:
-        _chunks_cache.extend(ikeda_chunks)
-        print(f"  [KB] Added {len(ikeda_chunks)} Ikeda quotes to knowledge base")
+    # quotes.json is unsourced (spot-checked 2026-09-20: proverbs attributed to
+    # Ikeda) — only a fallback for when the knowledge base is missing.
+    if not _chunks_cache:
+        ikeda_chunks = _load_ikeda_as_chunks()
+        if ikeda_chunks:
+            _chunks_cache.extend(ikeda_chunks)
+            print(f"  [KB] Fallback: added {len(ikeda_chunks)} quotes.json entries")
 
     return _chunks_cache
 
@@ -363,10 +374,11 @@ def search_chunks(challenge: str, limit: int = 10) -> list[dict]:
         score = sum(1 for kw in keywords if kw.lower() in text_lower)
         if score > 0:
             # Bonus for Nichiren's own writings
-            coll = chunk.get("metadata", {}).get("collection_name", "")
-            if "Writings of Nichiren" in coll:
+            meta = chunk.get("metadata", {})
+            coll = meta.get("collection_name", "")
+            if "Writings of Nichiren" in coll or meta.get("voice") == "nichiren":
                 score += 2
-            elif "Ikeda" in coll or "Wisdom" in coll:
+            elif "Ikeda" in coll or "Wisdom" in coll or meta.get("voice") == "ikeda":
                 score += 1
             scored.append((score, chunk))
 
