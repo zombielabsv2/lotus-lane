@@ -24,8 +24,22 @@
     <itunes:category text="Religion &amp; Spirituality">
       <itunes:category text="Buddhism" />
     </itunes:category>
-    <pubDate>Wed, 30 Sep 2026 11:18:03 +0000</pubDate>
-    <lastBuildDate>Wed, 30 Sep 2026 11:18:03 +0000</lastBuildDate>
+    <pubDate>Fri, 02 Oct 2026 11:15:47 +0000</pubDate>
+    <lastBuildDate>Fri, 02 Oct 2026 11:15:47 +0000</lastBuildDate>
+    <item>
+      <title>Feeling Stuck Because of Money</title>
+      <link>https://thelotuslane.in/wisdom/feeling-stuck-because-of-money.html</link>
+      <guid isPermaLink="false">https://storage.googleapis.com/lotus-lane-podcast/feeling-stuck-because-of-money.mp3</guid>
+      <pubDate>Fri, 02 Oct 2026 11:15:46 +0000</pubDate>
+      <description>You know that feeling when there's something you want to do with your life - leave the job, move to a different city, start something, go back to school...</description>
+      <itunes:summary>You know that feeling when there's something you want to do with your life - leave the job, move to a different city, start something, go back to school...</itunes:summary>
+      <itunes:author>The Lotus Lane</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:duration>10:48</itunes:duration>
+      <itunes:episode>100</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <enclosure url="https://storage.googleapis.com/lotus-lane-podcast/feeling-stuck-because-of-money.mp3" length="9024429" type="audio/mpeg" />
+    </item>
     <item>
       <title>Feeling Lost and Without Direction</title>
       <link>https://thelotuslane.in/wisdom/feeling-spiritually-lost.html</link>
