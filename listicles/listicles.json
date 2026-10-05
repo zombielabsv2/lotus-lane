@@ -7087,5 +7087,44 @@
       "starting-over",
       "comparison-trap"
     ]
+  },
+  {
+    "date": "2026-10-05",
+    "title": "Praying and Nothing Is Changing? 5 Truths About What Your Faith Is Actually Doing",
+    "theme": "prayer-faith",
+    "theme_name": "Prayer & Faith",
+    "image": "listicles/2026-10-05.png",
+    "items": [
+      {
+        "quote": "Prayer is the courage to persevere. It is the struggle to overcome our own weakness and lack of confidence in ourselves.",
+        "source": "For Today and Tomorrow",
+        "explanation": "When life feels impossible, prayer is not passive waiting - it is the daily act of refusing to give up on yourself."
+      },
+      {
+        "quote": "A powerful prayer - one that is the roar of a lion - can change anything, any situation, no matter how difficult or seemingly impossible.",
+        "source": "The New Human Revolution, Vol. 3",
+        "explanation": "That problem at work, that broken relationship, that health scare - nothing is too far gone to be reached by sincere, determined prayer."
+      },
+      {
+        "quote": "Buddhism teaches that prayer without action is just wishful thinking, and action without prayer lacks the power to break through fundamental darkness.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "Real change happens when you pair your daily efforts with an inner conviction that refuses to accept defeat as the final word."
+      },
+      {
+        "quote": "Do not let your prayer become a mere formality. Infuse it with your deepest desires and your sincerest determination.",
+        "source": "For Today and Tomorrow",
+        "explanation": "Bring the real thing - your actual fears, your specific hopes - because honest prayer is far more powerful than a perfectly recited one."
+      },
+      {
+        "quote": "The purpose of faith is to become happy - not to become a slave to rigid rules or formalities.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "If your practice feels like pressure instead of freedom, it is worth remembering that happiness - your happiness - is the whole point."
+      }
+    ],
+    "struggles": [
+      "anxiety-insomnia",
+      "depression-fog",
+      "feeling-like-a-failure"
+    ]
   }
 ]
