@@ -2993,5 +2993,25 @@
     "category": "work-stress",
     "topic": "micromanaging boss",
     "characters": []
+  },
+  {
+    "date": "2026-10-05",
+    "title": "He Wronged Me Two Years Ago and I'm Still Rehearsing the Argument in the Shower",
+    "image": "https://zombielabsv2.github.io/lotus-lane-assets/2026-10-05.png",
+    "message": "Holding a grudge feels like protection, but it costs you the sleep, the mornings, and the presence that belong to your life — not theirs. Letting go isn't saying what they did was okay. It's deciding to stop paying rent in your own head to someone who wronged you.",
+    "quote": "Resentment is a fire we set in our own house, hoping the smoke will bother our neighbor.",
+    "source": "Daisaku Ikeda, The Wisdom for Creating Happiness and Peace, Part 1",
+    "tags": [
+      "anger",
+      "grudges",
+      "letting-go"
+    ],
+    "category": "anger",
+    "topic": "holding grudges",
+    "characters": [
+      "meera",
+      "arjun",
+      "vikram"
+    ]
   }
 ]
