@@ -7165,5 +7165,44 @@
       "overcoming-imposter-syndrome",
       "starting-over"
     ]
+  },
+  {
+    "date": "2026-10-07",
+    "title": "Don't Know What You're Living For Yet? 5 Truths Every Young Person Needs to Hear",
+    "theme": "youth",
+    "theme_name": "Youth",
+    "image": "listicles/2026-10-07.png",
+    "items": [
+      {
+        "quote": "Nothing is more precious than youth. Do not waste a single day. Challenge yourselves! Grow! There is no time to be idle.",
+        "source": "For Today and Tomorrow",
+        "explanation": "Every day you spend waiting for life to get interesting is a day you could have spent making it that way yourself."
+      },
+      {
+        "quote": "Young people, be philosophers, be thinkers, be global citizens. The future of humanity depends on the inner strength of the young.",
+        "source": "Discussions on Youth",
+        "explanation": "The world doesn't need more followers who scroll and react - it needs young people who think deeply and act on what they believe."
+      },
+      {
+        "quote": "In youth, you should aim for the highest goals. Dream big. And then do everything in your power to make those dreams a reality.",
+        "source": "Youth and the Writings of Nichiren Daishonin",
+        "explanation": "Settling for a smaller version of your life now doesn't protect you - it just guarantees you'll look back with regret."
+      },
+      {
+        "quote": "The voice of a single young person, if it rings with truth and conviction, can change the world.",
+        "source": "The New Human Revolution, Vol. 11",
+        "explanation": "You don't need a platform or a following to matter - you just need the courage to say what you actually believe."
+      },
+      {
+        "quote": "Be a person of substance, not merely of surface. The depth of your character will determine your influence in the world.",
+        "source": "For Today and Tomorrow",
+        "explanation": "In a world obsessed with appearances and likes, the person who builds real depth inside themselves becomes quietly unstoppable."
+      }
+    ],
+    "struggles": [
+      "feeling-like-a-failure",
+      "overcoming-imposter-syndrome",
+      "comparison-trap"
+    ]
   }
 ]
