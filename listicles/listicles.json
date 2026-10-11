@@ -7321,5 +7321,44 @@
       "overcoming-imposter-syndrome",
       "starting-over"
     ]
+  },
+  {
+    "date": "2026-10-11",
+    "title": "Someone You Love Is Suffering and You Feel Helpless - 5 Truths About What Compassion Really Asks of You",
+    "theme": "compassion",
+    "theme_name": "Compassion",
+    "image": "listicles/2026-10-11.png",
+    "items": [
+      {
+        "quote": "Compassion is not about feeling pity for others. It is about sharing their suffering and working together to overcome it.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "Real support means sitting in the hard place with someone, not just offering sympathy from a safe distance."
+      },
+      {
+        "quote": "A single warm word can give someone the courage to go on living. Never underestimate the power of your compassion.",
+        "source": "For Today and Tomorrow",
+        "explanation": "You may never know how much a simple text, call, or kind word meant to someone who was quietly falling apart."
+      },
+      {
+        "quote": "True compassion is not soft or weak. It takes great strength to truly care about others, to shoulder their pain.",
+        "source": "Discussions on Youth",
+        "explanation": "Choosing to stay present with someone else's pain, when it would be easier to look away, is one of the hardest things a person can do."
+      },
+      {
+        "quote": "Genuine compassion means not only sharing another's suffering, but also helping them to realize their own strength.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "The deepest way to help someone is not to carry everything for them, but to remind them what they are capable of carrying themselves."
+      },
+      {
+        "quote": "Buddhism teaches that compassion without wisdom is sentimentality, and wisdom without compassion is cold and heartless. We need both.",
+        "source": "Discussions on Youth",
+        "explanation": "Caring deeply about someone also means thinking clearly about what will actually help them, not just what feels good to offer in the moment."
+      }
+    ],
+    "struggles": [
+      "caregiver-burden",
+      "loneliness-despite-everything",
+      "when-grief-wont-stop"
+    ]
   }
 ]
