@@ -3049,5 +3049,24 @@
     "category": "family",
     "topic": "teenage rebellion",
     "characters": []
+  },
+  {
+    "date": "2026-10-12",
+    "title": "Sunday Evening and There's No One to Call",
+    "image": "https://zombielabsv2.github.io/lotus-lane-assets/2026-10-12.png",
+    "message": "Loneliness isn't always fixed by finding people — sometimes it asks you to stop running from your own company. The small act of sitting with yourself, without distraction, is where real connection — with others and with life — starts to grow.",
+    "quote": "Loneliness is not solved by being with people. It is solved by being with yourself first, so deeply that the loneliness turns into something else — the ground from which genuine connection grows.",
+    "source": "Daisaku Ikeda, The Wisdom for Creating Happiness and Peace, Part 1",
+    "tags": [
+      "relationships",
+      "loneliness",
+      "single-parenting"
+    ],
+    "category": "relationships",
+    "topic": "loneliness",
+    "characters": [
+      "vikram",
+      "sudha"
+    ]
   }
 ]

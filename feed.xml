@@ -7,6 +7,14 @@
     <language>en</language>
     <atom:link href="https://thelotuslane.in/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Sunday Evening and There's No One to Call</title>
+      <link>https://thelotuslane.in/strips/2026-10-12.html</link>
+      <description>Loneliness isn't always fixed by finding people — sometimes it asks you to stop running from your own company. The small act of sitting with yourself, without distraction, is where real connection — with others and with life — starts to grow.</description>
+      <pubDate>Mon, 12 Oct 2026 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-10-12.html</guid>
+      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-10-12.png" type="image/png" />
+    </item>
+    <item>
       <title>My Kid Slammed the Door and I Just Stood There in the Hallway Not Knowing What to Do</title>
       <link>https://thelotuslane.in/strips/2026-10-09.html</link>
       <description>When a teenager pushes you away, it often means they need you to see past the report card to the real person underneath. Shifting from pressure to curiosity — even one small question — can crack open a door that slamming never could.</description>
@@ -397,14 +405,6 @@
       <pubDate>Fri, 19 Jun 2026 00:00:00 +0000</pubDate>
       <guid isPermaLink="true">https://thelotuslane.in/strips/2026-06-19.html</guid>
       <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-06-19.png" type="image/png" />
-    </item>
-    <item>
-      <title>She Called My Son 'Beta' and I Wanted to Scream</title>
-      <link>https://thelotuslane.in/strips/2026-06-17.html</link>
-      <description>When someone new enters your child's life, protectiveness can quietly become a wall. Sometimes the bravest thing is not to guard harder but to get curious first.</description>
-      <pubDate>Wed, 17 Jun 2026 00:00:00 +0000</pubDate>
-      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-06-17.html</guid>
-      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-06-17.png" type="image/png" />
     </item>
   </channel>
 </rss>
