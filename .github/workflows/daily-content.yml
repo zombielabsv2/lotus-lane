@@ -19,9 +19,12 @@ name: Daily Content + Email
 # failure is non-fatal: subscribers still get their daily email.
 
 on:
-  schedule:
-    # 5:30 UTC = 11:00 AM IST
-    - cron: '30 5 * * *'
+  # No `schedule:` here. GitHub started the 05:30 UTC cron between 10:31 and
+  # 13:23 UTC every day of 3-12 Oct 2026, so the 11:00 IST email landed in the
+  # evening. Cloud Scheduler `empire-sched-gh-dispatch-lotus-daily` (kbk-cron,
+  # 30 5 * * * UTC) runs Cloud Run job `empire-gh-dispatch-lotus-daily`, which
+  # fires this workflow_dispatch on time. Re-adding a schedule here would send
+  # every subscriber the email twice.
   workflow_dispatch:
     inputs:
       theme:
