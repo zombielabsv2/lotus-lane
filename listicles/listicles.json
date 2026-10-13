@@ -7399,5 +7399,44 @@
       "burnout-recovery",
       "starting-over"
     ]
+  },
+  {
+    "date": "2026-10-13",
+    "title": "Can't See a Way Out? 5 Reminders That Hope Is Something You Choose",
+    "theme": "hope",
+    "theme_name": "Hope",
+    "image": "listicles/2026-10-13.png",
+    "items": [
+      {
+        "quote": "Hope is not a matter of ability; it is a matter of decision.",
+        "source": "Discussions on Youth",
+        "explanation": "When everything feels lost, this reminds you that hope is not a gift some people have - it is a choice you make right now."
+      },
+      {
+        "quote": "No matter how hopeless or bleak things appear, the moment you resolve to never give up, every nerve and fiber in your being will orient itself toward your success.",
+        "source": "Faith Into Action",
+        "explanation": "Your mind and body will actually work differently the second you commit to keep going, no matter how impossible things look today."
+      },
+      {
+        "quote": "No one can make you feel hopeless unless you allow them to. Hope resides in the heart. It is something you create.",
+        "source": "Discussions on Youth",
+        "explanation": "That person or situation draining your hope only has that power if you hand it over - and you can take it back."
+      },
+      {
+        "quote": "Winter always turns to spring. Never, from ancient times on, has anyone heard or seen of winter turning back to autumn.",
+        "source": "The Writings of Nichiren Daishonin",
+        "explanation": "Whatever hard season you are in right now has a natural end - it cannot stay winter forever, no matter how long it has lasted."
+      },
+      {
+        "quote": "Each morning we are born again. What we do today is what matters most.",
+        "source": "For Today and Tomorrow",
+        "explanation": "Yesterday's failures and fears do not have to follow you into today - every morning gives you a real, fresh start."
+      }
+    ],
+    "struggles": [
+      "depression-fog",
+      "starting-over",
+      "feeling-like-a-failure"
+    ]
   }
 ]
