@@ -24,8 +24,22 @@
     <itunes:category text="Religion &amp; Spirituality">
       <itunes:category text="Buddhism" />
     </itunes:category>
-    <pubDate>Mon, 12 Oct 2026 13:28:43 +0000</pubDate>
-    <lastBuildDate>Mon, 12 Oct 2026 13:28:43 +0000</lastBuildDate>
+    <pubDate>Wed, 14 Oct 2026 10:26:56 +0000</pubDate>
+    <lastBuildDate>Wed, 14 Oct 2026 10:26:56 +0000</lastBuildDate>
+    <item>
+      <title>Finding Purpose After Retirement</title>
+      <link>https://thelotuslane.in/wisdom/finding-purpose-after-retirement.html</link>
+      <guid isPermaLink="false">https://storage.googleapis.com/lotus-lane-podcast/finding-purpose-after-retirement.mp3</guid>
+      <pubDate>Wed, 14 Oct 2026 10:26:55 +0000</pubDate>
+      <description>You know that feeling when you finally get the thing you worked toward for decades, and then you don't know what to do with yourself?</description>
+      <itunes:summary>You know that feeling when you finally get the thing you worked toward for decades, and then you don't know what to do with yourself?</itunes:summary>
+      <itunes:author>The Lotus Lane</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:duration>10:48</itunes:duration>
+      <itunes:episode>105</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <enclosure url="https://storage.googleapis.com/lotus-lane-podcast/finding-purpose-after-retirement.mp3" length="8919981" type="audio/mpeg" />
+    </item>
     <item>
       <title>The Shame of Money Struggles</title>
       <link>https://thelotuslane.in/wisdom/financial-shame.html</link>
