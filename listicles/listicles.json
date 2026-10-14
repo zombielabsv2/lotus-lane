@@ -7438,5 +7438,44 @@
       "starting-over",
       "feeling-like-a-failure"
     ]
+  },
+  {
+    "date": "2026-10-14",
+    "title": "Feel Like Quitting? 5 Reminders That Will Make You Get Back Up",
+    "theme": "courage",
+    "theme_name": "Courage",
+    "image": "listicles/2026-10-14.png",
+    "items": [
+      {
+        "quote": "Courage is not the absence of fear. Courage is feeling fear, recognizing fear, and still taking action.",
+        "source": "Discussions on Youth",
+        "explanation": "You don't have to stop feeling scared - you just have to move forward anyway, even when your hands are shaking."
+      },
+      {
+        "quote": "No matter what happens, I will not be defeated. I will not run away. I will not complain. I will not be negative. I will keep advancing.",
+        "source": "The New Human Revolution, Vol. 1",
+        "explanation": "When life is piling on, sometimes you need a personal declaration to repeat out loud until you actually believe it again."
+      },
+      {
+        "quote": "Be the kind of person who, when your feet hit the floor in the morning, makes the devil say, 'Oh no, they're up!'",
+        "source": "Youth and the Writings of Nichiren Daishonin",
+        "explanation": "Your daily commitment to showing up - even on the hardest mornings - is the kind of resistance that changes everything."
+      },
+      {
+        "quote": "Buddhism is about winning. It is about the courage to overcome obstacles, to triumph over anything that stands in the way of our happiness.",
+        "source": "Faith Into Action",
+        "explanation": "Real spiritual practice isn't about accepting defeat quietly - it's about fighting hard for the life you actually deserve."
+      },
+      {
+        "quote": "The true hero is one who conquers his own anger and hatred.",
+        "source": "For Today and Tomorrow",
+        "explanation": "The hardest battle you'll ever face isn't with the person who hurt you - it's with the bitterness growing inside you."
+      }
+    ],
+    "struggles": [
+      "feeling-like-a-failure",
+      "burnout-recovery",
+      "starting-over"
+    ]
   }
 ]
