@@ -16,7 +16,7 @@ Content targets universal human suffering, not Buddhist practitioners. All user-
 Mon/Wed/Fri 11:30 AM IST → generate-strip.yml
   1. Claude Sonnet → 4-panel script (JSON)
   2. GPT-4o (gpt-image-1) → 4 panel images (1024x1024)
-  3. QC pass (gpt-4o-mini vision) → retry bad panels (max 3x)
+  3. QC pass (gpt-5.4-nano vision) → retry bad panels (max 3x)
   4. Playwright → dialogue bands + footer → final strip PNG
   5. Push PNG to assets CDN repo → commit SEO page + sitemap to main
   6. [optional] Video → YouTube → Pinterest → Tumblr → Instagram → Notifications

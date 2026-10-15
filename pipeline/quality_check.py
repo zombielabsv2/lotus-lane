@@ -16,6 +16,16 @@ import httpx
 from PIL import Image, ImageStat
 
 
+# OpenAI retires gpt-4o-mini on 2027-01-14. Measured 2026-10-15 on 17 real panels
+# (11 raw, 6 with captions): gpt-5.4-nano agreed with gpt-4o-mini on 16; the one
+# split was illegible fake text on a laptop screen, which nano flags and 4o-mini
+# missed. Low-detail image is ~1,265 input tokens on nano vs ~2,871 on 4o-mini,
+# so a check is ~$0.00026 instead of ~$0.00043.
+# A GPT-5 model spends reasoning tokens out of max_completion_tokens; with
+# reasoning_effort="none" it spent 0 and answered in 4 tokens on every panel, so
+# the 50-token cap is safe. Raise the effort and that stops being true.
+QC_VISION_MODEL = "gpt-5.4-nano"
+
 # --- Tier 1: Pillow-based checks (instant, free) ---
 
 def _log_openai_vision(usage):
@@ -26,9 +36,9 @@ def _log_openai_vision(usage):
         from usage_logger import log_usage, openai_token_cost
         pt = usage.get("prompt_tokens", 0)
         ct = usage.get("completion_tokens", 0)
-        log_usage(app="lotus_lane", action="panel_qc_vision", model="openai:gpt-4o-mini",
+        log_usage(app="lotus_lane", action="panel_qc_vision", model=f"openai:{QC_VISION_MODEL}",
                   input_tokens=pt, output_tokens=ct,
-                  cost_usd=openai_token_cost("gpt-4o-mini", pt, ct))
+                  cost_usd=openai_token_cost(QC_VISION_MODEL, pt, ct))
     except Exception as _e:
         import sys as _s
         print(f"[lotus_lane] usage_logger failed: {type(_e).__name__}: {_e}", file=_s.stderr)
@@ -100,10 +110,10 @@ def run_pillow_checks(img):
 # --- Tier 2: GPT-4o-mini vision text detection (~Rs. 0.002/strip) ---
 
 def check_text_in_image(img, openai_api_key):
-    """Use GPT-4o-mini vision to detect unwanted text in a panel image.
+    """Use a small vision model to detect unwanted text in a panel image.
 
     Returns (has_text: bool, description: str)
-    Cost: ~$0.00002 per image (~Rs. 0.002)
+    Cost: ~$0.00026 per image (~Rs. 0.02)
     """
     # Convert image to base64
     buffer = BytesIO()
@@ -118,8 +128,9 @@ def check_text_in_image(img, openai_api_key):
             "Content-Type": "application/json",
         },
         json={
-            "model": "gpt-4o-mini",
-            "max_tokens": 50,
+            "model": QC_VISION_MODEL,
+            "max_completion_tokens": 50,
+            "reasoning_effort": "none",
             "messages": [
                 {
                     "role": "user",
@@ -148,7 +159,7 @@ def check_text_in_image(img, openai_api_key):
     response.raise_for_status()
     payload = response.json()
     _log_openai_vision(payload.get("usage", {}))
-    answer = payload["choices"][0]["message"]["content"].strip().upper()
+    answer = (payload["choices"][0]["message"].get("content") or "").strip().upper()
 
     has_text = "YES" in answer
     return has_text, answer
