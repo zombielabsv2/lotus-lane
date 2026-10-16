@@ -7516,5 +7516,44 @@
       "starting-over",
       "comparison-trap"
     ]
+  },
+  {
+    "date": "2026-10-16",
+    "title": "Your Prayers Feel Empty and You Don't Know Why - 5 Truths That Will Change How You Pray",
+    "theme": "prayer-faith",
+    "theme_name": "Prayer & Faith",
+    "image": "listicles/2026-10-16.png",
+    "items": [
+      {
+        "quote": "Prayer is the courage to persevere. It is the struggle to overcome our own weakness and lack of confidence in ourselves.",
+        "source": "For Today and Tomorrow",
+        "explanation": "When you feel too broken to even ask for help, the act of praying itself is already proof that you haven't given up."
+      },
+      {
+        "quote": "A powerful prayer - one that is the roar of a lion - can change anything, any situation, no matter how difficult or seemingly impossible.",
+        "source": "The New Human Revolution, Vol. 3",
+        "explanation": "That situation you've stopped believing can get better - it is exactly the kind of situation prayer was always meant for."
+      },
+      {
+        "quote": "Buddhism teaches that prayer without action is just wishful thinking, and action without prayer lacks the power to break through fundamental darkness.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "Real change happens when your inner voice and your daily choices are finally working in the same direction at the same time."
+      },
+      {
+        "quote": "Do not let your prayer become a mere formality. Infuse it with your deepest desires and your sincerest determination.",
+        "source": "For Today and Tomorrow",
+        "explanation": "If your prayers have started to feel like a habit rather than a cry from the heart, it may be time to get brutally honest about what you actually want."
+      },
+      {
+        "quote": "The purpose of faith is to become happy - not to become a slave to rigid rules or formalities.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "If your spiritual practice is making you feel more guilty than free, you may have drifted from the whole point of it."
+      }
+    ],
+    "struggles": [
+      "anxiety-insomnia",
+      "depression-fog",
+      "feeling-like-a-failure"
+    ]
   }
 ]
