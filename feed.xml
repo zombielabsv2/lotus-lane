@@ -7,6 +7,14 @@
     <language>en</language>
     <atom:link href="https://thelotuslane.in/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Everyone at the Table Seemed to Know Exactly What They Were Doing and I Was Googling the Acronyms Under the Desk</title>
+      <link>https://thelotuslane.in/strips/2026-10-16.html</link>
+      <description>The feeling that everyone else has it figured out is not evidence — it's a habit of the mind that punches down on you when you're already tired. What you know is real, even when the doubt is loudest.</description>
+      <pubDate>Fri, 16 Oct 2026 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-10-16.html</guid>
+      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-10-16.png" type="image/png" />
+    </item>
+    <item>
       <title>We Sleep in the Same Bed and I've Never Felt More Invisible</title>
       <link>https://thelotuslane.in/strips/2026-10-14.html</link>
       <description>When a marriage goes quiet and you feel alone beside the person you love, the instinct is to wait for the other person to change first. But the smallest shift in who you are — how present you choose to be, even for five minutes — is where real connection has a chance to grow again.</description>
@@ -397,14 +405,6 @@
       <pubDate>Wed, 24 Jun 2026 00:00:00 +0000</pubDate>
       <guid isPermaLink="true">https://thelotuslane.in/strips/2026-06-24.html</guid>
       <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-06-24.png" type="image/png" />
-    </item>
-    <item>
-      <title>I Built Something Real and Now I Owe Everyone I Love</title>
-      <link>https://thelotuslane.in/strips/2026-06-22.html</link>
-      <description>Failing at something you built with courage is not proof that you were wrong to try — it is proof you had enough fight to begin. The question after a startup collapses is not whether you were brave enough, but whether you are willing to pick that same bravery back up.</description>
-      <pubDate>Mon, 22 Jun 2026 00:00:00 +0000</pubDate>
-      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-06-22.html</guid>
-      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-06-22.png" type="image/png" />
     </item>
   </channel>
 </rss>
