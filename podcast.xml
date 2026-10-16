@@ -24,8 +24,22 @@
     <itunes:category text="Religion &amp; Spirituality">
       <itunes:category text="Buddhism" />
     </itunes:category>
-    <pubDate>Wed, 14 Oct 2026 10:26:56 +0000</pubDate>
-    <lastBuildDate>Wed, 14 Oct 2026 10:26:56 +0000</lastBuildDate>
+    <pubDate>Fri, 16 Oct 2026 10:02:24 +0000</pubDate>
+    <lastBuildDate>Fri, 16 Oct 2026 10:02:24 +0000</lastBuildDate>
+    <item>
+      <title>A Difficult Relationship With Food</title>
+      <link>https://thelotuslane.in/wisdom/food-and-eating-struggles.html</link>
+      <guid isPermaLink="false">https://storage.googleapis.com/lotus-lane-podcast/food-and-eating-struggles.mp3</guid>
+      <pubDate>Fri, 16 Oct 2026 10:02:23 +0000</pubDate>
+      <description>You know that feeling when a meal is over and you can't tell whether you actually ate or just got through something?</description>
+      <itunes:summary>You know that feeling when a meal is over and you can't tell whether you actually ate or just got through something?</itunes:summary>
+      <itunes:author>The Lotus Lane</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:duration>9:14</itunes:duration>
+      <itunes:episode>106</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <enclosure url="https://storage.googleapis.com/lotus-lane-podcast/food-and-eating-struggles.mp3" length="7567533" type="audio/mpeg" />
+    </item>
     <item>
       <title>Finding Purpose After Retirement</title>
       <link>https://thelotuslane.in/wisdom/finding-purpose-after-retirement.html</link>
