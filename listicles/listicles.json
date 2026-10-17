@@ -7555,5 +7555,44 @@
       "depression-fog",
       "feeling-like-a-failure"
     ]
+  },
+  {
+    "date": "2026-10-17",
+    "title": "Did Someone Believe in You Before You Believed in Yourself? 5 Truths About What That Person Gave You",
+    "theme": "mentor-disciple",
+    "theme_name": "Mentor & Disciple",
+    "image": "listicles/2026-10-17.png",
+    "items": [
+      {
+        "quote": "A mentor does not exist to create followers. A mentor exists to create leaders.",
+        "source": "Discussions on Youth",
+        "explanation": "The best person in your corner is not building your dependence on them - they are building your ability to stand without them."
+      },
+      {
+        "quote": "A disciple's mission is not to follow the mentor blindly, but to realize the mentor's vision - even surpassing the mentor.",
+        "source": "Discussions on Youth",
+        "explanation": "Honoring someone who shaped you does not mean staying small - it means growing into the very thing they saw in you."
+      },
+      {
+        "quote": "The true disciple is one who carries on the mentor's spirit. Not as a copy, but as a creative continuation.",
+        "source": "The New Human Revolution, Vol. 6",
+        "explanation": "The greatest tribute you can pay to someone who guided you is to take their lessons and make something entirely your own."
+      },
+      {
+        "quote": "The path of mentor and disciple is the path of shared struggle. It is not about hierarchy - it is about sharing the same commitment, the same vision, the same heart.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "The most life-changing relationships are not built on status or titles but on two people fighting for the same thing together."
+      },
+      {
+        "quote": "When the disciple truly stands up with the same spirit as the mentor, the power to change the world emerges.",
+        "source": "The New Human Revolution, Vol. 18",
+        "explanation": "The moment you stop waiting for permission and take what you were taught into your own hands, something shifts - in you and around you."
+      }
+    ],
+    "struggles": [
+      "overcoming-imposter-syndrome",
+      "feeling-like-a-failure",
+      "starting-over"
+    ]
   }
 ]
