@@ -7594,5 +7594,44 @@
       "feeling-like-a-failure",
       "starting-over"
     ]
+  },
+  {
+    "date": "2026-10-18",
+    "title": "Feeling Like Your Generation Is Losing? 5 Truths That Will Remind You How Much Power You Actually Have",
+    "theme": "youth",
+    "theme_name": "Youth",
+    "image": "listicles/2026-10-18.png",
+    "items": [
+      {
+        "quote": "The voice of a single young person, if it rings with truth and conviction, can change the world.",
+        "source": "The New Human Revolution, Vol. 11",
+        "explanation": "When you feel too small to matter, remember that every movement that changed history started with one person who refused to stay quiet."
+      },
+      {
+        "quote": "Youth is not a time of life - it is a state of mind. As long as you have a dream, as long as you have a fighting spirit, you are forever young.",
+        "source": "Discussions on Youth",
+        "explanation": "Your energy and aliveness have nothing to do with your age and everything to do with whether you still dare to want something."
+      },
+      {
+        "quote": "Nothing is more precious than youth. Do not waste a single day. Challenge yourselves! Grow! There is no time to be idle.",
+        "source": "For Today and Tomorrow",
+        "explanation": "The scrolling, the waiting, the playing it safe - every day you coast is a day your future self cannot get back."
+      },
+      {
+        "quote": "Youth should be rebellious. They should challenge the status quo, question authority, and refuse to accept injustice.",
+        "source": "Discussions on Youth",
+        "explanation": "If something in the world feels wrong to you, that feeling is not naivety - it is your conscience doing exactly what it should."
+      },
+      {
+        "quote": "Be a person of substance, not merely of surface. The depth of your character will determine your influence in the world.",
+        "source": "For Today and Tomorrow",
+        "explanation": "In a world obsessed with followers and likes, the people who actually shift things are the ones who built something real on the inside."
+      }
+    ],
+    "struggles": [
+      "comparison-trap",
+      "overcoming-imposter-syndrome",
+      "feeling-like-a-failure"
+    ]
   }
 ]
