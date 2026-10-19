@@ -7633,5 +7633,44 @@
       "overcoming-imposter-syndrome",
       "feeling-like-a-failure"
     ]
+  },
+  {
+    "date": "2026-10-19",
+    "title": "That Fight You Keep Having? 5 Truths About Why Talking - Really Talking - Is the Only Way Through",
+    "theme": "dialogue",
+    "theme_name": "Dialogue",
+    "image": "listicles/2026-10-19.png",
+    "items": [
+      {
+        "quote": "Dialogue starts with listening. Truly listening - not just waiting for your turn to speak - but genuinely trying to understand another person's heart.",
+        "source": "Discussions on Youth",
+        "explanation": "Most arguments stay stuck because both people are preparing their rebuttal instead of actually hearing what the other person is trying to say."
+      },
+      {
+        "quote": "When we engage in dialogue with sincerity and respect, the walls of misunderstanding crumble. Even the most hardened hearts can be opened.",
+        "source": "The New Human Revolution, Vol. 7",
+        "explanation": "That person who seems impossible to reach - a parent, a partner, a friend - may just be waiting for one honest, respectful conversation to let their guard down."
+      },
+      {
+        "quote": "One sincere conversation can accomplish more than a hundred speeches or a thousand emails.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "Before you send another long text or rehearse what you will say, consider that simply sitting down and speaking from the heart does more than any message ever could."
+      },
+      {
+        "quote": "We must not fear those who are different from us. Difference is not a reason for conflict - it is an invitation for dialogue.",
+        "source": "For Today and Tomorrow",
+        "explanation": "The person whose opinion frustrates you most is often the one conversation away from becoming someone you actually understand."
+      },
+      {
+        "quote": "The greatest tool for peace is not weapons or technology. It is the simple act of two human beings sitting down and talking to each other.",
+        "source": "A New Era of Dialogue (Peace Proposal)",
+        "explanation": "Whether it is a cold war in your household or a rift at work, the resolution was never going to come from silence - it starts the moment someone chooses to show up and speak."
+      }
+    ],
+    "struggles": [
+      "relationship-falling-apart",
+      "anger-you-cant-control",
+      "how-to-forgive"
+    ]
   }
 ]
