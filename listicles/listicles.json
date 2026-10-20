@@ -7672,5 +7672,44 @@
       "anger-you-cant-control",
       "how-to-forgive"
     ]
+  },
+  {
+    "date": "2026-10-20",
+    "title": "Tired of a World That Feels Hopeless? 5 Truths About Where Peace Actually Comes From",
+    "theme": "peace",
+    "theme_name": "Peace",
+    "image": "listicles/2026-10-20.png",
+    "items": [
+      {
+        "quote": "A person who can build peace within their own heart can contribute to building peace in the world.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "The arguments you have at home, the grudges you carry to work - inner conflict spreads outward, and so does inner calm."
+      },
+      {
+        "quote": "The most powerful force for peace is not a government, not an army, not a treaty. It is the awakened awareness of individual human beings.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "When you choose not to spread a rumor or refuse to write an angry reply, you are doing the quiet work that changes the world."
+      },
+      {
+        "quote": "The people - the ordinary citizens of the world - are the true protagonists of peace. Not politicians, not leaders, but everyday people with the courage to connect.",
+        "source": "For Today and Tomorrow",
+        "explanation": "Checking on a struggling neighbor or reaching across a dinner table divide is exactly the kind of act history is actually made of."
+      },
+      {
+        "quote": "As long as we continue to demonize others, peace will remain a dream. Peace begins the moment we recognize the humanity in every person.",
+        "source": "For Today and Tomorrow",
+        "explanation": "The person whose politics enrage you still has a family they love - and remembering that is the first real step toward anything better."
+      },
+      {
+        "quote": "There is no enemy in Buddhism. There is only delusion to be overcome. When we see others as enemies, we have already lost the battle for peace.",
+        "source": "The New Human Revolution, Vol. 6",
+        "explanation": "Labeling someone your enemy locks you into a story that makes resolution impossible before the conversation even begins."
+      }
+    ],
+    "struggles": [
+      "anger-you-cant-control",
+      "how-to-forgive",
+      "loneliness-despite-everything"
+    ]
   }
 ]
