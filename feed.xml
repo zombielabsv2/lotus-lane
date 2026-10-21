@@ -7,6 +7,14 @@
     <language>en</language>
     <atom:link href="https://thelotuslane.in/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>I Sent Money Home Again and Now I Can't Pay My Own Rent</title>
+      <link>https://thelotuslane.in/strips/2026-10-21.html</link>
+      <description>Sending money home when you barely have enough for yourself is one of the loneliest kinds of love — and you're allowed to feel the weight of it. Caring for others doesn't mean you stop counting the cost to yourself; it means you do both, honestly.</description>
+      <pubDate>Wed, 21 Oct 2026 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-10-21.html</guid>
+      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-10-21.png" type="image/png" />
+    </item>
+    <item>
       <title>I Walked Away From the Accident and He Didn't. I Keep Asking Myself Why.</title>
       <link>https://thelotuslane.in/strips/2026-10-19.html</link>
       <description>Surviving something that killed someone else doesn't mean you owed them your place in line. It may simply mean life is still asking you to do something — and you get to decide what that is.</description>
@@ -397,14 +405,6 @@
       <pubDate>Mon, 29 Jun 2026 00:00:00 +0000</pubDate>
       <guid isPermaLink="true">https://thelotuslane.in/strips/2026-06-29.html</guid>
       <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-06-29.png" type="image/png" />
-    </item>
-    <item>
-      <title>I've Failed This Exam Three Times and I'm Running Out of Excuses</title>
-      <link>https://thelotuslane.in/strips/2026-06-26.html</link>
-      <description>Failing the same thing more than once doesn't mean you're not meant for it. It means you keep showing up — and that itself is something worth building on.</description>
-      <pubDate>Fri, 26 Jun 2026 00:00:00 +0000</pubDate>
-      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-06-26.html</guid>
-      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-06-26.png" type="image/png" />
     </item>
   </channel>
 </rss>
