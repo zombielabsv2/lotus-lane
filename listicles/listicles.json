@@ -7750,5 +7750,44 @@
       "overcoming-imposter-syndrome",
       "burnout-recovery"
     ]
+  },
+  {
+    "date": "2026-10-22",
+    "title": "You Want to Help but Don't Know How - 5 Truths About What Compassion Actually Looks Like",
+    "theme": "compassion",
+    "theme_name": "Compassion",
+    "image": "listicles/2026-10-22.png",
+    "items": [
+      {
+        "quote": "Compassion is not about feeling pity for others. It is about sharing their suffering and working together to overcome it.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "Real support means sitting in the hard place with someone, not just offering sympathy from a safe distance."
+      },
+      {
+        "quote": "A single warm word can give someone the courage to go on living. Never underestimate the power of your compassion.",
+        "source": "For Today and Tomorrow",
+        "explanation": "That one kind text or honest conversation you almost held back could be exactly what someone needed today."
+      },
+      {
+        "quote": "True compassion is not soft or weak. It takes great strength to truly care about others, to shoulder their pain.",
+        "source": "Discussions on Youth",
+        "explanation": "Choosing to stay present with someone in their darkest moments requires more courage than walking away ever would."
+      },
+      {
+        "quote": "Genuine compassion means not only sharing another's suffering, but also helping them to realize their own strength.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "The deepest way you can help someone is not to fix their problems for them, but to remind them they can."
+      },
+      {
+        "quote": "Buddhism teaches that compassion without wisdom is sentimentality, and wisdom without compassion is cold and heartless. We need both.",
+        "source": "Discussions on Youth",
+        "explanation": "Caring for others well means knowing when to offer a hug and when to offer an honest, difficult truth."
+      }
+    ],
+    "struggles": [
+      "caregiver-burden",
+      "loneliness-despite-everything",
+      "how-to-forgive"
+    ]
   }
 ]
