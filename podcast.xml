@@ -24,8 +24,22 @@
     <itunes:category text="Religion &amp; Spirituality">
       <itunes:category text="Buddhism" />
     </itunes:category>
-    <pubDate>Wed, 21 Oct 2026 10:26:13 +0000</pubDate>
-    <lastBuildDate>Wed, 21 Oct 2026 10:26:13 +0000</lastBuildDate>
+    <pubDate>Fri, 23 Oct 2026 10:20:59 +0000</pubDate>
+    <lastBuildDate>Fri, 23 Oct 2026 10:20:59 +0000</lastBuildDate>
+    <item>
+      <title>Recovering From Gambling Losses</title>
+      <link>https://thelotuslane.in/wisdom/gambling-losses.html</link>
+      <guid isPermaLink="false">https://storage.googleapis.com/lotus-lane-podcast/gambling-losses.mp3</guid>
+      <pubDate>Fri, 23 Oct 2026 10:20:58 +0000</pubDate>
+      <description>You know that feeling when the screen finally goes still and the number it shows you is real?</description>
+      <itunes:summary>You know that feeling when the screen finally goes still and the number it shows you is real?</itunes:summary>
+      <itunes:author>The Lotus Lane</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:duration>8:48</itunes:duration>
+      <itunes:episode>109</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <enclosure url="https://storage.googleapis.com/lotus-lane-podcast/gambling-losses.mp3" length="7286829" type="audio/mpeg" />
+    </item>
     <item>
       <title>Getting Through the Holidays With a Fractured Family</title>
       <link>https://thelotuslane.in/wisdom/fractured-family-holidays.html</link>
