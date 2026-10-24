@@ -7828,5 +7828,44 @@
       "burnout-recovery",
       "starting-over"
     ]
+  },
+  {
+    "date": "2026-10-24",
+    "title": "You've Lost All Hope and Don't Know How to Get It Back - 5 Truths That Will Change That",
+    "theme": "hope",
+    "theme_name": "Hope",
+    "image": "listicles/2026-10-24.png",
+    "items": [
+      {
+        "quote": "Winter always turns to spring. Never, from ancient times on, has anyone heard or seen of winter turning back to autumn.",
+        "source": "The Writings of Nichiren Daishonin (referenced in guidance)",
+        "explanation": "When your life feels frozen and dark, nature itself is proof that difficult seasons always move forward, never backward."
+      },
+      {
+        "quote": "Hope is not a matter of ability; it is a matter of decision.",
+        "source": "Discussions on Youth",
+        "explanation": "You do not have to feel capable or confident right now - hope is simply a choice you make, like setting an alarm for tomorrow."
+      },
+      {
+        "quote": "No matter how hopeless or bleak things appear, the moment you resolve to never give up, every nerve and fiber in your being will orient itself toward your success.",
+        "source": "Faith Into Action",
+        "explanation": "The single decision to keep going - even when nothing looks promising - quietly reorganizes your entire mind and body toward finding a way out."
+      },
+      {
+        "quote": "No one can make you feel hopeless unless you allow them to. Hope resides in the heart. It is something you create.",
+        "source": "Discussions on Youth",
+        "explanation": "The circumstances around you and the people who have let you down do not get the final say over what you carry inside."
+      },
+      {
+        "quote": "Each morning we are born again. What we do today is what matters most.",
+        "source": "For Today and Tomorrow",
+        "explanation": "You do not have to fix everything or believe in the whole future - you only have to find one small reason to try again today."
+      }
+    ],
+    "struggles": [
+      "depression-fog",
+      "starting-over",
+      "feeling-like-a-failure"
+    ]
   }
 ]
