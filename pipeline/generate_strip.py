@@ -43,6 +43,11 @@ def get_anthropic_key():
     return os.environ.get("ANTHROPIC_API_KEY", ANTHROPIC_API_KEY)
 
 
+# gpt-image-1 was retired from the generations endpoint (400 "model does not
+# exist", first seen 2026-10-26). gpt-image-2 takes the same params.
+IMAGE_MODEL = "gpt-image-2"
+
+
 def get_openai_key():
     return os.environ.get("OPENAI_API_KEY", OPENAI_API_KEY)
 
@@ -236,8 +241,8 @@ def _log_openai_image(n: int = 1) -> None:
         import sys as _s, pathlib as _p
         _s.path.insert(0, str(_p.Path(__file__).parent.parent))
         from usage_logger import log_usage, openai_image_cost
-        log_usage(app="lotus_lane", action="strip_panel", model="openai:gpt-image-1",
-                  cost_usd=openai_image_cost("gpt-image-1", "medium", n),
+        log_usage(app="lotus_lane", action="strip_panel", model=f"openai:{IMAGE_MODEL}",
+                  cost_usd=openai_image_cost(IMAGE_MODEL, "medium", n),
                   metadata={"images": n, "quality": "medium", "size": "1024x1024"})
     except Exception as _e:
         import sys as _s
@@ -288,7 +293,7 @@ CRITICAL RULES:
             "Content-Type": "application/json",
         },
         json={
-            "model": "gpt-image-1",
+            "model": IMAGE_MODEL,
             "prompt": prompt,
             "n": 1,
             "size": "1024x1024",
@@ -739,6 +744,9 @@ def generate(date_str=None, forced_topic=None, dry_run=False, reassemble=False):
                 except (httpx.HTTPStatusError, httpx.ConnectError, httpx.TimeoutException) as e:
                     qc_retries_total += 1
                     print(f"{label} — API ERROR: {e}")
+                    body = getattr(getattr(e, "response", None), "text", "")
+                    if body:
+                        print(f"{label} — response: {body[:300]}")
                     if attempt < MAX_RETRIES:
                         time.sleep(5)
                         continue
@@ -782,7 +790,7 @@ def generate(date_str=None, forced_topic=None, dry_run=False, reassemble=False):
     num_panels = len(script.get("panels", []))
     num_images = 0 if was_panels_cached else (num_panels + retries)
     claude_cost_usd = 0.0 if was_script_cached else 0.013
-    image_cost_usd = num_images * 0.042  # gpt-image-1, 1024x1024, medium
+    image_cost_usd = num_images * 0.042  # gpt-image-1 medium rate; gpt-image-2 price unverified
     qc_cost_usd = num_images * 0.00026   # gpt-5.4-nano vision check
     total_usd = claude_cost_usd + image_cost_usd + qc_cost_usd
     total_inr = total_usd * 85
