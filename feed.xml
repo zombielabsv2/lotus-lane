@@ -7,6 +7,14 @@
     <language>en</language>
     <atom:link href="https://thelotuslane.in/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>They Promoted the Guy Who Stole My Idea and I Have to Sit Next to Him Every Day</title>
+      <link>https://thelotuslane.in/strips/2026-10-26.html</link>
+      <description>When someone wrongs you and gets rewarded for it, that fury is not a flaw — it's your sense of fairness working. The real choice is whether that anger shrinks you into bitterness or pushes you to show up with more integrity than before.</description>
+      <pubDate>Mon, 26 Oct 2026 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-10-26.html</guid>
+      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-10-26.png" type="image/png" />
+    </item>
+    <item>
       <title>I Presented the Whole Report and My Boss Said 'Thanks, Team'</title>
       <link>https://thelotuslane.in/strips/2026-10-23.html</link>
       <description>When your work goes unrecognised, it doesn't disappear — it accumulates inside you as capability, clarity, and quiet confidence. The effort was never wasted; it just hasn't found its label yet.</description>
@@ -397,14 +405,6 @@
       <pubDate>Fri, 03 Jul 2026 00:00:00 +0000</pubDate>
       <guid isPermaLink="true">https://thelotuslane.in/strips/2026-07-03.html</guid>
       <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-07-03.png" type="image/png" />
-    </item>
-    <item>
-      <title>I Talked for Two Hours and Nobody Asked a Single Question About Me</title>
-      <link>https://thelotuslane.in/strips/2026-07-01.html</link>
-      <description>Feeling unseen doesn't mean you don't exist fully — it often means your depth hasn't found the right room yet. The life you're quietly building in yourself is real, even before anyone else notices it.</description>
-      <pubDate>Wed, 01 Jul 2026 00:00:00 +0000</pubDate>
-      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-07-01.html</guid>
-      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-07-01.png" type="image/png" />
     </item>
   </channel>
 </rss>

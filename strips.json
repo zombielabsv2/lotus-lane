@@ -3163,5 +3163,24 @@
     "category": "work-stress",
     "topic": "feeling invisible at work",
     "characters": []
+  },
+  {
+    "date": "2026-10-26",
+    "title": "They Promoted the Guy Who Stole My Idea and I Have to Sit Next to Him Every Day",
+    "image": "https://zombielabsv2.github.io/lotus-lane-assets/2026-10-26.png",
+    "message": "When someone wrongs you and gets rewarded for it, that fury is not a flaw — it's your sense of fairness working. The real choice is whether that anger shrinks you into bitterness or pushes you to show up with more integrity than before.",
+    "quote": "Anger at injustice is itself a form of compassion. The question is whether you let it burn you down from the inside, or whether you channel it into becoming someone whose integrity cannot be stolen.",
+    "source": "Daisaku Ikeda, Discussions on Youth",
+    "tags": [
+      "anger",
+      "workplace-injustice",
+      "self-advocacy"
+    ],
+    "category": "anger",
+    "topic": "anger at injustice",
+    "characters": [
+      "arjun",
+      "meera"
+    ]
   }
 ]
