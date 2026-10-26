@@ -790,7 +790,7 @@ def generate(date_str=None, forced_topic=None, dry_run=False, reassemble=False):
     num_panels = len(script.get("panels", []))
     num_images = 0 if was_panels_cached else (num_panels + retries)
     claude_cost_usd = 0.0 if was_script_cached else 0.013
-    image_cost_usd = num_images * 0.042  # gpt-image-1 medium rate; gpt-image-2 price unverified
+    image_cost_usd = num_images * 0.053  # gpt-image-2, 1024x1024, medium
     qc_cost_usd = num_images * 0.00026   # gpt-5.4-nano vision check
     total_usd = claude_cost_usd + image_cost_usd + qc_cost_usd
     total_inr = total_usd * 85

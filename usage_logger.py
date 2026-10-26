@@ -18,7 +18,10 @@ _DEFAULT_PRICING = {"input": 3.0 / 1_000_000, "output": 15.0 / 1_000_000}
 OPENAI_TTS_PRICE_PER_CHAR = {"tts-1": 15.0 / 1_000_000, "tts-1-hd": 30.0 / 1_000_000}
 OPENAI_IMAGE_PRICE = {("gpt-image-1", "low"): 0.011,
                       ("gpt-image-1", "medium"): 0.042,
-                      ("gpt-image-1", "high"): 0.167}   # 1024x1024
+                      ("gpt-image-1", "high"): 0.167,   # 1024x1024
+                      # gpt-image-2 medium: $30/1M image output tokens (OpenAI pricing page,
+                      # 2026-10-26) x 1,756 tokens measured on a 1024x1024 medium call.
+                      ("gpt-image-2", "medium"): 0.053}
 OPENAI_TOKEN_PRICING = {"gpt-4o-mini": {"input": 0.15 / 1_000_000, "output": 0.60 / 1_000_000},
                         "gpt-5.4-nano": {"input": 0.20 / 1_000_000, "output": 1.25 / 1_000_000}}
 
