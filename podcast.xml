@@ -24,8 +24,22 @@
     <itunes:category text="Religion &amp; Spirituality">
       <itunes:category text="Buddhism" />
     </itunes:category>
-    <pubDate>Fri, 23 Oct 2026 10:20:59 +0000</pubDate>
-    <lastBuildDate>Fri, 23 Oct 2026 10:20:59 +0000</lastBuildDate>
+    <pubDate>Mon, 26 Oct 2026 11:22:56 +0000</pubDate>
+    <lastBuildDate>Mon, 26 Oct 2026 11:22:56 +0000</lastBuildDate>
+    <item>
+      <title>Carrying Generational Trauma</title>
+      <link>https://thelotuslane.in/wisdom/generational-trauma.html</link>
+      <guid isPermaLink="false">https://storage.googleapis.com/lotus-lane-podcast/generational-trauma.mp3</guid>
+      <pubDate>Mon, 26 Oct 2026 11:22:55 +0000</pubDate>
+      <description>You know that feeling when you react to something small - a raised voice, a closing door, a certain silence - and the size of your reaction makes no sense even to you?</description>
+      <itunes:summary>You know that feeling when you react to something small - a raised voice, a closing door, a certain silence - and the size of your reaction makes no sense even to you?</itunes:summary>
+      <itunes:author>The Lotus Lane</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:duration>9:24</itunes:duration>
+      <itunes:episode>110</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <enclosure url="https://storage.googleapis.com/lotus-lane-podcast/generational-trauma.mp3" length="7795245" type="audio/mpeg" />
+    </item>
     <item>
       <title>Recovering From Gambling Losses</title>
       <link>https://thelotuslane.in/wisdom/gambling-losses.html</link>
