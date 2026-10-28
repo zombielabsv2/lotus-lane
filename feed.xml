@@ -7,6 +7,14 @@
     <language>en</language>
     <atom:link href="https://thelotuslane.in/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>The Doctor Said Six Weeks. It's Been Four Months and I'm Still Not Me.</title>
+      <link>https://thelotuslane.in/strips/2026-10-28.html</link>
+      <description>Recovery isn't linear, and sitting still doesn't mean you're losing — sometimes the body's hardest work happens when nothing visible is changing. What you survive shapes what you become, even when it doesn't look like progress yet.</description>
+      <pubDate>Wed, 28 Oct 2026 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-10-28.html</guid>
+      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-10-28.png" type="image/png" />
+    </item>
+    <item>
       <title>They Promoted the Guy Who Stole My Idea and I Have to Sit Next to Him Every Day</title>
       <link>https://thelotuslane.in/strips/2026-10-26.html</link>
       <description>When someone wrongs you and gets rewarded for it, that fury is not a flaw — it's your sense of fairness working. The real choice is whether that anger shrinks you into bitterness or pushes you to show up with more integrity than before.</description>
@@ -397,14 +405,6 @@
       <pubDate>Mon, 06 Jul 2026 00:00:00 +0000</pubDate>
       <guid isPermaLink="true">https://thelotuslane.in/strips/2026-07-06.html</guid>
       <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-07-06.png" type="image/png" />
-    </item>
-    <item>
-      <title>We Talked for 40 Minutes and I Still Felt Like He Wasn't There</title>
-      <link>https://thelotuslane.in/strips/2026-07-03.html</link>
-      <description>When a long-distance relationship starts to feel like a status update exchange, the fix isn't more calls — it's one honest question asked like you actually want the answer. Presence is a choice you make inside the conversation, not a function of geography.</description>
-      <pubDate>Fri, 03 Jul 2026 00:00:00 +0000</pubDate>
-      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-07-03.html</guid>
-      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-07-03.png" type="image/png" />
     </item>
   </channel>
 </rss>
