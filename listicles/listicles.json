@@ -8023,5 +8023,44 @@
       "overcoming-imposter-syndrome",
       "starting-over"
     ]
+  },
+  {
+    "date": "2026-10-29",
+    "title": "You're Young and Feel Like You're Already Running Out of Time - 5 Truths That Will Set You Free",
+    "theme": "youth",
+    "theme_name": "Youth",
+    "image": "listicles/2026-10-29.png",
+    "items": [
+      {
+        "quote": "Nothing is more precious than youth. Do not waste a single day. Challenge yourselves! Grow! There is no time to be idle.",
+        "source": "For Today and Tomorrow",
+        "explanation": "Every day you spend waiting for the 'right moment' is a day stolen from the person you could already be becoming."
+      },
+      {
+        "quote": "Youth is not a time of life - it is a state of mind. As long as you have a dream, as long as you have a fighting spirit, you are forever young.",
+        "source": "Discussions on Youth",
+        "explanation": "Age is never the real barrier - losing the fire inside you is, and that fire is yours to protect."
+      },
+      {
+        "quote": "The voice of a single young person, if it rings with truth and conviction, can change the world.",
+        "source": "The New Human Revolution, Vol. 11",
+        "explanation": "When you feel too small to matter, remember that history was shaped by ordinary people who simply refused to stay quiet."
+      },
+      {
+        "quote": "In youth, you should aim for the highest goals. Dream big. And then do everything in your power to make those dreams a reality.",
+        "source": "Youth and the Writings of Nichiren Daishonin",
+        "explanation": "A small, 'realistic' dream might feel safer, but it will never push you to discover how much you are truly capable of."
+      },
+      {
+        "quote": "Be a person of substance, not merely of surface. The depth of your character will determine your influence in the world.",
+        "source": "For Today and Tomorrow",
+        "explanation": "In a world obsessed with followers and likes, the person who builds real inner depth will outlast everyone chasing the spotlight."
+      }
+    ],
+    "struggles": [
+      "feeling-like-a-failure",
+      "overcoming-imposter-syndrome",
+      "comparison-trap"
+    ]
   }
 ]
