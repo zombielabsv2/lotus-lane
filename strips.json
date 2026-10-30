@@ -3198,5 +3198,24 @@
     "category": "health",
     "topic": "injury recovery",
     "characters": []
+  },
+  {
+    "date": "2026-10-30",
+    "title": "I Was at a Party of Thirty People and Texted Myself Just to See a Notification",
+    "image": "https://zombielabsv2.github.io/lotus-lane-assets/2026-10-30.png",
+    "message": "Feeling alone in a crowd often has nothing to do with the people around you — it is a signal that you have lost contact with yourself. Reconnecting inward is the first step back to genuine connection with others.",
+    "quote": "Loneliness is the shadow that appears when we have lost touch with our own inner light.",
+    "source": "Daisaku Ikeda, The Wisdom for Creating Happiness and Peace",
+    "tags": [
+      "loneliness",
+      "social anxiety",
+      "self-connection"
+    ],
+    "category": "loneliness",
+    "topic": "lonely in a crowd",
+    "characters": [
+      "sudha",
+      "arjun"
+    ]
   }
 ]
