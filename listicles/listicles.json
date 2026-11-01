@@ -8140,5 +8140,44 @@
       "how-to-forgive",
       "loneliness-despite-everything"
     ]
+  },
+  {
+    "date": "2026-11-01",
+    "title": "Straight-A Student But Still Feel Lost? 5 Truths About What Education Was Actually Supposed to Give You",
+    "theme": "education",
+    "theme_name": "Education",
+    "image": "listicles/2026-11-01.png",
+    "items": [
+      {
+        "quote": "Education is not the filling of a pail, but the lighting of a fire. The purpose of education is to cultivate the wisdom and compassion to create value in any situation.",
+        "source": "Soka Education",
+        "explanation": "Real education isn't about cramming information in - it's about awakening something inside you that helps you show up fully for life."
+      },
+      {
+        "quote": "A truly educated person is not someone who has memorized facts, but someone who can think critically, feel compassionately, and act courageously.",
+        "source": "Discussions on Youth",
+        "explanation": "Your grades and credentials only tell part of the story - who you are when things get hard tells the rest."
+      },
+      {
+        "quote": "Education that does not teach people how to live, how to face suffering, and how to create meaning - such education is incomplete.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "If you graduated knowing calculus but not how to cope with loss or find purpose, you were only given half of what you needed."
+      },
+      {
+        "quote": "The goal of education should be the happiness of the learner. Any system of education that does not lead to happiness has failed.",
+        "source": "Soka Education",
+        "explanation": "If learning has only ever made you anxious or feel behind, the system failed you - not the other way around."
+      },
+      {
+        "quote": "A person who has learned to think for themselves - that is the greatest product of education.",
+        "source": "Discussions on Youth",
+        "explanation": "The best thing school could ever give you is the confidence to trust your own mind when the world tries to tell you what to think."
+      }
+    ],
+    "struggles": [
+      "feeling-like-a-failure",
+      "overcoming-imposter-syndrome",
+      "comparison-trap"
+    ]
   }
 ]
