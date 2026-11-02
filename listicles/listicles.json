@@ -8179,5 +8179,44 @@
       "overcoming-imposter-syndrome",
       "comparison-trap"
     ]
+  },
+  {
+    "date": "2026-11-02",
+    "title": "Someone You Love Is Suffering and You Don't Know What to Do - 5 Truths About Real Compassion",
+    "theme": "compassion",
+    "theme_name": "Compassion",
+    "image": "listicles/2026-11-02.png",
+    "items": [
+      {
+        "quote": "Compassion is not about feeling pity for others. It is about sharing their suffering and working together to overcome it.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "Real support means getting in the mud with someone, not standing at the edge feeling sorry for them."
+      },
+      {
+        "quote": "A single warm word can give someone the courage to go on living. Never underestimate the power of your compassion.",
+        "source": "For Today and Tomorrow",
+        "explanation": "You may never know how much a text, a kind word, or just showing up meant to someone who was barely holding on."
+      },
+      {
+        "quote": "True compassion is not soft or weak. It takes great strength to truly care about others, to shoulder their pain.",
+        "source": "Discussions on Youth",
+        "explanation": "Choosing to stay present with someone else's pain, instead of looking away, is one of the hardest and bravest things a person can do."
+      },
+      {
+        "quote": "Genuine compassion means not only sharing another's suffering, but also helping them to realize their own strength.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "The deepest way to help someone isn't to fix things for them - it's to remind them they have what it takes to rise."
+      },
+      {
+        "quote": "Buddhism teaches that compassion without wisdom is sentimentality, and wisdom without compassion is cold and heartless. We need both.",
+        "source": "Discussions on Youth",
+        "explanation": "Caring about someone means thinking carefully about what they actually need, not just what feels good to give."
+      }
+    ],
+    "struggles": [
+      "caregiver-burden",
+      "loneliness-despite-everything",
+      "when-grief-wont-stop"
+    ]
   }
 ]
