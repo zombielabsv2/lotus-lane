@@ -24,8 +24,22 @@
     <itunes:category text="Religion &amp; Spirituality">
       <itunes:category text="Buddhism" />
     </itunes:category>
-    <pubDate>Fri, 30 Oct 2026 11:32:24 +0000</pubDate>
-    <lastBuildDate>Fri, 30 Oct 2026 11:32:24 +0000</lastBuildDate>
+    <pubDate>Mon, 02 Nov 2026 13:44:47 +0000</pubDate>
+    <lastBuildDate>Mon, 02 Nov 2026 13:44:47 +0000</lastBuildDate>
+    <item>
+      <title>Trapped by Golden Handcuffs</title>
+      <link>https://thelotuslane.in/wisdom/golden-handcuffs.html</link>
+      <guid isPermaLink="false">https://storage.googleapis.com/lotus-lane-podcast/golden-handcuffs.mp3</guid>
+      <pubDate>Mon, 02 Nov 2026 13:44:47 +0000</pubDate>
+      <description>You know that feeling when someone asks what you do for work and you answer with your job title, and there's a tiny pause in the conversation where you can...</description>
+      <itunes:summary>You know that feeling when someone asks what you do for work and you answer with your job title, and there's a tiny pause in the conversation where you can...</itunes:summary>
+      <itunes:author>The Lotus Lane</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:duration>9:56</itunes:duration>
+      <itunes:episode>113</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <enclosure url="https://storage.googleapis.com/lotus-lane-podcast/golden-handcuffs.mp3" length="8175788" type="audio/mpeg" />
+    </item>
     <item>
       <title>When You Go No-Contact With Family</title>
       <link>https://thelotuslane.in/wisdom/going-no-contact.html</link>
