@@ -7,6 +7,14 @@
     <language>en</language>
     <atom:link href="https://thelotuslane.in/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>My Stepmother Cooked for the Whole House and I Didn't Say Thank You and Now It's Been Three Days</title>
+      <link>https://thelotuslane.in/strips/2026-11-02.html</link>
+      <description>When a blended family feels like a betrayal of who you used to be, it's easy to weaponize your grief as distance. But sometimes the smallest act — holding out two cups instead of one — is how a family, slowly and imperfectly, begins.</description>
+      <pubDate>Mon, 02 Nov 2026 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-11-02.html</guid>
+      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-11-02.png" type="image/png" />
+    </item>
+    <item>
       <title>I Was at a Party of Thirty People and Texted Myself Just to See a Notification</title>
       <link>https://thelotuslane.in/strips/2026-10-30.html</link>
       <description>Feeling alone in a crowd often has nothing to do with the people around you — it is a signal that you have lost contact with yourself. Reconnecting inward is the first step back to genuine connection with others.</description>
@@ -397,14 +405,6 @@
       <pubDate>Fri, 10 Jul 2026 00:00:00 +0000</pubDate>
       <guid isPermaLink="true">https://thelotuslane.in/strips/2026-07-10.html</guid>
       <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-07-10.png" type="image/png" />
-    </item>
-    <item>
-      <title>The AC Gave Up on the Hottest Day of the Year and So Did I</title>
-      <link>https://thelotuslane.in/strips/2026-07-08.html</link>
-      <description>When an unexpected expense hits, it feels like the ground has shifted — but pressure has always been the condition that builds real strength. The point is not to avoid being shaken. It is to take one small step anyway.</description>
-      <pubDate>Wed, 08 Jul 2026 00:00:00 +0000</pubDate>
-      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-07-08.html</guid>
-      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-07-08.png" type="image/png" />
     </item>
   </channel>
 </rss>
