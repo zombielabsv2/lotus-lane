@@ -8218,5 +8218,44 @@
       "loneliness-despite-everything",
       "when-grief-wont-stop"
     ]
+  },
+  {
+    "date": "2026-11-03",
+    "title": "Still Beating Yourself Up for Failing? 5 Truths About What Winning Actually Looks Like",
+    "theme": "victory",
+    "theme_name": "Victory",
+    "image": "listicles/2026-11-03.png",
+    "items": [
+      {
+        "quote": "Never accept defeat. Even if you fall, even if you fail, as long as you stand up again, you have not been defeated.",
+        "source": "The New Human Revolution, Vol. 5",
+        "explanation": "Every time you get back up after a setback - at work, in love, or in life - you are already winning."
+      },
+      {
+        "quote": "True victory is not about defeating others. It is about overcoming your own weakness, your own negativity, your own despair.",
+        "source": "Discussions on Youth",
+        "explanation": "The real competition has never been with anyone else - it has always been with the voice inside that tells you to quit."
+      },
+      {
+        "quote": "In life, we are victorious when we are growing, developing, and challenging ourselves. We are defeated when we stop trying.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "You do not have to be the best in the room - you just have to be better than the version of yourself who wanted to give up today."
+      },
+      {
+        "quote": "Victory in life is not determined by wealth, status, or power. It is determined by the state of your heart - whether you have lived with courage and compassion.",
+        "source": "Discussions on Youth",
+        "explanation": "When you feel like you have nothing to show for your efforts, remember that how you showed up for others matters more than any title or paycheck."
+      },
+      {
+        "quote": "Those who win in the end are those who never gave up. Victory belongs to the persistent.",
+        "source": "For Today and Tomorrow",
+        "explanation": "The gap between people who succeed and people who don't is rarely talent - it is simply the refusal to stop."
+      }
+    ],
+    "struggles": [
+      "feeling-like-a-failure",
+      "depression-fog",
+      "burnout-recovery"
+    ]
   }
 ]
