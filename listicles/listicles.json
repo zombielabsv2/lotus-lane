@@ -8257,5 +8257,44 @@
       "depression-fog",
       "burnout-recovery"
     ]
+  },
+  {
+    "date": "2026-11-04",
+    "title": "When You've Lost All Motivation to Keep Going - 5 Reminders That Hope Is Still Yours",
+    "theme": "hope",
+    "theme_name": "Hope",
+    "image": "listicles/2026-11-04.png",
+    "items": [
+      {
+        "quote": "Winter always turns to spring. Never, from ancient times on, has anyone heard or seen of winter turning back to autumn.",
+        "source": "The Writings of Nichiren Daishonin (referenced in guidance)",
+        "explanation": "When life feels frozen and dark, this truth cuts through - hard seasons move forward, never backward."
+      },
+      {
+        "quote": "No matter how hopeless or bleak things appear, the moment you resolve to never give up, every nerve and fiber in your being will orient itself toward your success.",
+        "source": "Faith Into Action",
+        "explanation": "The simple decision to keep going, even on your worst day, quietly sets everything inside you working in your favor."
+      },
+      {
+        "quote": "Hope is not a matter of ability; it is a matter of decision.",
+        "source": "Discussions on Youth",
+        "explanation": "You do not need strength or talent to feel hope again - you only need to choose it, right now, wherever you are."
+      },
+      {
+        "quote": "No one can make you feel hopeless unless you allow them to. Hope resides in the heart. It is something you create.",
+        "source": "Discussions on Youth",
+        "explanation": "No circumstance, no person, and no setback has the final say over the hope you carry inside yourself."
+      },
+      {
+        "quote": "Each morning we are born again. What we do today is what matters most.",
+        "source": "For Today and Tomorrow",
+        "explanation": "Yesterday's pain and failure do not follow you into this new day - every morning hands you a clean start."
+      }
+    ],
+    "struggles": [
+      "depression-fog",
+      "burnout-recovery",
+      "starting-over"
+    ]
   }
 ]
