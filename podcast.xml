@@ -24,8 +24,22 @@
     <itunes:category text="Religion &amp; Spirituality">
       <itunes:category text="Buddhism" />
     </itunes:category>
-    <pubDate>Mon, 02 Nov 2026 13:44:47 +0000</pubDate>
-    <lastBuildDate>Mon, 02 Nov 2026 13:44:47 +0000</lastBuildDate>
+    <pubDate>Wed, 04 Nov 2026 13:11:57 +0000</pubDate>
+    <lastBuildDate>Wed, 04 Nov 2026 13:11:57 +0000</lastBuildDate>
+    <item>
+      <title>Grieving a Friend</title>
+      <link>https://thelotuslane.in/wisdom/grieving-a-friend.html</link>
+      <guid isPermaLink="false">https://storage.googleapis.com/lotus-lane-podcast/grieving-a-friend.mp3</guid>
+      <pubDate>Wed, 04 Nov 2026 13:11:56 +0000</pubDate>
+      <description>You know that feeling when you pick up your phone to text someone and get halfway through typing before you remember -- they're gone.</description>
+      <itunes:summary>You know that feeling when you pick up your phone to text someone and get halfway through typing before you remember -- they're gone.</itunes:summary>
+      <itunes:author>The Lotus Lane</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:duration>9:43</itunes:duration>
+      <itunes:episode>114</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <enclosure url="https://storage.googleapis.com/lotus-lane-podcast/grieving-a-friend.mp3" length="8043692" type="audio/mpeg" />
+    </item>
     <item>
       <title>Trapped by Golden Handcuffs</title>
       <link>https://thelotuslane.in/wisdom/golden-handcuffs.html</link>
