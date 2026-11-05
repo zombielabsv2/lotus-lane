@@ -8296,5 +8296,44 @@
       "burnout-recovery",
       "starting-over"
     ]
+  },
+  {
+    "date": "2026-11-05",
+    "title": "Feel Like Giving Up? 5 Reminders That You Were Built to Keep Going",
+    "theme": "courage",
+    "theme_name": "Courage",
+    "image": "listicles/2026-11-05.png",
+    "items": [
+      {
+        "quote": "Courage is not the absence of fear. Courage is feeling fear, recognizing fear, and still taking action.",
+        "source": "Discussions on Youth",
+        "explanation": "You don't have to stop being scared - you just have to move forward while the fear is still there."
+      },
+      {
+        "quote": "No matter what happens, I will not be defeated. I will not run away. I will not complain. I will not be negative. I will keep advancing.",
+        "source": "The New Human Revolution, Vol. 1",
+        "explanation": "On the days when everything feels stacked against you, this is the kind of quiet declaration that changes everything."
+      },
+      {
+        "quote": "Buddhism is about winning. It is about the courage to overcome obstacles, to triumph over anything that stands in the way of our happiness.",
+        "source": "Faith Into Action",
+        "explanation": "Your happiness is not a luxury or a reward - it is something worth fighting for, every single day."
+      },
+      {
+        "quote": "The true hero is one who conquers his own anger and hatred.",
+        "source": "For Today and Tomorrow",
+        "explanation": "The hardest battles are not the ones outside of you - they are the ones happening in your own mind and heart."
+      },
+      {
+        "quote": "Be the kind of person who, when your feet hit the floor in the morning, makes the devil say, 'Oh no, they're up!'",
+        "source": "Youth and the Writings of Nichiren Daishonin",
+        "explanation": "Showing up fully and refusing to shrink is one of the most powerful things you can do on a hard day."
+      }
+    ],
+    "struggles": [
+      "burnout-recovery",
+      "feeling-like-a-failure",
+      "depression-fog"
+    ]
   }
 ]
