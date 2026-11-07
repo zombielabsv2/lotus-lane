@@ -8374,5 +8374,44 @@
       "feeling-like-a-failure",
       "burnout-recovery"
     ]
+  },
+  {
+    "date": "2026-11-07",
+    "title": "Your Prayers Feel Empty and Nothing Is Changing - 5 Truths That Will Wake Them Up",
+    "theme": "prayer-faith",
+    "theme_name": "Prayer & Faith",
+    "image": "listicles/2026-11-07.png",
+    "items": [
+      {
+        "quote": "Prayer is the courage to persevere. It is the struggle to overcome our own weakness and lack of confidence in ourselves.",
+        "source": "For Today and Tomorrow",
+        "explanation": "When you feel too broken to pray, that is exactly the moment prayer is doing its most important work inside you."
+      },
+      {
+        "quote": "A powerful prayer - one that is the roar of a lion - can change anything, any situation, no matter how difficult or seemingly impossible.",
+        "source": "The New Human Revolution, Vol. 3",
+        "explanation": "The situation that feels completely stuck right now is not beyond the reach of a prayer made with real, fierce conviction."
+      },
+      {
+        "quote": "Buddhism teaches that prayer without action is just wishful thinking, and action without prayer lacks the power to break through fundamental darkness.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "If your efforts keep hitting a wall, the missing piece may be the inner fuel that only sincere prayer can actually provide."
+      },
+      {
+        "quote": "Do not let your prayer become a mere formality. Infuse it with your deepest desires and your sincerest determination.",
+        "source": "For Today and Tomorrow",
+        "explanation": "Going through the motions every morning keeps prayer small - bringing your real pain and real wants to it makes it alive."
+      },
+      {
+        "quote": "The purpose of faith is to become happy - not to become a slave to rigid rules or formalities.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "If your spiritual practice feels like a chore that adds stress to your life, you may have drifted from what it was always meant to give you."
+      }
+    ],
+    "struggles": [
+      "anxiety-insomnia",
+      "depression-fog",
+      "burnout-recovery"
+    ]
   }
 ]
