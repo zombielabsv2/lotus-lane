@@ -8413,5 +8413,44 @@
       "depression-fog",
       "burnout-recovery"
     ]
+  },
+  {
+    "date": "2026-11-08",
+    "title": "Had a Teacher Who Believed in You More Than You Believed in Yourself? Here's What Was Really Happening",
+    "theme": "mentor-disciple",
+    "theme_name": "Mentor & Disciple",
+    "image": "listicles/2026-11-08.png",
+    "items": [
+      {
+        "quote": "A mentor does not exist to create followers. A mentor exists to create leaders.",
+        "source": "Discussions on Youth",
+        "explanation": "The best people in your corner are not building your loyalty - they are building your independence and strength."
+      },
+      {
+        "quote": "A disciple's mission is not to follow the mentor blindly, but to realize the mentor's vision - even surpassing the mentor.",
+        "source": "Discussions on Youth",
+        "explanation": "Honoring someone who believed in you means outgrowing what they taught you, not staying safely inside it."
+      },
+      {
+        "quote": "The true disciple is one who carries on the mentor's spirit. Not as a copy, but as a creative continuation.",
+        "source": "The New Human Revolution, Vol. 6",
+        "explanation": "You honor your teachers not by repeating their words, but by applying their heart to problems they never faced."
+      },
+      {
+        "quote": "The path of mentor and disciple is the path of shared struggle. It is not about hierarchy - it is about sharing the same commitment, the same vision, the same heart.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "The most powerful relationships in your life are built on shared purpose, not on one person sitting above the other."
+      },
+      {
+        "quote": "When the disciple truly stands up with the same spirit as the mentor, the power to change the world emerges.",
+        "source": "The New Human Revolution, Vol. 18",
+        "explanation": "Every time you act on what someone great taught you, you multiply their impact far beyond what they could do alone."
+      }
+    ],
+    "struggles": [
+      "overcoming-imposter-syndrome",
+      "feeling-like-a-failure",
+      "starting-over"
+    ]
   }
 ]
