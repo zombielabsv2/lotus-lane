@@ -8452,5 +8452,44 @@
       "feeling-like-a-failure",
       "starting-over"
     ]
+  },
+  {
+    "date": "2026-11-09",
+    "title": "Feel Like Your Dreams Are Too Big for Your Life? 5 Truths Every Young Person Needs to Hear",
+    "theme": "youth",
+    "theme_name": "Youth",
+    "image": "listicles/2026-11-09.png",
+    "items": [
+      {
+        "quote": "Nothing is more precious than youth. Do not waste a single day. Challenge yourselves! Grow! There is no time to be idle.",
+        "source": "For Today and Tomorrow",
+        "explanation": "Every day you spend scrolling or waiting for the right moment is a day of real potential quietly slipping through your hands."
+      },
+      {
+        "quote": "In youth, you should aim for the highest goals. Dream big. And then do everything in your power to make those dreams a reality.",
+        "source": "Youth and the Writings of Nichiren Daishonin",
+        "explanation": "Settling for smaller dreams because you fear failure is the only way to guarantee you never reach the life you actually want."
+      },
+      {
+        "quote": "The voice of a single young person, if it rings with truth and conviction, can change the world.",
+        "source": "The New Human Revolution, Vol. 11",
+        "explanation": "If you have ever talked yourself out of speaking up because you felt too small or too young, this is your reminder that you were wrong."
+      },
+      {
+        "quote": "Youth should be rebellious. They should challenge the status quo, question authority, and refuse to accept injustice.",
+        "source": "Discussions on Youth",
+        "explanation": "The discomfort you feel when something in the world seems unfair is not a problem to suppress - it is a signal to act."
+      },
+      {
+        "quote": "Be a person of substance, not merely of surface. The depth of your character will determine your influence in the world.",
+        "source": "For Today and Tomorrow",
+        "explanation": "In a world that rewards likes and followers, the people who quietly build real integrity are the ones who end up mattering most."
+      }
+    ],
+    "struggles": [
+      "comparison-trap",
+      "overcoming-imposter-syndrome",
+      "feeling-like-a-failure"
+    ]
   }
 ]
