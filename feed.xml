@@ -7,6 +7,14 @@
     <language>en</language>
     <atom:link href="https://thelotuslane.in/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>It's 11 PM, the Deadline Is 9 AM, and I Haven't Started the Actual Work Yet</title>
+      <link>https://thelotuslane.in/strips/2026-11-09.html</link>
+      <description>When a deadline freezes you in place, the pressure of the whole future can make right now feel impossible. But this moment — whatever you do in it — is permanent. That's not more weight. That's permission to just start.</description>
+      <pubDate>Mon, 09 Nov 2026 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-11-09.html</guid>
+      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-11-09.png" type="image/png" />
+    </item>
+    <item>
       <title>I Paid the Minimum Due Again and Felt Like a Complete Failure</title>
       <link>https://thelotuslane.in/strips/2026-11-06.html</link>
       <description>Debt doesn't get smaller by waiting until you feel ready to face it. Even one honest look at the numbers, one phone call, one small decision, counts as moving forward — and moving forward is what changes things.</description>
@@ -397,14 +405,6 @@
       <pubDate>Fri, 17 Jul 2026 00:00:00 +0000</pubDate>
       <guid isPermaLink="true">https://thelotuslane.in/strips/2026-07-17.html</guid>
       <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-07-17.png" type="image/png" />
-    </item>
-    <item>
-      <title>I've Restarted This Thing Four Times and I'm Starting to Think the Universe Is Telling Me to Stop</title>
-      <link>https://thelotuslane.in/strips/2026-07-15.html</link>
-      <description>When you feel like giving up, it doesn't mean you've failed — it often means you've been showing up so long that you've forgotten to count that as something. The effort itself is not wasted. It is the work.</description>
-      <pubDate>Wed, 15 Jul 2026 00:00:00 +0000</pubDate>
-      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-07-15.html</guid>
-      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-07-15.png" type="image/png" />
     </item>
   </channel>
 </rss>
