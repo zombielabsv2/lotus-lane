@@ -24,8 +24,22 @@
     <itunes:category text="Religion &amp; Spirituality">
       <itunes:category text="Buddhism" />
     </itunes:category>
-    <pubDate>Fri, 06 Nov 2026 13:08:38 +0000</pubDate>
-    <lastBuildDate>Fri, 06 Nov 2026 13:08:38 +0000</lastBuildDate>
+    <pubDate>Mon, 09 Nov 2026 14:11:19 +0000</pubDate>
+    <lastBuildDate>Mon, 09 Nov 2026 14:11:19 +0000</lastBuildDate>
+    <item>
+      <title>Growing Apart From Old Friends</title>
+      <link>https://thelotuslane.in/wisdom/growing-apart-from-old-friends.html</link>
+      <guid isPermaLink="false">https://storage.googleapis.com/lotus-lane-podcast/growing-apart-from-old-friends.mp3</guid>
+      <pubDate>Mon, 09 Nov 2026 14:11:18 +0000</pubDate>
+      <description>You know that feeling when you scroll past a photo of old friends laughing together and realize you haven't spoken to any of them in two years?</description>
+      <itunes:summary>You know that feeling when you scroll past a photo of old friends laughing together and realize you haven't spoken to any of them in two years?</itunes:summary>
+      <itunes:author>The Lotus Lane</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:duration>9:58</itunes:duration>
+      <itunes:episode>116</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <enclosure url="https://storage.googleapis.com/lotus-lane-podcast/growing-apart-from-old-friends.mp3" length="8236076" type="audio/mpeg" />
+    </item>
     <item>
       <title>Grieving a Parent Who Is Still Alive</title>
       <link>https://thelotuslane.in/wisdom/grieving-a-living-parent.html</link>
