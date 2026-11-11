@@ -24,8 +24,22 @@
     <itunes:category text="Religion &amp; Spirituality">
       <itunes:category text="Buddhism" />
     </itunes:category>
-    <pubDate>Mon, 09 Nov 2026 14:11:19 +0000</pubDate>
-    <lastBuildDate>Mon, 09 Nov 2026 14:11:19 +0000</lastBuildDate>
+    <pubDate>Wed, 11 Nov 2026 12:54:32 +0000</pubDate>
+    <lastBuildDate>Wed, 11 Nov 2026 12:54:32 +0000</lastBuildDate>
+    <item>
+      <title>Growing Up Too Fast</title>
+      <link>https://thelotuslane.in/wisdom/growing-up-too-fast.html</link>
+      <guid isPermaLink="false">https://storage.googleapis.com/lotus-lane-podcast/growing-up-too-fast.mp3</guid>
+      <pubDate>Wed, 11 Nov 2026 12:54:31 +0000</pubDate>
+      <description>You know that feeling when someone talks about their childhood - a silly story, some game they used to play, a time they were just completely irresponsible...</description>
+      <itunes:summary>You know that feeling when someone talks about their childhood - a silly story, some game they used to play, a time they were just completely irresponsible...</itunes:summary>
+      <itunes:author>The Lotus Lane</itunes:author>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:duration>9:36</itunes:duration>
+      <itunes:episode>117</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <enclosure url="https://storage.googleapis.com/lotus-lane-podcast/growing-up-too-fast.mp3" length="7934636" type="audio/mpeg" />
+    </item>
     <item>
       <title>Growing Apart From Old Friends</title>
       <link>https://thelotuslane.in/wisdom/growing-apart-from-old-friends.html</link>
