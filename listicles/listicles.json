@@ -8530,5 +8530,44 @@
       "anger-you-cant-control",
       "how-to-forgive"
     ]
+  },
+  {
+    "date": "2026-11-11",
+    "title": "The World Feels Violent and You Feel Powerless - 5 Truths About the Peace Only You Can Start",
+    "theme": "peace",
+    "theme_name": "Peace",
+    "image": "listicles/2026-11-11.png",
+    "items": [
+      {
+        "quote": "A person who can build peace within their own heart can contribute to building peace in the world.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "The anger or resentment you work through privately is real work that quietly changes how you treat everyone around you."
+      },
+      {
+        "quote": "The most powerful force for peace is not a government, not an army, not a treaty. It is the awakened awareness of individual human beings.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "When you choose awareness over reaction in a single heated moment, you are doing something no policy or law can do."
+      },
+      {
+        "quote": "There is no enemy in Buddhism. There is only delusion to be overcome. When we see others as enemies, we have already lost the battle for peace.",
+        "source": "The New Human Revolution, Vol. 6",
+        "explanation": "The person who frustrates you most is not your obstacle - your fixed story about them is the only thing blocking resolution."
+      },
+      {
+        "quote": "As long as we continue to demonize others, peace will remain a dream. Peace begins the moment we recognize the humanity in every person.",
+        "source": "For Today and Tomorrow",
+        "explanation": "Whether it is a difficult coworker or a stranger online, seeing them as a full human being is a small act that breaks real cycles of harm."
+      },
+      {
+        "quote": "The people - the ordinary citizens of the world - are the true protagonists of peace. Not politicians, not leaders, but everyday people with the courage to connect.",
+        "source": "For Today and Tomorrow",
+        "explanation": "You do not need a platform or a title - one honest conversation with someone different from you is already an act of building something better."
+      }
+    ],
+    "struggles": [
+      "anger-you-cant-control",
+      "how-to-forgive",
+      "loneliness-despite-everything"
+    ]
   }
 ]
