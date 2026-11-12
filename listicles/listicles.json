@@ -8569,5 +8569,44 @@
       "how-to-forgive",
       "loneliness-despite-everything"
     ]
+  },
+  {
+    "date": "2026-11-12",
+    "title": "Graduated But Still Feel Unprepared for Real Life? 5 Truths About What Education Was Supposed to Build in You",
+    "theme": "education",
+    "theme_name": "Education",
+    "image": "listicles/2026-11-12.png",
+    "items": [
+      {
+        "quote": "Education is not the filling of a pail, but the lighting of a fire. The purpose of education is to cultivate the wisdom and compassion to create value in any situation.",
+        "source": "Soka Education",
+        "explanation": "Real education is not about how much you know - it is about whether you can find a way forward when life gets hard."
+      },
+      {
+        "quote": "A truly educated person is not someone who has memorized facts, but someone who can think critically, feel compassionately, and act courageously.",
+        "source": "Discussions on Youth",
+        "explanation": "No grade or diploma tells you how to stay kind under pressure or stand up for what is right when it costs you something."
+      },
+      {
+        "quote": "Education that does not teach people how to live, how to face suffering, and how to create meaning - such education is incomplete.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "If school never taught you how to handle loss, loneliness, or failure, it left out the lessons that matter most in daily life."
+      },
+      {
+        "quote": "The goal of education should be the happiness of the learner. Any system of education that does not lead to happiness has failed.",
+        "source": "Soka Education",
+        "explanation": "If your years of studying left you anxious, burned out, and unsure of your worth, the system missed its own point entirely."
+      },
+      {
+        "quote": "A person who has learned to think for themselves - that is the greatest product of education.",
+        "source": "Discussions on Youth",
+        "explanation": "The most valuable thing any education can give you is the confidence to trust your own mind when the world tells you what to think."
+      }
+    ],
+    "struggles": [
+      "feeling-like-a-failure",
+      "overcoming-imposter-syndrome",
+      "burnout-recovery"
+    ]
   }
 ]
