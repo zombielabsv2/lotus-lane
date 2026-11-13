@@ -3311,5 +3311,24 @@
     "category": "anger",
     "topic": "rage you cannot explain",
     "characters": []
+  },
+  {
+    "date": "2026-11-13",
+    "title": "I Got the Job, the Raise, and the Recognition — and I Still Feel Like a Fraud",
+    "image": "https://zombielabsv2.github.io/lotus-lane-assets/2026-11-13.png",
+    "message": "Waiting for the world to tell you that you're enough is a trap with no exit — the only vote that actually counts is the one you cast for yourself, one honest moment at a time.",
+    "quote": "It is not a question of your environment or the times, nor is it a question of whether others acknowledge you. It all comes down to whether or not you yourself can stand up with courage.",
+    "source": "Daisaku Ikeda, Discussions on Youth",
+    "tags": [
+      "self-doubt",
+      "imposter-syndrome",
+      "self-worth"
+    ],
+    "category": "self-doubt",
+    "topic": "feeling not enough",
+    "characters": [
+      "arjun",
+      "sudha"
+    ]
   }
 ]
