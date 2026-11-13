@@ -8608,5 +8608,44 @@
       "overcoming-imposter-syndrome",
       "burnout-recovery"
     ]
+  },
+  {
+    "date": "2026-11-13",
+    "title": "Watching Someone You Love Suffer and Feeling Useless - 5 Truths About What Real Compassion Actually Does",
+    "theme": "compassion",
+    "theme_name": "Compassion",
+    "image": "listicles/2026-11-13.png",
+    "items": [
+      {
+        "quote": "Compassion is not about feeling pity for others. It is about sharing their suffering and working together to overcome it.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "When someone close to you is struggling, the most meaningful thing you can do is stand beside them, not above them."
+      },
+      {
+        "quote": "A single warm word can give someone the courage to go on living. Never underestimate the power of your compassion.",
+        "source": "For Today and Tomorrow",
+        "explanation": "That text you've been hesitating to send, that check-in you keep putting off - it could mean everything to someone barely holding on."
+      },
+      {
+        "quote": "True compassion is not soft or weak. It takes great strength to truly care about others, to shoulder their pain.",
+        "source": "Discussions on Youth",
+        "explanation": "Caring deeply for others when you are already exhausted is one of the hardest and most courageous things a person can choose."
+      },
+      {
+        "quote": "Genuine compassion means not only sharing another's suffering, but also helping them to realize their own strength.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "The goal is not to carry someone forever, but to stay close long enough that they remember they can carry themselves."
+      },
+      {
+        "quote": "Buddhism teaches that compassion without wisdom is sentimentality, and wisdom without compassion is cold and heartless. We need both.",
+        "source": "Discussions on Youth",
+        "explanation": "Loving someone well means knowing when to comfort them and when to gently push them toward what they are truly capable of."
+      }
+    ],
+    "struggles": [
+      "caregiver-burden",
+      "loneliness-despite-everything",
+      "when-grief-wont-stop"
+    ]
   }
 ]
