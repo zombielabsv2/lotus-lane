@@ -7,6 +7,14 @@
     <language>en</language>
     <atom:link href="https://thelotuslane.in/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>My Brain Stopped Working and I Still Have Eleven Tabs Open</title>
+      <link>https://thelotuslane.in/strips/2026-11-20.html</link>
+      <description>Brain fog is not a character flaw — it is a signal. When the mind goes quiet and nothing sticks, the most productive thing you can do is stop treating rest as failure and start treating it as fuel.</description>
+      <pubDate>Fri, 20 Nov 2026 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-11-20.html</guid>
+      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-11-20.png" type="image/png" />
+    </item>
+    <item>
       <title>He Got the Promotion. I Wrote Half His Presentation.</title>
       <link>https://thelotuslane.in/strips/2026-11-18.html</link>
       <description>When a friend gets promoted and you don't, the sharpest pain isn't about them — it's about losing track of your own worth. The only scoreboard that matters is the one measuring who you're becoming, not where you rank.</description>
@@ -397,14 +405,6 @@
       <pubDate>Wed, 29 Jul 2026 00:00:00 +0000</pubDate>
       <guid isPermaLink="true">https://thelotuslane.in/strips/2026-07-29.html</guid>
       <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-07-29.png" type="image/png" />
-    </item>
-    <item>
-      <title>I'm 32 and I Just Googled 'How Much Do I Need to Retire' and Now I Can't Breathe</title>
-      <link>https://thelotuslane.in/strips/2026-07-27.html</link>
-      <description>Retirement worry can spiral into paralysis when we keep measuring today against a frightening future. The shift that actually helps is smaller than it sounds — stop counting what you're missing and make one real move with what you have right now.</description>
-      <pubDate>Mon, 27 Jul 2026 00:00:00 +0000</pubDate>
-      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-07-27.html</guid>
-      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-07-27.png" type="image/png" />
     </item>
   </channel>
 </rss>
