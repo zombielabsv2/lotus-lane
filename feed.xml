@@ -7,6 +7,14 @@
     <language>en</language>
     <atom:link href="https://thelotuslane.in/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>I Cooked for Two by Mistake and Had to Eat Both Plates</title>
+      <link>https://thelotuslane.in/strips/2026-11-23.html</link>
+      <description>Loneliness after divorce isn't just missing a person — it's missing the shape of a life you built around someone. The smallest act of turning outward, even one plate of food shared with a neighbour, can be the first real step back toward yourself.</description>
+      <pubDate>Mon, 23 Nov 2026 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-11-23.html</guid>
+      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-11-23.png" type="image/png" />
+    </item>
+    <item>
       <title>My Brain Stopped Working and I Still Have Eleven Tabs Open</title>
       <link>https://thelotuslane.in/strips/2026-11-20.html</link>
       <description>Brain fog is not a character flaw — it is a signal. When the mind goes quiet and nothing sticks, the most productive thing you can do is stop treating rest as failure and start treating it as fuel.</description>
@@ -397,14 +405,6 @@
       <pubDate>Fri, 31 Jul 2026 00:00:00 +0000</pubDate>
       <guid isPermaLink="true">https://thelotuslane.in/strips/2026-07-31.html</guid>
       <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-07-31.png" type="image/png" />
-    </item>
-    <item>
-      <title>My Boss Just Presented My Six Months of Work as His 'Vision'</title>
-      <link>https://thelotuslane.in/strips/2026-07-29.html</link>
-      <description>When a toxic boss steals credit, it feels like your work disappears with it. But the competence and clarity you built stay entirely yours — and the smartest move is making sure the record reflects that.</description>
-      <pubDate>Wed, 29 Jul 2026 00:00:00 +0000</pubDate>
-      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-07-29.html</guid>
-      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-07-29.png" type="image/png" />
     </item>
   </channel>
 </rss>
