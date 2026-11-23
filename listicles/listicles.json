@@ -8998,5 +8998,44 @@
       "how-to-forgive",
       "loneliness-despite-everything"
     ]
+  },
+  {
+    "date": "2026-11-23",
+    "title": "School Taught You Facts, But Nobody Taught You How to Live - 5 Truths That Fill the Gap",
+    "theme": "education",
+    "theme_name": "Education",
+    "image": "listicles/2026-11-23.png",
+    "items": [
+      {
+        "quote": "Education is not the filling of a pail, but the lighting of a fire. The purpose of education is to cultivate the wisdom and compassion to create value in any situation.",
+        "source": "Soka Education",
+        "explanation": "Real learning gives you the ability to find solutions and meaning even when life hands you something no textbook ever covered."
+      },
+      {
+        "quote": "A truly educated person is not someone who has memorized facts, but someone who can think critically, feel compassionately, and act courageously.",
+        "source": "Discussions on Youth",
+        "explanation": "Your grades never measured the qualities that actually determine how well you handle heartbreak, failure, or a difficult person at work."
+      },
+      {
+        "quote": "Education that does not teach people how to live, how to face suffering, and how to create meaning - such education is incomplete.",
+        "source": "The Wisdom for Creating Happiness and Peace",
+        "explanation": "If you feel unprepared for real adult pain, that is not your failure - it is a gap every honest person eventually notices."
+      },
+      {
+        "quote": "The goal of education should be the happiness of the learner. Any system of education that does not lead to happiness has failed.",
+        "source": "Soka Education",
+        "explanation": "Chasing credentials while feeling hollow inside is a sign worth listening to - learning was always meant to build a life you actually want."
+      },
+      {
+        "quote": "A person who has learned to think for themselves - that is the greatest product of education.",
+        "source": "Discussions on Youth",
+        "explanation": "When everyone around you has an opinion about your choices, the most important voice in the room is still your own."
+      }
+    ],
+    "struggles": [
+      "feeling-like-a-failure",
+      "overcoming-imposter-syndrome",
+      "starting-over"
+    ]
   }
 ]
