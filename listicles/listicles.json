@@ -9115,5 +9115,44 @@
       "burnout-recovery",
       "starting-over"
     ]
+  },
+  {
+    "date": "2026-11-26",
+    "title": "Feel Like You're Drowning in the Dark? 5 Reminders That the Light Is Still Coming",
+    "theme": "hope",
+    "theme_name": "Hope",
+    "image": "listicles/2026-11-26.png",
+    "items": [
+      {
+        "quote": "Winter always turns to spring. Never, from ancient times on, has anyone heard or seen of winter turning back to autumn.",
+        "source": "The Writings of Nichiren Daishonin (referenced in guidance)",
+        "explanation": "When you are in your lowest season, this truth anchors you - hard times move forward, they never pull you permanently backward."
+      },
+      {
+        "quote": "No matter how hopeless or bleak things appear, the moment you resolve to never give up, every nerve and fiber in your being will orient itself toward your success.",
+        "source": "Faith Into Action",
+        "explanation": "The simple decision to keep going, even without a clear plan, activates something inside you that starts working on your behalf."
+      },
+      {
+        "quote": "Hope is not a matter of ability; it is a matter of decision.",
+        "source": "Discussions on Youth",
+        "explanation": "You do not need to feel strong or confident right now - hoping is a choice you can make even from your most exhausted, broken place."
+      },
+      {
+        "quote": "No one can make you feel hopeless unless you allow them to. Hope resides in the heart. It is something you create.",
+        "source": "Discussions on Youth",
+        "explanation": "No circumstance, no person, and no setback has the final say over whether you carry hope - that power belongs entirely to you."
+      },
+      {
+        "quote": "Each morning we are born again. What we do today is what matters most.",
+        "source": "For Today and Tomorrow",
+        "explanation": "Yesterday's failures and tomorrow's fears lose their grip when you remember that today is a genuinely fresh start waiting for one small action."
+      }
+    ],
+    "struggles": [
+      "depression-fog",
+      "anxiety-insomnia",
+      "starting-over"
+    ]
   }
 ]
