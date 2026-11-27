@@ -3425,5 +3425,24 @@
     "category": "family",
     "topic": "parenting struggles",
     "characters": []
+  },
+  {
+    "date": "2026-11-27",
+    "title": "Five Years In and I'm Still Doing the Same Sprint Planning I Did as a Fresher",
+    "image": "https://zombielabsv2.github.io/lotus-lane-assets/2026-11-27.png",
+    "message": "When a career feels stuck, it's easy to wait for someone else to see your worth and act on it. The shift happens when you stop outsourcing that recognition and start making your own next move — even a small, slightly terrifying one.",
+    "quote": "A great human revolution in just a single individual will help achieve a change in the destiny of a nation and further, will enable a change in the destiny of all humankind.",
+    "source": "Daisaku Ikeda, The Human Revolution (Foreword)",
+    "tags": [
+      "work-stress",
+      "career-stagnation",
+      "imposter-syndrome"
+    ],
+    "category": "work-stress",
+    "topic": "career stagnation",
+    "characters": [
+      "arjun",
+      "meera"
+    ]
   }
 ]

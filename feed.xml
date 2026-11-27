@@ -7,6 +7,14 @@
     <language>en</language>
     <atom:link href="https://thelotuslane.in/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Five Years In and I'm Still Doing the Same Sprint Planning I Did as a Fresher</title>
+      <link>https://thelotuslane.in/strips/2026-11-27.html</link>
+      <description>When a career feels stuck, it's easy to wait for someone else to see your worth and act on it. The shift happens when you stop outsourcing that recognition and start making your own next move — even a small, slightly terrifying one.</description>
+      <pubDate>Fri, 27 Nov 2026 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-11-27.html</guid>
+      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-11-27.png" type="image/png" />
+    </item>
+    <item>
       <title>I Yelled at My Son Over Homework and He Looked at Me Like I Was a Stranger</title>
       <link>https://thelotuslane.in/strips/2026-11-25.html</link>
       <description>When you stop measuring your child against an outcome and start believing in who they are becoming, the whole conversation changes. Patience isn't passive — it's one of the most active things a parent can choose.</description>
@@ -397,14 +405,6 @@
       <pubDate>Wed, 05 Aug 2026 00:00:00 +0000</pubDate>
       <guid isPermaLink="true">https://thelotuslane.in/strips/2026-08-05.html</guid>
       <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-08-05.png" type="image/png" />
-    </item>
-    <item>
-      <title>Maa Called Twice This Week and I Let It Go to Voicemail Both Times</title>
-      <link>https://thelotuslane.in/strips/2026-08-03.html</link>
-      <description>Guilt about not being there enough for family can become its own kind of hiding. The shift isn't about doing more — it's about doing something real, right now, instead of shrinking under the weight of what you didn't do.</description>
-      <pubDate>Mon, 03 Aug 2026 00:00:00 +0000</pubDate>
-      <guid isPermaLink="true">https://thelotuslane.in/strips/2026-08-03.html</guid>
-      <enclosure url="https://zombielabsv2.github.io/lotus-lane-assets/2026-08-03.png" type="image/png" />
     </item>
   </channel>
 </rss>
