@@ -9154,5 +9154,44 @@
       "anxiety-insomnia",
       "starting-over"
     ]
+  },
+  {
+    "date": "2026-11-27",
+    "title": "Feel Like Giving Up Today? 5 Reminders That Backing Down Was Never Really an Option",
+    "theme": "courage",
+    "theme_name": "Courage",
+    "image": "listicles/2026-11-27.png",
+    "items": [
+      {
+        "quote": "Courage is not the absence of fear. Courage is feeling fear, recognizing fear, and still taking action.",
+        "source": "Discussions on Youth",
+        "explanation": "You don't have to stop feeling scared - you just have to move your feet anyway, even when every part of you wants to freeze."
+      },
+      {
+        "quote": "No matter what happens, I will not be defeated. I will not run away. I will not complain. I will not be negative. I will keep advancing.",
+        "source": "The New Human Revolution, Vol. 1",
+        "explanation": "On the days when life hits hardest, this kind of quiet, stubborn refusal to quit is the most powerful decision you can make."
+      },
+      {
+        "quote": "Be the kind of person who, when your feet hit the floor in the morning, makes the devil say, 'Oh no, they're up!'",
+        "source": "Youth and the Writings of Nichiren Daishonin",
+        "explanation": "Every morning you choose to get up and try again, you are already winning against every force that hoped you would stay down."
+      },
+      {
+        "quote": "Buddhism is about winning. It is about the courage to overcome obstacles, to triumph over anything that stands in the way of our happiness.",
+        "source": "Faith Into Action",
+        "explanation": "The obstacles in your life right now are not signs that you are losing - they are exactly the terrain where your real strength gets built."
+      },
+      {
+        "quote": "A great human revolution in just a single individual will help achieve a change in the destiny of a nation and, further, will enable a change in the destiny of all humankind.",
+        "source": "The Human Revolution",
+        "explanation": "When you choose to face your hardest moment with courage instead of collapse, the ripple reaches so much further than you can see."
+      }
+    ],
+    "struggles": [
+      "feeling-like-a-failure",
+      "burnout-recovery",
+      "starting-over"
+    ]
   }
 ]
